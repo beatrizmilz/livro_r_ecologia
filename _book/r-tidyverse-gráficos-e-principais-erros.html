@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 5 R, tidyverse, gráficos e principais erros | Introdução ao R com aplicações em biodiversidade e conservação</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 5 R, tidyverse, gráficos e principais erros | Introdução ao R com aplicações em biodiversidade e conservação" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 5 R, tidyverse, gráficos e principais erros | Introdução ao R com aplicações em biodiversidade e conservação" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="" />
+
+
+<meta name="date" content="2020-09-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="perguntas-em-ecologia.html"/>
+<link rel="next" href="estatística-básica.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Introdução ao R com aplicações em biodiversidade e conservação</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Pré-requisitos</a></li>
+<li class="chapter" data-level="2" data-path="index.html"><a href="index.html#pré-requisitos"><i class="fa fa-check"></i><b>2</b> Pré-requisitos</a></li>
+<li class="chapter" data-level="3" data-path="como-usar-este-livro.html"><a href="como-usar-este-livro.html"><i class="fa fa-check"></i><b>3</b> Como usar este livro</a></li>
+<li class="chapter" data-level="4" data-path="perguntas-em-ecologia.html"><a href="perguntas-em-ecologia.html"><i class="fa fa-check"></i><b>4</b> Perguntas em ecologia</a></li>
+<li class="chapter" data-level="5" data-path="r-tidyverse-gráficos-e-principais-erros.html"><a href="r-tidyverse-gráficos-e-principais-erros.html"><i class="fa fa-check"></i><b>5</b> R, tidyverse, gráficos e principais erros</a><ul>
+<li class="chapter" data-level="5.0.1" data-path="r-tidyverse-gráficos-e-principais-erros.html"><a href="r-tidyverse-gráficos-e-principais-erros.html#principais-erros-de-iniciantes-e-a-melhor-forma-de-pedir-ajuda"><i class="fa fa-check"></i><b>5.0.1</b> Principais erros de iniciantes e a melhor forma de pedir ajuda</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="estatística-básica.html"><a href="estatística-básica.html"><i class="fa fa-check"></i><b>6</b> Estatística básica</a><ul>
+<li class="chapter" data-level="6.1" data-path="estatística-básica.html"><a href="estatística-básica.html#teste-t-de-student-para-duas-amostras-independentes"><i class="fa fa-check"></i><b>6.1</b> Teste T (de Student) para duas amostras independentes</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise"><i class="fa fa-check"></i><b>6.1.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="6.1.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise"><i class="fa fa-check"></i><b>6.1.2</b> Análise</a></li>
+<li class="chapter" data-level="6.1.3" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-1"><i class="fa fa-check"></i><b>6.1.3</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="estatística-básica.html"><a href="estatística-básica.html#teste-t-para-amostras-pareadas"><i class="fa fa-check"></i><b>6.2</b> Teste T para amostras pareadas</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-1"><i class="fa fa-check"></i><b>6.2.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="6.2.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-2"><i class="fa fa-check"></i><b>6.2.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="estatística-básica.html"><a href="estatística-básica.html#correlação-de-pearson"><i class="fa fa-check"></i><b>6.3</b> Correlação de Pearson</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-2"><i class="fa fa-check"></i><b>6.3.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="6.3.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-3"><i class="fa fa-check"></i><b>6.3.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="estatística-básica.html"><a href="estatística-básica.html#regressão-simples"><i class="fa fa-check"></i><b>6.4</b> Regressão Simples</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-3"><i class="fa fa-check"></i><b>6.4.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="6.4.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-4"><i class="fa fa-check"></i><b>6.4.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="estatística-básica.html"><a href="estatística-básica.html#regressão-múltipla"><i class="fa fa-check"></i><b>6.5</b> Regressão Múltipla</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-4"><i class="fa fa-check"></i><b>6.5.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="6.5.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-5"><i class="fa fa-check"></i><b>6.5.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="estatística-básica.html"><a href="estatística-básica.html#análises-de-variância-anova"><i class="fa fa-check"></i><b>6.6</b> Análises de Variância (ANOVA)</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-5"><i class="fa fa-check"></i><b>6.6.1</b> Backgorund da análise</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="estatística-básica.html"><a href="estatística-básica.html#anova-de-um-fator"><i class="fa fa-check"></i><b>6.7</b> ANOVA de um fator</a><ul>
+<li class="chapter" data-level="6.7.1" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-6"><i class="fa fa-check"></i><b>6.7.1</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="6.8" data-path="estatística-básica.html"><a href="estatística-básica.html#anova-de-dois-fatores-ou-anova-fatorial"><i class="fa fa-check"></i><b>6.8</b> ANOVA de dois fatores ou Anova fatorial</a><ul>
+<li class="chapter" data-level="6.8.1" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-7"><i class="fa fa-check"></i><b>6.8.1</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="6.9" data-path="estatística-básica.html"><a href="estatística-básica.html#anova-em-blocos-aleatorizados"><i class="fa fa-check"></i><b>6.9</b> ANOVA em blocos aleatorizados</a><ul>
+<li class="chapter" data-level="6.9.1" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-8"><i class="fa fa-check"></i><b>6.9.1</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="6.10" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-de-covariância-ancova"><i class="fa fa-check"></i><b>6.10</b> Análise de covariância (ANCOVA)</a><ul>
+<li class="chapter" data-level="6.10.1" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-9"><i class="fa fa-check"></i><b>6.10.1</b> Análise</a></li>
+<li class="chapter" data-level="6.10.2" data-path="estatística-básica.html"><a href="estatística-básica.html#para-se-aprofundar"><i class="fa fa-check"></i><b>6.10.2</b> Para se aprofundar</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="análises-univariadas-glm.html"><a href="análises-univariadas-glm.html"><i class="fa fa-check"></i><b>7</b> Análises univariadas - GLM</a></li>
+<li class="chapter" data-level="8" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html"><i class="fa fa-check"></i><b>8</b> Introdução à Análises Multidimensionais</a><ul>
+<li class="chapter" data-level="8.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise"><i class="fa fa-check"></i><b>8.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="8.2" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#exemplo-1"><i class="fa fa-check"></i><b>8.2</b> Exemplo 1:</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#explicação-da-análise"><i class="fa fa-check"></i><b>8.2.1</b> Explicação da análise</a></li>
+<li class="chapter" data-level="8.2.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise"><i class="fa fa-check"></i><b>8.2.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#exemplo-2"><i class="fa fa-check"></i><b>8.3</b> Exemplo 2:</a></li>
+<li class="chapter" data-level="8.4" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-1"><i class="fa fa-check"></i><b>8.4</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="8.5" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#exemplo-1-1"><i class="fa fa-check"></i><b>8.5</b> Exemplo 1:</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#explicação-da-análise-1"><i class="fa fa-check"></i><b>8.5.1</b> Explicação da análise</a></li>
+<li class="chapter" data-level="8.5.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-1"><i class="fa fa-check"></i><b>8.5.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-2"><i class="fa fa-check"></i><b>8.6</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="8.7" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#exemplo-1-2"><i class="fa fa-check"></i><b>8.7</b> Exemplo 1:</a><ul>
+<li class="chapter" data-level="8.7.1" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#explicação-da-análise-2"><i class="fa fa-check"></i><b>8.7.1</b> Explicação da análise</a></li>
+<li class="chapter" data-level="8.7.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-2"><i class="fa fa-check"></i><b>8.7.2</b> Análise</a></li>
+<li class="chapter" data-level="8.7.3" data-path="estatística-básica.html"><a href="estatística-básica.html#para-se-aprofundar"><i class="fa fa-check"></i><b>8.7.3</b> Para se aprofundar</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="rarefação.html"><a href="rarefação.html"><i class="fa fa-check"></i><b>9</b> Rarefação</a><ul>
+<li class="chapter" data-level="9.1" data-path="rarefação.html"><a href="rarefação.html#background-da-análise"><i class="fa fa-check"></i><b>9.1</b> Background da análise</a></li>
+<li class="chapter" data-level="9.2" data-path="rarefação.html"><a href="rarefação.html#exemplo-prático-1---morcegos"><i class="fa fa-check"></i><b>9.2</b> Exemplo prático 1 - Morcegos</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="rarefação.html"><a href="rarefação.html#explicação"><i class="fa fa-check"></i><b>9.2.1</b> Explicação</a></li>
+<li class="chapter" data-level="9.2.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise"><i class="fa fa-check"></i><b>9.2.2</b> Análise</a></li>
+<li class="chapter" data-level="9.2.3" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#interpretação-dos-resultados"><i class="fa fa-check"></i><b>9.2.3</b> Interpretação dos resultados</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="rarefação.html"><a href="rarefação.html#exemplo-prático-2---rarefação"><i class="fa fa-check"></i><b>9.3</b> Exemplo prático 2 - Rarefação</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="rarefação.html"><a href="rarefação.html#explicação-1"><i class="fa fa-check"></i><b>9.3.1</b> Explicação</a></li>
+<li class="chapter" data-level="9.3.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-1"><i class="fa fa-check"></i><b>9.3.2</b> Análise</a></li>
+<li class="chapter" data-level="9.3.3" data-path="rarefação.html"><a href="rarefação.html#interpretação-dos-resultados-1"><i class="fa fa-check"></i><b>9.3.3</b> Interpretação dos resultados</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="estatística-básica.html"><a href="estatística-básica.html#para-se-aprofundar"><i class="fa fa-check"></i><b>9.4</b> Para se aprofundar</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html"><i class="fa fa-check"></i><b>10</b> Estimadores de Riqueza</a><ul>
+<li class="chapter" data-level="10.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise"><i class="fa fa-check"></i><b>10.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="10.2" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#estimadores-baseados-na-abundância-das-espécies"><i class="fa fa-check"></i><b>10.2</b> Estimadores baseados na abundância das espécies</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#chao-1---chao-1984-1987"><i class="fa fa-check"></i><b>10.2.1</b> CHAO 1 - (Chao 1984, 1987):</a></li>
+<li class="chapter" data-level="10.2.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise"><i class="fa fa-check"></i><b>10.2.2</b> Análise</a></li>
+<li class="chapter" data-level="10.2.3" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#ace---abundance-based-coverage-estimador-chao-lee-1992-chao-et-al.-2000"><i class="fa fa-check"></i><b>10.2.3</b> ACE - <em>Abundance-based Coverage Estimador</em> (Chao &amp; Lee 1992, Chao et al. 2000):</a></li>
+<li class="chapter" data-level="10.2.4" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-1"><i class="fa fa-check"></i><b>10.2.4</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#estimadores-baseados-na-incidência-das-espécies"><i class="fa fa-check"></i><b>10.3</b> Estimadores baseados na incidência das espécies</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#chao-2---chao-1987"><i class="fa fa-check"></i><b>10.3.1</b> CHAO 2 - (Chao 1987):</a></li>
+<li class="chapter" data-level="10.3.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-2"><i class="fa fa-check"></i><b>10.3.2</b> Análise</a></li>
+<li class="chapter" data-level="10.3.3" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#jackknife-1-burnham-overton-1978-1979"><i class="fa fa-check"></i><b>10.3.3</b> JACKKNIFE 1 (Burnham &amp; Overton 1978, 1979):</a></li>
+<li class="chapter" data-level="10.3.4" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-3"><i class="fa fa-check"></i><b>10.3.4</b> Análise</a></li>
+<li class="chapter" data-level="10.3.5" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#jackknife-2-burnham-overton-1978-1979-palmer-1991"><i class="fa fa-check"></i><b>10.3.5</b> JACKKNIFE 2 (Burnham &amp; Overton 1978, 1979, Palmer 1991):</a></li>
+<li class="chapter" data-level="10.3.6" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-4"><i class="fa fa-check"></i><b>10.3.6</b> Análise</a></li>
+<li class="chapter" data-level="10.3.7" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#bootstrap-smith-van-belle-1984"><i class="fa fa-check"></i><b>10.3.7</b> BOOTSTRAP (Smith &amp; van Belle 1984):</a></li>
+<li class="chapter" data-level="10.3.8" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-5"><i class="fa fa-check"></i><b>10.3.8</b> Análise</a></li>
+<li class="chapter" data-level="10.3.9" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#interpolação-e-extrapolação-baseadas-em-rarefação-usando-amostragens-de-incidência-ou-abundância-chao-jost-2012-colwell-et-al.-2012"><i class="fa fa-check"></i><b>10.3.9</b> Interpolação e Extrapolação baseadas em rarefação usando amostragens de incidência ou abundância (Chao &amp; Jost 2012, Colwell et al. 2012):</a></li>
+<li class="chapter" data-level="10.3.10" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-6"><i class="fa fa-check"></i><b>10.3.10</b> Análise</a></li>
+<li class="chapter" data-level="10.3.11" data-path="estatística-básica.html"><a href="estatística-básica.html#para-se-aprofundar"><i class="fa fa-check"></i><b>10.3.11</b> Para se aprofundar</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="diversidade-filogenética.html"><a href="diversidade-filogenética.html"><i class="fa fa-check"></i><b>11</b> Diversidade filogenética</a></li>
+<li class="chapter" data-level="12" data-path="diversidade-funcional.html"><a href="diversidade-funcional.html"><i class="fa fa-check"></i><b>12</b> Diversidade funcional</a></li>
+<li class="chapter" data-level="13" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html"><i class="fa fa-check"></i><b>13</b> Visualização de dados geográficos</a><ul>
+<li class="chapter" data-level="13.1" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#dados-geográficos-no-r"><i class="fa fa-check"></i><b>13.1</b> Dados geográficos no R</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#vetor"><i class="fa fa-check"></i><b>13.1.1</b> Vetor</a></li>
+<li class="chapter" data-level="13.1.2" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#raster"><i class="fa fa-check"></i><b>13.1.2</b> Raster</a></li>
+<li class="chapter" data-level="13.1.3" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#sistema-de-referência-de-coordenadas-e-unidades"><i class="fa fa-check"></i><b>13.1.3</b> Sistema de Referência de Coordenadas e unidades</a></li>
+<li class="chapter" data-level="13.1.4" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#escalas-de-representação-dos-dados"><i class="fa fa-check"></i><b>13.1.4</b> Escalas de representação dos dados</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#principais-fontes-de-dados"><i class="fa fa-check"></i><b>13.2</b> Principais fontes de dados</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#vetor-1"><i class="fa fa-check"></i><b>13.2.1</b> Vetor</a></li>
+<li class="chapter" data-level="13.2.2" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#raster-1"><i class="fa fa-check"></i><b>13.2.2</b> Raster</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#importar-e-exportar-dados-geográficos"><i class="fa fa-check"></i><b>13.3</b> Importar e exportar dados geográficos</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#importar-vetor"><i class="fa fa-check"></i><b>13.3.1</b> Importar vetor</a></li>
+<li class="chapter" data-level="13.3.2" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#exportar-vetor"><i class="fa fa-check"></i><b>13.3.2</b> Exportar vetor</a></li>
+<li class="chapter" data-level="13.3.3" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#importar-raster"><i class="fa fa-check"></i><b>13.3.3</b> Importar raster</a></li>
+<li class="chapter" data-level="13.3.4" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#exportar-raster"><i class="fa fa-check"></i><b>13.3.4</b> Exportar raster</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#visualização-de-dados-geográficos---mapas"><i class="fa fa-check"></i><b>13.4</b> Visualização de dados geográficos - Mapas</a><ul>
+<li class="chapter" data-level="13.4.1" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#graphics"><i class="fa fa-check"></i><b>13.4.1</b> graphics</a></li>
+<li class="chapter" data-level="13.4.2" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#ggplot2"><i class="fa fa-check"></i><b>13.4.2</b> ggplot2</a></li>
+<li class="chapter" data-level="13.4.3" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#tmap"><i class="fa fa-check"></i><b>13.4.3</b> tmap</a></li>
+<li class="chapter" data-level="13.4.4" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#outros-pacotes"><i class="fa fa-check"></i><b>13.4.4</b> Outros pacotes</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#download-e-extração-de-dados-climáticos-para-pontos"><i class="fa fa-check"></i><b>13.5</b> Download e extração de dados climáticos para pontos</a></li>
+<li class="chapter" data-level="13.6" data-path="visualização-de-dados-geográficos.html"><a href="visualização-de-dados-geográficos.html#reunir-informações-de-biodiverisdade-para-unidades-espaciais"><i class="fa fa-check"></i><b>13.6</b> Reunir informações de biodiverisdade para unidades espaciais</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><a href="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><i class="fa fa-check"></i><b>14</b> Reprodutibilidade em pesquisa e gerenciamento de dados</a><ul>
+<li class="chapter" data-level="14.1" data-path="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><a href="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html#gestão-de-projetos-acadêmicos-no-rstudio"><i class="fa fa-check"></i><b>14.1</b> Gestão de projetos acadêmicos no RStudio</a></li>
+<li class="chapter" data-level="14.2" data-path="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><a href="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html#documentos-dinâmicos-r-markdown"><i class="fa fa-check"></i><b>14.2</b> Documentos dinâmicos (R Markdown)</a></li>
+<li class="chapter" data-level="14.3" data-path="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><a href="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html#controle-de-versão-git-e-github"><i class="fa fa-check"></i><b>14.3</b> Controle de versão, Git e GitHub</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução ao R com aplicações em biodiversidade e conservação</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="r-tidyverse-gráficos-e-principais-erros" class="section level1">
+<h1><span class="header-section-number">Capítulo 5</span> R, tidyverse, gráficos e principais erros</h1>
+<div id="principais-erros-de-iniciantes-e-a-melhor-forma-de-pedir-ajuda" class="section level3">
+<h3><span class="header-section-number">5.0.1</span> Principais erros de iniciantes e a melhor forma de pedir ajuda</h3>
+<div id="procurando-e-entendendo-erros" class="section level4">
+<h4><span class="header-section-number">5.0.1.1</span> Procurando e entendendo erros</h4>
+<p>O processo de procurar erros em seu código se chama “debugging” e é um exercício fundamental para aprender o funcionamento da linguagem R ou qualquer outra linguagem de programação.</p>
+<p>Neste tópico, listamos os principais pontos para procurar erros nos códidos do R.</p>
+<p><strong>1. Certifique-se que leu e entendeu a mensagem de erro</strong></p>
+<p>Ler e entender a mensagem de erro que o R devolve no console pode parecer óbvio num primeiro momento, mas geralmente é a última coisa que fazemos quando estamos iniciando a utilizar o R.</p>
+<p>Geralmente as mensagens não são muito claras num primeiro momento, mas depois que entendemos o que elas querem dizer, podemos facilmente voltar para o script e tentar achar o motivo do erro.</p>
+<p>Seguem as principais mensagens de erro e uma explicação simples:</p>
+<blockquote>
+<p><strong>1. ‘could not find function’</strong>. Este erro ocorre quando um pacote R não é carregado corretamente ou devido a um objeto ausente, como erro ortográfico nas funções ou nome do conjunto de dados</p>
+</blockquote>
+<blockquote>
+<p><strong>2. ‘Error in if’</strong>. Geralmente significa a declaração lógica em “if (xxx) { …” não está produzindo um valor lógico.</p>
+</blockquote>
+<blockquote>
+<p><strong>3. ‘object not found’</strong>. Este erro ocorre quando o objeto específico usado no código não existe [está vazio].</p>
+</blockquote>
+<blockquote>
+<p><strong>4. ‘cannot open the connection’</strong>. Pode haver duas razões para estarmos recebendo este erro: (i) A file/connection can’t be opened because R can’t find it (geralmente erro na definição do diretório) e; (ii) Failure in .onLoad() (um pacote não consegue encontrar uma dependência do sistema).</p>
+</blockquote>
+<blockquote>
+<p><strong>5. ‘subscript out of bounds’</strong>. É provável que esse erro ocorre quando se usa loops aninhados incorretamente no código. Imagino você ter um vetor chamado “vetor” com 10 valores, e tentar acessar vetor[11].</p>
+</blockquote>
+<blockquote>
+<p><strong>6. ‘non-numeric argument to a binary operator’</strong>. Isso acontece quando misturamos diferentes valores de vetor no cálculo, por exemplo: numeric x character.</p>
+</blockquote>
+<blockquote>
+<p><strong>7. ‘replacement has’</strong>. Este erro ocorre quando se tenta atribuir um vetor de valores a um subconjunto de um objeto existente e os comprimentos não correspondem.</p>
+</blockquote>
+<p><strong>2. Certifique-se que instalou e carregou os pacotes das funções que irá utilizar</strong></p>
+<p>Pacotes são coleções de funções que realizam importação, manipulação e visualização de formatos de dados específicos ou que realizam análises específicas. Esse erro é bastante comum. É interessante utilizar essas duas estratégias para evitar esse tipo de erro:</p>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>iniciar o script sempre listando todos os pacotes que irá utilizar</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="2" style="list-style-type: decimal">
+<li>sempre que usar a função de um pacote que carregar, fazê-lo dessa forma (e.g. <code>car::Anova())</code>. O operador “::” diz que estamos usando a função <code>Anova()</code> do pacote <code>car</code></li>
+</ol>
+</blockquote>
+<p><strong>3. Certifique-se que definiu o diretório correto de onde quer importar ou exportar seus dados</strong></p>
+<p>Esse erro também é muito comum, principalmente de usuários iniciantes. Utilizamos a função <code>setwd("/home/mude")</code> para indicar que queremos importar e/ou exportar arquivos para esse diretório: <code>/home/mude</code>.</p>
+<p>Para verificar se esse é mesmo o diretório que queremos, podemos utilizar a função <code>getwd()</code> para retornar o endereço do diretório ou as funções <code>dir()</code> e <code>list.files()</code> para listar os arquivos no diretório.</p>
+<p>Há uma versão mais moderna dessa abordagem, que é utilizar o pacote <code>here</code>, seguindo uma ideia de facilitar a reprodutibilidade dos códigos quando enviados para outros usuários.</p>
+<p><strong>4. Certifique-se que sua planilha está com separação de decimais e colunas corretos</strong></p>
+<p>Esse aqui é um erro sempre complicado… Dependendo do idioma, a separação de decimais e colunas mudam numa planilha eletrônica:</p>
+<blockquote>
+<p><strong>inglês</strong>: separação de decimais é feita por ponto (.) e a separação das colunas é feita por vírgula (,)</p>
+</blockquote>
+<blockquote>
+<p><strong>português</strong>: separação de decimais é feita por vírgula (,) e a separação das colunas é feita por ponto-vírgula (;)</p>
+</blockquote>
+<p>O R tende a lidar bem com essas diferença e você pode, por exemplo, utilizar a função <code>read.csv()</code> para uma planilha configurada e salva no formato em inglês [decimal – ponto (.) e coluna – vírgula (,)].</p>
+<p>Para uma planilha salva no formato em português [decimal – ponto (.) e coluna – vírgula (,)], podemos utilizar a função <code>read.csv2()</code>. Entretanto, sempre verifique sua planilha antes de importá-la para o R.</p>
+<p>Ainda podemos utilizar as funções <code>str()</code> ou <code>glimpse()</code>. Essas funções devolvem no console a estrutura dos dados, indicando o modo de cada coluna (“numeric”, “character”, “logical”, “factor”, …) e uma amostra dos dados. Se o str() mostra que, por exemplo, aquilo que era para ser “numeric” é “factor”, isso indica que ou o separador decimal está errado, ou que falta um argumento “header = TRUE” na função de importar os dados para garantir que a primeira linha se torne o nome das colunas.</p>
+<p><strong>5. Certifique-se que os arquivos que irão ser importados não estão corrompidos</strong></p>
+<p>Esse erro não é tão comum, mas pode acontecer. Geralmente na realização do download ou na cópia de arquivos grandes pode haver erros e gerar arquivos corrompidos. Então, se houver erro ao importar um arquivo, importe o mesmo em outros softwares para verificar, como abrir uma planilha eletrônica (Excel ou Calc), arquivos geoespaciais (ArcGIS ou QGIS), e outros formatos em softwares específicos.</p>
+<p><strong>6. Certifique-se que não digitou algum comando errado</strong></p>
+<p>Ao contrário do anterior, esse erro é um dos mais comuns… Geralmente nome de funções erradas – esquecer letras ou alguma letra maiúscula, esquecer de fechar parênteses ou aspas, esquecer um argumento da função, enfim, os tipos de erros aqui podem ser diversos.</p>
+<p>Entretanto, no console do RStudio podemos ver esse erro com certa facilidade, porque o RStudio tende a indicar esse tipo de erro nos trazendo que a função não existe ou que faltaram aspas ou parênteses. Outros editores, como o <a href="https://notepad-plus-plus.org/">Notepad++</a> e o <a href="https://www.sublimetext.com/">SublimeText</a>, também possuem funções que ajudam a encontrar certos erros no código.</p>
+<p><strong>7. Certifique-se que a atribuição foi feita corretamente</strong></p>
+<p>Esse é o erro de longe mais comum. Pode ser que atribuímos os dados erroneamente com o mesmo nome, ou que chamamos um objeto com uma letra maiúscula ou equívocos nesse sentido. Recomendamos verificar todas as atribuições feitas, simplesmente repetindo o objeto logo em seguida da atribuição e verificando se a atribuição foi feita corretamente. Isso tende a deixar meus códigos mais extensos, mas garante que todas as atribuições foram feitas corretamente. Por exemplo:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="r-tidyverse-gráficos-e-principais-erros.html#cb1-1"></a>dados &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;dados.csv&quot;</span>)</span>
+<span id="cb1-2"><a href="r-tidyverse-gráficos-e-principais-erros.html#cb1-2"></a>dados</span></code></pre></div>
+<p><strong>8. Certifique-se que a Classe do objeto é a mesma requerida pela função</strong></p>
+<p>Esse erro é bastante comum e acredito ser o mais difícil de entender e resolver. Ele exige dois conhecimentos que geralmente demoram para serem assimilados pelo usuário iniciante:</p>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>identificar e saber a classe do objeto</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="2" style="list-style-type: decimal">
+<li>classe de entrada do objeto na função</li>
+</ol>
+</blockquote>
+<p>Todo objeto criado a partir de uma atribuição no R (<code>&lt;-</code>) possui uma classe, e essa classe vai depender geralmente da saída da função que o criou. Por exemplo, quando importamos dados de um <code>.csv</code> para o R, geralmente utilizamos:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="r-tidyverse-gráficos-e-principais-erros.html#cb2-1"></a>dados &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;dados.csv&quot;</span>)</span>
+<span id="cb2-2"><a href="r-tidyverse-gráficos-e-principais-erros.html#cb2-2"></a>dados</span>
+<span id="cb2-3"><a href="r-tidyverse-gráficos-e-principais-erros.html#cb2-3"></a><span class="kw">class</span>(dados)</span>
+<span id="cb2-4"><a href="r-tidyverse-gráficos-e-principais-erros.html#cb2-4"></a><span class="st">&quot;data.frame&quot;</span></span></code></pre></div>
+<p>A classe desse objeto “dados” é “data.frame”. Por exemplo, a função <code>ggplot()</code> do pacote <code>ggplot2</code>, exige que a entrada do objeto contendo os dados que irão fazer um gráfico seja um “data.frame”. Logo, se meus dados foram atribuídos a um objeto com a classe “matrix”, terei que utilizar a função <code>as.data.frame()</code> para converter a classe desse objeto para “data.frame” e assim poder usar meus dados na função <code>ggplot()</code>.</p>
+<p>É fundamental estudar e entender as classes dos objetos no R. Uma vez que esse passo é entendido, fica muito mais fácil utilizar a linguagem. Recomendamos esse <a href="http://venus.ifca.unican.es/Rintro/dataStruct.html">site</a>.</p>
+</div>
+<div id="tentando-resolver-os-erros" class="section level4">
+<h4><span class="header-section-number">5.0.1.2</span> Tentando resolver os erros</h4>
+<p>Uma vez que tenhamos entendido e tentado resolver os erros de todas as formas: verificar os pacotes, verificar o diretório, planilhas, dados, todas as linhas de código, o nome dos objetos atribuídos e se a classe desse objeto está correta, e o erro ainda persiste, bem, esse é o momento de ler e procurar pelo erro encontrado.</p>
+<p><strong>1. Leia a documentação das funções</strong></p>
+<p>A função <code>help()</code> ou simplesmente <code>?</code> abre uma aba no RStudio ou uma aba no navegador da internet com a página de ajuda daquela função que está devolvendo o erro.</p>
+<p>O Help fornece descrições detalhadas dos tópicos, funções e argumentos do R, logo é possível entender exatamente o que a função faz, quais são os tipos de entradas e o que de ser a saída. Note também que há no final dessa página uma parte do código para você reproduzir. Faço-o, examine e compare.</p>
+<p>Além do Help, é possível ler materiais específicos de um pacote através de:</p>
+<blockquote>
+<p><a href="https://r-pkgs.org/vignettes.html"><strong>1. Vignettes</strong></a>: que possuem um tutorial bastante detalhado de como usar um certo pacote</p>
+</blockquote>
+<blockquote>
+<p><a href="https://rstudio.com/resources/cheatsheets/"><strong>2. CheatSheets</strong></a>: que são cartões de referências resumindo todas as funções e funcionalidade de um pacote</p>
+</blockquote>
+<p><strong>2. Faça buscas extensivas no Google e no Stack Overflow</strong></p>
+<p>É muito difícil imaginar a vida sem o Google© ou outro buscador, pois essas bases nos retornam uma grande quantidade de informação. Entretanto, para melhorar esse retorno, use “R” ou “R <pacote>” e a mensagem de erro.</p>
+<blockquote>
+<p>“R subscript out of bounds”</p>
+</blockquote>
+<p>Além disso, há outros sites que podem ser especificamente interessantes, como o <a href="https://rseek.org/">RSeek</a>, <a href="https://cran.r-project.org/doc/FAQ/R-FAQ.html">R FAQ (Frequently Asked Questions on R)</a> e <a href="https://stackoverflow.com/">Stack Overflow</a>.</p>
+<p>Para ler mais detalhes sobre como ter ajuda no R, recomendamos esta leitura sobre ajuda no R: <a href="https://www.r-project.org/help.html">Getting Help with R</a>.</p>
+</div>
+<div id="idealmente-como-pedir-ajuda" class="section level4">
+<h4><span class="header-section-number">5.0.1.3</span> Idealmente, como pedir ajuda?</h4>
+<p>Depois de verificar todos os possíveis problemas mais simples, e depois de vasculhar a internet sem sucesso, provavelmente você estará diante de um erro novo… Isso é ótimo e péssimo ao mesmo tempo: muito provavelmente sua dúvida irá melhorar a comunidade R, porque ela ainda não foi encontrada ou solucionada, e provavelmente não há uma solução trivial.</p>
+<p>Nesses casos, a primeira coisa à se fazer antes de pedir ajuda é tentar reproduzir seu erro com uma parte pequena do código e dos dados. Inicie um projeto no RStudio totalmente novo e torne-o bem pequeno para que você possa isolar seu erro. Copie o código com a parte de erro do seu projeto existente para reproduzir o erro ou apenas tente codificá-lo do zero, sem todo o excesso de fluência do seu projeto principal. Se você não conseguir reproduzir o erro, terá encontrado uma pista sobre o que está acontecendo com o erro em seu código. Se você PODE reproduzir o erro, ótimo, porque isso o ajudará na próxima etapa.</p>
+<p>Há uma série de dicas do próprio R e do Stack Overflow para tornar seu código o mais reprodutível possível, aumentando assim as chances de respostas:</p>
+<blockquote>
+<p><a href="https://www.r-project.org/posting-guide.html">Posting Guide: How to ask good questions that prompt useful answers</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://stackoverflow.com/help/how-to-ask">How do I ask a good question?</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example">How to make a great R reproducible example</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://stackoverflow.com/help/minimal-reproducible-example">How to create a Minimal, Reproducible Example</a></p>
+</blockquote>
+<p>Além disso, tente padronizar seu código utilizando o <a href="adv-r.had.co.nz/Style.html">Style Guide</a> do R. Isso também ajuda a tornar os códigos mais reprodutíveis e padronizados por toda a comunidade de usuários de R.</p>
+<p>Nessa etapa final, monte um conjunto de dois conjuntos de arquivos (script e dados), comprima (preferencialmente .zip) e só depois envie pedindo ajuda. Isso vai facilitar muito a vida de quem está tentando ajudar.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="perguntas-em-ecologia.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="estatística-básica.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/paternogbc/livro_r_ecologia/edit/master/04_r_tidyverse_ggplot2.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["livro_r_ecologia.pdf", "livro_r_ecologia.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

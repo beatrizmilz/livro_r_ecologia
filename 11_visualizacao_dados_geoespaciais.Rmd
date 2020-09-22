@@ -1,0 +1,447 @@
+# Visualização de dados geográficos
+
+## Dados geográficos no R
+Nesta seção, iremos fazer uma breve introdução aos principais conceitos de dados geográficos: formatos (vetor e raster), importar e manipular e exportar esses formatos de dados, escalas de representação dos dados, sistemas de referências de coordenadas e unidades. Também iremos fazer algumas operações espaciais direcionadas à preparação de dados para compor variáveis preditoras (temperatura, precipitação e altitude) e como reunir informações sobre a biodiverisdade para unidades espaciais (quadrículas e hexágonos), e ainda como fazer a visualização desses dados através de mapas, ressaltando seus principais elementes (legenda, gride de coordenadas, escala e norte). 
+
+Esse capítulo possui diversas operações e segue parte da estrutura organizada por Lovelace, Nowosad & Muenchow (2019), principalmente nos capítulos 2, 3, 4, 5, 6, 7 e 8.
+
+Todas essas operações serão realizadas através dos pacotes: `sf` (Pebesma 2018) para dados vetoriais, `raster` (Hijmans 2020) para dados raster, `spData` (Bivand, Nowosad & Lovelace 2020)), `rnaturalearth` (South 2017) e `geobr` (Pereira & Goncalves 2020) para baixar dados vetoriais, e `ggplot2` (Wickham 2016), `ggspatial` (Dunnington 2020), `tmap` (Tennekes 2018) e `viridis` (Garnier 2018) para visualização e composição de mapas.
+
+```{r,eval=FALSE}
+install.packages("sf")
+install.packages("raster")
+install.packages("spData")
+install.packages("rnaturalearth")
+install.packages("geobr")
+install.packages("ggplot2")
+install.packages("ggspatial")
+install.packages("tmap")
+```
+
+> **IMPORTANTE**: Se você estiver utilizando MacOS ou Linux, a instalação dos pacotes listados pode não funcionar. Esses sistemas operacionais (SOs) possuem "requisitos específicos do sistema" que são geralmente descritos no READMEs dos pacotes no GitHub. Entretanto, há várias instruções específicas que podem ser encontradas [online](https://rtask.thinkr.fr/installation-of-r-4-0-on-ubuntu-20-04-lts-and-tips-for-spatial-packages/).
+
+### Vetor
+Dados **vetoriais** representam informações geográficas acuradas através de **pontos, linhas e polígonos** (Figura 11.1). Cada uma dessas geometrias são indicadas para representar feições e/ou eventos específicos, como veremos adiante.
+
+```{r, echo=FALSE, fig.align='center', fig.cap="Ilustração das geometrias de pontos, linhas e polígonos. Adaptado de: Lovelace, Nowosad & Muenchow (2019)."}
+library(sf)
+old_par = par(mfrow = c(1, 3), pty = "s", mar = c(0, 3, 1, 0))
+plot(st_as_sfc(c("POINT(5 5)")), axes = TRUE, pch = 20, cex = 2, main = "Ponto")
+plot(st_as_sfc("LINESTRING(1 4, 5 5, 4 1, 2 2)"), lwd = 2, axes = TRUE, main = "Linha")
+plot(st_as_sfc("POLYGON((1 4, 2 2, 4 1, 5 5, 1 4))"), col="gray", lwd = 2, axes = TRUE, main = "Polígono")
+par(old_par)
+```
+
+#### Pontos
+Os **pontos** são geometrias geralmente utilizados para representar **eventos pontuias unitários** como ocorrência de espécies, locais de coleta, pontos de GPS ou nascentes de rios. Esses dados são representados por um vértice, ou seja, um par de coordenadas (longitude - X e latitude - Y), que são plotados na forma de cículos ou outro elemento que represente o evento em questão. Dessa forma, geralmente utilizamos dados tabulares com pelo menos duas colunas contendo essas coordenadas. Além disso, esses dados tabulares podem conter outras colunas com informações quantitativas ou qualitativas como número de espécies, temperatura, precipitação ou ainda categorias como tipo de habitat, que podemos representar nos pontos através de diferentes formatos, tamanhos ou cores desse pontos (Figura 11.2).
+
+```{r, echo=FALSE, results='asis'}
+library(knitr)
+library(tibble)
+kable(tibble(id = 1:5, 
+             longitude = c(0, 1, 2, 5, 5), 
+             latitude = c(2, 5, 3, 4, 1), 
+             numero_especies = c(2, 3, 3, 2, 5),
+             temperatura = c(20, 22, 28, 23, 25),
+             precipitacao = c(1000, 1100, 1300, 1200, 1450),
+             habitat = c("floresta", "pastagem", "floresta", "floresta", "pastagem")),
+      capition = "Dados tabulares para pontos",
+      align = "c")
+```
+
+```{r, echo=FALSE, fig.align='center', fig.cap="Geometrias de pontos e suas identificações com a tabela de dados."}
+library(sf)
+plot(st_as_sfc(c("MULTIPOINT(0 2, 1 5, 2 3, 5 4, 5 1)")), axes = TRUE, pch = 20, cex = 2, xlim = c(0, 5), ylim = c(1, 5), main = "Pontos")
+text(x = c(0, 1, 2, 5, 5), 
+     y = c(2, 5, 3, 4, 1) - c(rep(.3, 4), -.3), 
+     labels = 1:5)
+```
+
+#### Linhas
+As **linhas** representam **geometrias lineares** como estradas, rios, trajetos, divisões ou distâncias. Geralmente as linhas são criadas em softwares de Sistema de Informações Geográficas (SIG) como o [QGIS](https://qgis.org/) e depois importadas para o R. As linhas são representadas por no mínimo dois vértices conectados, i.e., dois pares de coordenadas, gerando uma geometria aberta, possuindo como característica o **comprimento**. Da mesma forma que os pontos, as linhas podem ter informações tabulares sendo quantitativas como comprimento dessa feição de linha ou ainda informações qualitativas como o nome de estradas ou vazão dos rios, que podem ser utilizadas para alterar o formato, tamanho ou cor dessas linhas (Figura 11.3).
+
+```{r, echo=FALSE, results='asis'}
+library(knitr)
+library(tibble)
+kable(tibble(id = 1:5, 
+             rodovias = paste0("rodovia_0", 1:5),
+             comprimento_km = c(12, 52, 5, 38, 18)),
+      capition = "Dados tabulares para linhas",
+      align = "c")
+```
+
+```{r, echo=FALSE, fig.align='center', fig.cap="Geometrias de linhas e suas identificações com a tabela de dados."}
+library(sf)
+plot(st_as_sfc("MULTILINESTRING((1 1, 2 2), (1 3, 5 3), (1 4, 1 5), (3 5, 5 5, 5 4), (3 1, 5 1))"), 
+     lwd = 2, axes = TRUE, main = "Linhas")
+text(x = c(1.1, 5, 1.2, 5, 5), 
+     y = c(1.3, 2.8, 5, 3.8, 1.2), 
+     labels = 1:5)
+```
+
+#### Polígonos
+Por fim, **polígonos** representam **geometrias fechadas**, como fragmentos de vegetação, lagos ou limites geográficos, sendo mais voltado principalmente para representar feições de um mapa de uso e cobertura da terra ou limites geográficos naturais, políticos, administrativos ou regulares. Os polígonos também são criados geralmente em softwares específicos de SIG e depois importados para o R. Os polígonos são representados por no mínimo três vértices conectados, sendo que o primeiro vértice possui coordenadas idênticas ao último, de modo que essa ligação gere uma feição fechada, com características como **perímetro** e **área**. Da mesma forma que os pontos e linhas, outras colunas podem ser associadas aos polígonos para representar informações quantitativas como perímetro e área dessa polígono, ou ainda informações qualitativas como a classe de uso da terra, que podem ser utilizadas para alterar formatos, tamanho ou cores dos polígonos (Figura 11.3).
+
+```{r, echo=FALSE, results='asis'}
+library(knitr)
+library(tibble)
+kable(tibble(id = 1:5, 
+             uso = c("floresta", "urbano", "pastagem", "agua", "cerrado"),
+             area_ha = c(50, 22, 30, 25, 40),
+             perimeto_m = c(700, 300, 250, 400, 500)),
+      capition = "Dados tabulares para polígonos",
+      align = "c")
+```
+
+```{r, echo=FALSE, fig.align='center', fig.cap="Geometrias de polígonos e suas identificações com a tabela de dados."}
+library(sf)
+plot(st_as_sfc("MULTIPOLYGON (((1 5, 2 2, 4 1, 4 4, 1 5)))"),
+     axes = TRUE, col = "forestgreen", main = "Polígonos")
+plot(st_as_sfc("MULTIPOLYGON (((4 1, 2 1, 2 2, 2 2, 4 1)))"),
+     col = "gray", add = TRUE)
+plot(st_as_sfc("MULTIPOLYGON (((4 1, 4 5, 5 5, 5 1, 4 1)))"),
+     col = "yellow", add = TRUE)
+plot(st_as_sfc("MULTIPOLYGON (((4 4, 4 5, 1 5, 4 4)))"),
+     col = "steelblue", add = TRUE)
+plot(st_as_sfc("MULTIPOLYGON (((0 1, 0 5, 1 5, 2 2, 2 1, 0 1)))"),
+     col = "orange", add = TRUE)
+text(x = c(2.8, 2.5, 4.5, 3.1, .7), 
+     y = c(3, 1.3, 3, 4.7, 3), 
+     labels = c("floresta\n(1)", "urbano\n(2)", "pastagem\n(3)", "agua\n(4)", "cerrado\n(5)"))
+```
+
+Além disso, geralmente utilizamos **polígono regulares** (buffers, quadrículas ou hexágonos) para **sintetizar informações** de biodiversidade ou de variáveis preditoras, que podem ser utilizadas como unidades amostrais em análises espaciais, principalmente nas áreas de Ecologia da Paisagem, Biogeografia e Macroecologia (Figura 11.4).
+
+```{r, echo=FALSE, results='asis'}
+library(knitr)
+library(tibble)
+kable(tibble(id = c(1:5, "..."), 
+             numero_especies = c(2, 3, 3, 2, 5, "..."),
+             temperatura = c(20, 22, 28, 23, 25, "..."),
+             precipitacao = c(1000, 1100, 1300, 1200, 1450, "...")),
+      capition = "Dados tabulares",
+      align = "c")
+```
+
+```{r, echo=FALSE, fig.align='center', fig.cap="Polígonos regulares: buffers, quadrículas e hexágonos."}
+library(sf)
+old_par = par(mfrow = c(1, 3), pty = "s", mar = c(0, 3, 1, 0))
+plot(st_as_sfc("MULTIPOINT(1 2, 1 5, 2 3, 4 4, 4 1)"),
+     pch = 20, axes = TRUE, xlim = c(0, 5), ylim = c(0, 6), main = "Buffers")
+plot(st_as_sfc("MULTIPOINT(1 2, 1 5, 2 3, 4 4, 4 1)") %>% 
+        sf::st_as_sf() %>% 
+        sf::st_buffer(.5),
+     lwd = 2, add = TRUE)
+text(x = c(1, 1, 2, 4, 4), 
+     y = c(2, 5, 3, 4, 1) + .3, 
+     labels = 1:5)
+
+plot(st_as_sfc("POLYGON((0 0, 0 5, 5 5, 5 0, 0 0))") %>% 
+        sf::st_as_sf() %>% 
+        sf::st_make_grid(cellsize = 1),
+     lwd = 2, axes = TRUE, main = "Quadrículas")
+text(x = rep(seq(.5, 4.5, 1), 5), 
+     y = rep(seq(.5, 4.5, 1), each = 5), 
+     labels = c(21:25, 16:20, 11:15, 6:10, 1:5))
+
+plot(st_as_sfc("POLYGON((0 0, 0 5, 5 5, 5 0, 0 0))") %>% 
+        sf::st_as_sf() %>% 
+        sf::st_make_grid(cellsize = 1, square = FALSE),
+     lwd = 2, axes = TRUE, main = "Hexágonos")
+text(x = c(seq(0, 5, 1),
+           seq(.5, 4.5, 1),
+           seq(0, 5, 1),
+           seq(.5, 4.5, 1),
+           seq(0, 5, 1),
+           seq(.5, 4.5, 1),
+           seq(0, 5, 1)),
+     y = c(rep(0, 6),
+           rep(.85, 5),
+           rep(1.75, 6),
+           rep(2.6, 5),
+           rep(3.45, 6),
+           rep(4.3, 5),
+           rep(5.2, 6)), 
+     labels = c(34:39, 29:33, 23:28, 18:22, 12:17, 7:11, 1:6))
+par(old_par)
+```
+
+#### Tabela de atributos
+Para os dados vetoriais é necessário ainda destacar um elemento fundamental: a **tabela de atributos**. A tabela de atributos é uma tabela que inclui dados **geográficos** e **dados alfanuméricos**. Os **dados geográficos** são representados por cada feição geolocalizada espacialmente (ponto, linha ou polígono) e os **dados alfanuméricos** são todos os demais dados assossiados à cada uma dessas feições (Figuras 11.2, 11.3, 11.4, 11.5). 
+
+Dessa forma, essa a **tabela de atributos** reúne informações sobre cada feição e pode ser utilizada para a realização de filtros ou agregações dos dados de cada feição. É nessa tabela que ainda podemos concatenar novas informações (colunas da tabela) de operações com as feições (linhas da tabela) como cálculo de comprimento, perímetro, área ou ainda outras operações com as colunas, resultando em outras colunas.
+
+#### *sf*: principal pacote no R para dados vetoriais 
+Atualmente o principal pacote para trabalhar com dados vetoriais é o `sf`, que implementou o *Simple Feature* no R (Pebesma 2018). 
+
+Esse pacote facilitou muito a forma de trabalho de vetores no R, sendo que as principais vantagens são (Lovelace, Nowosad & Muenchow 2019):
+
+- rápida leitura e gravação de dados
+- aprimorado desempenho de plotagem
+- objetos `sf` podem ser tratados como data frames na maioria das operações
+- funções `sf` podem ser combinadas usando o operador `%>%` e funcionam no formato tidyverse
+- funções `sf` são consistentes e intuitivas (sempre começam com `st_`)
+
+Os tipos de geometrias apresentadas são representadas por diferentes classes: `POINT`, `LINESTRING` e `POLYGON` para apenas uma feição de cada tipo de geometria; `MULTIPOINT`, `MULTILINESTRING` e `MULTIPOLYGON` para várias feições de cada tipo de geometria e; `GEOMETRYCOLLECTION` para várias feições e tipos de geometrias (Figura 11.6).
+
+```{r fig.align='center', fig.cap="Tipos de classes suportadas pelo sf. Fonte: Lovelace, Nowosad & Muenchow (2019).", out.width="60%", echo=FALSE}
+knitr::include_graphics("img/sf-classes.png")
+```
+
+Ao olharmos as informações de um objeto da classe `sf`, podemos notar diversas informações que descrevem o mesmo:
+
+- *resumo do vetor*: indica o número de feições (linhas) e campos (colunas)
+- *tipo da geometria*: umas das sete classes listadas anteriormente
+- *dimensão*: número de dimensões, geralmente duas (XY)
+- *bbox (bordas)*: coordenadas mínimas e máximas da longitude e latitude 
+- *informação do CRS*: epsg (SRID) ou proj4strixng indicanso o Sistema de Referência de coordenadas
+- *tibble*: indica a tabela de atributos, com destaque para a coluna `geom` que representa cada feição ou geometria
+
+```{r}
+library(spData)
+data(world)
+world
+```
+
+Podemos facilmente fazer um mapa simples utilizando a função `plot()` desse objeto. Para facilitar, escolheremos apenas uma coluna.
+```{r}
+plot(world[, 1], col = viridis::viridis(10), main = "Mapa do Mundo")
+```
+
+### Raster
+Os dados no formato **raster** consistem em uma **matriz** (com linhas e colunas) representando **células igualmente espaçadas** (pixels; Figura 11.7). Esse formato de dado torna a álgebra e o processamento de mapas muito mais eficiente e rápido do que o processamento de dados vetoriais. Para as células dos dados raster possuímos **duas informações**: 1. a identificação das células (IDs das células) para especificar sua posição na matriz (Figura 11.7 A) e; 2. os valores das células (Figura 11.7 B), que geralmente são coloridos para facilitar a interpretação da variação dos valores no espaço (Figura 11.7 C). Além disso, valores ausentes ou não amostrados são representados por `NA`, ou seja, *not available* (Figura 11.7 B e C).
+
+```{r, echo=FALSE, fig.align='center', fig.cap="Raster: (A) IDs das células, (B) valores das células, (C) células coloridas. Adaptado de: Lovelace, Nowosad & Muenchow (2019)."}
+# packages
+library(raster)
+library(gridExtra)
+library(spData)
+
+# data
+set.seed(42)
+small_ras <- raster(matrix(1:16, 4, 4, byrow = TRUE))
+small_ras_val <- raster(matrix(sample.int(100, 16), 4, 4, byrow = TRUE))
+small_ras_val[c(10, 15)] <- NA
+polys <- rasterToPolygons(small_ras, na.rm = FALSE)
+
+# cell IDs
+p_1 <- spplot(small_ras, colorkey = FALSE, col.regions = "white",
+              main = "A. IDs das células",
+              sp.layout = list(
+                 list("sp.polygons", polys, first = FALSE),
+                 list("sp.text", xyFromCell(small_ras_val, 1:ncell(small_ras)),
+                      1:ncell(small_ras))
+              )
+)
+
+# cell values
+p_2 <- spplot(small_ras_val, colorkey = FALSE, col.regions = "white",
+              main = "B. Valores das céluas",
+              sp.layout = list(
+                 list("sp.polygons", polys, first = FALSE),
+                 list("sp.text", xyFromCell(small_ras_val,
+                                            1:ncell(small_ras_val)),
+                      values(small_ras_val))
+              )
+)
+
+# color map
+p_3 <- spplot(small_ras_val, 
+              col.regions = viridis::viridis(16),
+              colorkey = FALSE,
+              main = "C. Valores coloridos")
+
+grid.arrange(p_1, p_2, p_3, ncol = 3)
+```
+
+#### Raster contínuo e categórico
+A **célula ou pixel** de um raster pode conter apenas um **único valor**, que pode ser **contínuo** ou **categórico** (Figura 11.8). O formato raster geralmente representa **fenômenos contínuos**, como elevação, precipitação, temperatura, ou dados espectrais de imagens de satélite, mas também pode representar **categorias** como classes de solo ou cobertura da terra (Figura 11.8).
+
+```{r, echo=FALSE, fig.align='center', fig.cap="Raster: (A) mapa contínuo, (B) mapa categórico. Adaptado de: Lovelace, Nowosad & Muenchow (2019)."}
+# packages
+library(raster)
+library(gridExtra)
+library(spData)
+
+# data
+set.seed(42)
+small_ras_con <- raster(matrix(sample(1:100, 16) + sample(seq(.1, .9, .1), 16, rep = TRUE), 4, 4, byrow = TRUE))
+small_ras_cat <- raster(matrix(sample(1:4, 16, rep = TRUE), 4, 4, byrow = TRUE))
+polys_con <- rasterToPolygons(small_ras_con, na.rm = FALSE)
+polys_cat <- rasterToPolygons(small_ras_cat, na.rm = FALSE)
+
+# map continuous
+p_1 <- spplot(small_ras_con, 
+              col.regions = viridis::viridis(16),
+              colorkey = FALSE,
+              main = "A. Mapa contínuo",
+              sp.layout = list(
+                 list("sp.polygons", polys_con, first = FALSE),
+                 list("sp.text", xyFromCell(small_ras_con,
+                                            1:ncell(small_ras_con)),
+                      values(small_ras_con))))
+
+# map categorical
+p_2 <- spplot(small_ras_cat, 
+              col.regions = RColorBrewer::brewer.pal(name = "Dark2", n = 4),
+              colorkey = FALSE,
+              main = "B. Mapa categórico",
+              sp.layout = list(
+                 list("sp.polygons", polys_cat, first = FALSE),
+                 list("sp.text", xyFromCell(small_ras_cat,
+                                            1:ncell(small_ras_cat)),
+                      values(small_ras_cat))))
+
+grid.arrange(p_1, p_2, ncol = 2)
+```
+
+#### *raster*: principal pacote no R para dados raster
+Atualmente o principal pacote para trabalhar com dados raster é o `raster` (Hijmans 2020). Ele fornece uma ampla gama de funções para criar, ler, exportar, manipular e processar dados raster no R. Os rasters dentro do R podem possuir três classes: `RasterLayer`, `RasterStack` e `RasterBrick`. 
+
+A classe `RasterLayer` representa apenas uma camada raster. Para criar um raster no R podemos utilizar a função `raster()`. Observando essa classe, podemos notar as seguintes informações:
+
+- *class*: classe raster do objeto
+- *dimensions*: número de linhas, colunas e células
+- *resolution*: largura e altura da célula
+- *extent*: coordenadas mínimas e máximas da longitude e latitude
+- *crs*: Sistema de Referência de Coordenadas
+- *source*: fonte dos dados (memória ou disco)
+- *names*: nome das camadas
+- *values*: valores máximos e mínimos das células
+
+```{r}
+library(raster)
+raster_layer <- raster::raster(nrows = 5, ncols = 5, 
+                               res = .5,
+                               xmn = -61.5, xmx = -59, ymn = -14.5, ymx = -12,
+                               vals = sample(1:25, 25, rep = TRUE))
+raster_layer
+```
+
+Um mapa simples do rater pode ser obtido utilizando a função `plot()` do pacote `raster`.
+
+```{r}
+raster::plot(raster_layer, col = viridis::viridis(n = 25))
+```
+
+Além da classe `RasterLayer`, há mais duas classes que trabalham com várias camadas: `RasterBrick` e `RasterStack`. Elas diferem em relação ao número de formatos de arquivo suportados, tipo de representação interna e velocidade de processamento.
+
+A classe `RasterBrick` geralmente corresponde a importação de um único arquivo de satélite multiespectral ou a um único objeto de várias camadas na memória. A função `brick()` cria um objeto `RasterBrick`.
+
+```{r}
+raster_layer1 <- raster_layer
+raster_layer2 <- raster_layer * raster_layer
+raster_layer3 <- sqrt(raster_layer)
+
+raster_brick <- raster::brick(raster_layer1, raster_layer2, raster_layer3)
+raster_brick
+
+raster::plot(raster_brick, col = viridis::viridis(n = 25))
+```
+
+
+Já a classe `RasterStack` permite conectar vários objetos raster armazenados em arquivos diferentes ou vários objetos na memória. Um `RasterStack` é uma lista de objetos `RasterLayer` com a mesma extensão e resolução. Uma maneira de criá-lo é com a junção de vários objetos espaciais já existentes no ambiente global do R, ou listar vários arquivos raster em um diretório armazenado no disco. A função `stack()` cria um objeto `RasterStack`.
+
+Outra diferença é que o tempo de processamento para objetos `RasterBrick` geralmente é menor do que para objetos `RasterStack`. A decisão sobre qual classe `Raster*` deve ser usada depende principalmente do caráter dos dados de entrada.
+
+```{r}
+raster_layer1 <- raster_layer
+raster_layer2 <- raster_layer * raster_layer
+raster_layer3 <- sqrt(raster_layer)
+
+raster_stack <- raster::stack(raster_layer1, raster_layer2, raster_layer3)
+raster_stack
+
+raster::plot(raster_stack, col = viridis::viridis(n = 25))
+```
+
+### Sistema de Referência de Coordenadas e Unidades
+
+#### Sistema de coordenadas geográficas
+
+#### Sistema de coordenadas projetadas
+
+### Escalas de representação dos dados
+
+#### Escala global
+
+
+#### Escala regional
+
+
+#### Escala local
+
+
+## Principais fontes de dados
+
+### Vetor
+
+
+### Raster
+
+## Importar e exportar dados geográficos
+### Importar vetor
+
+### Exportar vetor
+
+### Importar raster
+
+### Exportar raster
+
+## Visualização de dados geográficos - Mapas
+
+
+### graphics
+
+
+### ggplot2
+
+
+### tmap
+
+
+### Outros pacotes
+
+## Principais operações com dados geográficos
+
+### Operações com atributos
+
+#### Vetor
+
+#### Raster
+
+### Operações espaciais
+
+#### Vetor
+
+#### Raster
+
+### Operações geométricas
+
+#### Vetor
+
+#### Raster
+
+### Reprojeções
+
+
+## Download e extração de dados climáticos para pontos
+Download e extração de dados climáticos de bases online (WorlClim, CHELSA, ...)
+
+
+## Reunir informações de biodiversidade para unidades espaciais
+
+
+Para se aprofundar:
+
+Lovelace, Nowosad & Muenchow (2019) Geocomputation with R
+
+Mas et al. (2019) Análise espacial com R
+
+Pebesma & Bivand (2020) Spatial Data Science. Link: https://keen-swartz-3146c4.netlify.app/
+
+Brunsdon & Comber (2018) An Introduction to R for Spatial Analysis and Mapping
+
+Wegmann, Leutner & Dech (2016) Remote Sensing and GIS for Ecologists: Using Open Source Software
+
+Wegmann, Schwalb-Willmann & Dech (2020) An Introduction to Spatial Data Analysis Remote Sensing and GIS with Open Source Software.
