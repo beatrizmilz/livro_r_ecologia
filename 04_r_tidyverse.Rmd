@@ -1,0 +1,169 @@
+# Introdução à linguagem R
+
+## R e RStudio
+
+## Material de R
+
+https://paulvanderlaken.com/2017/08/10/r-resources-cheatsheets-tutorials-books/#cheatsheet
+
+## Funcionamento da linguagem R
+
+## Estrutura e manipulação de dados 
+
+### Tipos de objeto (vetor, fator, matriz, data frame, lista, funções)
+
+## Entendendo o arquivo de ajuda, como buscar ajuda
+
+## Instalando e carregando pacotes do CRAN e do GitHub/GitLab
+
+## Importação e exportação de dados 
+
+
+## tidyverse (readr, readxl, tibble, tidyr, dplyr, stringr, lubridate e purrr?)
+
+
+## Principais erros de iniciantes e a melhor forma de pedir ajuda
+Os erros são muitos comuns no uso do dia-a-dia do R. Mesmo usuários experientes comentem erros. A diferença dos mais experientes para os menos, é a paciência e conhecimento para ler e entender os erros. Nessa seção tentamos abordar os principais pontos para aprender a conviver com os erros, e principalmente, como resolvê-los, sem precisar da ajuda de um adulto, digo, alguém mais experiente.
+
+### Procurando e entendendo erros
+O processo de procurar erros em seu código se chama "debugging" e é um exercício fundamental para aprender o funcionamento da linguagem R ou qualquer outra linguagem de programação, além de algumas vezes ser um pouco massante. 
+
+Neste tópico, listamos os principais pontos para procurar erros nos códidos de um script R.
+
+#### Certifique-se que leu e entendeu a mensagem de erro
+
+Ler e entender a mensagem de erro que o R devolve no console pode parecer óbvio num primeiro momento, mas geralmente é a última coisa que fazemos quando estamos iniciando a utilizar o R. 
+
+Geralmente as mensagens não são muito claras num primeiro momento, mas depois que entendemos o que elas querem dizer, podemos facilmente voltar para o script e tentar achar o motivo do erro.
+
+Seguem as principais mensagens de erro e uma explicação simples:
+
+> **1. 'could not find function'**. Este erro ocorre quando um pacote R não é carregado corretamente ou devido a um objeto ausente, como erro ortográfico nas funções ou nome do conjunto de dados
+
+> **2. 'Error in if'**. Geralmente significa a declaração lógica em "if (xxx) { …" não está produzindo um valor lógico.
+
+> **3. 'object not found'**. Este erro ocorre quando o objeto específico usado no código não existe [está vazio].
+
+> **4. 'cannot open the connection'**. Pode haver duas razões para estarmos recebendo este erro: (i) A file/connection can't be opened because R can't find it (geralmente erro na definição do diretório) e; (ii) Failure in .onLoad() (um pacote não consegue encontrar uma dependência do sistema).
+
+> **5. 'subscript out of bounds'**. É provável que esse erro ocorre quando se usa loops aninhados incorretamente no código. Imagino você ter um vetor chamado "vetor" com 10 valores, e tentar acessar vetor[11].
+
+> **6. 'non-numeric argument to a binary operator'**. Isso acontece quando misturamos diferentes valores de vetor no cálculo, por exemplo: numeric x character.
+
+> **7. 'replacement has'**. Este erro ocorre quando se tenta atribuir um vetor de valores a um subconjunto de um objeto existente e os comprimentos não correspondem.
+
+#### Certifique-se que instalou e carregou os pacotes das funções que irá utilizar
+
+Pacotes são coleções de funções que realizam importação, manipulação e visualização de formatos de dados específicos ou que realizam análises específicas. Esse erro é bastante comum. É interessante utilizar essas duas estratégias para evitar esse tipo de erro:
+
+> 1. iniciar o script sempre listando todos os pacotes que irá utilizar
+
+> 2. sempre que usar a função de um pacote que carregar, fazê-lo dessa forma (e.g. `car::Anova())`. O operador "::" diz que estamos usando a função `Anova()` do pacote `car`
+
+#### Certifique-se que definiu o diretório correto de onde quer importar ou exportar seus dado
+
+Esse erro também é muito comum, principalmente de usuários iniciantes. Utilizamos a função `setwd("/home/usuario")` para indicar que queremos importar e/ou exportar arquivos para esse diretório: `/home/usuario`. 
+
+Para verificar se esse é mesmo o diretório que queremos, podemos utilizar a função `getwd()` para retornar o endereço do diretório ou as funções `dir()` e `list.files()` para listar os arquivos no diretório. 
+
+Há uma versão mais moderna dessa abordagem, que é utilizar o pacote `here`, seguindo uma ideia de facilitar a reprodutibilidade dos códigos quando enviados para outros usuários.
+
+#### Certifique-se que sua planilha está com separação de decimais e colunas corretos
+
+Esse aqui é um erro sempre complicado… Dependendo do idioma, a separação de decimais e colunas mudam numa planilha eletrônica:
+
+> **inglês**: separação de decimais é feita por ponto (.) e a separação das colunas é feita por vírgula (,)
+
+> **português**: separação de decimais é feita por vírgula (,) e a separação das colunas é feita por ponto-vírgula (;)
+
+O R tende a lidar bem com essas diferença e você pode, por exemplo, utilizar a função `read.csv()` para uma planilha configurada e salva no formato em inglês [decimal – ponto (.) e coluna – vírgula (,)].
+
+Para uma planilha salva no formato em português [decimal – ponto (.) e coluna – vírgula (,)], podemos utilizar a função `read.csv2()`. Entretanto, sempre verifique sua planilha antes de importá-la para o R.
+
+Ainda podemos utilizar as funções `str()` ou `glimpse()`. Essas funções devolvem no console a estrutura dos dados, indicando o modo de cada coluna ("numeric", "character", "logical", "factor", …) e uma amostra dos dados. Se o str() mostra que, por exemplo, aquilo que era para ser "numeric" é "factor", isso indica que ou o separador decimal está errado, ou que falta um argumento "header = TRUE" na função de importar os dados para garantir que a primeira linha se torne o nome das colunas. 
+
+#### Certifique-se que os arquivos que irão ser importados não estão corrompidos
+
+Esse erro não é tão comum, mas pode acontecer. Geralmente na realização do download ou na cópia de arquivos grandes pode haver erros e gerar arquivos corrompidos. Então, se houver erro ao importar um arquivo, importe o mesmo em outros softwares para verificar, como abrir uma planilha eletrônica (Excel ou Calc), arquivos geoespaciais (ArcGIS ou QGIS), e outros formatos em softwares específicos.
+
+#### Certifique-se que não digitou algum comando errado
+
+Ao contrário do anterior, esse erro é um dos mais comuns… Geralmente nome de funções erradas – esquecer letras ou alguma letra maiúscula, esquecer de fechar parênteses ou aspas, esquecer um argumento da função, enfim, os tipos de erros aqui podem ser diversos. 
+
+Entretanto, no console do RStudio podemos ver esse erro com certa facilidade, porque o RStudio tende a indicar esse tipo de erro nos trazendo que a função não existe ou que faltaram aspas ou parênteses. Outros editores, como o [Notepad++](https://notepad-plus-plus.org/) e o [SublimeText](https://www.sublimetext.com/), também possuem funções que ajudam a encontrar certos erros no código.
+
+#### Certifique-se que a atribuição foi feita corretamente
+
+Esse é o erro de longe mais comum. Pode ser que atribuímos os dados erroneamente com o mesmo nome, ou que chamamos um objeto com uma letra maiúscula ou equívocos nesse sentido. Recomendamos verificar todas as atribuições feitas, simplesmente repetindo o objeto logo em seguida da atribuição e verificando se a atribuição foi feita corretamente. Isso tende a deixar meus códigos mais extensos, mas garante que todas as atribuições foram feitas corretamente. Por exemplo:
+
+```{r,eval=FALSE}
+dados <- read.csv("dados.csv")
+dados
+```
+
+#### Certifique-se que a Classe do objeto é a mesma requerida pela função
+
+Esse erro é bastante comum e acredito ser o mais difícil de entender e resolver. Ele exige dois conhecimentos que geralmente demoram para serem assimilados pelo usuário iniciante:
+
+> 1. identificar e saber a classe do objeto
+
+> 2. classe de entrada do objeto na função
+
+Todo objeto criado a partir de uma atribuição no R (`<-`) possui uma classe, e essa classe vai depender geralmente da saída da função que o criou. Por exemplo, quando importamos dados de um `.csv` para o R, geralmente utilizamos:
+
+```{r,eval=FALSE}
+dados <- read.csv("dados.csv")
+dados
+class(dados)
+"data.frame"
+```
+
+A classe desse objeto "dados" é "data.frame". Por exemplo, a função `ggplot()` do pacote `ggplot2`, exige que a entrada do objeto contendo os dados que irão fazer um gráfico seja um "data.frame". Logo, se meus dados foram atribuídos a um objeto com a classe "matrix", terei que utilizar a função `as.data.frame()` para converter a classe desse objeto para "data.frame" e assim poder usar meus dados na função `ggplot()`.
+
+É fundamental estudar e entender as classes dos objetos no R. Uma vez que esse passo é entendido, fica muito mais fácil utilizar a linguagem. Recomendamos esse [site](http://venus.ifca.unican.es/Rintro/dataStruct.html).
+
+### Tentando resolver seus próprios erros
+
+Uma vez que tenhamos entendido e tentado resolver os erros de todas as formas: verificar os pacotes, verificar o diretório, planilhas, dados, todas as linhas de código, o nome dos objetos atribuídos e se a classe desse objeto está correta, e o erro ainda persiste, bem, esse é o momento de ler e procurar pelo erro encontrado.
+
+#### Leia a documentação das funções
+
+A função `help()` ou simplesmente `?` abre uma aba no RStudio ou uma aba no navegador da internet com a página de ajuda daquela função que está devolvendo o erro. 
+
+O Help fornece descrições detalhadas dos tópicos, funções e argumentos do R, logo é possível entender exatamente o que a função faz, quais são os tipos de entradas e o que de ser a saída. Note também que há no final dessa página uma parte do código para você reproduzir. Faço-o, examine e compare.
+
+Além do Help, é possível ler materiais específicos de um pacote através de:
+
+> [**1. Vignettes**](https://r-pkgs.org/vignettes.html): que possuem um tutorial bastante detalhado de como usar um certo pacote
+
+> [**2. CheatSheets**](https://rstudio.com/resources/cheatsheets/): que são cartões de referências resumindo todas as funções e funcionalidade de um pacote
+
+#### Faça buscas extensivas no Google e no Stack Overflow
+
+É muito difícil imaginar a vida sem o Google© ou outro buscador, pois essas bases nos retornam uma grande quantidade de informação. Entretanto, para melhorar esse retorno, use "R" ou "R <pacote>" e a mensagem de erro.
+
+> "R subscript out of bounds"
+
+Além disso, há outros sites que podem ser especificamente interessantes, como o [RSeek](https://rseek.org/), [R FAQ (Frequently Asked Questions on R)](https://cran.r-project.org/doc/FAQ/R-FAQ.html) e [Stack Overflow](https://stackoverflow.com/).
+
+Para ler mais detalhes sobre como ter ajuda no R, recomendamos esta leitura sobre ajuda no R: [Getting Help with R](https://www.r-project.org/help.html).
+
+### Idealmente, como pedir ajuda?
+
+Depois de verificar todos os possíveis problemas mais simples, e depois de vasculhar a internet sem sucesso, provavelmente você estará diante de um erro novo… Isso é ótimo e péssimo ao mesmo tempo: muito provavelmente sua dúvida irá melhorar a comunidade R, porque ela ainda não foi encontrada ou solucionada, e provavelmente não há uma solução trivial.
+
+Nesses casos, a primeira coisa à se fazer antes de pedir ajuda é tentar reproduzir seu erro com uma parte pequena do código e dos dados. Inicie um projeto no RStudio totalmente novo e torne-o bem pequeno para que você possa isolar seu erro. Copie o código com a parte de erro do seu projeto existente para reproduzir o erro ou apenas tente codificá-lo do zero, sem todo o excesso de fluência do seu projeto principal. Se você não conseguir reproduzir o erro, terá encontrado uma pista sobre o que está acontecendo com o erro em seu código. Se você PODE reproduzir o erro, ótimo, porque isso o ajudará na próxima etapa.
+
+Há uma série de dicas do próprio R e do Stack Overflow para tornar seu código o mais reprodutível possível, aumentando assim as chances de respostas:
+
+> [Posting Guide: How to ask good questions that prompt useful answers](https://www.r-project.org/posting-guide.html)
+
+> [How do I ask a good question?](https://stackoverflow.com/help/how-to-ask)
+
+> [How to make a great R reproducible example](https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example)
+
+> [How to create a Minimal, Reproducible Example](https://stackoverflow.com/help/minimal-reproducible-example)
+
+Além disso, tente padronizar seu código utilizando o [Style Guide](adv-r.had.co.nz/Style.html) do R. Isso também ajuda a tornar os códigos mais reprodutíveis e padronizados por toda a comunidade de usuários de R.
+
+Nessa etapa final, monte um conjunto de dois conjuntos de arquivos (script e dados), comprima (preferencialmente .zip) e só depois envie pedindo ajuda. Isso vai facilitar muito a vida de quem está tentando ajudar.
