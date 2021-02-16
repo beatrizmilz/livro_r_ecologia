@@ -408,3 +408,12 @@ vetorização
 para-se-aprofundar-5
 fig:fig-raster-rasterizacao-poligonos
 fig:fig-raster-vetorizacao-linhas
+fig:fig-vetor-mundo
+tab:unnamed-chunk-8
+dados-geográficos-no-r-dados-geograficos
+introdução
+fig:fig-raster-extracao
+manipulação-da-tabela-de-atributos
+pontos-aleatórios
+principais-elementos-de-um-mapa
+principais-pacotes-para-a-composição-de-mapas
