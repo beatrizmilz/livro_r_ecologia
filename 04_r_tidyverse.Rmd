@@ -1,169 +1,531 @@
-# Introdução à linguagem R
+# Introdução à linguagem R {#intro-r}
+
+## Introdução
+
+O objetivo desta seção é **apresentar aspectos básicos da linguagem R** para que qualquer pessoa possa realizar todos os passos para a análise de dados nessa linguagem. Nela, abordaremos as questões mais básicas sobre a linguagem como: 1) instalação dos softwares (R e RStudio), 2) funcionamento da linguagem, 3) estrutura e manipulação de dados, 4) introdução ao tidyverse e 5) principais erros e como pedir ajuda. 
+
+Todo processo de aprendizagem torna-se mais efetivo quando a **teoria é combinada com a prática**, então recomendamos fortemente que você leitor, acompanhe os códigos e exercícios deste livro, ao mesmo tempo que os executa em seu computador, e não só os leia passivamente. Por motivos de espaço, não abordaremos todas as questões relacionadas ao uso da linguagem R nesta seção. Logo, aconselhamos que o leitor consulte o material sugerido no final dessa seção para se aprofundar.
 
 ## R e RStudio
+
+Com o R é possível **manipular e analisar dados, visualizar gráficos** e escrever desde **pequenas linhas de códigos até programas inteiros**. O R é a versão em código aberto de uma linguagem de programação criada por **John M. Chambers** (Stanford University, CA, EUA), nos anos 1980 no Bell Labs, chamada de S, que contou com três versões: Old S (1976-1987), New S (1988-1997) e S4 (1998), utilizada na IDE S-PLUS (1988-2008). Essa linguagem tornou-se bastante popular e vários produtos comerciais que a usam estão disponíveis, como o S-PLUS, SPSS, STATA e SAS. 
+
+No final dos anos 1990, **Robert Gentleman** e **Ross Ihaka** (Auckland University, NZ), iniciaram o desenvolvimento da **versão free da linguagem S**, com o seguinto histórico: Desenvolvimento (1997-2000), Versão 1 (2000-2004), Versão 2 (2004-2013), Versão 3 (2013-2020) e Versão 4 (2020). Para mais detalhes do histório de desenvolvimento do S e R, consultar Wickham (2013), sendo que atualmente a linguagem R é mantida por uma rede de colaboradores denominada **R Core Team**. A **origem do nome R** é desconhecida, mas reza que ao lançarem o nome da linguagem os autores se valeram da letra que vinha antes do S, uma vez que a linguagem R foi baseada nela, e utilizaram a letra "R".
+
+Um aspecto digno de nota é que a linguagem R, ao contrário de outras linguagem como Fortran e C que são compiladas, é uma **linguagem interpretada**, o que a faz ser mais fácil de programar, pois processa linhas de comando e as transforma em linguagem de máquina (código binário que o computador efetivamente lê), apesar desse fato diminuir a velocidade de processamento.
+
+Para começarmos a trabalhar com o R é necessário baixá-lo na página do R Project. Então, acesse esse [site](http://www.r-project.org), e em seguida, clique no link **download R**, que o levará à pagina do CRAN Mirros (*Comprehensive R Archive Network*). Escolha a **página espelho do Brasil** mais próxima de você para baixar o programa. Escolha agora o **sistema operacional** do seu computador (passos adicionais existem para diferentes distribuições Linux), para Windows, clique em **base** para finalmente chegar à **página de download** com a versão mais recente do R. 
+
+Reserve algum tempo posteriormente para **explorar esta página do R-Project**. Existem
+vários [livros](http://www.r-project.org/doc/bib/R-books.html) dedicados a diversos assuntos baseados no R. Além disso, estão disponíveis [manuais](http://cran.r-project.org/manuals.html) em [diversas línguas](http://cran.r-project.org/other-docs.html) para serem baixados gratuitamente.
+
+Como o R é um software livre, não existe a possibilidade de o usuário entrar em **contato com um serviço de suporte de usuários**, muito comuns em softwares pagos. Ao invés disso, existem várias listas de emails que fornecem suporte à [comunidade de usuários](http://www.r-project.org/mail.html). Nós, particularmente, recomendamos o ingresso nas seguintes listas: R-help, R-sig-ecology, e [R-br](http://www.leg.ufpr.br/doku.php/software:rbr). Este último representa um grupo de usuários brasileiro do programa R.
+
+Apesar de podemos utilizar o R com a IDE (Ambiente de Desenvolvimento Integrado - *Integrated Development Environment*) RGui que vem com a instalação da linguagem, para usuários Windows (Figura \@ref(fig:fig-rgui)) ou no próprio terminal para usuários Linux e MacOS, existem alguns IDEs específicos para facilitar nosso uso dessa linguagem. 
+
+```{r fig-rgui, fig.align='center', fig.cap="Interface do RGui. Os números indicam: (1) script, (2) console, e (3) janela do plot.", out.width="100%", echo=FALSE}
+library(knitr)
+include_graphics("img/cap_04_rgui.png")
+```
+
+Entretanto, desde 2011, um IDE se tornou mais popular na comunidade: o [RStudio](https://rstudio.com/) (Figura \@ref(fig:fig-rstudio)). O RStudio possui algumas características que o tornam tão popular: várias janelas de visualização, marcação e preenchimento automático do script, integração com controle de versão, dentre outras opções. Para fazer o download do RStudio, acessamos o [site](https://rstudio.com/products/rstudio/download/#download), e escolhemos o instalador com base em nosso sistema operacional. 
+
+Um último ponto técnico importante: para evitar possíveis erros, é interessante instalar primeiro a linguagem R, seguida do IDE RStudio.
+
+## Funcionamento da linguagem R
+
+Nesta seção veremos o **principais conceitos** para entender como a **linguagem funciona** ou como geralmente utilizamos o IDE RStudio no dia-a-dia, para executar nossas rotinas utilizando a linguagem R. Veremos então: 1) console, 2) script (editor/roteiro), 3) objetos (variáveis), 4) operadores, 5 ) funções, 6) pacotes, 7) ambiente (environment/workspace), 8) ajuda (help) e 9) citações.
+
+Antes de iniciarmos propriamente dito, é fundamental entendermos alguns pontos sobre as janelas e o funcionamento delas no RStudio (Figura \@ref(fig:fig-rstudio)).
+
+```{r fig-rstudio, fig.align='center', fig.cap="Interface do RStudio. Os números indicam: (1) script, (2) console, (3) janela com abas de ambiente, histórico, git, conexões, tutorial, e (4) janela com abas de arquivos, plot, pacotes, ajuda e visualizador.", out.width="100%", echo=FALSE}
+knitr::include_graphics("img/cap_04_rstudio.png")
+```
+
+Detalhando algumas dessas janelas, temos:
+
+- **Console**: é onde os códigos são rodados e vemos as saídas
+- **Editor/Script**: é onde escrevemos nossos códigos em R ou R Markdown
+- **Environment**: painel com todos os objetos criados na sessão
+- **History**: painel com o histórico dos comandos rodados
+- **Files**: painel que mostra os arquivos no diretório de trabalho
+- **Plots**: painel onde os gráficos são apresentados
+- **Packages**: painel que lista os pacotes
+- **Help**: painel onde a documentação das funções é exibida
+
+No RStudio, alguns atalhos são fundamentais para aumentar nossa produtividade:
+
+- **f1**: abre o painel de *Help*
+- **ctrl + Enter**: roda a linha selecionada no script
+- **ctrl + Shift + N**: abre um novo script
+- **ctrl + S**: salva um script
+- **ctrl + Z**: desfaz uma operação
+- **ctrl + shift + Z**: refaz uma operação
+- **alt + -**: insere um sinal de atribuição (<-)
+- **ctrl + Shift + M**: insere um operador pipe (%>%) 
+- **ctrl + Shift + C**: comenta uma linha no script - insere um (#) 
+- **ctrl + Shift + R**: insere uma sessão (# ----------------------)
+- **ctrl + Shift + H**: abre uma janela para selecionar o diretório de trabalho
+- **ctrl + Shift + f10**: reinicia o console
+- **ctrl + L**: limpa os comandos do console 
+- **alt + Shift + K**: abre uma janela com todos os atalhos disponíveis
+
+### Console
+
+O console é onde a versão da linguagem R instalada é carregada para executar os códigos da linguagem (Figura \@ref(fig:fig-rstudio) (2)). Na janela do console irá aparecer o símbolo `>` seguida de uma barra vertical `|` que fica piscando, onde iremos digitar ou enviar nossos códigos do script. Podemos fazer um pequeno exercício: vamos digitar `2 + 2`, seguido da tecla `Enter` para que essa operação seja executada.
+
+```{r}
+10 + 2
+```
+
+O resultado retorna o valor `12`, precedido de um valor entre colchetes. Esses colchetes demonstram a posição do elemento numa sequência de valores. Se fizermos essa outra operação `1:42`, o R vai criar uma sequência unitária de valores de 1 a 42. A depender da largura da janela do console, vai aparecer um número diferente entre colchete indicando sua posição na sequência: antes do 1 vai aparecer o `[1]`, depois quando a sequência for quebrada, vai aparecer o número correspondente da posição do elemento, no nosso caso `[26]`.
+
+```{r}
+1:42
+```
+
+### Scripts
+
+Scripts são **rascunhos dos códigos**, e onde de fato os códigos são escritos e depois enviados ao console (Figura \@ref(fig:fig-rstudio) (1)). Scripts são arquivos de texto simples, criados com a extensão (terminação) `.R`. Para criar um script basta ir em File > New File > R Script, ou clicando no ícone logo abaixo de File, ou ainda usando o atalho `ctrl + shift + N`.
+
+Uma vez escrito os códigos no script, podemos rodar esses códigos de duas formas: 1)
+todo o script de uma vez, clicando em **Source** ou usando o atalho `ctrl + shift + enter`; 2) a linha onde o cursos estiver posicionado, independente de sua posição naquela linha, clicando em **Run** ou usando o atalho `ctrl + enter`.
+
+Devemos sempre **salvar nossos scripts**, tomando por via de regra: primeiro criar o arquivo e depois ir salvando versão desse mesmo arquivo. Há diversos motivos para criar um script: continuar o desenvolvimento do mesmo em outro momento ou em outro computador, preservar trabalhos passados, ou ainda compartilhar seus códigos com outra pessoa. Para criar ou salvar um script basta ir em File > Save, escolher um diretório e nome para o script, e salvar. Podemos ainda utilizar o atalho `ctrl + S`.
+
+Em relação aos scripts, ainda há os **comentários**, representados pelos símbolos `#` (hash) ou `#'` (hash-linha). Comentários não são lidos pelo console do R e são utilizados geralmente para descrever informações sobre dados ou funções, ou ainda para suprimir linhas de código. É interessante ter no início de cada script um cabeçalho identificando o objetivo ou análise, autor e data.
+
+```{r}
+#' ---
+#' title: capitulo 04 - introducao ao r
+#' author: mauricio vancine
+#' date: 2021-02-17
+#' ---
+```
+
+Além disso, podemos usar comentários para adicionar informações sobre os códigos.
+
+```{r}
+# comentarios
+# o r nao le o codigo depois do # (hash)
+42 # essas palavras nao sao executadas, apenas o 42
+```
+
+Um ponto muito importante é escrever os comentários sempre em inglês para tornar seu código mais reprodutível possível. Por fim, outro ponto fundamental é ter **boas práticas de estilo de código**. Quanto mais organizado e padronizado estiver os scripts, mais fácil de entendê-los e de procurar possíveis erros. Existem dois guias de boas práticas para adequadar seus scripts: [Hadley Wickham](http://adv-r.had.co.nz/Style.html) e [Google](https://google.github.io/styleguide/Rguide.xml).
+
+### Operadores
+
+No R, temos cinco tipos de operadores: aritméticos, relacionais, lógicos, atribuição
+e diversos. Todos são descritos na Tabela \@ref(tab:tab-operadores).
+
+```{r tab-operadores, echo=FALSE}
+kable(data.frame(Operador = c(
+  "+", "-", "*", "/", "%%", "%/%", "^ ou **",
+  ">", "<", ">=", "<=", "==", "!=",
+  "!", "&", "|", "&&", "||",
+  "<- ou =", "<<-", "->", "->>",
+  ":", "%in%", "%*%", "%>%"),
+  Tipo = c(
+    rep("Aritmético", 7),
+    rep("Relacional", 6),
+    rep("Lógico", 5),
+    rep("Atribuição", 4),
+    rep("Diversos", 4)), 
+  Descrição = c(
+    "Adição", "Subtração", "Multiplicação", "Divisão", "Restante da divisão", "Quociente da divisão", "Expoente",
+    "Maior", "Menor", "Maior ou igual", "Menor ou igual", "Igualdade", "Diferença",
+    "Lógico NÃO", "Lógico elementar E", "Lógico elementar OU", "Lógico E", "Lógico OU", 
+    "Atribuição à esquerda", "Super atribuição à esquerda", "Atribuição à direita", "Super atribuição à direita",
+    "Sequência unitária", "Elementos que pertencem a um vetor", "Multiplar matriz com sua transposta", "pipe")),
+  align = "c",
+  caption = "Operadores no R.")
+```
+
+Como exemplo, podemos fazer operações simples usando os operadores aritméticos.
+
+```{r}
+# operacoes aritmeticas
+10 + 2 # adicao
+10 * 2 # multiplicacao
+```
+
+Precisamos ficar atentos à dominância dos operadores aritméticos: `^ >> * ou / >> + ou -`. Veja no exemplo abaixo como o uso dos parênteses mudam os resultados.
+
+```{r}
+# sem especificar - segue a ordem dos operadores
+1 * 2 + 2 / 2 ^ 2
+
+# especificando - segue a ordem dos parenteses
+((1 * 2) + (2 / 2)) ^ 2
+```
+
+### Objetos
+
+**Objetos** são **palavras** às quais são **atribuídos dados**. Essa atribuição possibilita a manipulação de dados ou resultados de análises. Iremos utilizar os símbolos `<` (menor), seguido de `-` (menos), sem espaço, dessa forma `<-`. Também podemos utilizar o símbolo de igual (`=`), mas não recomendamos, por não fazer parte das boas práticas de escrita em código R. Podemos inserir essa combinação de símbolos com o atalho `alt + -`. Para demonstrar, vamos atribuir o valor `10` à palavra `obj_10`, e chamar esse objeto novamente para verificar seu conteúdo.
+
+```{r}
+# atribuicao - simbolo (<-)
+obj_10 <- 10
+obj_10
+```
+
+Todos os objetos criados numa sessão do R ficam listados na aba **Environment** (Figura \@ref(fig:fig-rstudio) (3)). Além disso, o RStudio possui a função *auto complete*, ou seja, podemos digitar as primeiras letras de um objeto (ou função) e em seguida apertar `Tab` para que o RStudio liste tudo que começar com essas letras.
+
+Dois pontos importantes sobre atribuições: primeiro, o R sobrescreve os valores dos objetos com o mesmo nome, deixando o objeto com o valor da segunda atribuição.
+
+```{r}
+# sobrescreve o valor dos objetos
+obj <- 100
+obj
+
+# obj agora vale 2
+obj <- 2
+obj
+```
+
+Segundo, o R tem limitações ao nomear objetos: 
+
+ - nome de objetos só podem começar por letras (a-z ou A-Z) ou pontos (.)
+ - nome de objetos só podem conter letras (a-z ou A-Z), números (0-9), underscores (_) ou pontos (.)
+ - R é case-sensitive, i.e., ele difere letras maiúsculas de minúsculas. Assim, um objeto chamado "resposta" é diferente do objeto "RESPOSTA"
+ - devemos evitar acentos ou cedilha (ç) para facilitar a memorização dos objetos
+ - nome de objetos não podem ser iguais a nomes especies (`break`, `else`, `FALSE`, `for`, `function`, `if`, `Inf`, `NA`, `NaN`, `next`, `repeat`, `return`, `TRUE`, `while`)
+
+Podemos ainda utilizar objetos para fazer operações e criar novos objetos. Isso pode parecer um pouco confuso para os iniciantes na linguagem, mas é fundamental aprender essa lógica para passar para os próximos passos.
+
+```{r}
+# definir dois objetos
+va1 <- 10
+va2 <- 2
+
+# operacoes com objetos e atribuicao
+adi <- va1 + va2
+adi
+```
+
+### Funções
+
+Funções são **códigos preparados para realizar uma tarefa** de modo simples. Outra forma de entender uma função é: comandos que realizam operações em argumentos. A estrutura de uma função é muito similar à sintaxe usada em planilhas eletrônicas, sendo composta por:
+
+> nome_da_funcao(argumento1, argumento2)
+
+1. **nome da função**: remete ao que ela faz
+1. **Parênteses**: limitam a função
+1. **Argumentos**: onde a função irá atuar 
+1. **Vírgulas**: separam os argumentos
+
+Os argumentos de uma função podem ser de dois tipos:
+
+1. **Valores ou objetos**: a função irá alterar os valores em si ou os valores atribuídos aos objetos
+1. **Parâmetros**: valores fixos que informam um método ou a realização de uma operação. Informa-se o nome desse argumento, seguido de "=" e um número, texto ou TRUE ou FALSE
+
+Alguns exemplos de argumentos como valores ou objetos.
+
+```{r}
+# funcoes - argumentos como valores
+# soma
+sum(10, 2)
+
+# funcoes - argumentos como objetos
+# soma
+sum(va1, va2)
+
+```
+
+Alguns exemplos de argumentos como parâmetros. Note que apesar do valor do argumento ser o mesmo (10), seu efeito no resultado muda drasticamente. Aqui também é importante destacar um ponto: 1 podemos informar os argumentos sequencialmente, sem explicitar seus nomes, ou 2) independente da ordem, mas explicitando seus nomes. Entretanto, como no exemplo abaixo, devemos informar o nome do argumento (i.e., parâmetro), para que seu efeito seja o que desejamos.
+
+```{r}
+# funcoes - argumentos como parametros
+# repeticao - repita todos os elementos
+rep(x = 1:5, times = 10)
+
+# repeticao - repita cada um dos elementos
+rep(x = 1:5, each = 10)
+```
+
+Um ponto fundamental, e que deve ser entendido nesse ponto, é o **fluxo de atribuições do resultado da operação de funções a novos objetos**. No desenvolvimento de qualquer script, grande parte da estrutura do mesmo será dessa forma: atribuição de dados > operações com funções > atribuição dos resultados a novos objetos >  operações com funções desses novos objetos > atribuição dos resultados a novaos objetos....Ao entender esse funcionamento, começamos a entender como devemos pensar na organização do nosso script para montar as análises de que precisamos.
+
+```{r}
+# atribuicao dos resultados
+# repeticao
+rep_times <- rep(x = 1:5, times = 10)
+rep_times
+
+# somar e atribuir
+rep_times_soma <- sum(rep_times)
+rep_times_soma
+
+# raiz e atribuir
+rep_times_soma_raiz <- sqrt(rep_times_soma)
+rep_times_soma_raiz
+```
+
+Por fim, é fundamental também entender a **origem das funções** que usamos no R. Todas as funções são advindas de **pacotes**. Esses pacotes possuem duas origens.
+
+1. pacotes já instalados por padrão e que são carregados quando abrimos o R (*R Base*)
+1. pacotes que instalamos e carregamos com funções
+
+### Pacotes
+
+Pacotes são **conjunto extras de funções para executar tarefas específicas**, além do *R Base*. Existe literalmente milhares de pacotes para as mais diversas tarefas: estatística, ecologia, geografia, sensoriamento remoto, econometria, ciências sociais, gráficos, *machine learning* etc. Podemos verificar este vasto conjunto de pacotes pelo [link](https://cran.r-project.org/web/packages/available_packages_by_name.html) que lista por nome os **pacotes oficiais**, ou seja, que passaram pelo crivo do **CRAN**. Existem ainda muito mais **pacotes em desenvolvimento**, geralmente disponibilizados em repositórios do **GitHub ou GitLab**.
+
+Primeiramente, com uma sessão do R sem carregar nenhum pacote extra, podemos verificar pacotes carregados pelo *R Base* utilizando a função `search()`.
+
+```{r eval=FALSE}
+# verificar pacotes carregados
+search()
+```
+
+Podemos ainda verificar todos pacotes instalados em seu computador com a função `library()`.
+
+```{r eval=FALSE}
+# verificar pacotes instalados
+library()
+```
+
+No R, quando tratamos de pacotes, devemos destacar dois conceitos: instalar um pacote e carregar um pacote. A **instalação** de pacotes possui alguns características:
+
+1. Instala-se apenas uma vez
+1. Precisa estar conectado à internet
+1. O nome do pacote precisa estar entre aspas
+1. Função (CRAN): `install.packages()`
+
+Vamos instalar o pacote *vegan* diretamente do CRAN, que possui funções para realizar uma série de análise em ecologia. Para isso, vamos utilizar a função `install.packages()`.
+
+```{r eval=FALSE}
+# instalar pacotes
+install.packages("vegan")
+```
+
+Uma vez instalado um pacote, não há necessidade de instalá-lo novamente. Entretanto, todas as vezes que iniciarmos uma sessão no R, precisamos **carregar** os pacotes com as funções que precisamos utilizar. O **carregamento** de pacotes possui alguns características:
+
+1. Carrega-se toda vez que se abre uma nova sessão do R
+2. Não precisa estar conectado à internet
+3. O nome do pacote não precisa estar entre aspas
+4. Funções: `library()` ou `require()`
+
+Vamos carregar o pacote *vegan* que instalamos anteriormente, utilizando a função `library()`.
+
+```{r}
+# carregar pacotes
+library(vegan)
+```
+
+Como dissemos anteriormente, alguns pacotes em desenvlvimento encontram-se disponíveis em repositórios do GitHub ou GitLab. Para instalar pacotes do GitHub, por exemplo, precisamos instalar e carregar o pacote *devtools*.
+
+```{r eval=FALSE}
+# instalar pacote devtools
+install.packages("devtools")
+
+# carregar pacote devtools
+library(devtools)
+```
+
+Uma vez instalado e carregado este pacote, podemos instalar o pacote do GitHub, utilizando a função `devtoools::install_github()`. Precisamos atentar para usar essa forma "nome_usuario/nome_repositorio", retirados do link do repositório de interesse. Como exemplo, podemos instalar mesmo pacote *vegan* do repositório do GitHub [vegandevs/vegan](https://github.com/vegandevs/vegan), e depois utilizar a função `library()` para carregá-lo normalmente.
+
+```{r eval=FALSE}
+# instalar pacote do github
+install_github("vegandevs/vegan")
+
+# carregar pacote do github
+library("vegan")
+```
+
+A maioria dos pacotes vem com bancos de dados que podem ser acessados pela função `data()`. Esses bancos de dados podem ser usados para testar as funções do pacote. Se estiver com dúvida na maneira como você deve preparar a planilha para realizar uma análise específica, entre no help da função e veja os conjuntos de dados que estão no exemplo desta função.
+
+Um último ponto fundamental de pacotes, diz respeito à **atualização** dos mesmos. Os pacotes são atualizados com frequência, e infelizmente ou felizmente (pois as atualizações podem oferecer algumas quebras entre pacotes), não se atualizam sozinhos. Muitas vezes, a instalação de um pacote pode depender da versão dos pacotes dependentes, e geralmente uma janela se abre que todos os pacotes dependentes sejam atualizados. Como isso pode demorar, pode ser interessante utilizar a função `update.packages(ask = FALSE)` para atualizá-los, entretanto, essa é uma função que costuma demorar para terminar de rodar.
+
+```{r eval=FALSE}
+# atualizacao dos pacotes instalados 
+update.packages(ask = FALSE)
+```
+
+### Ajuda (help)
+
+Um importante passo para melhorar a usuabilidade e ter mais familiaridade com a linguagem R é aprender a usar a **ajuda de cada função**. Para tanto, podemos utilizar a função `help()` ou o operador `?`, depois de ter carregado o pacote, para abri uma nova aba (Figura \@ref(fig:fig-rstudio) (4)) que possui diversas informações sobre a função de interesse. O arquivo de ajuda do R possui geralmente nove ou dez tópicos, que nos auxiliam muito no entendimento dos dados de entrada, argumento e que operações estão sendo realizadas:
+
+1. **Description**: resumo da função
+1. **Usage**: como utilizar a função e quais os seus argumentos
+1. **Arguments**: detalha os argumentos e como os mesmos devem ser especifidados
+1. **Details**: detalhes importantes para se usar a função
+1. **Value**: mostra como interpretar a saída (*output*) da função (os resultados)
+1. **Note**: notas gerais sobre a função
+1. **Authors**: autores da função
+1. **References**: referências bibliográficas para os métodos usados pra construir a função
+1. **See also**: funções relacionadas
+1. **Examples**: exemplos do uso da função. Às vezes pode ser útil copiar esse trecho e colar no R para ver como funciona e como usar a função.
+
+Vamos realizar um exemplo, buscando o *help* da função `aov()`.
+
+```{r eval=FALSE}
+# help
+help(aov)
+?aov
+```
+
+Além das funções, podemos buscas detalhes de um pacote em específico, para uma página simples do *help* utilizando a função `help()` ou o operador `?`. Entretanto, para uma opção que ofereça uma descrição detalhada e um índice de todas as funções do pacote, podemos utilizar a função `library()`, mas agora utilizando o argumento "help", indicamos o pacote de interesse entre aspas.
+
+```{r eval=FALSE}
+# help do pacote
+help(vegan)
+?vegan
+
+# help detalhado
+library(help = "vegan")
+```
+
+Outra ferramenta de busca é a página [rseek](http://www.rseek.org), na qual é possível buscar por um termo não só nos pacotes do R, mas também em listas de emails, manuais, páginas na internet e livros sobre o programa.
+
+### Citações
+
+Ao utilizar o R para realizar alguma análise em seus estudos ecológicos, é fundamental a citação do mesmo. Para saber como citar exatamente o R em artigos, existe uma função denominada `citation()`, que provê um formato genérico de citação e um BibTeX para arquivos LaTeX e R Markdown.
+
+```{r}
+# citacao do R
+citation()
+```
+
+No resultado dessa função, há uma mensagem muito interessante: "See also 'citation("pkgname")' for citing R packages.". Dessa forma, aconselhamos os usuários de R a citar também os pacotes que utilizaram em suas análises para dar os devidos créditos aos desenvolvedores das funções implementadas nos pacotes. Como exemplo, vamos ver como fica a citação do pacote *vegan*.
+
+```{r}
+# citacao do pacote vegan
+citation("vegan")
+```
+
+### Principais erros dos iniciantes
+
+**Errar** quando se está iniciando com R é **muito comum e faz parte do aprendizado**. Entretanto, os erros nunca devem ser encarados como uma forma de desestímulo para continuar tentando. Todos nós, autores desse livro, e provavelmente usuários muito experientes já passaram por um momento em que se quer desistir de tudo. Jovem aprendiz de R, a **única diferença entre você** que está iniciando agora e nós que usamos há mais tempo, **são as horas de uso (e raiva)**. O que temos a mais é experiência para olhar o erro, lê-lo e conseguir interpretar.
+
+Dessa forma, o ponto mais importante de quem está iniciando é ter **paciência, calma, bom humor, ler e entender a mensagem de erro**. Iremos listar aqui o que consideramos os **princiais erros dos iniciantes no R**.
+
+**1. Esquecer de completar uma função ou bloco de comandos**
+
+Esquecer de completar uma função ou bloco de comandos é algo bem comum. Geralmente esquecemos de fechar aspas `""` ou parênteses `()`, mas felizmente geralmente o R nos informa isso, indicando um símbolo de `+`. `
+
+```{r error=TRUE}
+sum(1, 2
+    +
+```
+
+**2. Esquecer da vírgula**
+
+Outro erro bastante comum é esquecer de acrescentar a vírgula `,` para separar argumentos dentro de uma função, principalmente se estamos compondo várias função acopladas, i.e., uma função dentro da outra.
+
+```{r error=TRUE}
+sum(1 2)
+```
+
+**3. Chamar um objeto errado**
+
+Pode parecer simples, mas esse é de longo o erro que as pessoas mais me interrompiam no laboratório. Quando estamos mais avançados e temos um longo script, fomos atribundo diversos objetos e em algum momento atribuímos um nome do qual não lembramos. E aí, quando chamamos o objeto ele não existe e devolve um erro, que pode ser facilmente identificado, como o exemplo abaixo.
+
+```{r error=TRUE}
+obj <- 10
+OBJ
+```
+
+**4. Esquecer de carregar um pacote**
+
+Esse também um erro recorrentes, mesmo para usuários mais experientes. Em scripts de análises complexas, que requerem vários pacotes, geralmente esquecemos de um ou outro... A melhor forma de evitar esse tipo de erro é listar o pacotes que vamos precisar usar logo no início do script.
+
+```{r error=TRUE}
+ggplot(iris) + aes(Sepal.Length, Sepal.Width) + geom_point() + theme_bw()
+```
+
+```{r fig.align='center'}
+library(ggplot2)
+ggplot(iris) + aes(Sepal.Length, Sepal.Width) + geom_point() + theme_bw()
+```
+
+**5. Usar o nome da função de forma errônea**
+
+Esse erro não é tão comum, mas pode ser incômodo às vezes. Algumas funções possuem nomes no padrão "Camel Case", i.e., com letras maiúsculas para no meio do nome da função. Isso às vezes pode confundir, ou ainda, as funções podem ou não ser separadas com `.`, como `row.names()` e `colnames`. Na seção de *tidyverse*, veremos que houve uma padronização nos nomes das funções para "Snake Case", i.e, todas as funções possuem letras minúsculas, com palavras separadas por *underscore* `_`.
+
+```{r error=TRUE}
+colsums(iris[, -5])
+```
+
+```{r}
+colSums(iris[, -5])
+```
+
+## Estrutura e manipulação de dados 
+
+
+### Atributo dos objetos
+
+
+### Modo dos objetos 
+
+numeric, character e logical
+
+
+### Estrutura dos objetos 
+
+vetor, fator, matriz, data frame, lista, funções
+
+### Manipulação de dados unidimensionais
+
+
+### Manipulação de dados bidimensionais
+
+
+### Valores faltantes e especiais
+
+
+### Diretório de trabalho
+
+
+### Importar dados
+
+
+### Conferir e manejar dados importados
+
+
+### Exportar dados
+
+
+## Introdução ao tidyverse
+
+Como já dito, eventualmente as funções do R base não são suficientes ou simplesmente não fornecem a maneira mais fácil de resolver-se um problema. Neste curso utilizaremos o Tidyverse: uma coleção de pacotes R cuidadosamente desenhados para atuarem no workflow comum da ciência de dados: importação, manipulação, exploração e visualização de dados. Uma vez carregado, esse pacote disponibiliza todo o conjunto de ferramentas de outros pacotes importantes: ggplot2, tibble, tidyr, readr, purrr e dplyr. Oportunamente, detalharemos cada um deles.
+
+O Tidyverse foi idealizado, dentre outros responsáveis, por Hadley Wickham, um dos maiores colaboradores da comunidade R. Se você não o conhece e pretende seguir em frente com o R, certamente ouvirá falar muito dele. Recomendamos segui-lo nas redes sociais para ficar por dentro das novidades do Tidyverse.
+
+Para instalar os pacotes do Tidyverse, rode o comando abaixo:
+
+### tidyverse
+
+
+### magrittr (pipe - %>%)
+
+
+### readr
+
+
+### readxl e writexl
+
+
+### tibble
+
+
+### tidyr
+
+
+### dplyr
+
+
+### stringr
+
+
+### forcats
+
+
+### lubridate
+
+
+### purrr
+
 
 ## Material de R
 
 https://paulvanderlaken.com/2017/08/10/r-resources-cheatsheets-tutorials-books/#cheatsheet
-
-## Funcionamento da linguagem R
-
-## Estrutura e manipulação de dados 
-
-### Tipos de objeto (vetor, fator, matriz, data frame, lista, funções)
-
-## Entendendo o arquivo de ajuda, como buscar ajuda
-
-## Instalando e carregando pacotes do CRAN e do GitHub/GitLab
-
-## Importação e exportação de dados 
-
-
-## tidyverse (readr, readxl, tibble, tidyr, dplyr, stringr, lubridate e purrr?)
-
-
-## Principais erros de iniciantes e a melhor forma de pedir ajuda
-Os erros são muitos comuns no uso do dia-a-dia do R. Mesmo usuários experientes comentem erros. A diferença dos mais experientes para os menos, é a paciência e conhecimento para ler e entender os erros. Nessa seção tentamos abordar os principais pontos para aprender a conviver com os erros, e principalmente, como resolvê-los, sem precisar da ajuda de um adulto, digo, alguém mais experiente.
-
-### Procurando e entendendo erros
-O processo de procurar erros em seu código se chama "debugging" e é um exercício fundamental para aprender o funcionamento da linguagem R ou qualquer outra linguagem de programação, além de algumas vezes ser um pouco massante. 
-
-Neste tópico, listamos os principais pontos para procurar erros nos códidos de um script R.
-
-#### Certifique-se que leu e entendeu a mensagem de erro
-
-Ler e entender a mensagem de erro que o R devolve no console pode parecer óbvio num primeiro momento, mas geralmente é a última coisa que fazemos quando estamos iniciando a utilizar o R. 
-
-Geralmente as mensagens não são muito claras num primeiro momento, mas depois que entendemos o que elas querem dizer, podemos facilmente voltar para o script e tentar achar o motivo do erro.
-
-Seguem as principais mensagens de erro e uma explicação simples:
-
-> **1. 'could not find function'**. Este erro ocorre quando um pacote R não é carregado corretamente ou devido a um objeto ausente, como erro ortográfico nas funções ou nome do conjunto de dados
-
-> **2. 'Error in if'**. Geralmente significa a declaração lógica em "if (xxx) { …" não está produzindo um valor lógico.
-
-> **3. 'object not found'**. Este erro ocorre quando o objeto específico usado no código não existe [está vazio].
-
-> **4. 'cannot open the connection'**. Pode haver duas razões para estarmos recebendo este erro: (i) A file/connection can't be opened because R can't find it (geralmente erro na definição do diretório) e; (ii) Failure in .onLoad() (um pacote não consegue encontrar uma dependência do sistema).
-
-> **5. 'subscript out of bounds'**. É provável que esse erro ocorre quando se usa loops aninhados incorretamente no código. Imagino você ter um vetor chamado "vetor" com 10 valores, e tentar acessar vetor[11].
-
-> **6. 'non-numeric argument to a binary operator'**. Isso acontece quando misturamos diferentes valores de vetor no cálculo, por exemplo: numeric x character.
-
-> **7. 'replacement has'**. Este erro ocorre quando se tenta atribuir um vetor de valores a um subconjunto de um objeto existente e os comprimentos não correspondem.
-
-#### Certifique-se que instalou e carregou os pacotes das funções que irá utilizar
-
-Pacotes são coleções de funções que realizam importação, manipulação e visualização de formatos de dados específicos ou que realizam análises específicas. Esse erro é bastante comum. É interessante utilizar essas duas estratégias para evitar esse tipo de erro:
-
-> 1. iniciar o script sempre listando todos os pacotes que irá utilizar
-
-> 2. sempre que usar a função de um pacote que carregar, fazê-lo dessa forma (e.g. `car::Anova())`. O operador "::" diz que estamos usando a função `Anova()` do pacote `car`
-
-#### Certifique-se que definiu o diretório correto de onde quer importar ou exportar seus dado
-
-Esse erro também é muito comum, principalmente de usuários iniciantes. Utilizamos a função `setwd("/home/usuario")` para indicar que queremos importar e/ou exportar arquivos para esse diretório: `/home/usuario`. 
-
-Para verificar se esse é mesmo o diretório que queremos, podemos utilizar a função `getwd()` para retornar o endereço do diretório ou as funções `dir()` e `list.files()` para listar os arquivos no diretório. 
-
-Há uma versão mais moderna dessa abordagem, que é utilizar o pacote `here`, seguindo uma ideia de facilitar a reprodutibilidade dos códigos quando enviados para outros usuários.
-
-#### Certifique-se que sua planilha está com separação de decimais e colunas corretos
-
-Esse aqui é um erro sempre complicado… Dependendo do idioma, a separação de decimais e colunas mudam numa planilha eletrônica:
-
-> **inglês**: separação de decimais é feita por ponto (.) e a separação das colunas é feita por vírgula (,)
-
-> **português**: separação de decimais é feita por vírgula (,) e a separação das colunas é feita por ponto-vírgula (;)
-
-O R tende a lidar bem com essas diferença e você pode, por exemplo, utilizar a função `read.csv()` para uma planilha configurada e salva no formato em inglês [decimal – ponto (.) e coluna – vírgula (,)].
-
-Para uma planilha salva no formato em português [decimal – ponto (.) e coluna – vírgula (,)], podemos utilizar a função `read.csv2()`. Entretanto, sempre verifique sua planilha antes de importá-la para o R.
-
-Ainda podemos utilizar as funções `str()` ou `glimpse()`. Essas funções devolvem no console a estrutura dos dados, indicando o modo de cada coluna ("numeric", "character", "logical", "factor", …) e uma amostra dos dados. Se o str() mostra que, por exemplo, aquilo que era para ser "numeric" é "factor", isso indica que ou o separador decimal está errado, ou que falta um argumento "header = TRUE" na função de importar os dados para garantir que a primeira linha se torne o nome das colunas. 
-
-#### Certifique-se que os arquivos que irão ser importados não estão corrompidos
-
-Esse erro não é tão comum, mas pode acontecer. Geralmente na realização do download ou na cópia de arquivos grandes pode haver erros e gerar arquivos corrompidos. Então, se houver erro ao importar um arquivo, importe o mesmo em outros softwares para verificar, como abrir uma planilha eletrônica (Excel ou Calc), arquivos geoespaciais (ArcGIS ou QGIS), e outros formatos em softwares específicos.
-
-#### Certifique-se que não digitou algum comando errado
-
-Ao contrário do anterior, esse erro é um dos mais comuns… Geralmente nome de funções erradas – esquecer letras ou alguma letra maiúscula, esquecer de fechar parênteses ou aspas, esquecer um argumento da função, enfim, os tipos de erros aqui podem ser diversos. 
-
-Entretanto, no console do RStudio podemos ver esse erro com certa facilidade, porque o RStudio tende a indicar esse tipo de erro nos trazendo que a função não existe ou que faltaram aspas ou parênteses. Outros editores, como o [Notepad++](https://notepad-plus-plus.org/) e o [SublimeText](https://www.sublimetext.com/), também possuem funções que ajudam a encontrar certos erros no código.
-
-#### Certifique-se que a atribuição foi feita corretamente
-
-Esse é o erro de longe mais comum. Pode ser que atribuímos os dados erroneamente com o mesmo nome, ou que chamamos um objeto com uma letra maiúscula ou equívocos nesse sentido. Recomendamos verificar todas as atribuições feitas, simplesmente repetindo o objeto logo em seguida da atribuição e verificando se a atribuição foi feita corretamente. Isso tende a deixar meus códigos mais extensos, mas garante que todas as atribuições foram feitas corretamente. Por exemplo:
-
-```{r,eval=FALSE}
-dados <- read.csv("dados.csv")
-dados
-```
-
-#### Certifique-se que a Classe do objeto é a mesma requerida pela função
-
-Esse erro é bastante comum e acredito ser o mais difícil de entender e resolver. Ele exige dois conhecimentos que geralmente demoram para serem assimilados pelo usuário iniciante:
-
-> 1. identificar e saber a classe do objeto
-
-> 2. classe de entrada do objeto na função
-
-Todo objeto criado a partir de uma atribuição no R (`<-`) possui uma classe, e essa classe vai depender geralmente da saída da função que o criou. Por exemplo, quando importamos dados de um `.csv` para o R, geralmente utilizamos:
-
-```{r,eval=FALSE}
-dados <- read.csv("dados.csv")
-dados
-class(dados)
-"data.frame"
-```
-
-A classe desse objeto "dados" é "data.frame". Por exemplo, a função `ggplot()` do pacote `ggplot2`, exige que a entrada do objeto contendo os dados que irão fazer um gráfico seja um "data.frame". Logo, se meus dados foram atribuídos a um objeto com a classe "matrix", terei que utilizar a função `as.data.frame()` para converter a classe desse objeto para "data.frame" e assim poder usar meus dados na função `ggplot()`.
-
-É fundamental estudar e entender as classes dos objetos no R. Uma vez que esse passo é entendido, fica muito mais fácil utilizar a linguagem. Recomendamos esse [site](http://venus.ifca.unican.es/Rintro/dataStruct.html).
-
-### Tentando resolver seus próprios erros
-
-Uma vez que tenhamos entendido e tentado resolver os erros de todas as formas: verificar os pacotes, verificar o diretório, planilhas, dados, todas as linhas de código, o nome dos objetos atribuídos e se a classe desse objeto está correta, e o erro ainda persiste, bem, esse é o momento de ler e procurar pelo erro encontrado.
-
-#### Leia a documentação das funções
-
-A função `help()` ou simplesmente `?` abre uma aba no RStudio ou uma aba no navegador da internet com a página de ajuda daquela função que está devolvendo o erro. 
-
-O Help fornece descrições detalhadas dos tópicos, funções e argumentos do R, logo é possível entender exatamente o que a função faz, quais são os tipos de entradas e o que de ser a saída. Note também que há no final dessa página uma parte do código para você reproduzir. Faço-o, examine e compare.
-
-Além do Help, é possível ler materiais específicos de um pacote através de:
-
-> [**1. Vignettes**](https://r-pkgs.org/vignettes.html): que possuem um tutorial bastante detalhado de como usar um certo pacote
-
-> [**2. CheatSheets**](https://rstudio.com/resources/cheatsheets/): que são cartões de referências resumindo todas as funções e funcionalidade de um pacote
-
-#### Faça buscas extensivas no Google e no Stack Overflow
-
-É muito difícil imaginar a vida sem o Google© ou outro buscador, pois essas bases nos retornam uma grande quantidade de informação. Entretanto, para melhorar esse retorno, use "R" ou "R <pacote>" e a mensagem de erro.
-
-> "R subscript out of bounds"
-
-Além disso, há outros sites que podem ser especificamente interessantes, como o [RSeek](https://rseek.org/), [R FAQ (Frequently Asked Questions on R)](https://cran.r-project.org/doc/FAQ/R-FAQ.html) e [Stack Overflow](https://stackoverflow.com/).
-
-Para ler mais detalhes sobre como ter ajuda no R, recomendamos esta leitura sobre ajuda no R: [Getting Help with R](https://www.r-project.org/help.html).
-
-### Idealmente, como pedir ajuda?
-
-Depois de verificar todos os possíveis problemas mais simples, e depois de vasculhar a internet sem sucesso, provavelmente você estará diante de um erro novo… Isso é ótimo e péssimo ao mesmo tempo: muito provavelmente sua dúvida irá melhorar a comunidade R, porque ela ainda não foi encontrada ou solucionada, e provavelmente não há uma solução trivial.
-
-Nesses casos, a primeira coisa à se fazer antes de pedir ajuda é tentar reproduzir seu erro com uma parte pequena do código e dos dados. Inicie um projeto no RStudio totalmente novo e torne-o bem pequeno para que você possa isolar seu erro. Copie o código com a parte de erro do seu projeto existente para reproduzir o erro ou apenas tente codificá-lo do zero, sem todo o excesso de fluência do seu projeto principal. Se você não conseguir reproduzir o erro, terá encontrado uma pista sobre o que está acontecendo com o erro em seu código. Se você PODE reproduzir o erro, ótimo, porque isso o ajudará na próxima etapa.
-
-Há uma série de dicas do próprio R e do Stack Overflow para tornar seu código o mais reprodutível possível, aumentando assim as chances de respostas:
-
-> [Posting Guide: How to ask good questions that prompt useful answers](https://www.r-project.org/posting-guide.html)
-
-> [How do I ask a good question?](https://stackoverflow.com/help/how-to-ask)
-
-> [How to make a great R reproducible example](https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example)
-
-> [How to create a Minimal, Reproducible Example](https://stackoverflow.com/help/minimal-reproducible-example)
-
-Além disso, tente padronizar seu código utilizando o [Style Guide](adv-r.had.co.nz/Style.html) do R. Isso também ajuda a tornar os códigos mais reprodutíveis e padronizados por toda a comunidade de usuários de R.
-
-Nessa etapa final, monte um conjunto de dois conjuntos de arquivos (script e dados), comprima (preferencialmente .zip) e só depois envie pedindo ajuda. Isso vai facilitar muito a vida de quem está tentando ajudar.

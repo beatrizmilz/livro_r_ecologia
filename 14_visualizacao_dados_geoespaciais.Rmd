@@ -214,7 +214,7 @@ O pacote *sf* facilitou muito a forma de trabalhar com vetores no R, sendo que a
 
 Os tipos de geometrias apresentadas são representadas por diferentes classes: `POINT`, `LINESTRING` e `POLYGON` para apenas uma feição de cada tipo de geometria; `MULTIPOINT`, `MULTILINESTRING` e `MULTIPOLYGON` para várias feições de cada tipo de geometria e; `GEOMETRYCOLLECTION` para várias feições e tipos de geometrias (Figura \@ref(fig:fig-vetor-sf-classes)).
 
-```{r fig-vetor-sf-classes, fig.align='center', fig.cap="Tipos de classes suportadas pelo pacote *sf*. Fonte: Lovelace, Nowosad & Muenchow (2019).", out.width="100%", echo=FALSE}
+```{r fig-vetor-sf-classes, fig.align='center', fig.cap="Tipos de classes suportadas pelo pacote *sf*. Fonte: Lovelace, Nowosad & Muenchow (2019).", out.width="50%", echo=FALSE}
 include_graphics("img/sf-classes.png")
 ```
 

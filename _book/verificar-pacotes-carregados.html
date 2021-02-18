@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 18 verificar pacotes carregados | Introdução ao R com aplicações em biodiversidade e conservação</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 18 verificar pacotes carregados | Introdução ao R com aplicações em biodiversidade e conservação" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 18 verificar pacotes carregados | Introdução ao R com aplicações em biodiversidade e conservação" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+
+
+<meta name="date" content="2021-02-17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="raiz-e-atribuir.html"/>
+<link rel="next" href="verificar-pacotes-instalados.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Introdução ao R com aplicações em biodiversidade e conservação</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Pré-requisitos</a></li>
+<li class="chapter" data-level="2" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html"><i class="fa fa-check"></i><b>2</b> Pré-requisitos</a></li>
+<li class="chapter" data-level="3" data-path="introdução.html"><a href="introdução.html"><i class="fa fa-check"></i><b>3</b> Introdução</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introdução.html"><a href="introdução.html#histórico-deste-livro"><i class="fa fa-check"></i><b>3.1</b> Histórico deste livro</a></li>
+<li class="chapter" data-level="3.2" data-path="introdução.html"><a href="introdução.html#objetivo-deste-livro"><i class="fa fa-check"></i><b>3.2</b> Objetivo deste livro</a></li>
+<li class="chapter" data-level="3.3" data-path="introdução.html"><a href="introdução.html#o-que-você-não-encontrará-neste-livro"><i class="fa fa-check"></i><b>3.3</b> O que você não encontrará neste livro</a></li>
+<li class="chapter" data-level="3.4" data-path="introdução.html"><a href="introdução.html#por-que-usar-o-r"><i class="fa fa-check"></i><b>3.4</b> Por que usar o R?</a></li>
+<li class="chapter" data-level="3.5" data-path="introdução.html"><a href="introdução.html#como-usar-este-livro"><i class="fa fa-check"></i><b>3.5</b> Como usar este livro</a></li>
+<li class="chapter" data-level="3.6" data-path="introdução.html"><a href="introdução.html#voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes"><i class="fa fa-check"></i><b>3.6</b> Voltando ao básico: como dominar a arte de fazer perguntas cientificamente relevantes</a></li>
+<li class="chapter" data-level="3.7" data-path="introdução.html"><a href="introdução.html#introdução-1"><i class="fa fa-check"></i><b>3.7</b> Introdução</a></li>
+<li class="chapter" data-level="3.8" data-path="introdução.html"><a href="introdução.html#perguntas-devem-preceder-as-análises-estatísticas"><i class="fa fa-check"></i><b>3.8</b> Perguntas devem preceder as análises estatísticas</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="introdução.html"><a href="introdução.html#um-bestiário1-para-o-teste-de-hipóteses-você-está-fazendo-a-pergunta-certa"><i class="fa fa-check"></i><b>3.8.1</b> Um bestiário[^1] para o teste de hipóteses (Você está fazendo a pergunta certa?)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="introdução.html"><a href="introdução.html#fluxograma-conectando-variáveis-para-melhorar-o-desenho-experimental-e-as-análises-estatísticas"><i class="fa fa-check"></i><b>3.9</b> Fluxograma: Conectando Variáveis para Melhorar o desenho experimental e as análises estatísticas</a></li>
+<li class="chapter" data-level="3.10" data-path="introdução.html"><a href="introdução.html#questões-fundamentais-em-etnobiologia-ecologia-e-conservação"><i class="fa fa-check"></i><b>3.10</b> Questões fundamentais em etnobiologia, ecologia e conservação</a></li>
+<li class="chapter" data-level="3.11" data-path="introdução.html"><a href="introdução.html#considerações-finais"><i class="fa fa-check"></i><b>3.11</b> Considerações Finais</a></li>
+<li class="chapter" data-level="3.12" data-path="introdução.html"><a href="introdução.html#referências"><i class="fa fa-check"></i><b>3.12</b> Referências</a></li>
+<li class="chapter" data-level="3.13" data-path="introdução.html"><a href="introdução.html#principais-erros-de-iniciantes-e-a-melhor-forma-de-pedir-ajuda"><i class="fa fa-check"></i><b>3.13</b> Principais erros de iniciantes e a melhor forma de pedir ajuda</a>
+<ul>
+<li class="chapter" data-level="3.13.1" data-path="introdução.html"><a href="introdução.html#procurando-e-entendendo-erros"><i class="fa fa-check"></i><b>3.13.1</b> Procurando e entendendo erros</a></li>
+<li class="chapter" data-level="3.13.2" data-path="introdução.html"><a href="introdução.html#tentando-resolver-seus-próprios-erros"><i class="fa fa-check"></i><b>3.13.2</b> Tentando resolver seus próprios erros</a></li>
+<li class="chapter" data-level="3.13.3" data-path="introdução.html"><a href="introdução.html#idealmente-como-pedir-ajuda"><i class="fa fa-check"></i><b>3.13.3</b> Idealmente, como pedir ajuda?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="intro-r.html"><a href="intro-r.html"><i class="fa fa-check"></i><b>4</b> Introdução à linguagem R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="intro-r.html"><a href="intro-r.html#introdução-2"><i class="fa fa-check"></i><b>4.1</b> Introdução</a></li>
+<li class="chapter" data-level="4.2" data-path="intro-r.html"><a href="intro-r.html#r-e-rstudio"><i class="fa fa-check"></i><b>4.2</b> R e RStudio</a></li>
+<li class="chapter" data-level="4.3" data-path="intro-r.html"><a href="intro-r.html#funcionamento-da-linguagem-r"><i class="fa fa-check"></i><b>4.3</b> Funcionamento da linguagem R</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="intro-r.html"><a href="intro-r.html#console"><i class="fa fa-check"></i><b>4.3.1</b> Console</a></li>
+<li class="chapter" data-level="4.3.2" data-path="intro-r.html"><a href="intro-r.html#scripts"><i class="fa fa-check"></i><b>4.3.2</b> Scripts</a></li>
+<li class="chapter" data-level="4.3.3" data-path="intro-r.html"><a href="intro-r.html#operadores"><i class="fa fa-check"></i><b>4.3.3</b> Operadores</a></li>
+<li class="chapter" data-level="4.3.4" data-path="intro-r.html"><a href="intro-r.html#objetos-variáveis"><i class="fa fa-check"></i><b>4.3.4</b> Objetos (variáveis)</a></li>
+<li class="chapter" data-level="4.3.5" data-path="intro-r.html"><a href="intro-r.html#funções"><i class="fa fa-check"></i><b>4.3.5</b> Funções</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="intro-r.html"><a href="intro-r.html#na"><i class="fa fa-check"></i><b>4.4</b> [1] NA</a></li>
+<li class="chapter" data-level="4.5" data-path="intro-r.html"><a href="intro-r.html#section"><i class="fa fa-check"></i><b>4.5</b> [1] 6</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="funcoes-argumentos-como-valores.html"><a href="funcoes-argumentos-como-valores.html"><i class="fa fa-check"></i><b>5</b> funcoes - argumentos como valores</a></li>
+<li class="chapter" data-level="6" data-path="soma.html"><a href="soma.html"><i class="fa fa-check"></i><b>6</b> soma</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="soma.html"><a href="soma.html#section-1"><i class="fa fa-check"></i><b>6.1</b> [1] 12</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="produto.html"><a href="produto.html"><i class="fa fa-check"></i><b>7</b> produto</a></li>
+<li class="chapter" data-level="8" data-path="funcoes-argumentos-como-objetos.html"><a href="funcoes-argumentos-como-objetos.html"><i class="fa fa-check"></i><b>8</b> funcoes - argumentos como objetos</a></li>
+<li class="chapter" data-level="9" data-path="soma-1.html"><a href="soma-1.html"><i class="fa fa-check"></i><b>9</b> soma</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="soma-1.html"><a href="soma-1.html#section-2"><i class="fa fa-check"></i><b>9.1</b> [1] 12</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="produto-1.html"><a href="produto-1.html"><i class="fa fa-check"></i><b>10</b> produto</a></li>
+<li class="chapter" data-level="11" data-path="funcoes-nome-dos-argumentos.html"><a href="funcoes-nome-dos-argumentos.html"><i class="fa fa-check"></i><b>11</b> funcoes - nome dos argumentos</a></li>
+<li class="chapter" data-level="12" data-path="repeticao-todos.html"><a href="repeticao-todos.html"><i class="fa fa-check"></i><b>12</b> repeticao - todos</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="repeticao-todos.html"><a href="repeticao-todos.html#section-3"><i class="fa fa-check"></i><b>12.1</b> [1] 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="repeticao-cada.html"><a href="repeticao-cada.html"><i class="fa fa-check"></i><b>13</b> repeticao - cada</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="repeticao-cada.html"><a href="repeticao-cada.html#atribuicao-dos-resultados"><i class="fa fa-check"></i><b>13.1</b> atribuicao dos resultados</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="repeticao-todos-1.html"><a href="repeticao-todos-1.html"><i class="fa fa-check"></i><b>14</b> repeticao - todos</a></li>
+<li class="chapter" data-level="15" data-path="criar-dois-objetos.html"><a href="criar-dois-objetos.html"><i class="fa fa-check"></i><b>15</b> criar dois objetos</a></li>
+<li class="chapter" data-level="16" data-path="somar-e-atribuir.html"><a href="somar-e-atribuir.html"><i class="fa fa-check"></i><b>16</b> somar e atribuir</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="somar-e-atribuir.html"><a href="somar-e-atribuir.html#section-4"><i class="fa fa-check"></i><b>16.1</b> [1] 5</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="raiz-e-atribuir.html"><a href="raiz-e-atribuir.html"><i class="fa fa-check"></i><b>17</b> raiz e atribuir</a>
+<ul>
+<li class="chapter" data-level="17.0.1" data-path="raiz-e-atribuir.html"><a href="raiz-e-atribuir.html#pacotes"><i class="fa fa-check"></i><b>17.0.1</b> Pacotes</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="verificar-pacotes-carregados.html"><a href="verificar-pacotes-carregados.html"><i class="fa fa-check"></i><b>18</b> verificar pacotes carregados</a></li>
+<li class="chapter" data-level="19" data-path="verificar-pacotes-instalados.html"><a href="verificar-pacotes-instalados.html"><i class="fa fa-check"></i><b>19</b> verificar pacotes instalados</a></li>
+<li class="chapter" data-level="20" data-path="instalar-pacotes.html"><a href="instalar-pacotes.html"><i class="fa fa-check"></i><b>20</b> instalar pacotes</a></li>
+<li class="chapter" data-level="21" data-path="carregar-pacotes.html"><a href="carregar-pacotes.html"><i class="fa fa-check"></i><b>21</b> carregar pacotes</a></li>
+<li class="chapter" data-level="22" data-path="instalar-pacote-devtools.html"><a href="instalar-pacote-devtools.html"><i class="fa fa-check"></i><b>22</b> instalar pacote devtools</a></li>
+<li class="chapter" data-level="23" data-path="instalar-pacote-do-github.html"><a href="instalar-pacote-do-github.html"><i class="fa fa-check"></i><b>23</b> instalar pacote do github</a></li>
+<li class="chapter" data-level="24" data-path="atualizacao-dos-pacotes-instalados.html"><a href="atualizacao-dos-pacotes-instalados.html"><i class="fa fa-check"></i><b>24</b> atualizacao dos pacotes instalados</a>
+<ul>
+<li class="chapter" data-level="24.0.1" data-path="atualizacao-dos-pacotes-instalados.html"><a href="atualizacao-dos-pacotes-instalados.html#ajuda-help"><i class="fa fa-check"></i><b>24.0.1</b> Ajuda (help)</a></li>
+<li class="chapter" data-level="24.0.2" data-path="atualizacao-dos-pacotes-instalados.html"><a href="atualizacao-dos-pacotes-instalados.html#citações"><i class="fa fa-check"></i><b>24.0.2</b> Citações</a></li>
+<li class="chapter" data-level="24.1" data-path="atualizacao-dos-pacotes-instalados.html"><a href="atualizacao-dos-pacotes-instalados.html#citacao-do-r-e-dos-pacotes"><i class="fa fa-check"></i><b>24.1</b> citacao do r e dos pacotes</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="citacao-do-r.html"><a href="citacao-do-r.html"><i class="fa fa-check"></i><b>25</b> citacao do R</a></li>
+<li class="chapter" data-level="26" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html"><i class="fa fa-check"></i><b>26</b> citacao dos pacotes</a>
+<ul>
+<li class="chapter" data-level="26.0.1" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#principais-erros-dos-inciantes"><i class="fa fa-check"></i><b>26.0.1</b> Principais erros dos inciantes</a></li>
+<li class="chapter" data-level="26.1" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#estrutura-e-manipulação-de-dados"><i class="fa fa-check"></i><b>26.1</b> Estrutura e manipulação de dados</a>
+<ul>
+<li class="chapter" data-level="26.1.1" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#atributo-dos-objetos"><i class="fa fa-check"></i><b>26.1.1</b> Atributo dos objetos</a></li>
+<li class="chapter" data-level="26.1.2" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#modo-dos-objetos-numeric-character-e-logical"><i class="fa fa-check"></i><b>26.1.2</b> Modo dos objetos (numeric, character e logical)</a></li>
+<li class="chapter" data-level="26.1.3" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#estrutura-dos-objetos"><i class="fa fa-check"></i><b>26.1.3</b> Estrutura dos objetos</a></li>
+<li class="chapter" data-level="26.1.4" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#manipulação-de-dados-unidimensionais"><i class="fa fa-check"></i><b>26.1.4</b> Manipulação de dados unidimensionais</a></li>
+<li class="chapter" data-level="26.1.5" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#manipulação-de-dados-bidimensionais"><i class="fa fa-check"></i><b>26.1.5</b> Manipulação de dados bidimensionais</a></li>
+<li class="chapter" data-level="26.1.6" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#valores-faltantes-e-especiais"><i class="fa fa-check"></i><b>26.1.6</b> Valores faltantes e especiais</a></li>
+<li class="chapter" data-level="26.1.7" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#diretório-de-trabalho"><i class="fa fa-check"></i><b>26.1.7</b> Diretório de trabalho</a></li>
+<li class="chapter" data-level="26.1.8" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#importar-dados"><i class="fa fa-check"></i><b>26.1.8</b> Importar dados</a></li>
+<li class="chapter" data-level="26.1.9" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#conferir-e-manejar-dados-importados"><i class="fa fa-check"></i><b>26.1.9</b> Conferir e manejar dados importados</a></li>
+<li class="chapter" data-level="26.1.10" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#exportar-dados"><i class="fa fa-check"></i><b>26.1.10</b> Exportar dados</a></li>
+</ul></li>
+<li class="chapter" data-level="26.2" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#introdução-ao-tidyverse"><i class="fa fa-check"></i><b>26.2</b> Introdução ao tidyverse</a>
+<ul>
+<li class="chapter" data-level="26.2.1" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#tidyverse"><i class="fa fa-check"></i><b>26.2.1</b> tidyverse</a></li>
+<li class="chapter" data-level="26.2.2" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#magrittr-pipe--"><i class="fa fa-check"></i><b>26.2.2</b> magrittr (pipe - %&gt;%)</a></li>
+<li class="chapter" data-level="26.2.3" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#readr"><i class="fa fa-check"></i><b>26.2.3</b> readr</a></li>
+<li class="chapter" data-level="26.2.4" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#readxl-e-writexl"><i class="fa fa-check"></i><b>26.2.4</b> readxl e writexl</a></li>
+<li class="chapter" data-level="26.2.5" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#tibble"><i class="fa fa-check"></i><b>26.2.5</b> tibble</a></li>
+<li class="chapter" data-level="26.2.6" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#tidyr"><i class="fa fa-check"></i><b>26.2.6</b> tidyr</a></li>
+<li class="chapter" data-level="26.2.7" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#dplyr"><i class="fa fa-check"></i><b>26.2.7</b> dplyr</a></li>
+<li class="chapter" data-level="26.2.8" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#stringr"><i class="fa fa-check"></i><b>26.2.8</b> stringr</a></li>
+<li class="chapter" data-level="26.2.9" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#forcats"><i class="fa fa-check"></i><b>26.2.9</b> forcats</a></li>
+<li class="chapter" data-level="26.2.10" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#lubridate"><i class="fa fa-check"></i><b>26.2.10</b> lubridate</a></li>
+<li class="chapter" data-level="26.2.11" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#purrr"><i class="fa fa-check"></i><b>26.2.11</b> purrr</a></li>
+</ul></li>
+<li class="chapter" data-level="26.3" data-path="citacao-dos-pacotes.html"><a href="citacao-dos-pacotes.html#material-de-r"><i class="fa fa-check"></i><b>26.3</b> Material de R</a></li>
+</ul></li>
+<li class="chapter" data-level="27" data-path="gráficos.html"><a href="gráficos.html"><i class="fa fa-check"></i><b>27</b> Gráficos</a></li>
+<li class="chapter" data-level="28" data-path="estatística-básica.html"><a href="estatística-básica.html"><i class="fa fa-check"></i><b>28</b> Estatística básica</a>
+<ul>
+<li class="chapter" data-level="28.1" data-path="estatística-básica.html"><a href="estatística-básica.html#teste-t-de-student-para-duas-amostras-independentes"><i class="fa fa-check"></i><b>28.1</b> Teste T (de Student) para duas amostras independentes</a>
+<ul>
+<li class="chapter" data-level="28.1.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise"><i class="fa fa-check"></i><b>28.1.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="28.1.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise"><i class="fa fa-check"></i><b>28.1.2</b> Análise</a></li>
+<li class="chapter" data-level="28.1.3" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-1"><i class="fa fa-check"></i><b>28.1.3</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="28.2" data-path="estatística-básica.html"><a href="estatística-básica.html#teste-t-para-amostras-pareadas"><i class="fa fa-check"></i><b>28.2</b> Teste T para amostras pareadas</a>
+<ul>
+<li class="chapter" data-level="28.2.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-1"><i class="fa fa-check"></i><b>28.2.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="28.2.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-2"><i class="fa fa-check"></i><b>28.2.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="28.3" data-path="estatística-básica.html"><a href="estatística-básica.html#correlação-de-pearson"><i class="fa fa-check"></i><b>28.3</b> Correlação de Pearson</a>
+<ul>
+<li class="chapter" data-level="28.3.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-2"><i class="fa fa-check"></i><b>28.3.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="28.3.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-3"><i class="fa fa-check"></i><b>28.3.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="28.4" data-path="estatística-básica.html"><a href="estatística-básica.html#regressão-simples"><i class="fa fa-check"></i><b>28.4</b> Regressão Simples</a>
+<ul>
+<li class="chapter" data-level="28.4.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-3"><i class="fa fa-check"></i><b>28.4.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="28.4.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-4"><i class="fa fa-check"></i><b>28.4.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="28.5" data-path="estatística-básica.html"><a href="estatística-básica.html#regressão-múltipla"><i class="fa fa-check"></i><b>28.5</b> Regressão Múltipla</a>
+<ul>
+<li class="chapter" data-level="28.5.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-4"><i class="fa fa-check"></i><b>28.5.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="28.5.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-5"><i class="fa fa-check"></i><b>28.5.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="28.6" data-path="estatística-básica.html"><a href="estatística-básica.html#análises-de-variância-anova"><i class="fa fa-check"></i><b>28.6</b> Análises de Variância (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="28.6.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-5"><i class="fa fa-check"></i><b>28.6.1</b> Backgorund da análise</a></li>
+</ul></li>
+<li class="chapter" data-level="28.7" data-path="estatística-básica.html"><a href="estatística-básica.html#anova-de-um-fator"><i class="fa fa-check"></i><b>28.7</b> ANOVA de um fator</a>
+<ul>
+<li class="chapter" data-level="28.7.1" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-6"><i class="fa fa-check"></i><b>28.7.1</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="28.8" data-path="estatística-básica.html"><a href="estatística-básica.html#anova-de-dois-fatores-ou-anova-fatorial"><i class="fa fa-check"></i><b>28.8</b> ANOVA de dois fatores ou Anova fatorial</a>
+<ul>
+<li class="chapter" data-level="28.8.1" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-7"><i class="fa fa-check"></i><b>28.8.1</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="28.9" data-path="estatística-básica.html"><a href="estatística-básica.html#anova-em-blocos-aleatorizados"><i class="fa fa-check"></i><b>28.9</b> ANOVA em blocos aleatorizados</a>
+<ul>
+<li class="chapter" data-level="28.9.1" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-8"><i class="fa fa-check"></i><b>28.9.1</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="28.10" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-de-covariância-ancova"><i class="fa fa-check"></i><b>28.10</b> Análise de covariância (ANCOVA)</a>
+<ul>
+<li class="chapter" data-level="28.10.1" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-9"><i class="fa fa-check"></i><b>28.10.1</b> Análise</a></li>
+<li class="chapter" data-level="28.10.2" data-path="estatística-básica.html"><a href="estatística-básica.html#para-se-aprofundar"><i class="fa fa-check"></i><b>28.10.2</b> Para se aprofundar</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="29" data-path="análises-univariadas-glm.html"><a href="análises-univariadas-glm.html"><i class="fa fa-check"></i><b>29</b> Análises univariadas - GLM</a></li>
+<li class="chapter" data-level="30" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html"><i class="fa fa-check"></i><b>30</b> Introdução à Análises Multidimensionais</a>
+<ul>
+<li class="chapter" data-level="30.1" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#backgorund-da-análise-6"><i class="fa fa-check"></i><b>30.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="30.2" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#exemplo-1"><i class="fa fa-check"></i><b>30.2</b> Exemplo 1:</a>
+<ul>
+<li class="chapter" data-level="30.2.1" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#explicação-da-análise"><i class="fa fa-check"></i><b>30.2.1</b> Explicação da análise</a></li>
+<li class="chapter" data-level="30.2.2" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#análise-10"><i class="fa fa-check"></i><b>30.2.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="30.3" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#exemplo-2"><i class="fa fa-check"></i><b>30.3</b> Exemplo 2:</a></li>
+<li class="chapter" data-level="30.4" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#backgorund-da-análise-7"><i class="fa fa-check"></i><b>30.4</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="30.5" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#exemplo-1-1"><i class="fa fa-check"></i><b>30.5</b> Exemplo 1:</a>
+<ul>
+<li class="chapter" data-level="30.5.1" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#explicação-da-análise-1"><i class="fa fa-check"></i><b>30.5.1</b> Explicação da análise</a></li>
+<li class="chapter" data-level="30.5.2" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#análise-11"><i class="fa fa-check"></i><b>30.5.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="30.6" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#backgorund-da-análise-8"><i class="fa fa-check"></i><b>30.6</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="30.7" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#exemplo-1-2"><i class="fa fa-check"></i><b>30.7</b> Exemplo 1:</a>
+<ul>
+<li class="chapter" data-level="30.7.1" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#explicação-da-análise-2"><i class="fa fa-check"></i><b>30.7.1</b> Explicação da análise</a></li>
+<li class="chapter" data-level="30.7.2" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#análise-12"><i class="fa fa-check"></i><b>30.7.2</b> Análise</a></li>
+<li class="chapter" data-level="30.7.3" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#para-se-aprofundar-1"><i class="fa fa-check"></i><b>30.7.3</b> Para se aprofundar</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="31" data-path="rarefação.html"><a href="rarefação.html"><i class="fa fa-check"></i><b>31</b> Rarefação</a>
+<ul>
+<li class="chapter" data-level="31.1" data-path="rarefação.html"><a href="rarefação.html#background-da-análise"><i class="fa fa-check"></i><b>31.1</b> Background da análise</a></li>
+<li class="chapter" data-level="31.2" data-path="rarefação.html"><a href="rarefação.html#exemplo-prático-1---morcegos"><i class="fa fa-check"></i><b>31.2</b> Exemplo prático 1 - Morcegos</a>
+<ul>
+<li class="chapter" data-level="31.2.1" data-path="rarefação.html"><a href="rarefação.html#explicação"><i class="fa fa-check"></i><b>31.2.1</b> Explicação</a></li>
+<li class="chapter" data-level="31.2.2" data-path="rarefação.html"><a href="rarefação.html#análise-13"><i class="fa fa-check"></i><b>31.2.2</b> Análise</a></li>
+<li class="chapter" data-level="31.2.3" data-path="rarefação.html"><a href="rarefação.html#interpretação-dos-resultados-1"><i class="fa fa-check"></i><b>31.2.3</b> Interpretação dos resultados</a></li>
+</ul></li>
+<li class="chapter" data-level="31.3" data-path="rarefação.html"><a href="rarefação.html#exemplo-prático-2---rarefação"><i class="fa fa-check"></i><b>31.3</b> Exemplo prático 2 - Rarefação</a>
+<ul>
+<li class="chapter" data-level="31.3.1" data-path="rarefação.html"><a href="rarefação.html#explicação-1"><i class="fa fa-check"></i><b>31.3.1</b> Explicação</a></li>
+<li class="chapter" data-level="31.3.2" data-path="rarefação.html"><a href="rarefação.html#análise-14"><i class="fa fa-check"></i><b>31.3.2</b> Análise</a></li>
+<li class="chapter" data-level="31.3.3" data-path="rarefação.html"><a href="rarefação.html#interpretação-dos-resultados-2"><i class="fa fa-check"></i><b>31.3.3</b> Interpretação dos resultados</a></li>
+</ul></li>
+<li class="chapter" data-level="31.4" data-path="rarefação.html"><a href="rarefação.html#para-se-aprofundar-2"><i class="fa fa-check"></i><b>31.4</b> Para se aprofundar</a></li>
+</ul></li>
+<li class="chapter" data-level="32" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html"><i class="fa fa-check"></i><b>32</b> Estimadores de Riqueza</a>
+<ul>
+<li class="chapter" data-level="32.1" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#backgorund-da-análise-9"><i class="fa fa-check"></i><b>32.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="32.2" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#estimadores-baseados-na-abundância-das-espécies"><i class="fa fa-check"></i><b>32.2</b> Estimadores baseados na abundância das espécies</a>
+<ul>
+<li class="chapter" data-level="32.2.1" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#chao-1---chao-1984-1987"><i class="fa fa-check"></i><b>32.2.1</b> CHAO 1 - (Chao 1984, 1987):</a></li>
+<li class="chapter" data-level="32.2.2" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-15"><i class="fa fa-check"></i><b>32.2.2</b> Análise</a></li>
+<li class="chapter" data-level="32.2.3" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#ace---abundance-based-coverage-estimador-chao-lee-1992-chao-et-al.-2000"><i class="fa fa-check"></i><b>32.2.3</b> ACE - <em>Abundance-based Coverage Estimador</em> (Chao &amp; Lee 1992, Chao et al. 2000):</a></li>
+<li class="chapter" data-level="32.2.4" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-16"><i class="fa fa-check"></i><b>32.2.4</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="32.3" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#estimadores-baseados-na-incidência-das-espécies"><i class="fa fa-check"></i><b>32.3</b> Estimadores baseados na incidência das espécies</a>
+<ul>
+<li class="chapter" data-level="32.3.1" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#chao-2---chao-1987"><i class="fa fa-check"></i><b>32.3.1</b> CHAO 2 - (Chao 1987):</a></li>
+<li class="chapter" data-level="32.3.2" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-17"><i class="fa fa-check"></i><b>32.3.2</b> Análise</a></li>
+<li class="chapter" data-level="32.3.3" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#jackknife-1-burnham-overton-1978-1979"><i class="fa fa-check"></i><b>32.3.3</b> JACKKNIFE 1 (Burnham &amp; Overton 1978, 1979):</a></li>
+<li class="chapter" data-level="32.3.4" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-18"><i class="fa fa-check"></i><b>32.3.4</b> Análise</a></li>
+<li class="chapter" data-level="32.3.5" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#jackknife-2-burnham-overton-1978-1979-palmer-1991"><i class="fa fa-check"></i><b>32.3.5</b> JACKKNIFE 2 (Burnham &amp; Overton 1978, 1979, Palmer 1991):</a></li>
+<li class="chapter" data-level="32.3.6" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-19"><i class="fa fa-check"></i><b>32.3.6</b> Análise</a></li>
+<li class="chapter" data-level="32.3.7" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#bootstrap-smith-van-belle-1984"><i class="fa fa-check"></i><b>32.3.7</b> BOOTSTRAP (Smith &amp; van Belle 1984):</a></li>
+<li class="chapter" data-level="32.3.8" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-20"><i class="fa fa-check"></i><b>32.3.8</b> Análise</a></li>
+<li class="chapter" data-level="32.3.9" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#interpolação-e-extrapolação-baseadas-em-rarefação-usando-amostragens-de-incidência-ou-abundância-chao-jost-2012-colwell-et-al.-2012"><i class="fa fa-check"></i><b>32.3.9</b> Interpolação e Extrapolação baseadas em rarefação usando amostragens de incidência ou abundância (Chao &amp; Jost 2012, Colwell et al. 2012):</a></li>
+<li class="chapter" data-level="32.3.10" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-21"><i class="fa fa-check"></i><b>32.3.10</b> Análise</a></li>
+<li class="chapter" data-level="32.3.11" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#para-se-aprofundar-3"><i class="fa fa-check"></i><b>32.3.11</b> Para se aprofundar</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="33" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html"><i class="fa fa-check"></i><b>33</b> Diversidade Taxonômica</a>
+<ul>
+<li class="chapter" data-level="33.1" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#diversidade-alfa-𝛂"><i class="fa fa-check"></i><b>33.1</b> Diversidade alfa (𝛂)</a></li>
+<li class="chapter" data-level="33.2" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#riqueza-de-espécies-ou-número-de-espécies"><i class="fa fa-check"></i><b>33.2</b> Riqueza de espécies ou número de espécies</a></li>
+<li class="chapter" data-level="33.3" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#diversidade-de-espécies"><i class="fa fa-check"></i><b>33.3</b> Diversidade de espécies</a></li>
+<li class="chapter" data-level="33.4" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#diagramas-de-whittaker-ou-curva-de-dominância"><i class="fa fa-check"></i><b>33.4</b> Diagramas de Whittaker ou Curva de Dominância</a></li>
+<li class="chapter" data-level="33.5" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#números-de-hill"><i class="fa fa-check"></i><b>33.5</b> Números de Hill</a></li>
+<li class="chapter" data-level="33.6" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#diversidade-beta-𝛃"><i class="fa fa-check"></i><b>33.6</b> Diversidade beta (𝛃)</a>
+<ul>
+<li class="chapter" data-level="33.6.1" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#para-se-aprofundar-4"><i class="fa fa-check"></i><b>33.6.1</b> Para se aprofundar</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="34" data-path="diversidade-filogenética.html"><a href="diversidade-filogenética.html"><i class="fa fa-check"></i><b>34</b> Diversidade filogenética</a></li>
+<li class="chapter" data-level="35" data-path="diversidade-funcional.html"><a href="diversidade-funcional.html"><i class="fa fa-check"></i><b>35</b> Diversidade funcional</a></li>
+<li class="chapter" data-level="36" data-path="dados-geograficos.html"><a href="dados-geograficos.html"><i class="fa fa-check"></i><b>36</b> Dados geográficos no R</a>
+<ul>
+<li class="chapter" data-level="36.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#introdução-3"><i class="fa fa-check"></i><b>36.1</b> Introdução</a></li>
+<li class="chapter" data-level="36.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#pré-requisitos-2"><i class="fa fa-check"></i><b>36.2</b> Pré-requisitos</a></li>
+<li class="chapter" data-level="36.3" data-path="dados-geograficos.html"><a href="dados-geograficos.html#vetor"><i class="fa fa-check"></i><b>36.3</b> Vetor</a>
+<ul>
+<li class="chapter" data-level="36.3.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#pontos"><i class="fa fa-check"></i><b>36.3.1</b> Pontos</a></li>
+<li class="chapter" data-level="36.3.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#linhas"><i class="fa fa-check"></i><b>36.3.2</b> Linhas</a></li>
+<li class="chapter" data-level="36.3.3" data-path="dados-geograficos.html"><a href="dados-geograficos.html#polígonos"><i class="fa fa-check"></i><b>36.3.3</b> Polígonos</a></li>
+<li class="chapter" data-level="36.3.4" data-path="dados-geograficos.html"><a href="dados-geograficos.html#tabela-de-atributos"><i class="fa fa-check"></i><b>36.3.4</b> Tabela de atributos</a></li>
+<li class="chapter" data-level="36.3.5" data-path="dados-geograficos.html"><a href="dados-geograficos.html#sf-principal-pacote-no-r-para-dados-vetoriais"><i class="fa fa-check"></i><b>36.3.5</b> <em>sf</em>: principal pacote no R para dados vetoriais</a></li>
+</ul></li>
+<li class="chapter" data-level="36.4" data-path="dados-geograficos.html"><a href="dados-geograficos.html#raster"><i class="fa fa-check"></i><b>36.4</b> Raster</a>
+<ul>
+<li class="chapter" data-level="36.4.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#tipos-de-raster"><i class="fa fa-check"></i><b>36.4.1</b> Tipos de raster</a></li>
+<li class="chapter" data-level="36.4.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#raster-principal-pacote-no-r-para-dados-raster"><i class="fa fa-check"></i><b>36.4.2</b> <em>raster</em>: principal pacote no R para dados raster</a></li>
+</ul></li>
+<li class="chapter" data-level="36.5" data-path="dados-geograficos.html"><a href="dados-geograficos.html#sistema-de-referência-de-coordenadas-e-unidades"><i class="fa fa-check"></i><b>36.5</b> Sistema de Referência de Coordenadas e Unidades</a>
+<ul>
+<li class="chapter" data-level="36.5.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#sistema-de-referência-de-coordenadas-geográficas"><i class="fa fa-check"></i><b>36.5.1</b> Sistema de Referência de Coordenadas Geográficas</a></li>
+<li class="chapter" data-level="36.5.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#sistema-de-referência-de-coordenadas-projetadas"><i class="fa fa-check"></i><b>36.5.2</b> Sistema de Referência de Coordenadas Projetadas</a></li>
+<li class="chapter" data-level="36.5.3" data-path="dados-geograficos.html"><a href="dados-geograficos.html#datum"><i class="fa fa-check"></i><b>36.5.3</b> Datum</a></li>
+<li class="chapter" data-level="36.5.4" data-path="dados-geograficos.html"><a href="dados-geograficos.html#sistema-de-referência-de-coordenadas-crs-no-r"><i class="fa fa-check"></i><b>36.5.4</b> Sistema de Referência de Coordenadas (CRS) no R</a></li>
+</ul></li>
+<li class="chapter" data-level="36.6" data-path="dados-geograficos.html"><a href="dados-geograficos.html#principais-fontes-de-dados-geográficos"><i class="fa fa-check"></i><b>36.6</b> Principais fontes de dados geográficos</a>
+<ul>
+<li class="chapter" data-level="36.6.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#vetor-1"><i class="fa fa-check"></i><b>36.6.1</b> Vetor</a></li>
+<li class="chapter" data-level="36.6.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#raster-1"><i class="fa fa-check"></i><b>36.6.2</b> Raster</a></li>
+<li class="chapter" data-level="36.6.3" data-path="dados-geograficos.html"><a href="dados-geograficos.html#pacotes-do-r"><i class="fa fa-check"></i><b>36.6.3</b> Pacotes do R</a></li>
+</ul></li>
+<li class="chapter" data-level="36.7" data-path="dados-geograficos.html"><a href="dados-geograficos.html#importar-e-exportar-dados-geográficos"><i class="fa fa-check"></i><b>36.7</b> Importar e exportar dados geográficos</a>
+<ul>
+<li class="chapter" data-level="36.7.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#principais-formatos-de-arquivos-geográficos"><i class="fa fa-check"></i><b>36.7.1</b> Principais formatos de arquivos geográficos</a></li>
+<li class="chapter" data-level="36.7.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#importar-dados-1"><i class="fa fa-check"></i><b>36.7.2</b> Importar dados</a></li>
+<li class="chapter" data-level="36.7.3" data-path="dados-geograficos.html"><a href="dados-geograficos.html#exportar-dados-1"><i class="fa fa-check"></i><b>36.7.3</b> Exportar dados</a></li>
+</ul></li>
+<li class="chapter" data-level="36.8" data-path="dados-geograficos.html"><a href="dados-geograficos.html#descrição-de-objetos-espaciais"><i class="fa fa-check"></i><b>36.8</b> Descrição de objetos espaciais</a>
+<ul>
+<li class="chapter" data-level="36.8.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#vetor-4"><i class="fa fa-check"></i><b>36.8.1</b> Vetor</a></li>
+<li class="chapter" data-level="36.8.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#raster-4"><i class="fa fa-check"></i><b>36.8.2</b> Raster</a></li>
+</ul></li>
+<li class="chapter" data-level="36.9" data-path="dados-geograficos.html"><a href="dados-geograficos.html#reprojeção-de-dados-geográficos"><i class="fa fa-check"></i><b>36.9</b> Reprojeção de dados geográficos</a>
+<ul>
+<li class="chapter" data-level="36.9.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#vetor-5"><i class="fa fa-check"></i><b>36.9.1</b> Vetor</a></li>
+<li class="chapter" data-level="36.9.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#raster-5"><i class="fa fa-check"></i><b>36.9.2</b> Raster</a></li>
+</ul></li>
+<li class="chapter" data-level="36.10" data-path="dados-geograficos.html"><a href="dados-geograficos.html#principais-operações-com-dados-geográficos"><i class="fa fa-check"></i><b>36.10</b> Principais operações com dados geográficos</a>
+<ul>
+<li class="chapter" data-level="36.10.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#operações-de-atributos"><i class="fa fa-check"></i><b>36.10.1</b> Operações de atributos</a></li>
+<li class="chapter" data-level="36.10.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#operações-espaciais"><i class="fa fa-check"></i><b>36.10.2</b> Operações espaciais</a></li>
+<li class="chapter" data-level="36.10.3" data-path="dados-geograficos.html"><a href="dados-geograficos.html#operações-geométricas"><i class="fa fa-check"></i><b>36.10.3</b> Operações geométricas</a></li>
+</ul></li>
+<li class="chapter" data-level="36.11" data-path="dados-geograficos.html"><a href="dados-geograficos.html#visualização-de-dados-geográficos---mapas"><i class="fa fa-check"></i><b>36.11</b> Visualização de dados geográficos - Mapas</a>
+<ul>
+<li class="chapter" data-level="36.11.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#principais-elementos-de-um-mapa"><i class="fa fa-check"></i><b>36.11.1</b> Principais elementos de um mapa</a></li>
+<li class="chapter" data-level="36.11.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#principais-pacotes-para-a-composição-de-mapas"><i class="fa fa-check"></i><b>36.11.2</b> Principais pacotes para a composição de mapas</a></li>
+<li class="chapter" data-level="36.11.3" data-path="dados-geograficos.html"><a href="dados-geograficos.html#mapas-estáticos"><i class="fa fa-check"></i><b>36.11.3</b> Mapas estáticos</a></li>
+<li class="chapter" data-level="36.11.4" data-path="dados-geograficos.html"><a href="dados-geograficos.html#mapas-animados"><i class="fa fa-check"></i><b>36.11.4</b> Mapas animados</a></li>
+<li class="chapter" data-level="36.11.5" data-path="dados-geograficos.html"><a href="dados-geograficos.html#mapas-interativos"><i class="fa fa-check"></i><b>36.11.5</b> Mapas interativos</a></li>
+</ul></li>
+<li class="chapter" data-level="36.12" data-path="dados-geograficos.html"><a href="dados-geograficos.html#exemplos-de-aplicações-de-análises-geográficas-para-dados-ecológicos"><i class="fa fa-check"></i><b>36.12</b> Exemplos de aplicações de análises geográficas para dados ecológicos</a>
+<ul>
+<li class="chapter" data-level="36.12.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#resumir-informações-de-biodiversidade-para-unidades-espaciais"><i class="fa fa-check"></i><b>36.12.1</b> Resumir informações de biodiversidade para unidades espaciais</a></li>
+<li class="chapter" data-level="36.12.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#atribuição-de-dados-climáticos-para-pontos"><i class="fa fa-check"></i><b>36.12.2</b> Atribuição de dados climáticos para pontos</a></li>
+<li class="chapter" data-level="36.12.3" data-path="dados-geograficos.html"><a href="dados-geograficos.html#predições-espaciais-de-objetos-raster"><i class="fa fa-check"></i><b>36.12.3</b> Predições espaciais de objetos raster</a></li>
+</ul></li>
+<li class="chapter" data-level="36.13" data-path="dados-geograficos.html"><a href="dados-geograficos.html#para-se-aprofundar-5"><i class="fa fa-check"></i><b>36.13</b> Para se aprofundar</a></li>
+</ul></li>
+<li class="chapter" data-level="37" data-path="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><a href="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><i class="fa fa-check"></i><b>37</b> Reprodutibilidade em pesquisa e gerenciamento de dados</a>
+<ul>
+<li class="chapter" data-level="37.1" data-path="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><a href="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html#gestão-de-projetos-acadêmicos-no-rstudio"><i class="fa fa-check"></i><b>37.1</b> Gestão de projetos acadêmicos no RStudio</a></li>
+<li class="chapter" data-level="37.2" data-path="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><a href="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html#documentos-dinâmicos-r-markdown"><i class="fa fa-check"></i><b>37.2</b> Documentos dinâmicos (R Markdown)</a></li>
+<li class="chapter" data-level="37.3" data-path="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><a href="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html#controle-de-versão-git-e-github"><i class="fa fa-check"></i><b>37.3</b> Controle de versão, Git e GitHub</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução ao R com aplicações em biodiversidade e conservação</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="verificar-pacotes-carregados" class="section level1" number="18">
+<h1><span class="header-section-number">Capítulo 18</span> verificar pacotes carregados</h1>
+<p>search()</p>
+<p>Verificar pacotes instalados</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="raiz-e-atribuir.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="verificar-pacotes-instalados.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/paternogbc/livro_r_ecologia/edit/master/04_r_tidyverse.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["livro_r_ecologia.pdf", "livro_r_ecologia.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
