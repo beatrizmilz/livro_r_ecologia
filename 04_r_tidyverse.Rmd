@@ -25,7 +25,7 @@ Apesar de podemos utilizar o R com a IDE (Ambiente de Desenvolvimento Integrado 
 
 ```{r fig-rgui, fig.align='center', fig.cap="Interface do RGui. Os números indicam: (1) script, (2) console, e (3) janela do plot.", out.width="100%", echo=FALSE}
 library(knitr)
-include_graphics("img/cap_04_rgui.png")
+include_graphics("img/cap04_rgui.png")
 ```
 
 Entretanto, desde 2011, um IDE se tornou mais popular na comunidade: o [RStudio](https://rstudio.com/) (Figura \@ref(fig:fig-rstudio)). O RStudio possui algumas características que o tornam tão popular: várias janelas de visualização, marcação e preenchimento automático do script, integração com controle de versão, dentre outras opções. Para fazer o download do RStudio, acessamos o [site](https://rstudio.com/products/rstudio/download/#download), e escolhemos o instalador com base em nosso sistema operacional. 
@@ -39,7 +39,7 @@ Nesta seção veremos o **principais conceitos** para entender como a **linguage
 Antes de iniciarmos propriamente dito, é fundamental entendermos alguns pontos sobre as janelas e o funcionamento delas no RStudio (Figura \@ref(fig:fig-rstudio)).
 
 ```{r fig-rstudio, fig.align='center', fig.cap="Interface do RStudio. Os números indicam: (1) script, (2) console, (3) janela com abas de ambiente, histórico, git, conexões, tutorial, e (4) janela com abas de arquivos, plot, pacotes, ajuda e visualizador.", out.width="100%", echo=FALSE}
-knitr::include_graphics("img/cap_04_rstudio.png")
+knitr::include_graphics("img/cap04_rstudio.png")
 ```
 
 Detalhando algumas dessas janelas, temos:
@@ -132,7 +132,7 @@ kable(data.frame(Operador = c(
     rep("Atribuição", 4),
     rep("Diversos", 4)), 
   Descrição = c(
-    "Adição", "Subtração", "Multiplicação", "Divisão", "Restante da divisão", "Quociente da divisão", "Expoente",
+    "Adição", "Subtração", "Multiplicação", "Divisão", "Resto da divisão", "Divisão inteira", "Expoente",
     "Maior", "Menor", "Maior ou igual", "Menor ou igual", "Igualdade", "Diferença",
     "Lógico NÃO", "Lógico elementar E", "Lógico elementar OU", "Lógico E", "Lógico OU", 
     "Atribuição à esquerda", "Super atribuição à esquerda", "Atribuição à direita", "Super atribuição à direita",
@@ -451,18 +451,172 @@ colSums(iris[, -5])
 
 ## Estrutura e manipulação de dados 
 
+O conhecimento sobre a **estrutura e manipulação de dados** é fundamental para ter domínio e entendimento do funcionamento da linguagem R. Nesta seção, trataremos da estrutura e manipulação de dados no R, no que ficou conhecido como modo *R Base*, em contrapartida ao *tidyverse*, tópico da próxima seção. Abordaremos temas chaves: 1) modo e estrutura de objetos, 2) manipulação de dados unidimensionais e 
+multidimensionais, 3) valores faltantes e especiais, 4) diretório de trabalho, 5) importar, conferir e exportar dados.
 
 ### Atributo dos objetos
 
+Quando fazemos **atribuições de dados** no R (`<-`), os objetos gerados possuem três características.
 
-### Modo dos objetos 
+1. **Nome**: palavra que o R reconhece os dados atribuídos
+1. **Conteúdo**: dados em si
+1. **Atributos**: modos (*natureza*) e estruturas (*organização*)
 
-numeric, character e logical
+Vamos explorar mais a fundo os **modos** e **estruturas**. Vale ressaltar que isso é uma simplificação, pois há muitas classes de objetos como funções e saídas de funções que possuem outros atributos.
 
+#### Modo dos objetos 
+
+A depender da **natureza dos elementos** que compõem os dados que foram atribuídos aos objetos, esses objetos podem ser, de forma simples um dos cinco: numérico do tipo inteiro (*interger*), numérico do tipo flutuante (*double*), texto (*character*), lógico (*logical*), e complexos (*complex*).
+
+A atribuição de números no R podem gerar dois tipos de modos: **interger** para números inteiros e **double** para números flutuantes ou com decimais. 
+
+```{r}
+# numerico double
+obj_num <- 1
+
+# modo
+mode(obj_num)
+
+# tipo
+typeof(obj_num)
+```
+
+A título de praticidade, ambos são incorporados como o modo **numeric**, com o tipo **double**, a menos que especifiquemos que seja inteiro com o a letra `L` depois do número.
+
+```{r}
+# numerico interger
+obj_num_int <- 1L
+
+# modo
+mode(obj_num_int)
+
+# tipo
+typeof(obj_num_int)
+```
+
+Além de números, podemos atribuir textos, utilizando para isso aspas `""`.
+
+```{r}
+# caracter
+obj_cha <- "a" # atencao para as aspas
+
+# modo
+mode(obj_cha)
+```
+
+Em algumas situações, precisamos indicar a ocorrência ou não de um evento. Para isso, utilizamos as palavras reservadas (`TRUE` e `FALSE`), chamadas de variáveis booleanas. Devemos nos ater para que essas palavras são com letras maiúsculas e sem aspas.
+
+```{r}
+# logico
+obj_log <- TRUE # maiusculas e sem aspas
+
+# modo
+mode(obj_log)
+```
+
+Por fim, existe um modo pouco utilizado que cria números complexos (raiz de números negativos).
+
+```{r}
+# complexo
+obj_com <- 1+1i
+
+# modo
+mode(obj_com)
+```
+
+Podemos fazer conversão entre esses modos com diversas funções.
+
+```{r eval=FALSE}
+# conversoes entre modos
+as.numeric()
+as.integer()
+as.character()
+as.logical()
+as.complex()
+```
 
 ### Estrutura dos objetos 
 
-vetor, fator, matriz, data frame, lista, funções
+Uma vez entendido a **natureza dos modos dos elementos** do objetos no R, podemos passar para o passo seguinte, e entender como esses **elementos são estruturados** dentro dos objetos.
+
+Essa estruturação irá nos contar sobre a **organização dos elementos**, com relação aos **modos e dimensionalidade** da disposição dos elementos (Figura \@ref(fig:fig-r-estruturas)). De modo bem simples, os elementos podem ser estruturados em cinco tipos:
+
+1. **Vetores e fatores**: homogênio (*um modo*) e unidimensional (*uma dimensão*) Um tipo especial de vetor são os fatores, usados para designar variáveis categóricas
+1. **Matrizes**: homogênio (*um modo*) e bidimensional (*duas dimensões*)
+1. **Arrais**: homogênio (*um modo*) e multidimensional (*mais de duas dimensões*)
+1. **Data frames**: heterogêneo (*mais de um modo*) e bidimensional (*duas dimensões*)
+1. **Listas**: heterogêneo (*mais de um modo*) e unidimensional (*uma dimensão*)
+
+```{r fig-r-estruturas, fig.align='center', fig.cap="Estruturas de dados mais comuns de R: vetores, matrizes, arrays, listas e data frames. Adaptado de: Grolemund (2014).", out.width="70%", echo=FALSE}
+knitr::include_graphics("img/cap04_estrutura_dados.png")
+```
+
+#### Vetor
+
+**Vetores** representam o **encadeamento de elementos** numa sequência unidimensionais. No Capítulo YY, vimos o conceito de variáveis aleatórios. No R, essas variáveis podem ser entendidas como vetores. Dessa forma essa estrutura de dados pode ser traduzida como medidas de uma **variável quantitativa** (discretas ou contínuas), **variável binária** (booleana - TRUE e FALSE) ou **descrição** (informações em texto).
+
+Há diversas formas de se **criar um vetor** no R: 
+
+1. Concatenando elementos com a função `c`
+1. Criando sequências unitárias `:` ou com a função `seq()`
+1. Criando repetições com a função `rep()`
+1. "Colar" palavras com uma sequência numérica com a função `paste()` ou `paste0()`
+1. Amostrando aleatoriamente elementos com a função `sample()`
+
+```{r}
+# concatenar elementos numericos
+conc <- c(15, 18, 20, 22, 18)
+
+# sequencia unitaria (x1:x2)
+sequ <- 1:10
+
+# sequencia com diferentes espacamentos 
+sequ_e <- seq(from = 0, to = 100, by = 10) 
+
+# repeticao
+repe <- rep(x = c(1, 2), times = 5)
+
+# palavra e sequencia numerica - sem separacao definida (" ")
+colar <- paste("amostra", 1:5)
+
+# amostragem aleatória - sem reposição
+amos <- sample(1:100, 10)
+```
+
+Como os vetores são homogênios, i.e., só comportam um modo, quando combinamos mais de Existe uma dominância de
+
+
+#### Fator
+
+O fator representa medidas de uma variável qualitativa, podendo ser nominal ou ordinal
+Ex.: medidas tomadas em campo ao longo de uma amostragem de 6 meses
+
+#### Matriz 
+
+A matrix representa os dados no formato de tabela, com linhas e colunas
+As linhas representam unidades amostrais (locais, transectos, parcelas) e as coluncas representam variáveis quantitativas (discretas ou contínuas) ou descrições (informações em texto)
+
+#### Arrai
+
+O array representa combinação de tabelas, com linhas, colunas e dimensões
+
+#### Data frame
+
+O data frame representa dados no formato de tabela, com linhas e colunas
+As linhas representam unidades amostrais (locais, transectos, parcelas) e as colunas representam descrições (informações em texto), variáveis quantitativas (discretas ou contínuas) e/ou variáveis qualitativas (nominais ou ordinais)
+
+#### Lista
+
+Tipo especial de vetor que aceita objetos como elementos
+Estrutura de dados utilizado para agrupar objetos
+É a saída de muitas funções que fazem análises estatísticas
+
+#### Funções
+
+Objetos criados pelo usuário e reutilizados para fazer operações específicas
+
+
+
 
 ### Manipulação de dados unidimensionais
 

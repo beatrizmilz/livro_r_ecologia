@@ -513,3 +513,11 @@ scripts
 principais-erros-dos-iniciantes
 objetos
 modo-dos-objetos
+fig:fig-r-estruturas
+fator
+matriz
+data-frame
+lista
+funções-1
+vetor-9
+arrai
