@@ -2,7 +2,7 @@
 
 ## Introdução
 
-O objetivo desta seção é **apresentar aspectos básicos da linguagem R** para que qualquer pessoa possa realizar todos os passos para a análise de dados nessa linguagem. Nela, abordaremos as questões mais básicas sobre a linguagem como: 1) instalação dos softwares (R e RStudio), 2) funcionamento da linguagem, 3) estrutura e manipulação de dados, 4) introdução ao tidyverse e 5) principais erros e como pedir ajuda. 
+O objetivo desta seção é **apresentar aspectos básicos da linguagem R** para que qualquer pessoa possa realizar todos os passos para a análise de dados nessa linguagem. Nela, abordaremos as questões mais básicas sobre a linguagem como: 1) R e RStudio, 2) funcionamento da linguagem, 3) estrutura e manipulação de objetos, 4) *tidyverse* e 5) principal material de R. 
 
 Todo processo de aprendizagem torna-se mais efetivo quando a **teoria é combinada com a prática**, então recomendamos fortemente que você leitor, acompanhe os códigos e exercícios deste livro, ao mesmo tempo que os executa em seu computador, e não só os leia passivamente. Por motivos de espaço, não abordaremos todas as questões relacionadas ao uso da linguagem R nesta seção. Logo, aconselhamos que o leitor consulte o material sugerido no final dessa seção para se aprofundar.
 
@@ -23,7 +23,7 @@ Como o R é um software livre, não existe a possibilidade de o usuário entrar 
 
 Apesar de podemos utilizar o R com a IDE (Ambiente de Desenvolvimento Integrado - *Integrated Development Environment*) RGui que vem com a instalação da linguagem, para usuários Windows (Figura \@ref(fig:fig-rgui)) ou no próprio terminal para usuários Linux e MacOS, existem alguns IDEs específicos para facilitar nosso uso dessa linguagem. 
 
-```{r fig-rgui, fig.align='center', fig.cap="Interface do RGui. Os números indicam: (1) script, (2) console, e (3) janela do plot.", out.width="100%", echo=FALSE}
+```{r fig-rgui, fig.align='center', fig.cap="Interface do RGui. Os números indicam: (1) R Script, (2) R Console, e (3) R Graphics.", out.width="100%", echo=FALSE}
 library(knitr)
 include_graphics("img/cap04_rgui.png")
 ```
@@ -38,7 +38,7 @@ Nesta seção veremos o **principais conceitos** para entender como a **linguage
 
 Antes de iniciarmos propriamente dito, é fundamental entendermos alguns pontos sobre as janelas e o funcionamento delas no RStudio (Figura \@ref(fig:fig-rstudio)).
 
-```{r fig-rstudio, fig.align='center', fig.cap="Interface do RStudio. Os números indicam: (1) script, (2) console, (3) janela com abas de ambiente, histórico, git, conexões, tutorial, e (4) janela com abas de arquivos, plot, pacotes, ajuda e visualizador.", out.width="100%", echo=FALSE}
+```{r fig-rstudio, fig.align='center', fig.cap="Interface do RStudio. Os números indicam: (1) janelas com abas de Script e R Markdown; (2) janela com abas de Console, Terminal e Jobs; (3) janela com abas de Environment, History, Conections e Tutorial; e (4) janela com abas de Files, Plots, Packages, Help e Viewer.", out.width="100%", echo=FALSE}
 knitr::include_graphics("img/cap04_rstudio.png")
 ```
 
@@ -83,6 +83,8 @@ O resultado retorna o valor `12`, precedido de um valor entre colchetes. Esses c
 ```{r}
 1:42
 ```
+
+Podemos ver o hitórico dos código executados no Console na aba **History** (Figura \@ref(fig:fig-rstudio) (3)).
 
 ### Scripts
 
@@ -209,7 +211,7 @@ Funções são **códigos preparados para realizar uma tarefa** de modo simples.
 
 > nome_da_funcao(argumento1, argumento2)
 
-1. **nome da função**: remete ao que ela faz
+1. **Nome da função**: remete ao que ela faz
 1. **Parênteses**: limitam a função
 1. **Argumentos**: onde a função irá atuar 
 1. **Vírgulas**: separam os argumentos
@@ -229,7 +231,6 @@ sum(10, 2)
 # funcoes - argumentos como objetos
 # soma
 sum(va1, va2)
-
 ```
 
 Alguns exemplos de argumentos como parâmetros. Note que apesar do valor do argumento ser o mesmo (10), seu efeito no resultado muda drasticamente. Aqui também é importante destacar um ponto: 1 podemos informar os argumentos sequencialmente, sem explicitar seus nomes, ou 2) independente da ordem, mas explicitando seus nomes. Entretanto, como no exemplo abaixo, devemos informar o nome do argumento (i.e., parâmetro), para que seu efeito seja o que desejamos.
@@ -290,7 +291,7 @@ No R, quando tratamos de pacotes, devemos destacar dois conceitos: instalar um p
 1. O nome do pacote precisa estar entre aspas
 1. Função (CRAN): `install.packages()`
 
-Vamos instalar o pacote *vegan* diretamente do CRAN, que possui funções para realizar uma série de análise em ecologia. Para isso, vamos utilizar a função `install.packages()`.
+Vamos instalar o pacote *vegan* diretamente do CRAN, que possui funções para realizar uma série de análise em ecologia. Para isso, podemos ir em Tools > Install Packages..., ou ir na aba **Packages** (Figura \@ref(fig:fig-rstudio) (4)), procurar um pacote ou simplesmente clicar em "Install". Podemos ainda utilizar a função `install.packages()`.
 
 ```{r eval=FALSE}
 # instalar pacotes
@@ -304,7 +305,7 @@ Uma vez instalado um pacote, não há necessidade de instalá-lo novamente. Entr
 3. O nome do pacote não precisa estar entre aspas
 4. Funções: `library()` ou `require()`
 
-Vamos carregar o pacote *vegan* que instalamos anteriormente, utilizando a função `library()`.
+Vamos carregar o pacote *vegan* que instalamos anteriormente. Podemos ir na aba **Packages** (Figura \@ref(fig:fig-rstudio) (4)) e ticar o pacote que queremos carregar ou utilizar a função `library()`.
 
 ```{r}
 # carregar pacotes
@@ -331,9 +332,18 @@ install_github("vegandevs/vegan")
 library("vegan")
 ```
 
-A maioria dos pacotes vem com bancos de dados que podem ser acessados pela função `data()`. Esses bancos de dados podem ser usados para testar as funções do pacote. Se estiver com dúvida na maneira como você deve preparar a planilha para realizar uma análise específica, entre no help da função e veja os conjuntos de dados que estão no exemplo desta função.
+A maioria dos pacotes vem com bancos de dados que podem ser acessados pela função `data()`. Esses bancos de dados podem ser usados para testar as funções do pacote. Se estiver com dúvida na maneira como você deve preparar a planilha para realizar uma análise específica, entre no help da função e veja os conjuntos de dados que estão no exemplo desta função. Como exemplo, vamos carregar os dados `dune` do pacote *vegan*.
 
-Um último ponto fundamental de pacotes, diz respeito à **atualização** dos mesmos. Os pacotes são atualizados com frequência, e infelizmente ou felizmente (pois as atualizações podem oferecer algumas quebras entre pacotes), não se atualizam sozinhos. Muitas vezes, a instalação de um pacote pode depender da versão dos pacotes dependentes, e geralmente uma janela se abre que todos os pacotes dependentes sejam atualizados. Como isso pode demorar, pode ser interessante utilizar a função `update.packages(ask = FALSE)` para atualizá-los, entretanto, essa é uma função que costuma demorar para terminar de rodar.
+```{r}
+# carregar dados de um pacote
+library(vegan)
+data(dune)
+dune[1:6, 1:6]
+```
+
+Se por algum motivo precisarmos **desinstalar** um pacote, podemos utilizar a função `remove.packages()`. 
+
+E um último ponto fundamental de pacotes, diz respeito à **atualização** dos mesmos. Os pacotes são atualizados com frequência, e infelizmente ou felizmente (pois as atualizações podem oferecer algumas quebras entre pacotes), não se atualizam sozinhos. Muitas vezes, a instalação de um pacote pode depender da versão dos pacotes dependentes, e geralmente uma janela se abre que todos os pacotes dependentes sejam atualizados. Podemos ir na aba **Packages** (Figura \@ref(fig:fig-rstudio) (4)) e clicar em "Update" ou usar a função `update.packages(ask = FALSE)` para atualizá-los, entretanto, essa é uma função que costuma demorar para terminar de rodar.
 
 ```{r eval=FALSE}
 # atualizacao dos pacotes instalados 
@@ -449,9 +459,9 @@ colsums(iris[, -5])
 colSums(iris[, -5])
 ```
 
-## Estrutura e manipulação de dados 
+## Estrutura e manipulação de objetos 
 
-O conhecimento sobre a **estrutura e manipulação de dados** é fundamental para ter domínio e entendimento do funcionamento da linguagem R. Nesta seção, trataremos da estrutura e manipulação de dados no R, no que ficou conhecido como modo *R Base*, em contrapartida ao *tidyverse*, tópico da próxima seção. Abordaremos temas chaves: 1) modo e estrutura de objetos, 2) manipulação de dados unidimensionais e 
+O conhecimento sobre a **estrutura e manipulação de objetos** é fundamental para ter domínio e entendimento do funcionamento da linguagem R. Nesta seção, trataremos da estrutura e manipulação de dados no R, no que ficou conhecido como modo *R Base*, em contrapartida ao *tidyverse*, tópico da próxima seção. Abordaremos temas chaves: 1) atributos de objetos, 2) manipulação de objetos unidimensionais e 
 multidimensionais, 3) valores faltantes e especiais, 4) diretório de trabalho, 5) importar, conferir e exportar dados.
 
 ### Atributo dos objetos
@@ -574,7 +584,7 @@ sequ <- 1:10
 sequ_e <- seq(from = 0, to = 100, by = 10) 
 
 # repeticao
-repe <- rep(x = c(1, 2), times = 5)
+repe <- rep(x = c(TRUE, FALSE), times = 5)
 
 # palavra e sequencia numerica - sem separacao definida (" ")
 colar <- paste("amostra", 1:5)
@@ -583,72 +593,564 @@ colar <- paste("amostra", 1:5)
 amos <- sample(1:100, 10)
 ```
 
-Como os vetores são homogênios, i.e., só comportam um modo, quando combinamos mais de Existe uma dominância de
+Como os vetores são homogênios, i.e., só comportam um modo, quando combinamos mais de modo no mesmo objeto existe uma dominância de modos. Existe dessa forma uma **coerção** dos elementos combinados para todos fiquem iguais. Essa dominância segue essa ordem: 
 
+> `DOMINANTE` character >>> double >>> interger >>> logical `RECESSIVO`
+
+Além disso, podemos utilizar as conversões listadas anteiormente para alterar os modos. Vamos exemplificar combinando os vetores criados anteriormente, e convertendo-os. 
+
+```{r}
+# coercao
+c(colar, amos)
+
+# conversao
+as.numeric(repe)
+```
 
 #### Fator
 
-O fator representa medidas de uma variável qualitativa, podendo ser nominal ou ordinal
-Ex.: medidas tomadas em campo ao longo de uma amostragem de 6 meses
+O **fator** representa medidas de uma **variável qualitativa**, podendo ser **nominal ou ordinal**. É fundamental destacar que fatores no R devem ser entendidos como um vetor de **interger**, i.e., ele é composto por números inteiros representando os níveis da variável categórica. 
+
+Para criar um fator no R, usamos uma função específica `factor()`, na qual podemos especificar os **níveis** com o argumento **leval**, ou fazemos uma conversão usando a função `as.factor()`. Trabalhar com fatores no *R Base* não é das tarefas mais agradáveis, mas mais adiante na seção XX usaremos a versão *tidyverse* usando o pacote *forcats*.
+
+```{r}
+# fatores nominal
+fator_nominal <- factor(x = sample(c("floresta", "pastagem", "cerrado"), 20, replace = TRUE),
+                levels = c("floresta", "pastagem", "cerrado"))
+
+# fatores ordinal
+fator_ordinal <- factor(x = sample(c("baixa", "media", "alta"), 20, replace = TRUE),
+                        levels = c("baixa", "media", "alta"), ordered = TRUE)
+
+# conversao
+fator <- as.factor(x = sample(c("floresta", "pastagem", "cerrado"), 20, replace = TRUE))
+```
 
 #### Matriz 
 
-A matrix representa os dados no formato de tabela, com linhas e colunas
-As linhas representam unidades amostrais (locais, transectos, parcelas) e as coluncas representam variáveis quantitativas (discretas ou contínuas) ou descrições (informações em texto)
+A **matrix** representa os dados no **formato de tabela**, com linhas e colunas. As linhas representam **unidades amostrais** (locais, transectos, parcelas) e as coluncas representam **variáveis quantitativas** (discretas ou contínuas) ou **descrições** (informações em texto).
+
+Podemos **criar matrizes** no R de **duas formas** principais. A primeira delas **dispondo elementos de um vetor** em um certo número de linhas e colunas com a função `matrix()`, podendo preencher essa matriz com os elementos do vetor por linhas ou por colunas alterando o argumento **byrow**.
+
+```{r}
+# vetor
+ve <- 1:12
+
+# matrix - preenchimento por linhas - horizontal
+ma_row <- matrix(data = ve, nrow = 4, ncol = 3, byrow = TRUE)
+
+# matrix - preenchimento por colunas - vertical
+ma_col <- matrix(data = ve, nrow = 4, ncol = 3, byrow = FALSE)
+```
+
+A segundo forma **combinando vetores**, utilizando a função `rbind` para combinar veores por linha, i.e., vetor embaixo do outro, e `cbind` para combinar vetores por coluna, i.e., vetor ao lado do outro.
+
+```{r}
+# criar dois vetores
+vec_1 <- c(1, 2, 3)
+vec_2 <- c(4, 5, 6)
+
+# combinar por linhas - vertical - um embaixo do outro
+ma_rbind <- rbind(vec_1, vec_2)
+
+# combinar por colunas - horizontal - um ao lado do outro
+ma_cbind <- cbind(vec_1, vec_2)
+```
 
 #### Arrai
 
-O array representa combinação de tabelas, com linhas, colunas e dimensões
+O **arrai** representa **combinação de tabelas**, com linhas, colunas e dimensões. Essa combinação pode ser feita em múltiplas dimensões, mas apesar disso, geralmente é mais comum o uso em Ecologia para três dimensões, por exemplo: **linhas **(unidades amostrais), **colunas** (espécies) e **dimensão** (tempo). Isso gera um "cubo mágico", onde podemos comparar, nesse caso, comunidades ao longo do tempo.
+
+Podemos criar arrais no R **dispondo elementos de um vetor** em um certo **número de linhas, colunas e dimensões** com a função `array()`. Em nosso exemplo, vamos compor 10 comunidades de 20 espécies ao longo de cinco períodos. 
+
+```{r}
+# arrai
+ar <- array(data = sample(c(0, 1), 1e3, rep = TRUE), 
+            dim = c(10, 20, 5))
+```
 
 #### Data frame
 
-O data frame representa dados no formato de tabela, com linhas e colunas
-As linhas representam unidades amostrais (locais, transectos, parcelas) e as colunas representam descrições (informações em texto), variáveis quantitativas (discretas ou contínuas) e/ou variáveis qualitativas (nominais ou ordinais)
+O **data frame** representa dados no **formato de tabela**, com linhas e colunas, muito semelhante à matriz. Mas diferentemente das matrizes, os data frames comportam **mais de um modo** em suas colunas. Dessa forma, as linhas do data frame ainda representam **unidades amostrais** (locais, transectos, parcelas), mas as colunas agora podem representar **descrições** (informações em texto), **variáveis quantitativas** (discretas ou contínuas) e/ou **variáveis qualitativas** (nominais ou ordinais).
+
+A forma mais simples de criar data frames no R é através da **combinação de vetores**. Essa combinação é feita com a função `data.frame()`, e ocorre de **forma horizontal**, semelhante à função `cbind()`. Sendo assim, todos os vetores precisam ter o mesmo **número de elementos**, ou seja, **mesmo comprimento**. Podemos ainda nomear as colunas para cada vetor.
+
+```{r}
+# criar tres vetores
+vec_ch <- c("sp1", "sp2", "sp3")
+vec_nu <- c(4, 5, 6)
+vec_fa <- factor(c("campo", "floresta", "floresta"))
+
+# data.frame - combinar por colunas - horizontal - um ao lado do outro
+df <- data.frame(vec_ch, vec_nu, vec_fa)
+
+# data.frame - nomear as colunas
+df <- data.frame(especies = vec_ch, 
+                 abundancia = vec_nu, 
+                 vegetacao = vec_fa)
+```
 
 #### Lista
 
-Tipo especial de vetor que aceita objetos como elementos
-Estrutura de dados utilizado para agrupar objetos
-É a saída de muitas funções que fazem análises estatísticas
+A **lista é tipo especial de vetor**, que aceita objetos como elementos. Ela é a estrutura de dados utilizada para **agrupar objetos**, e é geralmente a **saída de muitas funções** que fazem análises estatísticas.
+
+Podemos criar listas através da função `list()`. Essa função funciona de forma semelhante à função `c()` para a criação de vetores, mas agora estamos concatenando elementos. Podemos ainda nomear os elementos que estamos combinando. 
+
+Um ponto interessante para entender **data frames**, é que eles são listas, em que todos os elementos (colunas) possuem o mesmo **número de elementos**, ou seja, **mesmo comprimento**.
+
+```{r}
+# lista
+lista <- list(rep(1, 20), # vector
+           factor(1, 1), # factor
+           cbind(c(1, 2), c(1, 2))) # matrix
+
+# lista - nomear os elementos
+lista <- list(vector = rep(1, 20), # vector
+           factor = factor(1, 1), # factor
+           matrix = cbind(c(1, 2), c(1, 2))) # matrix
+```
 
 #### Funções
 
-Objetos criados pelo usuário e reutilizados para fazer operações específicas
+Uma última estrutura de objetos criados no R são as **funções**. Elas são objetos **criados pelo usuário** e **reutilizados** para fazer operações específicas. A criação de funções geralmente é um tópico tratado num segundo momento, quando o usuário de R adquire certo conhecimento da linguagem. Aqui abordarem apenas seu funcionamento básico, diferenciando sua estrutura para entendimento e sua diferenciação das demais estruturas. Vamos criar uma função simples que retorna a multiplicação de dois termos.
 
+```{r}
+# criar uma funcao
+multi <- function(x, y){
+  
+  mu <- (x * y)
+  return(mu)
+  
+}
 
+# uso
+multi(42, 42)
+```
 
+### Manipulação de objetos unidimensionais
 
-### Manipulação de dados unidimensionais
+Vamos agora explorar formas de **manipular elementos de objetos unidimensionais**, ou seja vetores, fatores e listas.
 
+A primeira forma de manipulação é através da **indexação**, utilizando os operadores `[]`. Com a indexação podemos **acessar elementos** de vetores e fatores por **sua posição**. Iremos utilizar números, sequência de números ou operação booleanas para retornar partes dos vetores ou factores. Podemos ainda retirar elementos dos vetores com o operação aritmético `-`.
 
-### Manipulação de dados bidimensionais
+```{r}
+# fixar a amostragem
+set.seed(42)
 
+# amostrar 10 elementos de uma sequencia
+ve <- sample(seq(0, 2, .05), 10)
+ve
+
+# seleciona o quinto elemento
+ve[5]
+
+# seleciona os elementos de 1 a 5
+ve[1:5]
+
+# retira o decimo elemento
+ve[-10]
+
+# retira os elementos 2 a 9
+ve[-(2:9)]
+```
+
+Podemos ainda fazer uma **seleção condicional** do vetor. Ao utilizarmos operadores relacionais, teremos como resposta um vetor lógico. Esse vetor lógico pode ser utilizado dentro da indexação para seleção de elementos.
+
+```{r}
+# quais valores sao maiores que 1?
+ve > 1
+
+# valores acima de 1
+ve[ve > 1]
+```
+
+Além da indexação, temos algumas **função que nos auxiliam em algumas operações com objetos unidimensionais** listadas na Tabela \@ref(tab:tab-tab-funcoes-conf-uni).
+
+```{r tab-tab-funcoes-conf-uni, echo=FALSE}
+kable(data.frame(
+  Função = c(
+    "`max()`",
+    "`min()`", 
+    "`range()`", 
+    "`length()`", 
+    "`sum()`",
+    "`prod()`",
+    "`log()`", 
+    "`log10()`",
+    "`mean()`", 
+    "`var()`",
+    "`sd()`", 
+    "`mediam()`",
+    "`quantile()`", 
+    "`round()`",
+    "`sort()`",
+    "`summary()`", 
+    "`any()`", 
+    "`all()`",
+    "`which()`",
+    "`subset()`", 
+    "`ifelse()`"),
+  Descrição = c(
+    "Valor máximo", 
+    "Valor mínimo", 
+    "Amplitude", 
+    "Comprimento",
+    "Soma", 
+    "Produto",
+    "Logaritmo natural", 
+    "Logaritmo base 10", 
+    "Média", 
+    "Variância", 
+    "Desvio Padrão",
+    "Mediana", 
+    "Quantil", 
+    "Arredondamento", 
+    "Ordenação de valores", 
+    "Resumo estatítico", 
+    "Algum valor?", 
+    "Todos os valores?", 
+    "Quais valores?",
+    "Subconjunto", 
+    "Operação condicional")),
+  align = "c",
+  caption = "Funções para verificação e resumo de dados unidimensionais.")
+```
+
+Para **listas**, também podemos usar a indexação `[]` para **acessar ou retirar elementos**.
+
+```{r}
+# lista
+li <- list(elem1 = 1, elem2 = 2, elem3 = 3)
+
+# acessar o primeiro elemento
+li[1]
+
+# retirar o primeiro elemento
+li[-1]
+```
+
+Podemos ainda usar a indexação dupla `[[]]` para **acessar os valores dos elementos**.
+
+```{r}
+# acessar o valor do primeiro elemento
+li[[1]]
+
+# acessar o valor do segundo elemento
+li[[2]]
+```
+
+Para **listas nomeadas**, podemos ainda utilizar o operador `$` para acessar elementos pelo nome.
+
+```{r}
+# acessar o primeiro elemento
+li$elem1
+```
+
+E ainda podemos utilizar funções para medir o comprimento dessa lista, listar os nomes dos elementos ou ainda renomear os elementos: `length()` e `names()`.
+
+```{r}
+# comprimento
+length(li)
+
+# nomes
+names(li)
+
+# renomear
+names(li) <- paste0("elemento0", 1:3)
+li
+```
+
+### Manipulação de objetos multidimensionais
+
+Da mesma forma que para objetos unidimensionais, **manipular elementos de objetos multidimensionais**, ou seja matrizes, data frames e arrais.
+
+Novamente, a primeira forma de manipulação é através da **indexação**, utilizando os operadores `[]`. Com a indexação podemos **acessar elementos** de matrizes, data frames e arrais por **sua posição**. Podemos ainda retirar elementos dos vetores com o operação aritmético `-`.
+
+Entretanto, agora temos mais de uma dimensão na estruturação dos elementos dentro dos objetos. Assim, utilizamos números, sequência de números ou operação booleanas para retornar partes desses objetos, mas as dimensões têm de ser explicitadas, e separadas por **vírgulas**, i.e., para acessar linhas e colunas, listamos respectivamente números antes e depois da vírgula. Essa indexação funciona para matrizes e data frames. Para arrais, especificamos as dimensões também separadas por vírgulas para acessar outras dimensões.
+
+```{r}
+# matriz
+ma <- matrix(1:12, 4, 3)
+ma
+
+ma[3, ] # linha 3
+
+ma[, 2] # coluna 2
+
+ma[1, 2] # elemento da linha 1 e coluna 2
+
+ma[1, 1:2] # elementos da linha 1 e coluna 1 e 2
+
+ma[1, c(1, 3)] # elementos da linha 1 e coluna 1 e 3
+```
+
+Para data frames, podemos ainda utilizar o operador `$` para selecionar **colunas nomeadas**. Essa operação **retorna um vetor**, para o qual podemos fazer operações de vetores ou ainda **atualizar** o valor dessa coluna selecionada ou **adicionar** outra coluna.
+
+```{r}
+# criar tres vetores
+sp <- paste("sp", 1:10, sep = "")
+abu <- 1:10
+flo <- factor(rep(c("campo", "floresta"), each = 5))
+
+# data frame
+df <- data.frame(sp, abu, flo)
+df
+
+# $ funciona apenas para data frame 
+df$sp
+
+# operacao de vetors
+length(df$abu)
+
+# converter colunas
+df$abu <- as.character(df$abu)
+mode(df$abu)
+
+# adicionar colunas
+set.seed(42)
+df$abu2 <- sample(0:1, nrow(df), rep = TRUE)
+
+df
+```
+
+Podemos ainda fazer **seleções condicionais** para **retornar linhas** com valores que temos interesse, semelhante ao uso de filtro de uma planilha eletrônica.
+
+```{r}
+# selecionar linhas de uma matriz ou data frame 
+df[df$abu > 4, ]
+
+df[df$flo == "floresta", ]
+```
+
+Além disso, há uma séria de funções para conferência e manipulação de dados que listamos na Tabela \@ref(tab:tab-funcoes-conf-multi).
+
+```{r tab-funcoes-conf-multi, echo=FALSE}
+kable(data.frame(
+  Função = c(
+    "`head()`", 
+    "`tail()`", 
+    "`nrow()`", 
+    "`ncol()`", 
+    "`dim()`", 
+    "`rownames()`",
+    "`colnames()`", 
+    "`str()`", 
+    "`summary()`", 
+    "`rowSums()`", 
+    "`colSums()`", 
+    "`rowMeans()`", 
+    "`colMeans()`", 
+    "`table()`"),
+  Descrição = c(
+     "Mostra as primeiras 6 linhas", 
+     "Mostra as últimas 6 linhas", 
+     "Mostra o número de linhas", 
+     "Mostra o número de colunas", 
+     "Mostra o número de linhas e de colunas", 
+     "Mostra os nomes das linhas (locais)",
+     "Mostra os nomes das colunas (variáveis)", 
+     "Mostra as classes de cada coluna (estrutura)", 
+     "Mostra um resumo dos valores de cada coluna", 
+     "Calcula a soma das linhas (horizontal)",
+     "Calcula a soma das colunas (vertical)", 
+     "Calcula a média das linhas (horizontal)",
+     "Calcula a média das colunas (vertical)",
+     "Tabulação cruzada")),
+  align = "c",
+  caption = "Funções para verificação e resumo de dados multidimensionais.")
+```
 
 ### Valores faltantes e especiais
 
+**Valores faltantes e especiais** são **valores reservados** que representam dados faltantes, indefinições matemáticas, infinitos e objetos nulos.
+
+1. **NA (*Not Available*)**: significa dado faltante/indisponível
+1. **NaN (*Not a Number*)**: representa indefinições matemáticas
+1. **Inf (*Infinito*)**: é um número muito grande ou um limite matemático
+1. **NULL *(Nulo*)**: representa um objeto nulo, sendo útil para preenchimento de laços e outras aplicações de programação
+
+```{r}
+# data frame com elemento NA
+df <- data.frame(var1 = c(1, 4, 2, NA), var2 = c(1, 4, 5, 2))
+df
+
+# resposta booleana para elementos na
+is.na(df)
+
+# algum elemento é na?
+any(is.na(df))
+
+# remover as linhas com nas
+df_sem_na <- na.omit(df)
+df_sem_na
+
+# substituir nas por 0
+df[is.na(df)] <- 0
+df
+
+# nan - not a number
+0/0
+log(-1)
+
+# limite matematico
+1/0
+
+# numero grande
+10^310
+
+# objeto nulo
+nulo <- NULL
+nulo
+```
 
 ### Diretório de trabalho
 
+O diretório de trabalho é o **endereço da pasta (ou diretório)** de onde o R irá **importar ou exportar** os nossos dados. 
+
+Podemos utilizar o próprio RStudio para tal tarefa, indo em Session > Set Work Directory > Choose Directory..., ou simplesmente utilizar o atalho `ctrl + shift + H`.
+
+Podemos ainda utilizar as funções do R para definir o diretório. Para tanto, podemos navegar com o aplicativo de gerenciador de arquivos (e.g. Windows Explorer) até nosso diretório de interesse, e copiar o endereço na barra superior. Voltamos para o R e colamos esse endereço entre aspas como um argumento da função `setwd()`. É fundamental destacar que em Sistemas Operacionais Windows é necessário inverter as barras (`\` por `/`). 
+
+Aconselhamos ainda utilizar as funções `getwd()` para retornar o diretório definido na sessão do R, assim como as funções `dir()` ou `list.files()` para listagem dos arquivos no diretório, ambas medidas de conferência do diretório correto.
+
+```{r eval=FALSE}
+# definir o diretorio de trabalho
+setwd("/home/mude/data/github/livro_r_ecologia/dados")
+
+# verificar o diretorio
+getwd()
+
+# verificar os arquivos
+dir()
+```
 
 ### Importar dados
 
+Uma das operações mais corriqueiras do R, antes de realizar alguma análise, é a de **importar dados** que foram **tabulados numa planilha eletrônica** e salvos no formato .csv, .txt ou .xlsx.  Ao importar esse tipo de dado para o R, o formato que o mesmo assume, se nenhum parâmetro for especificado, é o da classes `dataframe`, prevendo que a planilha de dados possua colunas com diferentes modos.
 
-### Conferir e manejar dados importados
+Existe diversas formas de importar dados para o R. Podemos importar utilizando o RStudio, indo na janela **Environment** (Figura \@ref(fig:fig-rstudio) (3)) e clicar em "Importar Dataset". 
 
+Entretanto, aconselhamos o **uso de funções** que fiquem salvas em um script para aumentar a reprodutibilidade do script. Dessa forma, as **três principais funções** para importar os arquivos nos **três principais extensões** (.csv, .txt ou .xlsx) são, respectivamente: `read.csv()`, `read.table()` e `openxlsx::read.xlsx()``, sendo o último do pacote *openxlsx*.
+
+```{r eval=FALSE}
+# install package openxlsx
+install.packages("openxlsx")
+library(openxlsx)
+```
+
+
+Para exemplificar como importar dados, vamos usar os dados de **comunidades de anfíbios da Mata Atlântica** (Atlantic Amphibians, Vancine et al. 2018). Iremos fazer o download diretamente do site da fonte dos dados. 
+
+Antes vamos antes escolher um diretório de trabalho com a função `setwd()`, e em seguida criar um diretório com a função `dir.create()` chamado "dados". Em seguida, vamos mudar nosso diretóri para essa pasta, e criar mais um diretório chamado "tabelas", e definir esse diretório para fazer o download.
+
+```{r eval=FALSE}
+# escolher um diretorio
+setwd("/home/mude/data/github/livro_r_ecologia")
+
+# criar um diretorio 'dados'
+dir.create("dados")
+
+# escolher diretorio 'dados'
+setwd("dados")
+
+# criar um diretorio 'tabelas'
+dir.create("tabelas")
+
+# escolher diretorio 'tabelas'
+setwd("tabelas")
+```
+
+Agora podemos fazer o download de um arquivo `.zip` e extrair as tabelas usando a função `unzip()` nesse mesmo diretório.
+
+```{r eval=FALSE}
+# download
+download.file(url = "https://esajournals.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Fecy.2392&file=ecy2392-sup-0001-DataS1.zip",
+              destfile = "atlantic_amphibians.zip", mode = "wb")
+
+# unzip
+unzip(zipfile = "atlantic_amphibians.zip")
+```
+
+Agora podemos importar a tabela de dados com a função `read.csv()`, atribuindo ao objeto `aa_locais`.
+
+```{r}
+# importar tabela de locais
+aa_locais <- read.csv("ATLANTIC_AMPHIBIANS_sites.csv")
+```
+
+Esse arquivo foi criado com separador de decimais sendo `.` e separador de colunas sendo `,`. Caso tivesse sido salvo com separador de decimais sendo `,` e separador de colunas sendo `;`, usaríamos a função `read.csv2()`.
+
+### Conferência de dados importados
+
+Uma vez importados os dados para o R, geralmente antes de inicarmos qualquer manejo, visualização ou análise de dados, fazemos a **conferência desses dados**. Para isso, podemos utilizar as funções listadas na Tabela \@ref(tab:tab-funcoes-conf-multi).
+
+```{r}
+# primeiras linhas
+head(aa_locais)
+
+# ultimas linhas
+tail(aa_locais)
+
+# numero de linhas e colunas
+nrow(aa_locais)
+ncol(aa_locais)
+dim(aa_locais)
+```
+```{r eval=FALSE}
+# nome das linhas e colunas
+rownames(aa_locais)
+colnames(aa_locais)
+
+# estrutura dos dados
+str(aa_locais)
+
+# resumo dos dados
+summary(aa_locais)
+
+# verificar nas
+any(is.na(aa_locais))
+which(is.na(aa_locais))
+
+# remover as linhas com nas
+aa_locais_na <- na.omit(aa_locais)
+```
 
 ### Exportar dados
 
+Uma vez realizado as operações de manipulações ou tendo dados que foram analisados e guardados num objeto no formato de data frame ou matriz, podemos **exportar esses dados** do R para o diretório que definimos anteriormente.
 
-## Introdução ao tidyverse
+Para tanto, podemos utilizar funções de **escrita de dados**, como `write.csv()`, `write.table()` e `openxlsx::write.xlsx()`. Dois pontos são fundamentais: 1. o nome do arquivo tem de estar entre aspas e no final dele deve constar a extensão que pretende que o arquivo tenha; 2. é interessante utilizar os argumentos **row.names = FALSE** e **quote**, para que o arquivo escrito não tenha o nome das linhas ou aspas em todas as células.
 
-Como já dito, eventualmente as funções do R base não são suficientes ou simplesmente não fornecem a maneira mais fácil de resolver-se um problema. Neste curso utilizaremos o Tidyverse: uma coleção de pacotes R cuidadosamente desenhados para atuarem no workflow comum da ciência de dados: importação, manipulação, exploração e visualização de dados. Uma vez carregado, esse pacote disponibiliza todo o conjunto de ferramentas de outros pacotes importantes: ggplot2, tibble, tidyr, readr, purrr e dplyr. Oportunamente, detalharemos cada um deles.
+```{r eval=FALSE}
+# exportar dados na extensao .csv
+write.csv(aa_locais_na, "ATLANTIC_AMPHIBIAN_sites_na.csv", 
+          row.names = FALSE, quote = FALSE)
 
-O Tidyverse foi idealizado, dentre outros responsáveis, por Hadley Wickham, um dos maiores colaboradores da comunidade R. Se você não o conhece e pretende seguir em frente com o R, certamente ouvirá falar muito dele. Recomendamos segui-lo nas redes sociais para ficar por dentro das novidades do Tidyverse.
+# exportar dados na extensao .txt
+write.table(aa_locais_na, "ATLANTIC_AMPHIBIAN_sites_na.txt", 
+            row.names = FALSE, quote = FALSE)
 
-Para instalar os pacotes do Tidyverse, rode o comando abaixo:
 
-### tidyverse
+# exportar dados na extensao .xlsx
+openxlsx::write.xlsx(aa_locais_na, "ATLANTIC_AMPHIBIAN_sites_na.xlsx", 
+                     row.names = FALSE, quote = FALSE)
+```
 
+## Tidyverse
+
+As funções do *R Base* geralmente não são suficientes ou simplesmente não fornecem a maneira mais fácil de resolver-se um problema. Neste curso utilizaremos o Tidyverse: uma coleção de pacotes R cuidadosamente desenhados para atuarem no workflow comum da ciência de dados: importação, manipulação, exploração e visualização de dados. 
+
+Uma vez carregado, esse pacote disponibiliza todo o conjunto de ferramentas de outros pacotes importantes: *ggplot2*, *tibble*, *tidyr*, *readr*, *purrr*, *dplyr*, *stringr* e *forcats*. Oportunamente, detalharemos cada um deles.
+
+O *tidyverse* foi idealizado, dentre outros responsáveis, por Hadley Wickham, um dos maiores colaboradores da comunidade R. Se você não o conhece e pretende seguir em frente com o R, certamente ouvirá falar muito dele. Recomendamos segui-lo nas redes sociais para ficar por dentro das novidades do Tidyverse.
+
+### *tidyverse*
+
+Para instalar os pacotes do *tidyverse*, rode o comando abaixo:
+
+```{r, eval=FALSE}
+install.packages("tidyverse")
+```
 
 ### magrittr (pipe - %>%)
 

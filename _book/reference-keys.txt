@@ -521,3 +521,12 @@ lista
 funções-1
 vetor-9
 arrai
+tidyverse-1
+estrutura-e-manipulação-de-objetos
+manipulação-de-objetos-unidimensionais
+manipulação-de-objetos-multidimensionais
+tab:unnamed-chunk-49
+tab:unnamed-chunk-57
+conferência-de-dados-importados
+tab:tab-tab-funcoes-conf-uni
+tab:tab-funcoes-conf-multi
