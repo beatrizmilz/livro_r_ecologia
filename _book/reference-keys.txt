@@ -530,3 +530,7 @@ tab:unnamed-chunk-57
 conferência-de-dados-importados
 tab:tab-tab-funcoes-conf-uni
 tab:tab-funcoes-conf-multi
+fig:fig-r-dados-tidy
+fig:fig-r-tidyverse
+tidyverse-e-tidymodels
+principais-erros-de-iniciantes

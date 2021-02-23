@@ -322,11 +322,11 @@ install.packages("devtools")
 library(devtools)
 ```
 
-Uma vez instalado e carregado este pacote, podemos instalar o pacote do GitHub, utilizando a função `devtoools::install_github()`. Precisamos atentar para usar essa forma "nome_usuario/nome_repositorio", retirados do link do repositório de interesse. Como exemplo, podemos instalar mesmo pacote *vegan* do repositório do GitHub [vegandevs/vegan](https://github.com/vegandevs/vegan), e depois utilizar a função `library()` para carregá-lo normalmente.
+Uma vez instalado e carregado este pacote, podemos instalar o pacote do GitHub, utilizando a função `devtools::install_github()`. Precisamos atentar para usar essa forma "nome_usuario/nome_repositorio", retirados do link do repositório de interesse. Como exemplo, podemos instalar mesmo pacote *vegan* do repositório do GitHub [vegandevs/vegan](https://github.com/vegandevs/vegan), e depois utilizar a função `library()` para carregá-lo normalmente.
 
 ```{r eval=FALSE}
 # instalar pacote do github
-install_github("vegandevs/vegan")
+devtools::install_github("vegandevs/vegan")
 
 # carregar pacote do github
 library("vegan")
@@ -354,16 +354,16 @@ update.packages(ask = FALSE)
 
 Um importante passo para melhorar a usuabilidade e ter mais familiaridade com a linguagem R é aprender a usar a **ajuda de cada função**. Para tanto, podemos utilizar a função `help()` ou o operador `?`, depois de ter carregado o pacote, para abri uma nova aba (Figura \@ref(fig:fig-rstudio) (4)) que possui diversas informações sobre a função de interesse. O arquivo de ajuda do R possui geralmente nove ou dez tópicos, que nos auxiliam muito no entendimento dos dados de entrada, argumento e que operações estão sendo realizadas:
 
-1. **Description**: resumo da função
-1. **Usage**: como utilizar a função e quais os seus argumentos
-1. **Arguments**: detalha os argumentos e como os mesmos devem ser especifidados
-1. **Details**: detalhes importantes para se usar a função
-1. **Value**: mostra como interpretar a saída (*output*) da função (os resultados)
-1. **Note**: notas gerais sobre a função
-1. **Authors**: autores da função
-1. **References**: referências bibliográficas para os métodos usados pra construir a função
-1. **See also**: funções relacionadas
-1. **Examples**: exemplos do uso da função. Às vezes pode ser útil copiar esse trecho e colar no R para ver como funciona e como usar a função.
+- **Description**: resumo da função
+- **Usage**: como utilizar a função e quais os seus argumentos
+- **Arguments**: detalha os argumentos e como os mesmos devem ser especifidados
+- **Details**: detalhes importantes para se usar a função
+- **Value**: mostra como interpretar a saída (*output*) da função (os resultados)
+- **Note**: notas gerais sobre a função
+- **Authors**: autores da função
+- **References**: referências bibliográficas para os métodos usados pra construir a função
+- **See also**: funções relacionadas
+- **Examples**: exemplos do uso da função. Às vezes pode ser útil copiar esse trecho e colar no R para ver como funciona e como usar a função.
 
 Vamos realizar um exemplo, buscando o *help* da função `aov()`.
 
@@ -402,7 +402,7 @@ No resultado dessa função, há uma mensagem muito interessante: "See also 'cit
 citation("vegan")
 ```
 
-### Principais erros dos iniciantes
+### Principais erros de iniciantes
 
 **Errar** quando se está iniciando com R é **muito comum e faz parte do aprendizado**. Entretanto, os erros nunca devem ser encarados como uma forma de desestímulo para continuar tentando. Todos nós, autores desse livro, e provavelmente usuários muito experientes já passaram por um momento em que se quer desistir de tudo. Jovem aprendiz de R, a **única diferença entre você** que está iniciando agora e nós que usamos há mais tempo, **são as horas de uso (e raiva)**. O que temos a mais é experiência para olhar o erro, lê-lo e conseguir interpretar.
 
@@ -482,56 +482,56 @@ A atribuição de números no R podem gerar dois tipos de modos: **interger** pa
 
 ```{r}
 # numerico double
-obj_num <- 1
+obj_numerico_double <- 1
 
 # modo
-mode(obj_num)
+mode(obj_numerico_double)
 
 # tipo
-typeof(obj_num)
+typeof(obj_numerico_double)
 ```
 
 A título de praticidade, ambos são incorporados como o modo **numeric**, com o tipo **double**, a menos que especifiquemos que seja inteiro com o a letra `L` depois do número.
 
 ```{r}
 # numerico interger
-obj_num_int <- 1L
+obj_numerico_inteiro <- 1L
 
 # modo
-mode(obj_num_int)
+mode(obj_numerico_inteiro)
 
 # tipo
-typeof(obj_num_int)
+typeof(obj_numerico_inteiro)
 ```
 
 Além de números, podemos atribuir textos, utilizando para isso aspas `""`.
 
 ```{r}
 # caracter
-obj_cha <- "a" # atencao para as aspas
+obj_caracter <- "a" # atencao para as aspas
 
 # modo
-mode(obj_cha)
+mode(obj_caracter)
 ```
 
 Em algumas situações, precisamos indicar a ocorrência ou não de um evento. Para isso, utilizamos as palavras reservadas (`TRUE` e `FALSE`), chamadas de variáveis booleanas. Devemos nos ater para que essas palavras são com letras maiúsculas e sem aspas.
 
 ```{r}
 # logico
-obj_log <- TRUE # maiusculas e sem aspas
+obj_logico <- TRUE # maiusculas e sem aspas
 
 # modo
-mode(obj_log)
+mode(obj_logico)
 ```
 
 Por fim, existe um modo pouco utilizado que cria números complexos (raiz de números negativos).
 
 ```{r}
 # complexo
-obj_com <- 1+1i
+obj_complexo <- 1+1i
 
 # modo
-mode(obj_com)
+mode(obj_complexo)
 ```
 
 Podemos fazer conversão entre esses modos com diversas funções.
@@ -563,7 +563,7 @@ knitr::include_graphics("img/cap04_estrutura_dados.png")
 
 #### Vetor
 
-**Vetores** representam o **encadeamento de elementos** numa sequência unidimensionais. No Capítulo YY, vimos o conceito de variáveis aleatórios. No R, essas variáveis podem ser entendidas como vetores. Dessa forma essa estrutura de dados pode ser traduzida como medidas de uma **variável quantitativa** (discretas ou contínuas), **variável binária** (booleana - TRUE e FALSE) ou **descrição** (informações em texto).
+**Vetores** representam o **encadeamento de elementos** numa sequência unidimensionais. No Capítulo YY, vimos o conceito de variáveis aleatórias. No R, essas variáveis podem ser entendidas como vetores. Dessa forma essa estrutura de dados pode ser traduzida como medidas de uma **variável quantitativa** (discretas ou contínuas), **variável binária** (booleana - TRUE e FALSE) ou **descrição** (informações em texto).
 
 Há diversas formas de se **criar um vetor** no R: 
 
@@ -575,36 +575,36 @@ Há diversas formas de se **criar um vetor** no R:
 
 ```{r}
 # concatenar elementos numericos
-conc <- c(15, 18, 20, 22, 18)
+concatenar <- c(15, 18, 20, 22, 18)
 
 # sequencia unitaria (x1:x2)
-sequ <- 1:10
+sequencia <- 1:10
 
 # sequencia com diferentes espacamentos 
-sequ_e <- seq(from = 0, to = 100, by = 10) 
+sequencia_esp <- seq(from = 0, to = 100, by = 10) 
 
 # repeticao
-repe <- rep(x = c(TRUE, FALSE), times = 5)
+repeticao <- rep(x = c(TRUE, FALSE), times = 5)
 
-# palavra e sequencia numerica - sem separacao definida (" ")
+# cola palavra e sequencia numerica - sem separacao definida (" ")
 colar <- paste("amostra", 1:5)
 
 # amostragem aleatória - sem reposição
-amos <- sample(1:100, 10)
+amostragem <- sample(1:100, 10)
 ```
 
 Como os vetores são homogênios, i.e., só comportam um modo, quando combinamos mais de modo no mesmo objeto existe uma dominância de modos. Existe dessa forma uma **coerção** dos elementos combinados para todos fiquem iguais. Essa dominância segue essa ordem: 
 
-> `DOMINANTE` character >>> double >>> interger >>> logical `RECESSIVO`
+> **`DOMINANTE`** character >>> double >>> interger >>> logical **`RECESSIVO`**
 
 Além disso, podemos utilizar as conversões listadas anteiormente para alterar os modos. Vamos exemplificar combinando os vetores criados anteriormente, e convertendo-os. 
 
 ```{r}
 # coercao
-c(colar, amos)
+c(colar, amostragem)
 
 # conversao
-as.numeric(repe)
+as.numeric(repeticao)
 ```
 
 #### Fator
@@ -701,13 +701,13 @@ Um ponto interessante para entender **data frames**, é que eles são listas, em
 ```{r}
 # lista
 lista <- list(rep(1, 20), # vector
-           factor(1, 1), # factor
-           cbind(c(1, 2), c(1, 2))) # matrix
+              factor(1, 1), # factor
+              cbind(c(1, 2), c(1, 2))) # matrix
 
 # lista - nomear os elementos
 lista <- list(vector = rep(1, 20), # vector
-           factor = factor(1, 1), # factor
-           matrix = cbind(c(1, 2), c(1, 2))) # matrix
+              factor = factor(1, 1), # factor
+              matrix = cbind(c(1, 2), c(1, 2))) # matrix
 ```
 
 #### Funções
@@ -806,7 +806,7 @@ kable(data.frame(
     "Quantil", 
     "Arredondamento", 
     "Ordenação de valores", 
-    "Resumo estatítico", 
+    "Resumo estatístico", 
     "Algum valor?", 
     "Todos os valores?", 
     "Quais valores?",
@@ -1020,8 +1020,9 @@ setwd("/home/mude/data/github/livro_r_ecologia/dados")
 # verificar o diretorio
 getwd()
 
-# verificar os arquivos
+# listar os arquivos no diretorio
 dir()
+list.files()
 ```
 
 ### Importar dados
@@ -1033,11 +1034,10 @@ Existe diversas formas de importar dados para o R. Podemos importar utilizando o
 Entretanto, aconselhamos o **uso de funções** que fiquem salvas em um script para aumentar a reprodutibilidade do script. Dessa forma, as **três principais funções** para importar os arquivos nos **três principais extensões** (.csv, .txt ou .xlsx) são, respectivamente: `read.csv()`, `read.table()` e `openxlsx::read.xlsx()``, sendo o último do pacote *openxlsx*.
 
 ```{r eval=FALSE}
-# install package openxlsx
+# instalar pacote openxlsx
 install.packages("openxlsx")
 library(openxlsx)
 ```
-
 
 Para exemplificar como importar dados, vamos usar os dados de **comunidades de anfíbios da Mata Atlântica** (Atlantic Amphibians, Vancine et al. 2018). Iremos fazer o download diretamente do site da fonte dos dados. 
 
@@ -1075,7 +1075,7 @@ Agora podemos importar a tabela de dados com a função `read.csv()`, atribuindo
 
 ```{r}
 # importar tabela de locais
-aa_locais <- read.csv("ATLANTIC_AMPHIBIANS_sites.csv")
+aa_locais <- read.csv("dados/tabelas/ATLANTIC_AMPHIBIANS_sites.csv")
 ```
 
 Esse arquivo foi criado com separador de decimais sendo `.` e separador de colunas sendo `,`. Caso tivesse sido salvo com separador de decimais sendo `,` e separador de colunas sendo `;`, usaríamos a função `read.csv2()`.
@@ -1138,21 +1138,119 @@ openxlsx::write.xlsx(aa_locais_na, "ATLANTIC_AMPHIBIAN_sites_na.xlsx",
 
 ## Tidyverse
 
-As funções do *R Base* geralmente não são suficientes ou simplesmente não fornecem a maneira mais fácil de resolver-se um problema. Neste curso utilizaremos o Tidyverse: uma coleção de pacotes R cuidadosamente desenhados para atuarem no workflow comum da ciência de dados: importação, manipulação, exploração e visualização de dados. 
+Como todo idioma, a linguagem R vem passando por transformações nos últimos anos. Grande parte dessas mudanças estão dentro do paradigma da **Ciência de Dados (*Data Science*)**, uma nova área de conhecimento que vem se moldando acompanhando o desenvolvimento da sociedade em torno da era digital e da grande quantidade de dados gerados e disponíveis pela internet e computação, de onde advém os pilares das inovações tecnológicas: *Big Data*, *Machine Learning*, e *Internet of Things*. 
 
-Uma vez carregado, esse pacote disponibiliza todo o conjunto de ferramentas de outros pacotes importantes: *ggplot2*, *tibble*, *tidyr*, *readr*, *purrr*, *dplyr*, *stringr* e *forcats*. Oportunamente, detalharemos cada um deles.
+A grande necessidade de computação parapara desenvolver essa nova abordagem, colocaram o **R e o Python** como as **principais linguagens de programação** frente à esses novos desafios. Apesar de não serem as únicas utilizadas para esses propósitos, elas rapidamente se tornaram uma das **melhores escolhas**, dado vários fatores como: serem livres, possuir comunidade ativa, grande e contribuidora, serem linguagens de interpretação (orientadas à objeto), e relativamente fáceis de serem aprendidas. 
 
-O *tidyverse* foi idealizado, dentre outros responsáveis, por Hadley Wickham, um dos maiores colaboradores da comunidade R. Se você não o conhece e pretende seguir em frente com o R, certamente ouvirá falar muito dele. Recomendamos segui-lo nas redes sociais para ficar por dentro das novidades do Tidyverse.
+Essas mudanças e adaptações da linguagem R para a Ciência de Dados começaram à ser implementadas principalmente devido a um pesquisador, [Hadley Wickham](http://hadley.nz/), que iniciou sua contribuição à comunidade R com o desenvolvimento do já consagrado pacote *ggplot2* (Wickham 2009, Wickham 2016) para a composição de gráficos no R (ver mais no capítulo XX), baseado na gramática de gráficos (Wilkinson 2005). 
 
-### *tidyverse*
+Depois disso, Wickham dedicou-se ao desenvolvimento do pensamento de uma nova abordagem dentro do manejo de dados, denominada de **Tidy Data** (Dados organizados) (Wickhan 2014), na qual focou na limpeza de dados. A ideia, relativamente simples, diz que dados estão **tidy** quando **variáveis estão nas colunas**, **observações estão nas linhas** e **valores estão nas células**, sendo que para esse último, não deve haver mais de um valor por célula (Figura \@ref(fig:fig-r-dados-tidy)).
+
+```{r fig-r-dados-tidy, fig.align='center', fig.cap="Três regras que tornam um conjunto de dados *tidy*: 1. variáveis estão nas colunas, observações estão nas linhas e valores estão nas células. Adaptado de: Wickhan & Grolemund (2017).", out.width="100%", echo=FALSE}
+knitr::include_graphics("img/cap04_tidy.png")
+```
+
+À partir dessas ideias, o [*tidyverse*](https://www.tidyverse.org/) foi operacionalizado no R como uma coleção de pacotes R que atuam no **workflow comum da ciência de dados**: importação, manipulação, exploração, visualização, análise e comunicação de dados e análises (Wickhan et al. 2019) (Figura \@ref(fig:fig-r-tidyverse)). O principal objetivo do **Tidyverse** é aproximar a linguagem para melhorar a interação entre ser humano e computador sobre dados, de modo que os pacotes compartilham uma filosofia de design de alto nível e gramática, além da estrutura de dados de baixo nível (Wickhan et al. 2019).
+
+```{r fig-r-tidyverse, fig.align='center', fig.cap="Modelo das ferramentas necessárias em um projeto típico de ciência de dados: importar, organizar, entender (transformar, visualizar, modelar) e comunicar, envolto à essas ferramentas está a programação. Adaptado de: Wickhan & Grolemund (2017).", out.width="80%", echo=FALSE}
+knitr::include_graphics("img/cap04_tidyverse.png")
+```
+
+As principais leituras sobre o tema no R são os artigos Wickham (2014), Wickham et al. (2019), o livro Wickhan & Grolemund (2017), disponível on-line neste [link](https://r4ds.had.co.nz/), além do [site](https://www.tidyverse.org/) que possui muito mais informações. 
+
+### *tidyverse* e *tidymodels*
+
+Uma vez instalado e carregado, o pacote tidyverse **disponibiliza um conjunto de ferramentas** através de vários pacotes. Esses pacotes **compartilham** uma filosofia de design, gramática e estruturas de dados. Podemos entender o *tidyverse* como um "dialeto novo" para a linguagem R, onde **tidy** quer dizer organizado, arrumado, ordenado, e **verse** é universo.
+
+- [*readr*](https://readr.tidyverse.org/): importa dados tabulares (.csv e .txt)
+- [*tibble*](https://tibble.tidyverse.org/): implementou a classe `tibble`, com melhorias na classe `dataframe`
+- [*tidyr*](https://tidyr.tidyverse.org/): facilita a transformação de dados para *tidy*
+- [*dplyr*](https://dplyr.tidyverse.org/): facilita a manipulação de dados
+- [*stringr*](https://github.com/tidyverse/stringr): facilita a manipulação de caracteres
+- [*forcats*](https://github.com/hadley/forcats): facilita a manipulação de fatores
+- [*ggplot2*](https://ggplot2.tidyverse.org/): visualização de dados
+- [*purrr*](https://purrr.tidyverse.org/): programação funcional
+
+Além desses principais, fazemos a menção de **outros pacotes que estão dentro dessa aborgagem**, e que trataremos ainda neste capítulo, em outro momento do livro, ou que você leitor deve se familiarizar.
+
+- [*readxl*](https://readxl.tidyverse.org/) e [*writexl*](https://cran.r-project.org/package=writexl): importa e exporta dados tabulares (.xlsx)
+- [*DBI*](https://github.com/rstats-db/DBI): interface de banco de dados R
+- [*haven*](https://github.com/tidyverse/haven): importa e exporta dados do SPSS, Stata e SAS
+- [*httr*](https://github.com/r-lib/httr): ferramentas para trabalhar com URLs e HTTP
+- [*rvest*](https://github.com/tidyverse/rvest): coletar facilmente (raspe) páginas da web
+- [*xml2*](https://github.com/r-lib/xml2): trabalhar com arquivos XML
+- [*jsonlite*](https://github.com/jeroen/jsonlite): um analisador e gerador JSON simples e robusto para R
+- [*hms*](https://github.com/rstats-db/hms): hora do dia
+- [*lubridate*](https://github.com/tidyverse/lubridate): facilita o tratamento de datas
+- [*magrittr*](https://magrittr.tidyverse.org/): provê os operadores pipe (`%>%`, `%$%`, `%<>%`)
+- [*glue*](https://github.com/tidyverse/glue): facilita combinar dados e caracteres
+- [*rmarkdown*](https://rmarkdown.rstudio.com/): cria documentos de análise dinâmica que combinam código, saída renderizada (como figuras) e texto
+- [*knitr*](https://yihui.org/knitr/): projetado para ser um mecanismo transparente para geração de relatórios dinâmicos com R
+- [*shiny*](https://shiny.rstudio.com/): framework de aplicativo Web para R
+- [*flexdashboard*](https://rmarkdown.rstudio.com/flexdashboard/): painéis interativos para R
+- [*here*](https://here.r-lib.org/): facilita a definição de diretórios
+- [*usethis*](https://usethis.r-lib.org/): automatiza tarefas durante a configuração e desenvolvimento de projetos (Git, 'GitHub' e Projetos RStudio)
+- [*data.table*](https://rdatatable.gitlab.io/data.table/): pacote que fornece uma versão de alto desempenho do `data.frame` (importar, manipular e expotar)
+- [*reticulate*](https://rstudio.github.io/reticulate/): pacote que fornece ferramentas para integrar Python e R
+- [*sparklyr*](https://spark.rstudio.com/): interface R para Apache Spark
+- [*broom*](https://github.com/tidymodels/broom): converte objetos estatísticos em tibbles organizados
+- [*modelr*](https://github.com/tidyverse/modelr): funções de modelagem que funcionam com o pipe
+- [*tidymodels*](https://www.tidymodels.org/): coleção de pacotes para modelagem e aprendizado de máquina usando os princípios do tidyverse
 
 Para instalar os pacotes do *tidyverse*, rode o comando abaixo:
 
 ```{r, eval=FALSE}
+# instalar o pacote tidyverse
 install.packages("tidyverse")
 ```
 
+Quando carregamos o pacote *tidyverse*, notamos uma mensagem indicando quais pacotes foram carregados, suas repectivas versões e os conflitos com outros pacotes.
+
+```{r message=TRUE}
+# carregar o pacote tidyverse
+library(tidyverse)
+```
+
+Podemos ainda **listar todos os pacotes** do **tidyverse** com a função `tidyverse::tidyverse_packages()`.
+
+```{r}
+# listar todos os pacotes no tidyverse 
+tidyverse::tidyverse_packages(include_self = TRUE)
+```
+
+Também podemos **verificar os pacotes para serem atualizados** com a função `tidyverse::tidyverse_update()`.
+
+```{r}
+# listar e atualizar os pacotes no tidyverse 
+tidyverse::tidyverse_update()
+```
+
+Todas as funções dos pacotes tidyverse usão **fonte minúscula** e **usam `_` (*underscore*)** para separar os nomes internos das funções, seguindo a mesma sintaxe do Python (*snake_case*). Neste sentido de padronização, é importante destacar ainda que existe um guia próprio para que os scripts sigam a recomendação de padronização, o [The tidyverse style guide](https://style.tidyverse.org/), criado pelo Hadley Wickham. Para os desenvolvedores, existe o [Tidyverse design guide](https://design.tidyverse.org/) criado pelo *Tidyverse team*.
+
+```{r eval=FALSE}
+# funcoes no formato snake_case
+read_csv()
+read_xlsx()
+as_tibble()
+left_join()
+group_by()
+```
+
+Por fim, para evitar possíveis **conflitos de funções com o mesmo nome entre pacotes**, recomendamos fortemente o hábito de usar as funções seguido do operador `::`. Assim, garante-se que a **função utilizada é referente ao pacote daquela função**. Segue um exemplo com as funções apresentadas anteriormente.
+
+```{r eval=FALSE}
+# funcoes seguidas de seus respectivos pacotes
+readr::read_csv()
+readxl::read_xlsx()
+tibble::as_tibble()
+dplyr::left_join()
+dplyr::group_by()
+```
+
+Seguindo essas ideias de organização de dados, outro conjunto de pacotes foi desenvolvido, chamado de [*tidymodels*](https://www.tidymodels.org/) que atuam no **workflow da análise de dados** em ciência de dados: separação e reamostragem, pre-processamento, ajuste de modelos e métricas de performace de ajustes. Por razões de espaço e especificidade, não entraremos em detalhes dessa abordagem.
+
 ### magrittr (pipe - %>%)
+
 
 
 ### readr
