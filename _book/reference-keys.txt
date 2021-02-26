@@ -534,3 +534,12 @@ fig:fig-r-dados-tidy
 fig:fig-r-tidyverse
 tidyverse-e-tidymodels
 principais-erros-de-iniciantes
+contextualização
+here
+readr-readxl-e-writexl
+exercícios
+base-r
+tidyverse-2
+livros
+apostilas
+links

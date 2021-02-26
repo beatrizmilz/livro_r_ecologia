@@ -431,14 +431,14 @@ Já `proj4string` permite mais flexibilidade para especificar diferentes parâme
 
 Além disso, ainda é possível consultar uma extensa lista de CRSs no site [spatialreference.org](https://spatialreference.org/), que fornece descrições em diversis formatos, baseados em GDAL e Proj.4. Essa abordagem permite consultar uma URL que pode produzir uma referência espacial em um formato que seu software SIG ou o R pode utilizar como referência.
 
-Os pacotes espaciais no R suportam uma ampla variedade de CRSs e usam a biblioteca [PROJ](https://proj.org/index.html#). A função `rgdal::make_EPSG()` retorna um data frame das projeções disponíveis, com informações dos códigos `epsg` e `proj4string` numa mesma tabela, facilitando a busca e uso de CRSs (\@ref(tab-crs)).
+Os pacotes espaciais no R suportam uma ampla variedade de CRSs e usam a biblioteca [PROJ](https://proj.org/index.html#). A função `rgdal::make_EPSG()` retorna um data frame das projeções disponíveis, com informações dos códigos `epsg` e `proj4string` numa mesma tabela, facilitando a busca e uso de CRSs (Tabela \@ref(tab:tab-crs)).
 
 ```{r eval=FALSE}
 crs_data <- rgdal::make_EPSG()
 head(crs_data)
 ```
 
-```{r echo=FALSE}
+```{r tab-crs, echo=FALSE}
 kable(head(rgdal::make_EPSG()),
       caption = "Listagem inicial das projeções disponíveis no R, com informações dos códigos `epsg` e `proj4string`")
 ```
