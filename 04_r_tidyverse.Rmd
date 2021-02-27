@@ -101,7 +101,7 @@ Em relação aos scripts, ainda há os **comentários**, representados pelos sí
 #' ---
 #' title: capitulo 04 - introducao ao r
 #' author: mauricio vancine
-#' date: 2021-02-17
+#' date: 2021-02-26
 #' ---
 ```
 
@@ -187,13 +187,13 @@ obj
 
 Segundo, o R tem limitações ao nomear objetos: 
 
- - nome de objetos só podem começar por letras (a-z ou A-Z) ou pontos (.)
- - nome de objetos só podem conter letras (a-z ou A-Z), números (0-9), underscores (_) ou pontos (.)
- - R é case-sensitive, i.e., ele difere letras maiúsculas de minúsculas. Assim, um objeto chamado "resposta" é diferente do objeto "RESPOSTA"
- - devemos evitar acentos ou cedilha (ç) para facilitar a memorização dos objetos
- - nome de objetos não podem ser iguais a nomes especies (`break`, `else`, `FALSE`, `for`, `function`, `if`, `Inf`, `NA`, `NaN`, `next`, `repeat`, `return`, `TRUE`, `while`)
+ - nome de objetos só podem **começar por letras** (`a-z` ou `A-Z`) ou **pontos** (`.`)
+ - nome de objetos só podem **conter letras** (`a-z` ou `A-Z`), **número**s (`0-9`), **underscores** (`_`) ou **pontos** (`.`)
+ - R é *case-sensitive*, i.e., ele difere **letras maiúsculas de minúsculas**. Assim, um objeto chamado "resposta" é diferente do objeto "RESPOSTA"
+ - devemos **evitar acentos ou cedilha** (`ç`) para facilitar a memorização dos objetos
+ - nome de objetos não podem ser iguais a **nomes especies** (`break`, `else`, `FALSE`, `for`, `function`, `if`, `Inf`, `NA`, `NaN`, `next`, `repeat`, `return`, `TRUE`, `while`)
 
-Podemos ainda utilizar objetos para fazer operações e criar novos objetos. Isso pode parecer um pouco confuso para os iniciantes na linguagem, mas é fundamental aprender essa lógica para passar para os próximos passos.
+Podemos ainda utilizar objetos para **fazer operações e criar novos objetos**. Isso pode parecer um pouco confuso para os iniciantes na linguagem, mas é fundamental aprender essa lógica para passar para os próximos passos.
 
 ```{r}
 # definir dois objetos
@@ -203,13 +203,6 @@ va2 <- 2
 # operacoes com objetos e atribuicao
 adi <- va1 + va2
 adi
-```
-
-Por fim, é fundamental entender que um objeto é uma **alocação de um pequeno espaço na memória RAM** do seu computador, onde o R armazenará um valor ou o resultado de uma função, utilizando o nome que definimos. Sendo assim, se fizermos uma atribuição de um **objeto maior que o tamanho da memória RAM**, esse objeto **não será alocado**, e a atribuição não funcionará. Existem opções para contornar esse tipo de limitação, mas não abordaremos aqui. Entretanto, podemos utilizar a função `object.size()` para saber quanto espaço nosso objeto criado está alocando de memória RAM. O conceito de função é tratado na seção seguinte.
-
-```{r}
-# tamanho de um objeto
-object.size(adi)
 ```
 
 ### Funções
@@ -291,12 +284,12 @@ Podemos ainda verificar todos pacotes instalados em seu computador com a funçã
 library()
 ```
 
-No R, quando tratamos de pacotes, devemos destacar dois conceitos: instalar um pacote e carregar um pacote. A **instalação** de pacotes possui alguns características:
+No R, quando tratamos de pacotes, devemos destacar dois conceitos: instalar um pacote e carregar um pacote. A **instalação** de pacotes possui algumas características:
 
-1. Instala-se apenas uma vez
-1. Precisa estar conectado à internet
-1. O nome do pacote precisa estar entre aspas
-1. Função (CRAN): `install.packages()`
+- Instala-se apenas uma vez
+- Precisa estar conectado à internet
+- O nome do pacote precisa estar entre aspas
+- Função (CRAN): `install.packages()`
 
 Vamos instalar o pacote *vegan* diretamente do CRAN, que possui funções para realizar uma série de análise em ecologia. Para isso, podemos ir em Tools > Install Packages..., ou ir na aba **Packages** (Figura \@ref(fig:fig-rstudio) (4)), procurar um pacote ou simplesmente clicar em "Install". Podemos ainda utilizar a função `install.packages()`.
 
@@ -305,16 +298,16 @@ Vamos instalar o pacote *vegan* diretamente do CRAN, que possui funções para r
 install.packages("vegan")
 ```
 
-Uma vez instalado um pacote, não há necessidade de instalá-lo novamente. Entretanto, todas as vezes que iniciarmos uma sessão no R, precisamos **carregar** os pacotes com as funções que precisamos utilizar. O **carregamento** de pacotes possui alguns características:
+Uma vez instalado um pacote, não há necessidade de instalá-lo novamente. Entretanto, todas as vezes que iniciarmos uma sessão no R, precisamos **carregar** os pacotes com as funções que precisamos utilizar. O **carregamento** de pacotes possui algumas características:
 
-1. Carrega-se toda vez que se abre uma nova sessão do R
-2. Não precisa estar conectado à internet
-3. O nome do pacote não precisa estar entre aspas
-4. Funções: `library()` ou `require()`
+- Carrega-se toda vez que se abre uma nova sessão do R
+- Não precisa estar conectado à internet
+- O nome do pacote não precisa estar entre aspas
+- Funções: `library()` ou `require()`
 
 Vamos carregar o pacote *vegan* que instalamos anteriormente. Podemos ir na aba **Packages** (Figura \@ref(fig:fig-rstudio) (4)) e ticar o pacote que queremos carregar ou utilizar a função `library()`.
 
-```{r}
+```{r message=TRUE}
 # carregar pacotes
 library(vegan)
 ```
@@ -348,7 +341,11 @@ data(dune)
 dune[1:6, 1:6]
 ```
 
-Se por algum motivo precisarmos **desinstalar** um pacote, podemos utilizar a função `remove.packages()`. 
+Se por algum motivo precisarmos **desinstalar** um pacote, podemos utilizar a função `remove.packages()`. Já para **descarregar** um pacote, podemos usar a função `detach()`.
+
+```{r}
+detach("package:vegan", unload = TRUE)
+```
 
 E um último ponto fundamental de pacotes, diz respeito à **atualização** dos mesmos. Os pacotes são atualizados com frequência, e infelizmente ou felizmente (pois as atualizações podem oferecer algumas quebras entre pacotes), não se atualizam sozinhos. Muitas vezes, a instalação de um pacote pode depender da versão dos pacotes dependentes, e geralmente uma janela se abre que todos os pacotes dependentes sejam atualizados. Podemos ir na aba **Packages** (Figura \@ref(fig:fig-rstudio) (4)) e clicar em "Update" ou usar a função `update.packages(ask = FALSE)` para atualizá-los, entretanto, essa é uma função que costuma demorar para terminar de rodar.
 
@@ -357,7 +354,7 @@ E um último ponto fundamental de pacotes, diz respeito à **atualização** dos
 update.packages(ask = FALSE)
 ```
 
-### Ajuda (help)
+### Ajuda (*Help*)
 
 Um importante passo para melhorar a usuabilidade e ter mais familiaridade com a linguagem R é aprender a usar a **ajuda de cada função**. Para tanto, podemos utilizar a função `help()` ou o operador `?`, depois de ter carregado o pacote, para abri uma nova aba (Figura \@ref(fig:fig-rstudio) (4)) que possui diversas informações sobre a função de interesse. O arquivo de ajuda do R possui geralmente nove ou dez tópicos, que nos auxiliam muito no entendimento dos dados de entrada, argumento e que operações estão sendo realizadas:
 
@@ -393,12 +390,59 @@ library(help = "vegan")
 
 Outra ferramenta de busca é a página [rseek](http://www.rseek.org), na qual é possível buscar por um termo não só nos pacotes do R, mas também em listas de emails, manuais, páginas na internet e livros sobre o programa.
 
+### Ambiente (*Environment*)
+
+O ambiente *Environment* como vimos é onde os objetos criados são armazenados. É fundamental entender que um objeto é uma **alocação de um pequeno espaço na memória RAM** do seu computador, onde o R armazenará um valor ou o resultado de uma função, utilizando o nome que definimos. Sendo assim, se fizermos uma atribuição de um **objeto maior que o tamanho da memória RAM**, esse objeto **não será alocado**, e a atribuição não funcionará. Existem opções para contornar esse tipo de limitação, mas não abordaremos aqui. Entretanto, podemos utilizar a função `object.size()` para saber quanto espaço nosso objeto criado está alocando de memória RAM. O conceito de função é tratado na seção seguinte.
+
+```{r}
+# tamanho de um objeto
+object.size(adi)
+```
+
+Podemos listar todos os objetos criados com a função `ls()` ou `objects()`.
+
+```{r}
+# listar todos os objetos
+ls()
+```
+
+Podemos ainda remover objetos criados com a função `rm()` ou `remove()`. Ou ainda fazer uma função composta para remove todos os objetos do *Environment*.
+
+```{r}
+# remover um objeto
+rm(adi)
+
+# remover todos os objetos criados
+rm(list = ls())
+```
+
+Quando usamos a função `ls()`, nenhum objeto é lista.
+
+```{r}
+# listar todos os objetos
+ls()
+```
+
+Toda a vez que **fechamos o R**, os objetos criados são **apagados**! Dessa forma, em algumas ocasiões, por exemplo, análises estatísticas que demoram grande tempo para serem realizadas, pode ser interessante **exportar esses objetos criados**. Podemos fazer isso de duas formas. A primeira delas vamos em Session -> Save Workspace As... e escolhemos o nome do arquivo com nossos objetos, por exemplo, "meus_objetos.RData". Na segunda, podemos utilizar a função `save.image()`.
+
+```{r eval=FALSE}
+# exportar objetos
+save.image("meus_objetos.RData")
+```
+
+Podemos fechar o RStudio tranquilamente, e quando formos trabalhar novamente, carregar os objetos criados indo em Session -> Load Workspace..., ou utilizar a função `load()`.
+
+```{r eval=FALSE}
+# importar objetos
+load("meus_objetos.RData")
+```
+
 ### Citações
 
 Ao utilizar o R para realizar alguma análise em seus estudos ecológicos, é fundamental a citação do mesmo. Para saber como citar exatamente o R em artigos, existe uma função denominada `citation()`, que provê um formato genérico de citação e um BibTeX para arquivos LaTeX e R Markdown.
 
 ```{r}
-# citacao do R
+# citacao do r
 citation()
 ```
 
@@ -446,12 +490,24 @@ OBJ
 Esse também um erro recorrentes, mesmo para usuários mais experientes. Em scripts de análises complexas, que requerem vários pacotes, geralmente esquecemos de um ou outro... A melhor forma de evitar esse tipo de erro é listar o pacotes que vamos precisar usar logo no início do script.
 
 ```{r error=TRUE}
-ggplot(iris) + aes(Sepal.Length, Sepal.Width) + geom_point() + theme_bw()
+# carregar dados
+data(dune)
+
+# funcao do pacote vegan
+decostand(dune, "hell")
 ```
 
-```{r fig.align='center'}
-library(ggplot2)
-ggplot(iris) + aes(Sepal.Length, Sepal.Width) + geom_point() + theme_bw()
+Geralmente a mensagem de erro será de que a **função não foi encontrada** ou algo nesse sentido. Carregando o pacote, esse erro é contornado.
+
+```{r}
+# carregar o pacote
+library(vegan)
+
+# carregar dados
+data(dune)
+
+# funcao do pacote vegan
+decostand(dune[1:6, 1:6], "hell")
 ```
 
 **5. Usar o nome da função de forma errônea**
@@ -459,11 +515,11 @@ ggplot(iris) + aes(Sepal.Length, Sepal.Width) + geom_point() + theme_bw()
 Esse erro não é tão comum, mas pode ser incômodo às vezes. Algumas funções possuem nomes no padrão "Camel Case", i.e., com letras maiúsculas para no meio do nome da função. Isso às vezes pode confundir, ou ainda, as funções podem ou não ser separadas com `.`, como `row.names()` e `colnames()`. Na seção de *tidyverse*, veremos que houve uma padronização nos nomes das funções para "Snake Case", i.e, todas as funções possuem letras minúsculas, com palavras separadas por *underscore* `_`.
 
 ```{r error=TRUE}
-colsums(iris[, -5])
+colsums(dune)
 ```
 
 ```{r}
-colSums(iris[, -5])
+colSums(dune)
 ```
 
 ## Estrutura e manipulação de objetos 
@@ -804,6 +860,8 @@ kable(data.frame(
     "`unique()`",
     "`summary()`", 
     "`scale()`", 
+    "`sub()`",
+    "`grep()`",
     "`any()`", 
     "`all()`",
     "`which()`",
@@ -838,6 +896,8 @@ kable(data.frame(
     "Únicos",
     "Resumo estatístico", 
     "Padronização e centralização", 
+    "Substitui caracteres", 
+    "Posição de caracteres", 
     "Algum valor?", 
     "Todos os valores?", 
     "Quais valores?",
@@ -1192,11 +1252,11 @@ Depois disso, Wickham dedicou-se ao desenvolvimento do pensamento de uma nova ab
 
 À partir dessas ideias, o [*tidyverse*](https://www.tidyverse.org/) foi operacionalizado no R como uma coleção de pacotes R que atuam no **workflow comum da ciência de dados**: importação, manipulação, exploração, visualização, análise e comunicação de dados e análises (Wickhan et al. 2019) (Figura \@ref(fig:fig-r-tidyverse)). O principal objetivo do **Tidyverse** é aproximar a linguagem para melhorar a interação entre ser humano e computador sobre dados, de modo que os pacotes compartilham uma filosofia de design de alto nível e gramática, além da estrutura de dados de baixo nível (Wickhan et al. 2019).
 
-```{r fig-r-tidyverse, fig.align='center', fig.cap="Modelo das ferramentas necessárias em um projeto típico de ciência de dados: importar, organizar, entender (transformar, visualizar, modelar) e comunicar, envolto à essas ferramentas está a programação. Adaptado de: Wickhan & Grolemund (2017).", out.width="80%", echo=FALSE}
+```{r fig-r-tidyverse, fig.align='center', fig.cap="Modelo das ferramentas necessárias em um projeto típico de ciência de dados: importar, organizar, entender (transformar, visualizar, modelar) e comunicar, envolto à essas ferramentas está a programação. Adaptado de: Wickhan & Grolemund (2017).", out.width="90%", echo=FALSE}
 knitr::include_graphics("img/cap04_tidyverse.png")
 ```
 
-As principais leituras sobre o tema no R são os artigos Wickham (2014), Wickham et al. (2019), o livro Wickhan & Grolemund (2017), disponível on-line neste [link](https://r4ds.had.co.nz/), além do [site](https://www.tidyverse.org/) que possui muito mais informações. 
+As principais leituras sobre o tema no R são os artigos Wickham (2014), Wickham et al. (2019), o livro Wickhan & Grolemund (2017), disponível on-line neste [link](https://r4ds.had.co.nz/), além do [site](https://www.tidyverse.org/) que possui muito mais informações.
 
 ### *tidyverse*
 
@@ -1239,7 +1299,7 @@ Além desses principais, fazemos a menção de **outros pacotes que estão dentr
 
 Para instalar os pacotes do *tidyverse*, rode o comando abaixo:
 
-```{r, eval=FALSE}
+```{r eval=FALSE}
 # instalar o pacote tidyverse
 install.packages("tidyverse")
 ```
@@ -1311,7 +1371,7 @@ library(here)
 
 Dado que possuímos um conjuntos de dados e que geralmente esse conjunto de dados estará no formato tabular com umas das extensões: .csv, .txt ou .xlsx, iremos usar o pacote *readr* ou *readxl* para importar esses dados para o R.
 
-Esses pacotes **leem e escrevem grandes arquivos de forma mais rápida**, além de fornecem **medidores de progresso** de importação e exportação. Outro ponto bastante positivo, é que também **classificam automaticamente** o modo dos dados de cada coluna, i.e., se uma coluna possui dados numéricos ou apenas texto, essa informação será considerada para classificar a coluna toda. A **classe do objeto** atribuído quando lido por esses pacotes é automaticamente um "tibble", que veremos melhor na seção seguinte. 
+Esses pacotes **leem e escrevem grandes arquivos de forma mais rápida**, além de fornecem **medidores de progresso** de importação e exportação, e imprimir a **informação dos modos das colunas** quando faz a importação. Outro ponto bastante positivo, é que também **classificam automaticamente** o modo dos dados de cada coluna, i.e., se uma coluna possui dados numéricos ou apenas texto, essa informação será considerada para classificar a coluna toda. A **classe do objeto** atribuído quando lido por esses pacotes é automaticamente um "tibble", que veremos melhor na seção seguinte. 
 
 Usamos as funções `readr::read_csv()` e `readr::write_csv()` para importar e exportar arquivos .csv do R, respectivamente. Para dados com a extensão .txt, podemos utilizar as funções `readr::read_tsv()` ou ainda `readr::read_delim()`. Para arquivos tabulares com a extensão .xlsx, temos de instalar dois pacotes adicionais: *readxl* e *writexl*, dos quais usaremos as funções `readxl::read_excel()`, `readxl::read_xlsx()` ou `readxl::read_xls()` para importar dados, atentado para o data de podermos indicar a aba com os dados com o argumento **sheet**, e `writexl::write_xlsx()` para exportar.
 
@@ -1319,7 +1379,7 @@ Se o arquivo .csv foi criado com separador de decimais sendo `.` e separador de 
 
 Para exemplificar como importar dados no **formato tidyverse**, vamos importar novamente os dados de **comunidades de anfíbios da Mata Atlântica** (Atlantic Amphibians, Vancine et al. 2018), que fizemos o download na seção XX. Estamos usando a função `readr::read_csv()`, indicando os diretórios com a função `here::here()`, e a classe do arquivo é "tibble".
 
-```{r}
+```{r message=TRUE}
 # importar lugares
 aa_locais <- readr::read_csv(
   here::here("dados", "tabelas", "ATLANTIC_AMPHIBIANS_sites.csv")
@@ -1332,7 +1392,7 @@ O **tibble** (`tbl_sf`) é uma **versão aprimorada** do data frame (`data.frame
 
 Geralmente, quando utilizamos **funções tidyverse para importar dados para o R**, é essa classe que esses dados adquirem depois de importados. Além da importação de dados, podemos **criar** um tibble no R usando a função `tibble::tibble()`, semelhante ao uso da função `data.frame()`. Podemos ainda **converter** um `data.frame` para um `tibble` usando a função `tibble::as_tibble()`. Entretanto, em alguns momentos precisaremos da classe `data.frame` para algumas funções específicas, e podemos **converter** um `tibble` para `data.frame` usa-se a função `tibble::as_data_frame()`.
 
-Existem **duas diferenças principais** no uso do `tibble` e do `data.frame`: impressão e subconjunto. Objetos da classe `tibbles` possuem um método de impressão que mostra apenas as **primeiras 10 linhas** e **todas as colunas** que cabem na tela no console, além dos **modos ou tipos das colunas**. Dessa forma, cada coluna ou variável, pode ser do modo numbers (`int` ou `dbl`), character (`chr`), logical (`lgl`), factor (`fctr`), date (`date`), além de outras [inúmeras possibilidades](https://tibble.tidyverse.org/articles/types.html).
+Existem **duas diferenças principais** no uso do `tibble` e do `data.frame`: impressão e subconjunto. Objetos da classe `tibbles` possuem um método de impressão que mostra a **contagem do número de linhas e colunas**, e apenas as **primeiras 10 linhas** e **todas as colunas** que cabem na tela no console, além dos **modos ou tipos das colunas**. Dessa forma, cada coluna ou variável, pode ser do modo numbers (`int` ou `dbl`), character (`chr`), logical (`lgl`), factor (`fctr`), date + time (`dttm`) date e (`date`), além de outras [inúmeras possibilidades](https://tibble.tidyverse.org/articles/types.html).
 
 ```{r}
 # tibble - impressao
@@ -1344,6 +1404,12 @@ Para o subconjunto, como vimos anteriormente, para **selecionar colunas e linhas
 ```{r, error=TRUE, warning=TRUE}
 # tibble - subconjunto
 aa_locais$ref
+```
+
+Por fim, podemos **"espiar" os dados** utilizando a função `tibble::glimpse()` para ter uma noção geral de número de linhas, colunas, e conteúdo de todas as colunas. Essa é função tidyverse da função R Base `str()`.
+
+```{r}
+tibble::glimpse(aa_locais[, 1:10])
 ```
 
 ### magrittr (pipe - %>%)
@@ -1410,7 +1476,7 @@ Os conjuntos de **dados tidy** (organizados) são mais fáceis de manipular, mod
 knitr::include_graphics("img/cap04_tidy.png")
 ```
 
-Para realizar diversas transformações nos dados para ajustá-los ao formato **tidy**, existe uma série de funções, para diversas finalidades: unir e separar, valores faltantes (`NA`), e pivotar (formato **longo** para **largo**), além de outras [funções específicas](https://tidyr.tidyverse.org/reference/index.html).
+Para realizar **diversas transformações nos dados** a fim de ajustá-los ao formato **tidy**, existe uma série de funções, para diversas finalidades: unir e separar, valores faltantes (`NA`), e pivotar (formato **longo** para **largo**), além de outras [funções específicas](https://tidyr.tidyverse.org/reference/index.html).
 
 - `tidyr::unite()`: junta dados de múltiplas colunas em uma coluna
 - `tidyr::separate()`: separa caracteres em múlplica colunas
@@ -1432,7 +1498,7 @@ Esses dados foram coletados e disponibilizados pela [Dra. Kristen Gorman](https:
 O pacote *palmerpenguins* contém dois conjuntos de dados. Um é chamado de **penguins** e é uma versão simplificada dos dados brutos. O segundo conjunto de dados é **penguins_raw** e contém todas as variáveis e nomes originais baixados. Ambos os conjuntos de dados contêm dados para 344 pinguins, de três espécies diferentes, coletados em três ilhas no arquipélago de Palmer, na Antártica.
 
 ```{r}
-# carregar o pacote
+# carregar o pacote palmerpenguins
 library(palmerpenguins)
 
 # ajuda dos dados
@@ -1440,72 +1506,180 @@ library(palmerpenguins)
 ?penguins_raw
 ```
 
-Primeiramente, vamos observar os dados utilizando a função `tidyr::glimpse()`.
+Primeiramente, vamos observar os dados e utilizar a função `tidyr::glimpse()` para ter uma noção geral.
 
 ```{r}
+# visualizar os dados
 penguins_raw
+
+# espiar os dados
+tibble::glimpse(penguins_raw)
 ```
 
-Primeiramente, vamos juntar e serparar colunas. 
+Primeiramente, vamos exemplificar como **juntar e serparar colunas**. Vamos utilizar a função `tidyr::unite()` para unir as colunas "Region" e "Island". Há diversos parâmetros para alterar como a funções funciona, entretanto, é importante destacar trŝ deles: **col** nome da coluna que vai receber as colunas unidas, **sep** indicando o caracter separador das colunas unidas, e **remove** para uma resposta lógica se as colunas unidas são removidas ou não. Vamos unir as colunas "Region" e "Island" na nova coluna "region_island",
+                                  
+```{r}
+# unir colunas
+penguins_raw_unir <- tidyr::unite(data = penguins_raw, 
+                                  col = "region_island",
+                                  Region:Island, 
+                                  sep = ", ",
+                                  remove = FALSE)
+```
 
+De forma contrária podemos utilizar as funções `tidyr::separate()` e `tidyr::separate_rows()` para separar elementos de uma coluna em mais colunas. Respectivamente, a primeira função separa uma colunas em novas colunas conforme a separação e a segunda função separa uma coluna, distribuindo os elementos também nas linhas. Novamente, há diversos parâmetros, mas destacaremos quatro deles: **col** coluna a ser separada, **into** os nomes das novas colunas, **sep** indicando o caracter separador das colunas, e **remove** para uma resposta lógica se as colunas unidas são removidas ou não. Vamos separar a coluna "Stage" nas colunas "stage" e "egg_stage".
 
+```{r}
+# separar colunas
+penguins_raw_separar <- tidyr::separate(data = penguins_raw, 
+                                        col = Stage,
+                                        into = c("stage", "egg_stage"), 
+                                        sep = ", ",
+                                        remove = FALSE)
+
+# separar colunas
+penguins_raw_separar_linhas <- tidyr::separate_rows(data = penguins_raw, 
+                                                    Stage,
+                                                    sep = ", ")
+```
+
+**Valores faltantes** (`NA`) é um tipo especial de elemento que discutimos na seção XX, e são relativamente comuns em grandes conjuntos de dados. Em Base R vimos algumas formas de lidar com esse tipo de elemento. No formato **tidyverse** existem várias formas de lidar com eles, mas aqui focaremos nas funções `tidyr::drop_na()` e `tidyr::replace_na()`, para retirar linhas e substitui-los, respectivamente. 
+
+```{r}
+# remover todas as linhas com nas
+penguins_raw_todas_na <- tidyr::drop_na(data = penguins_raw)
+
+# remover linhas de colunas especificas com nas
+penguins_raw_colunas_na <- tidyr::drop_na(data = penguins_raw,
+                                        any_of("Comments"))
+
+# substituir nas por outro valor
+penguins_raw_subs_na <- tidyr::replace_na(data = penguins_raw,
+                                          list(Comments = "Unknown"))
+```
+
+Por fim, trataremos de **pivotagem ou remodelagem** de dados. Veremos como mudar o formato do nosso conjunto de dados de **longo** (*long*) para **largo** (*wide*) e vice-versa. Essa é uma operação semelhante à "Tabela Dinâmica" das planilhas eletrônicas. Consiste em usar uma coluna para virar outras colunas, de modo que os valores são preenchidos corretamente, reduzindo assim o número de linhas, isso na transformação de **longo** (*long*) para **largo** (*wide*). Essa operação é bastante comum em Ecologia de Comunidades, quando queremos transformar uma lista de espécies em uma matriz de comunidades, com várias espécies nas colunas. Para realizar essa operação, usarmos a função `tidyr::pivot_wider()`. Dos diversos parâmetros que podem compor essa função, dois deles são fundamentais: **names_from** que indica a coluna de onde os nomes serão usados e **values_from** a coluna com os valores.
+
+```{r}
+# selecionar colunas
+penguins_raw_sel_col <- penguins_raw[, c(2, 3, 13)]
+
+# pivotar para largo
+penguins_raw_pivot_wider <- tidyr::pivot_wider(data = penguins_raw_sel_col, 
+                                               names_from = Species, 
+                                               values_from = `Body Mass (g)`)
+```
+
+De modo oposto, podemos partir de um conjunto de dados **largo** (*wide*), ou seja, com várias colunas, e queremos que essas colunas preecham uma única coluna, e que os valores antes espalhados nessas várias colunas sejam adicionados um embaixo do outro. Para essa operação, podemos utilizar a função `tidyr::pivot_longer()`. Novamente, dos diversos parâmetros que podem compor essa função, trÊs deles são fundamentais: **cols** indicando as colunas que serão usandas para serem pivotadas,  **names_to** que indica a coluna de onde os nomes serão usados e **values_to** a coluna com os valores.
+
+```{r}
+# selecionar colunas
+penguins_raw_sel_col <- penguins_raw[, c(2, 3, 10:13)]
+
+# pivotar para largo
+penguins_raw_pivot_longer <- tidyr::pivot_longer(data = penguins_raw_sel_col, 
+                                                 cols = `Culmen Length (mm)`:`Body Mass (g)`,
+                                                 names_to = "medidas", 
+                                                 values_to = "valores")
+```
 
 ### dplyr
 
-O dplyr é um pacote que facilita o trabalho com dados, com uma gramática de manipulação de dados simples e flexível (filtragem, reordenamento, seleção, entre outras)
+O *dplyr* é um pacote que **facilita a manipulação de dados**, com uma **gramática de manipulação de dados** simples e flexível (por exemplo, como filtragem, reordenamento, seleção, entre outras). Ele foi construído com o intuito de **obter uma forma mais rápida e expressiva** de tratar os dados. O `tibble` é a versão de data frame mais conveniente para se usar com pacote *dplyr*.
 
+Sua **gramática simples** contém **funções verbais** para manipulação de dados, baseada em:
 
-Ele foi construído com o intuito de obter uma forma mais rápida e expressiva de tratar os dados
+- Verbos: `mutate()`, `select()`, `filter()`, `arrange()`, `summarise()`, `slice()`, `rename()`, etc.
+- Sufixos: `*_at()`, `*_if()`, `*_all()`.
+- Agrupamento: `group_by()` e `ungroup()`.
+- Junções: `inner_join()`, `full_join()`, `left_join()`, `right_join()`, etc.
+- Funções resumo: `n()`, `n_distinct()`, `first()`, `last()`, `nth()`, etc.
 
+Para realizar as **manipulações nos dados** existe uma série de funções, para diversas finalidades: manipulação de uma tabela, manipulação de duas tabela, agrupamento, funções de vetores, além de outras [funções específicas](https://dplyr.tidyverse.org/reference/index.html).
 
-O tibble é a versão de data frame mais conveniente para se usar com dplyr
+- `relocate()`: muda a ordem das colunas
+- `rename()`: muda o nome das colunas
+- `select()`: seleciona colunas pelo nome
+- `pull()`: seleciona uma coluna como vetor
+- `mutate()`: adiciona novas colunas ou adiciona resultados em colunas existentes
+- `arrange()`: reordenar as linhas com base nos valores de colunas
+- `filter()`: seleciona linhas com base em valores
+- `distinct()`: remove linhas com valores repetidos com base nos valores de colunas
+- `slice()`: seleciona linhas pelos números
+- `sample_n()`: amostragem aleatória de linhas
+- `summarise()`: agrega ou resume os dados através de funções, podendo considerar valores das colunas
+- `*_join()`: junta dados de duas tabelas através de uma coluna chave
 
-Sua gramática simples contém funções verbais para manipulação de dados
+Todas as funções seguem a mesma **sintaxe**, de modo que o `tibble` é sempre o **primeiro argumento** das funções verbais, seguido de um **pipe** e pelo o **nome da função**. Isso permite o **encademanto** de várias operações consecutivas.
 
-
-
-Funções
-Verbos: `mutate()`, `select()`, `filter()`, `arrange()`, `summarise()`, `slice()`, `rename()`, etc.
-
-Sufixos: `*_at()`, `*_if()`, `*_all()`.
-
-Agrupamento: `group_by()` e `ungroup()`
-
-Junções: `inner_join()`, `full_join()`, `left_join()`, `right_join()`, etc.
-
-Funções resumo: `n()`, `n_distinct()`, `first()`, `last()`, `nth()`, etc.
-
-
-`select()`: seleciona colunas pelo nome gerando um tibble
-`pull()`: seleciona uma coluna como vetor
-`rename()`: muda o nome das colunas
-`mutate()`: adiciona novas colunas ou adiciona resultados em colunas existentes
-`arrange()`: reordenar as linhas com base nos valores de colunas
-`filter()`: seleciona linhas com base em valores
-`distinct()`: remove linhas com valores repetidos com base nos valores de colunas
-`slice()`: seleciona linhas pelos números
-`sample_n()`: amostragem aleatória de linhas
-`summarise()`: agrega ou resume os dados através de funções, podendo considerar valores das colunas
-`*_join()`: junta dados de duas tabelas através de uma coluna chave
-
-
-O tibble é sempre o primeiro argumento das funções verbais
-Todas seguem a mesma sintaxe:
 1. tibble
-2. operador pipe
-3. nome da função verbal com os argumentos entre parênteses
+1. operador pipe
+1. nome da função verbal com os argumentos entre parênteses
 
+As funções verbais **não precisam modificar** o tibble original, sendo que as operações de manipulações podem e devem ser atribuídas à um **novo objeto**.
 
-As funções verbais não modificam o tibble original
 ```{r eval=FALSE}
 tb_dplyr <- tb %>% 
   funcao_verbal(argumento1, argumento2)
 ```  
-  
+
+Além de `data.frames` e `tibbles`, a manipulação pelo formato *dplyr* torna o trabalho com outros formatos de classes e dados acessível e eficiente.
+
+- [*dtplyr*](https://dtplyr.tidyverse.org/): manipular conjuntos de dados `data.table`
+- [*dbplyr*](https://dbplyr.tidyverse.org/): manipular conjuntos de dados SQL
+- [*sparklyr*](https://spark.rstudio.com/): manipular conjuntos de dados no Apache Spark
+
+Para nossos exemplos, vamos utilizar os dados que carregamos anteriormente [**palmerpenguins**](https://allisonhorst.github.io/palmerpenguins). Esses dados estão disponíveis no pacote *palmerpenguins*. Mas agora, vamos utilizar o conjunto de dados **penguins**, que é uma versão simplificada dos dados brutos.
+
+Primeiramente, vamos reordenadar as colunas com a função `dplyr::relocate()`. Simplesmente listamos as colunas que queremos mudar de posição. Além disso, há dois argumentos bastante simples: **.before** que indica qual a coluna que as realocadas devem se mover antes e **.after** que indica qual a coluna que as realocadas devem se mover depois, ambas podem ser informadas com os nomes ou posições desses colunas com números.
+
+```{r}
+# reordenar colunas - nome
+penguins_relocate <- penguins %>% 
+  dplyr::relocate(sex, year, .after = island)
+
+# reordenar colunas - posicao
+penguins_relocate <- penguins %>% 
+  dplyr::relocate(sex, year, .after = 2)
+```
+
+`rename()`: muda o nome das colunas
+
+
+`select()`: seleciona colunas pelo nome
+
+
+`pull()`: seleciona uma coluna como vetor
+
+
+`mutate()`: adiciona novas colunas ou adiciona resultados em colunas existentes
+
+
+`arrange()`: reordenar as linhas com base nos valores de colunas
+
+
+`filter()`: seleciona linhas com base em valores
+
+
+`distinct()`: remove linhas com valores repetidos com base nos valores de colunas
+
+
+`slice()`: seleciona linhas pelos números
+
+
+`sample_n()`: amostragem aleatória de linhas
+
+
+`summarise()`: agrega ou resume os dados através de funções, podendo considerar valores das colunas
+
+
+`*_join()`: junta dados de duas tabelas através de uma coluna chave
+
+
 
 ### stringr
 
-Pacote para a manipulação de strings.
+Pacote para a **manipulação de caracteres ou strings**.
 
 Comprimento
 ```{r}
@@ -1626,7 +1800,6 @@ fa_lump <- fa_recode %>%
   forcats::fct_lump()
 fa_lump
 ```
-
 
 ### lubridate
 
@@ -1849,9 +2022,7 @@ lubridate::as.period(filho_intervalo)
 
 ### purrr
 
-Pacote para programação funcional.
-
-Pacote que implementa Programação Funcional
+Pacote que implementa **Programação Funcional**
 
 
 Uma função chama outra função para ser aplicada repetidamente percorrendo elementos de um objeto (vetor, lista ou data frame)
@@ -1941,13 +2112,43 @@ Faz o mapeamento em paralelo mais integrado possível
 
 ### Base R
 
-### tidyverse
+1. Use o R para verificar o resultado da operação `7 + 7 ÷ 7 + 7 x 7 - 7`.
 
-1. Reescreva cada uma das operações utilizando pipes `%>%`.
+2. Verifique através do R se `3x2³` é maior que `2x3²`.
 
-`log10(cumsum(1:100))`
-`sum(sqrt(abs(rnorm(100))))`
-`sum(sort(sample(1:10, 10000, rep = TRUE)))`
+3. Crie dois objetos (qualquer nome) com os valores 100 e 300. Multiplique esses objetos (função `prod()`) e atribuam ao objeto **mult**. Faça o logaritmo natural (função `log()`) do objeto mult e atribuam ao objeto **ln**.
+
+4. Quantos pacotes existem no CRAN nesse momento? Execute essa combinação no Console: `nrow(available.packages(repos = "http://cran.r-project.org"))`.
+
+5. Instale o pacote *tidyverse* do CRAN.
+
+6. Escolha números para jogar na mega-sena usando o R, nomeando o objeto como **mega**. Lembrando: são 6 valores de 1 a 60 e atribuam a um objeto.
+
+7. Crie um fator chamado **tr**, com dois níveis ("cont" e "trat") para descrever 100 locais de amostragem, 50 de cada tratamento. O fator deve ser dessa forma `cont, cont, cont, ...., cont, trat, trat, ...., trat`.
+
+8. Crie uma matriz chamada **ma**, resultante da disposição de um vetor composto por 10000 valores aleatórios entre 0 e 10. A matriz deve conter 100 linhas e ser disposta por colunas.
+
+9. Crie um data frame chamado **df**, resultante da composição desses vetores: 
+
+- `id: 1:50`
+- `sp: sp01, sp02, ..., sp49, sp50`
+- `ab: 50 valores aleatórios entre 0 a 5`
+
+10. Crie uma lista com os objetos criados anteriormente: **mega**, **tr**, **ma** e **df**.
+
+11. Selecione os elmentos ímpares do objeto **tr**, e atribua ao objeto **tr_impar**.
+
+12. Selecione as linhas com ids pares do objeto **df**, e atribua ao objeto **df_ids_par**.
+
+13. Faça uma amostragem de 10 linhas do objeto **df**, e atribua ao objeto **df_amos10**.
+
+### *tidyverse*
+
+1. Reescreva as operações abaixo utilizando pipes `%>%`.
+
+- `log10(cumsum(1:100))`
+- `sum(sqrt(abs(rnorm(100))))`
+- `sum(sort(sample(1:10, 10000, rep = TRUE)))`
 
 ## Material de R
 
@@ -1963,9 +2164,9 @@ Carrie Wright, Shannon Ellis, Stephanie Hicks, and Roger D. Peng (2021) Tidyvers
 
 Tilman M. Davies (2016) The Book of R: a first course in programming and statistics.
 
-Hadley Wickham, Garrett Grolemund (2017) R for Data Science. O’Reilly.
+Wickham H, Grolemund G (2017) R for Data Science. O’Reilly.
 
-Hadley Wickham, Garrett Grolemund (2017) R for Data Science. O’Reilly.
+Wickham H (2018) Advanced R. 2nd ed. Chapman & Hall’s R Series.
 
 ### Apostilas
 
