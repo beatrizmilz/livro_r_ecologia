@@ -405,13 +405,15 @@ plot(raster_stack, col = viridis::viridis(n = 25))
 
 ## Sistema de Referência de Coordenadas e Unidades
 
-Os dados geográficos (vetor e raster) possuem ainda um outro componente fundamental, que é o **Sistema de Referência de Coordenadas**, ou do inglês *Coordinate Reference System (CRS)*. Esse componente define como os elementos espaciais (vetor e raster) representam uma feição na superfície da Terra. Esse componente é composto por dois principais conceitos: primeiro, que tipo de unidades estão sendo utilizadas para a representação geográfica, podendo assumir dois tipos - **ângulos ou metros**, que definem o **Sistema de Coordenadas Geográficas** e o **Sistema de Coordenadas Projetadas**, respectivamente. O segundo componente é o **datum**, que é a relação do sistema de coordenadas com a superfície da Terra. Esse último componente faz parte de uma área da **Cartografia** denominada **Geodésia** que estuda a forma e dimensões da Terra, campo gravitacional, e a localização de pontos fixos e sistemas de coordenadas. O livro de Lapaine et al. (2017) é um excelente material para se aprofundar nesse assunto.
+Os dados geográficos (vetor e raster) possuem ainda um outro componente fundamental, que é o **Sistema de Referência de Coordenadas**, ou do inglês *Coordinate Reference System (CRS)*. Esse componente define como os elementos espaciais (vetor e raster) representam uma feição na superfície da Terra. Esse componente é composto por dois principais conceitos: primeiro, que **tipo de unidades** estão sendo utilizadas para a representação geográfica, podendo assumir dois tipos - **ângulos ou metros**, que definem o **Sistema de Coordenadas Geográficas** e o **Sistema de Coordenadas Projetadas**, respectivamente. 
 
-### Sistema de Referência de Coordenadas Geográficas
+O segundo componente é o **datum**, que é a relação do sistema de coordenadas com a superfície da Terra. Esse último componente faz parte de uma área da **Cartografia** denominada **Geodésia** que estuda a forma e dimensões da Terra, campo gravitacional, e a localização de pontos fixos e sistemas de coordenadas. O livro de Lapaine et al. (2017) é um excelente material para se aprofundar nesse assunto.
+
+### Sistema de Coordenadas Geográficas
 
 O **Sistema de Referência de Coordenadas Geográficas** utiliza ângulos para representar feições na superfície da Terra através de dois valores: longitude e latitude. A longitude localiza-se na direção Leste-Oeste e a latitude localiza-se na direção Norte-Sul. Nesse sistema, a superfície da Terra geralmente é representada por uma superfície elipsoidal, pois a Terra é ligeiramente achatada nos polos.
 
-### Sistema de Referência de Coordenadas Projetadas
+### Sistema de Coordenadas Projetadas
 
 O **Sistema de Referência de Coordenadas Projetadas** utiliza um Sistema Cartesiano de Coordenadas em uma superfície plana. Dessa forma, à partir de uma origem, traçam-se eixos x e y, e uma unidade linear como o **metro** é utilizada. Todos as projeções feitas de sistemas geográficos convertem uma superfície tridimensional em uma superfície plana bidimensional. Sendo assim, essa conversão trás consigo algum tipo de distorção em relação à porção real, podendo ser distorções em: 1. formas locais, 2. áreas, 3. distâncias , 4. flexão ou curvatura , 5. assimetria, e 6. lacunas de continuidade. Dessa forma, um sistema de coordenadas projetadas pode preservar somente uma ou duas dessas propriedades.
 
@@ -419,7 +421,7 @@ Existem três grandes grupos de projeções: cilíndricos, cônicos e planares. 
 
 ### Datum
 
-Como dito anteriormente, o **datum** é a relação do sistema de coordenadas com a superfície da Terra. Ele representa o ponto de intersecção do elipsoide de referência com a supercie da Terra e o geoide (forma verdadeira da Terra), compensando as diferenças do campo gravitacional da Terra. Existem dois tipos de datum - local e geocêntrico. Em um **datum local**, como o **SAD69 - South American Datum 1969**, o elipsoide de referência é deslocado para se alinhar com a superfície em um determinado local na América do Sul. Já em um **datum geocêntrico**, como **WGS84 - World Geodetic System 1984**, o centro do elipsoide é o centro de gravidade da Terra e a precisão das projeções não é otimizada para um local específico do globo.
+Como dito anteriormente, o **datum** é a relação do sistema de coordenadas com a superfície da Terra. Ele representa o ponto de intersecção do elipsoide de referência com a supercie da Terra (geoide, forma verdadeira da Terra), compensando as diferenças do campo gravitacional da Terra. Existem dois tipos de datum - local e geocêntrico. Em um **datum local**, como o **SAD69 - South American Datum 1969**, o elipsoide de referência é deslocado para se alinhar com a superfície em um determinado local, por exemplo, na América do Sul. Já em um **datum geocêntrico**, como **WGS84 - World Geodetic System 1984**, o centro do elipsoide é o centro de gravidade da Terra e a precisão das projeções não é otimizada para um local específico do globo.
 
 No Brasil, desde 2015, o [Instituto Brasileiro de Geografia e Estatística (IBGE)](https://www.ibge.gov.br/) adotou utilizar o datum **SIRGAS2000 - Sistema de Referencia Geocéntrico para las Américas 2000** para todos os mapeamentos realizados no Brasil, um esforço conjunto para adotar o mesmo datum em toda a América. Mais sobre esse datum pode ser lido aqui: [SIRGAS2000](http://www.sirgas.org/pt/sirgas-realizations/sirgas2000/).
 

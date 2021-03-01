@@ -544,3 +544,6 @@ livros
 apostilas
 links
 ambiente-environment
+tab:tab-dplyr-select
+sistema-de-coordenadas-geográficas
+sistema-de-coordenadas-projetadas

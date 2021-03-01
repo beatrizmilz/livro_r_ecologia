@@ -39,7 +39,7 @@ Nesta seção veremos o **principais conceitos** para entender como a **linguage
 Antes de iniciarmos propriamente dito, é fundamental entendermos alguns pontos sobre as janelas e o funcionamento delas no RStudio (Figura \@ref(fig:fig-rstudio)).
 
 ```{r fig-rstudio, fig.align='center', fig.cap="Interface do RStudio. Os números indicam: (1) janelas com abas de Script e R Markdown; (2) janela com abas de Console, Terminal e Jobs; (3) janela com abas de Environment, History, Conections e Tutorial; e (4) janela com abas de Files, Plots, Packages, Help e Viewer.", out.width="100%", echo=FALSE}
-knitr::include_graphics("img/cap04_rstudio.png")
+include_graphics("img/cap04_rstudio.png")
 ```
 
 Detalhando algumas dessas janelas, temos:
@@ -88,12 +88,12 @@ Podemos ver o hitórico dos código executados no Console na aba **History** (Fi
 
 ### Scripts
 
-Scripts são **rascunhos dos códigos**, e onde de fato os códigos são escritos e depois enviados ao console (Figura \@ref(fig:fig-rstudio) (1)). Scripts são arquivos de texto simples, criados com a extensão (terminação) `.R`. Para criar um script basta ir em File > New File > R Script, ou clicando no ícone logo abaixo de File, ou ainda usando o atalho `ctrl + shift + N`.
+Scripts são **rascunhos dos códigos**, e onde de fato os códigos são escritos e depois enviados ao console (Figura \@ref(fig:fig-rstudio) (1)). Scripts são arquivos de texto simples, criados com a extensão (terminação) `.R`. Para criar um script basta ir em `File > New File > R Script`, ou clicando no ícone logo abaixo de File, ou ainda usando o atalho `ctrl + shift + N`.
 
 Uma vez escrito os códigos no script, podemos rodar esses códigos de duas formas: 1)
 todo o script de uma vez, clicando em **Source** ou usando o atalho `ctrl + shift + enter`; 2) a linha onde o cursos estiver posicionado, independente de sua posição naquela linha, clicando em **Run** ou usando o atalho `ctrl + enter`.
 
-Devemos sempre **salvar nossos scripts**, tomando por via de regra: primeiro criar o arquivo e depois ir salvando versão desse mesmo arquivo. Há diversos motivos para criar um script: continuar o desenvolvimento do mesmo em outro momento ou em outro computador, preservar trabalhos passados, ou ainda compartilhar seus códigos com outra pessoa. Para criar ou salvar um script basta ir em File > Save, escolher um diretório e nome para o script, e salvar. Podemos ainda utilizar o atalho `ctrl + S`.
+Devemos sempre **salvar nossos scripts**, tomando por via de regra: primeiro criar o arquivo e depois ir salvando versão desse mesmo arquivo. Há diversos motivos para criar um script: continuar o desenvolvimento do mesmo em outro momento ou em outro computador, preservar trabalhos passados, ou ainda compartilhar seus códigos com outra pessoa. Para criar ou salvar um script basta ir em `File > Save`, escolher um diretório e nome para o script, e salvar. Podemos ainda utilizar o atalho `ctrl + S`.
 
 Em relação aos scripts, ainda há os **comentários**, representados pelos símbolos `#` (hash) ou `#'` (hash-linha). Comentários não são lidos pelo console do R e são utilizados geralmente para descrever informações sobre dados ou funções, ou ainda para suprimir linhas de código. É interessante ter no início de cada script um cabeçalho identificando o objetivo ou análise, autor e data.
 
@@ -117,30 +117,29 @@ Um ponto muito importante é escrever os comentários sempre em inglês para tor
 
 ### Operadores
 
-No R, temos cinco tipos de operadores: aritméticos, relacionais, lógicos, atribuição
-e diversos. Todos são descritos na Tabela \@ref(tab:tab-operadores).
+No R, temos **cinco tipos de operadores**: aritméticos, relacionais, lógicos, atribuição e diversos. Todos são descritos na Tabela \@ref(tab:tab-operadores).
 
 ```{r tab-operadores, echo=FALSE}
 kable(data.frame(Operador = c(
-  "+", "-", "*", "/", "%%", "%/%", "^ ou **",
-  ">", "<", ">=", "<=", "==", "!=",
-  "!", "&", "|", "&&", "||",
-  "<- ou =", "<<-", "->", "->>",
-  ":", "%in%", "%*%", "%>%", "%--%"),
-  Tipo = c(
-    rep("Aritmético", 7),
-    rep("Relacional", 6),
-    rep("Lógico", 5),
-    rep("Atribuição", 4),
-    rep("Diversos", 5)), 
-  Descrição = c(
-    "Adição", "Subtração", "Multiplicação", "Divisão", "Resto da divisão", "Divisão inteira", "Expoente",
-    "Maior", "Menor", "Maior ou igual", "Menor ou igual", "Igualdade", "Diferença",
-    "Lógico NÃO", "Lógico elementar E", "Lógico elementar OU", "Lógico E", "Lógico OU", 
-    "Atribuição à esquerda", "Super atribuição à esquerda", "Atribuição à direita", "Super atribuição à direita",
-    "Sequência unitária", "Elementos que pertencem a um vetor", "Multiplar matriz com sua transposta", "pipe", "Intervalo de datas")),
-  align = "c",
-  caption = "Operadores no R.")
+ "+", "-", "*", "/", "%%", "%/%", "^ ou **",
+ ">", "<", ">=", "<=", "==", "!=",
+ "!", "&", "|", "&&", "||",
+ "<- ou =", "<<-", "->", "->>",
+ ":", "%in%", "%*%", "%>%", "%--%"),
+ Tipo = c(
+  rep("Aritmético", 7),
+  rep("Relacional", 6),
+  rep("Lógico", 5),
+  rep("Atribuição", 4),
+  rep("Diversos", 5)), 
+ Descrição = c(
+  "Adição", "Subtração", "Multiplicação", "Divisão", "Resto da divisão", "Divisão inteira", "Expoente",
+  "Maior", "Menor", "Maior ou igual", "Menor ou igual", "Igualdade", "Diferença",
+  "Lógico NÃO", "Lógico elementar E", "Lógico elementar OU", "Lógico E", "Lógico OU", 
+  "Atribuição à esquerda", "Super atribuição à esquerda", "Atribuição à direita", "Super atribuição à direita",
+  "Sequência unitária", "Elementos que pertencem a um vetor", "Multiplar matriz com sua transposta", "pipe", "Intervalo de datas")),
+ align = "c",
+ caption = "Operadores no R.")
 ```
 
 Como exemplo, podemos fazer operações simples usando os operadores aritméticos.
@@ -151,7 +150,7 @@ Como exemplo, podemos fazer operações simples usando os operadores aritmético
 10 * 2 # multiplicacao
 ```
 
-Precisamos ficar atentos à dominância dos operadores aritméticos: `^ >> * ou / >> + ou -`. Veja no exemplo abaixo como o uso dos parênteses mudam os resultados.
+Precisamos ficar atentos à **dominância** dos operadores aritméticos: `^ >> * ou / >> + ou -`. Veja no exemplo abaixo como o uso dos parênteses mudam os resultados.
 
 ```{r}
 # sem especificar - segue a ordem dos operadores
@@ -244,7 +243,7 @@ rep(x = 1:5, times = 10)
 rep(x = 1:5, each = 10)
 ```
 
-Um ponto fundamental, e que deve ser entendido nesse ponto, é o **fluxo de atribuições do resultado da operação de funções a novos objetos**. No desenvolvimento de qualquer script, grande parte da estrutura do mesmo será dessa forma: atribuição de dados > operações com funções > atribuição dos resultados a novos objetos >  operações com funções desses novos objetos > atribuição dos resultados a novaos objetos....Ao entender esse funcionamento, começamos a entender como devemos pensar na organização do nosso script para montar as análises de que precisamos.
+Um ponto fundamental, e que deve ser entendido nesse ponto, é o **fluxo de atribuições do resultado da operação de funções a novos objetos**. No desenvolvimento de qualquer script, grande parte da estrutura do mesmo será dessa forma: atribuição de dados > operações com funções > atribuição dos resultados a novos objetos > operações com funções desses novos objetos > atribuição dos resultados a novaos objetos....Ao entender esse funcionamento, começamos a entender como devemos pensar na organização do nosso script para montar as análises de que precisamos.
 
 ```{r}
 # atribuicao dos resultados
@@ -344,13 +343,14 @@ dune[1:6, 1:6]
 Se por algum motivo precisarmos **desinstalar** um pacote, podemos utilizar a função `remove.packages()`. Já para **descarregar** um pacote, podemos usar a função `detach()`.
 
 ```{r}
+# descarregar um pacote
 detach("package:vegan", unload = TRUE)
 ```
 
 E um último ponto fundamental de pacotes, diz respeito à **atualização** dos mesmos. Os pacotes são atualizados com frequência, e infelizmente ou felizmente (pois as atualizações podem oferecer algumas quebras entre pacotes), não se atualizam sozinhos. Muitas vezes, a instalação de um pacote pode depender da versão dos pacotes dependentes, e geralmente uma janela se abre que todos os pacotes dependentes sejam atualizados. Podemos ir na aba **Packages** (Figura \@ref(fig:fig-rstudio) (4)) e clicar em "Update" ou usar a função `update.packages(ask = FALSE)` para atualizá-los, entretanto, essa é uma função que costuma demorar para terminar de rodar.
 
 ```{r eval=FALSE}
-# atualizacao dos pacotes instalados 
+# atualizacao dos pacotes
 update.packages(ask = FALSE)
 ```
 
@@ -423,18 +423,41 @@ Quando usamos a função `ls()`, nenhum objeto é lista.
 ls()
 ```
 
-Toda a vez que **fechamos o R**, os objetos criados são **apagados**! Dessa forma, em algumas ocasiões, por exemplo, análises estatísticas que demoram grande tempo para serem realizadas, pode ser interessante **exportar esses objetos criados**. Podemos fazer isso de duas formas. A primeira delas vamos em Session -> Save Workspace As... e escolhemos o nome do arquivo com nossos objetos, por exemplo, "meus_objetos.RData". Na segunda, podemos utilizar a função `save.image()`.
+Toda a vez que **fechamos o R**, os objetos criados são **apagados** do **enrironmental**. Dessa forma, em algumas ocasiões, por exemplo, análises estatísticas que demoram um grande tempo para serem realizadas, pode ser interessante **exportar alguns ou todos os objetos criados**. Para salvar todo os objetos, ou seja, todo o *workspace*, podemos ir em `Session -> Save Workspace As...` e escolher o nome do arquivo do *workspace*, por exemplo, "meu_workspace.RData". Podemos ainda utilizar funções para essas tarefas. A função `save.image()` salva todo *workspace* com a extensão `.RData`.
 
 ```{r eval=FALSE}
-# exportar objetos
-save.image("meus_objetos.RData")
+# salvar todo o workspace
+save.image(file = "meu_workspace.RData")
 ```
 
-Podemos fechar o RStudio tranquilamente, e quando formos trabalhar novamente, carregar os objetos criados indo em Session -> Load Workspace..., ou utilizar a função `load()`.
+Depois disso, podemos fechar o RStudio tranquilamente, e quando formos trabalhar novamente, carregar os objetos criados indo em `Session -> Load Workspace...`, ou utilizando a função `load()`.
 
 ```{r eval=FALSE}
-# importar objetos
-load("meus_objetos.RData")
+# carregar todo o workspace
+load("meu_workspace.RData")
+```
+
+Entretanto, em algumas ocasiões, não precisamos salvar todos os objetos. Dessa forma, podemos salvar apenas alguns objetos específicos usando a função `save()`, também com a extensão `.RData`.
+
+```{r eval=FALSE}
+# salvar apenas um objeto
+save(obj1, file = "meu_obj.RData")
+
+# salvar apenas um objeto
+save(obj1, obj2, file = "meus_objs.RData")
+
+# carregar os objetos
+load("meus_objs.RData")
+```
+
+Ou ainda podemos saber apenas um objeto com a extensão `.rds`. Para isso, usamos as funções `saveRDS()` e `readRDS()`.
+
+```{r eval=FALSE}
+# salvar um objeto para um arquivo
+saveRDS(obj, file = "meu_obj.rds")
+
+# carregar esse objeto
+readRDS(file = "meu_obj.rds")
 ```
 
 ### Citações
@@ -465,7 +488,7 @@ Esquecer de completar uma função ou bloco de comandos é algo bem comum. Geral
 
 ```{r error=TRUE}
 sum(1, 2
-    +
+  +
 ```
 
 **2. Esquecer da vírgula**
@@ -621,7 +644,7 @@ Essa estruturação irá nos contar sobre a **organização dos elementos**, com
 1. **Listas**: heterogêneo (*mais de um modo*) e unidimensional (*uma dimensão*)
 
 ```{r fig-r-estruturas, fig.align='center', fig.cap="Estruturas de dados mais comuns de R: vetores, matrizes, arrays, listas e data frames. Adaptado de: Grolemund (2014).", out.width="70%", echo=FALSE}
-knitr::include_graphics("img/cap04_estrutura_dados.png")
+include_graphics("img/cap04_estrutura_dados.png")
 ```
 
 #### Vetor
@@ -679,7 +702,7 @@ Para criar um fator no R, usamos uma função específica `factor()`, na qual po
 ```{r}
 # fatores nominal
 fator_nominal <- factor(x = sample(c("floresta", "pastagem", "cerrado"), 20, replace = TRUE),
-                levels = c("floresta", "pastagem", "cerrado"))
+        levels = c("floresta", "pastagem", "cerrado"))
 
 # fatores ordinal
 fator_ordinal <- factor(x = sample(c("baixa", "media", "alta"), 20, replace = TRUE),
@@ -783,7 +806,7 @@ multi <- function(x, y){
   
   mu <- (x * y)
   return(mu)
-  
+ 
 }
 
 # uso
@@ -831,80 +854,80 @@ Além da indexação, temos algumas **função que nos auxiliam em algumas opera
 
 ```{r tab-tab-funcoes-conf-uni, echo=FALSE}
 kable(data.frame(
-  Função = c(
-    "`max()`",
-    "`min()`", 
-    "`range()`", 
-    "`length()`", 
-    "`sum()`",
-    "`cumsum()`",
-    "`prod()`",
-    "`sqrt()`",
-    "`abs()`",
-    "`exp()`",
-    "`log()`",
-    "`log1p()`",
-    "`log2()`", 
-    "`log10()`",
-    "`mean()`", 
-    "`mean.weighted()`",
-    "`var()`",
-    "`sd()`", 
-    "`mediam()`",
-    "`quantile()`", 
-    "`quarters()`",
-    "`round()`",
-    "`sort()`",
-    "`order()`",
-    "`rev()`",
-    "`unique()`",
-    "`summary()`", 
-    "`scale()`", 
-    "`sub()`",
-    "`grep()`",
-    "`any()`", 
-    "`all()`",
-    "`which()`",
-    "`subset()`", 
-    "`ifelse()`"),
-  Descrição = c(
-    "Valor máximo", 
-    "Valor mínimo", 
-    "Amplitude", 
-    "Comprimento",
-    "Soma", 
-    "Soma cumulativa", 
-    "Produto",
-    "Raiz quadrada",
-    "Valor absoluto",
-    "Expoente",
-    "Logaritmo natural", 
-    "Logaritmo natural mais 1 *log(x + 1)*", 
-    "Logaritmo base 2", 
-    "Logaritmo base 10", 
-    "Média", 
-    "Média ponderada", 
-    "Variância", 
-    "Desvio Padrão",
-    "Mediana", 
-    "Quantil", 
-    "Quartil", 
-    "Arredondamento", 
-    "Ordenação",
-    "Posição ordenada",
-    "Reverso",
-    "Únicos",
-    "Resumo estatístico", 
-    "Padronização e centralização", 
-    "Substitui caracteres", 
-    "Posição de caracteres", 
-    "Algum valor?", 
-    "Todos os valores?", 
-    "Quais valores?",
-    "Subconjunto", 
-    "Operação condicional")),
-  align = "c",
-  caption = "Funções para verificação e resumo de dados unidimensionais.")
+ Função = c(
+  "`max()`",
+  "`min()`", 
+  "`range()`", 
+  "`length()`", 
+  "`sum()`",
+  "`cumsum()`",
+  "`prod()`",
+  "`sqrt()`",
+  "`abs()`",
+  "`exp()`",
+  "`log()`",
+  "`log1p()`",
+  "`log2()`", 
+  "`log10()`",
+  "`mean()`", 
+  "`mean.weighted()`",
+  "`var()`",
+  "`sd()`", 
+  "`mediam()`",
+  "`quantile()`", 
+  "`quarters()`",
+  "`round()`",
+  "`sort()`",
+  "`order()`",
+  "`rev()`",
+  "`unique()`",
+  "`summary()`", 
+  "`scale()`", 
+  "`sub()`",
+  "`grep()`",
+  "`any()`", 
+  "`all()`",
+  "`which()`",
+  "`subset()`", 
+  "`ifelse()`"),
+ Descrição = c(
+  "Valor máximo", 
+  "Valor mínimo", 
+  "Amplitude", 
+  "Comprimento",
+  "Soma", 
+  "Soma cumulativa", 
+  "Produto",
+  "Raiz quadrada",
+  "Valor absoluto",
+  "Expoente",
+  "Logaritmo natural", 
+  "Logaritmo natural mais 1 *log(x + 1)*", 
+  "Logaritmo base 2", 
+  "Logaritmo base 10", 
+  "Média", 
+  "Média ponderada", 
+  "Variância", 
+  "Desvio Padrão",
+  "Mediana", 
+  "Quantil", 
+  "Quartil", 
+  "Arredondamento", 
+  "Ordenação",
+  "Posição ordenada",
+  "Reverso",
+  "Únicos",
+  "Resumo estatístico", 
+  "Padronização e centralização", 
+  "Substitui caracteres", 
+  "Posição de caracteres", 
+  "Algum valor?", 
+  "Todos os valores?", 
+  "Quais valores?",
+  "Subconjunto", 
+  "Operação condicional")),
+ align = "c",
+ caption = "Funções para verificação e resumo de dados unidimensionais.")
 ```
 
 Para **listas**, também podemos usar a indexação `[]` para **acessar ou retirar elementos**.
@@ -1026,40 +1049,40 @@ Além disso, há uma séria de funções para conferência e manipulação de da
 
 ```{r tab-funcoes-conf-multi, echo=FALSE}
 kable(data.frame(
-  Função = c(
-    "`head()`", 
-    "`tail()`", 
-    "`nrow()`", 
-    "`ncol()`", 
-    "`dim()`", 
-    "`rownames()`",
-    "`colnames()`", 
-    "`str()`", 
-    "`summary()`", 
-    "`rowSums()`", 
-    "`colSums()`", 
-    "`rowMeans()`", 
-    "`colMeans()`", 
-    "`str()`", 
-    "`table()`"),
-  Descrição = c(
-     "Mostra as primeiras 6 linhas", 
-     "Mostra as últimas 6 linhas", 
-     "Mostra o número de linhas", 
-     "Mostra o número de colunas", 
-     "Mostra o número de linhas e de colunas", 
-     "Mostra os nomes das linhas (locais)",
-     "Mostra os nomes das colunas (variáveis)", 
-     "Mostra as classes de cada coluna (estrutura)", 
-     "Mostra um resumo dos valores de cada coluna", 
-     "Calcula a soma das linhas (horizontal)",
-     "Calcula a soma das colunas (vertical)", 
-     "Calcula a média das linhas (horizontal)",
-     "Calcula a média das colunas (vertical)",
-     "Mostra a estrutura dos dados",
-     "Tabulação cruzada")),
-  align = "c",
-  caption = "Funções para verificação e resumo de dados multidimensionais.")
+ Função = c(
+  "`head()`", 
+  "`tail()`", 
+  "`nrow()`", 
+  "`ncol()`", 
+  "`dim()`", 
+  "`rownames()`",
+  "`colnames()`", 
+  "`str()`", 
+  "`summary()`", 
+  "`rowSums()`", 
+  "`colSums()`", 
+  "`rowMeans()`", 
+  "`colMeans()`", 
+  "`str()`", 
+  "`table()`"),
+ Descrição = c(
+   "Mostra as primeiras 6 linhas", 
+   "Mostra as últimas 6 linhas", 
+   "Mostra o número de linhas", 
+   "Mostra o número de colunas", 
+   "Mostra o número de linhas e de colunas", 
+   "Mostra os nomes das linhas (locais)",
+   "Mostra os nomes das colunas (variáveis)", 
+   "Mostra as classes de cada coluna (estrutura)", 
+   "Mostra um resumo dos valores de cada coluna", 
+   "Calcula a soma das linhas (horizontal)",
+   "Calcula a soma das colunas (vertical)", 
+   "Calcula a média das linhas (horizontal)",
+   "Calcula a média das colunas (vertical)",
+   "Mostra a estrutura dos dados",
+   "Tabulação cruzada")),
+ align = "c",
+ caption = "Funções para verificação e resumo de dados multidimensionais.")
 ```
 
 ### Valores faltantes e especiais
@@ -1129,7 +1152,7 @@ list.files()
 
 ### Importar dados
 
-Uma das operações mais corriqueiras do R, antes de realizar alguma análise, é a de **importar dados** que foram **tabulados numa planilha eletrônica** e salvos no formato .csv, .txt ou .xlsx.  Ao importar esse tipo de dado para o R, o formato que o mesmo assume, se nenhum parâmetro for especificado, é o da classes `dataframe`, prevendo que a planilha de dados possua colunas com diferentes modos.
+Uma das operações mais corriqueiras do R, antes de realizar alguma análise, é a de **importar dados** que foram **tabulados numa planilha eletrônica** e salvos no formato .csv, .txt ou .xlsx. Ao importar esse tipo de dado para o R, o formato que o mesmo assume, se nenhum parâmetro for especificado, é o da classes `dataframe`, prevendo que a planilha de dados possua colunas com diferentes modos.
 
 Existe diversas formas de importar dados para o R. Podemos importar utilizando o RStudio, indo na janela **Environment** (Figura \@ref(fig:fig-rstudio) (3)) e clicar em "Importar Dataset". 
 
@@ -1167,7 +1190,7 @@ Agora podemos fazer o download de um arquivo `.zip` e extrair as tabelas usando 
 ```{r eval=FALSE}
 # download
 download.file(url = "https://esajournals.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Fecy.2392&file=ecy2392-sup-0001-DataS1.zip",
-              destfile = "atlantic_amphibians.zip", mode = "wb")
+       destfile = "atlantic_amphibians.zip", mode = "wb")
 
 # unzip
 unzip(zipfile = "atlantic_amphibians.zip")
@@ -1226,16 +1249,16 @@ Para tanto, podemos utilizar funções de **escrita de dados**, como `write.csv(
 ```{r eval=FALSE}
 # exportar dados na extensao .csv
 write.csv(aa_locais_na, "ATLANTIC_AMPHIBIAN_sites_na.csv", 
-          row.names = FALSE, quote = FALSE)
+     row.names = FALSE, quote = FALSE)
 
 # exportar dados na extensao .txt
 write.table(aa_locais_na, "ATLANTIC_AMPHIBIAN_sites_na.txt", 
-            row.names = FALSE, quote = FALSE)
+      row.names = FALSE, quote = FALSE)
 
 
 # exportar dados na extensao .xlsx
 openxlsx::write.xlsx(aa_locais_na, "ATLANTIC_AMPHIBIAN_sites_na.xlsx", 
-                     row.names = FALSE, quote = FALSE)
+           row.names = FALSE, quote = FALSE)
 ```
 
 ## Tidyverse
@@ -1253,7 +1276,7 @@ Depois disso, Wickham dedicou-se ao desenvolvimento do pensamento de uma nova ab
 À partir dessas ideias, o [*tidyverse*](https://www.tidyverse.org/) foi operacionalizado no R como uma coleção de pacotes R que atuam no **workflow comum da ciência de dados**: importação, manipulação, exploração, visualização, análise e comunicação de dados e análises (Wickhan et al. 2019) (Figura \@ref(fig:fig-r-tidyverse)). O principal objetivo do **Tidyverse** é aproximar a linguagem para melhorar a interação entre ser humano e computador sobre dados, de modo que os pacotes compartilham uma filosofia de design de alto nível e gramática, além da estrutura de dados de baixo nível (Wickhan et al. 2019).
 
 ```{r fig-r-tidyverse, fig.align='center', fig.cap="Modelo das ferramentas necessárias em um projeto típico de ciência de dados: importar, organizar, entender (transformar, visualizar, modelar) e comunicar, envolto à essas ferramentas está a programação. Adaptado de: Wickhan & Grolemund (2017).", out.width="90%", echo=FALSE}
-knitr::include_graphics("img/cap04_tidyverse.png")
+include_graphics("img/cap04_tidyverse.png")
 ```
 
 As principais leituras sobre o tema no R são os artigos Wickham (2014), Wickham et al. (2019), o livro Wickhan & Grolemund (2017), disponível on-line neste [link](https://r4ds.had.co.nz/), além do [site](https://www.tidyverse.org/) que possui muito mais informações.
@@ -1473,18 +1496,18 @@ Os conjuntos de **dados tidy** (organizados) são mais fáceis de manipular, mod
 1. Cada valor como uma célula
 
 ```{r fig-r-dados-tidy, fig.align='center', fig.cap="As três regras que tornam um conjunto de dados *tidy*. Adaptado de: Wickhan & Grolemund (2017).", out.width="100%", echo=FALSE}
-knitr::include_graphics("img/cap04_tidy.png")
+include_graphics("img/cap04_tidy.png")
 ```
 
 Para realizar **diversas transformações nos dados** a fim de ajustá-los ao formato **tidy**, existe uma série de funções, para diversas finalidades: unir e separar, valores faltantes (`NA`), e pivotar (formato **longo** para **largo**), além de outras [funções específicas](https://tidyr.tidyverse.org/reference/index.html).
 
-- `tidyr::unite()`: junta dados de múltiplas colunas em uma coluna
-- `tidyr::separate()`: separa caracteres em múlplica colunas
-- `tidyr::separate_rows()`: separa caracteres em múlplica colunas e linhas
-- `tidyr::drop_na()`: retira linhas com `NA` do conjunto de dados
-- `tidyr::replace_na()`: substitui `NA` do conjunto de dados
-- `tidyr::pivot_wider()`: transformar conjunto de dados **longo** (*long*) para **largo** (*wide*)
-- `tidyr::pivot_longer()`: transformar conjunto de dados **largo** (*wide*) para **longo** (*long*) 
+- `unite()`: junta dados de múltiplas colunas em uma coluna
+- `separate()`: separa caracteres em múlplica colunas
+- `separate_rows()`: separa caracteres em múlplica colunas e linhas
+- `drop_na()`: retira linhas com `NA` do conjunto de dados
+- `replace_na()`: substitui `NA` do conjunto de dados
+- `pivot_wider()`: transformar conjunto de dados **longo** (*long*) para **largo** (*wide*)
+- `pivot_longer()`: transformar conjunto de dados **largo** (*wide*) para **longo** (*long*) 
 
 Para exemplicar o funcionamento dessas funções, usaremos os dados de medidas de pinguins chamados [**palmerpenguins**](https://allisonhorst.github.io/palmerpenguins). Esses dados estão disponíveis no pacote *palmerpenguins*.
 
@@ -1517,7 +1540,7 @@ tibble::glimpse(penguins_raw)
 ```
 
 Primeiramente, vamos exemplificar como **juntar e serparar colunas**. Vamos utilizar a função `tidyr::unite()` para unir as colunas "Region" e "Island". Há diversos parâmetros para alterar como a funções funciona, entretanto, é importante destacar trŝ deles: **col** nome da coluna que vai receber as colunas unidas, **sep** indicando o caracter separador das colunas unidas, e **remove** para uma resposta lógica se as colunas unidas são removidas ou não. Vamos unir as colunas "Region" e "Island" na nova coluna "region_island",
-                                  
+                 
 ```{r}
 # unir colunas
 penguins_raw_unir <- tidyr::unite(data = penguins_raw, 
@@ -1538,7 +1561,7 @@ penguins_raw_separar <- tidyr::separate(data = penguins_raw,
                                         remove = FALSE)
 
 # separar colunas
-penguins_raw_separar_linhas <- tidyr::separate_rows(data = penguins_raw, 
+penguins_raw_separar_linhas <- tidyr::separate_rows(data = penguins_raw,
                                                     Stage,
                                                     sep = ", ")
 ```
@@ -1551,7 +1574,7 @@ penguins_raw_todas_na <- tidyr::drop_na(data = penguins_raw)
 
 # remover linhas de colunas especificas com nas
 penguins_raw_colunas_na <- tidyr::drop_na(data = penguins_raw,
-                                        any_of("Comments"))
+                                          any_of("Comments"))
 
 # substituir nas por outro valor
 penguins_raw_subs_na <- tidyr::replace_na(data = penguins_raw,
@@ -1570,7 +1593,7 @@ penguins_raw_pivot_wider <- tidyr::pivot_wider(data = penguins_raw_sel_col,
                                                values_from = `Body Mass (g)`)
 ```
 
-De modo oposto, podemos partir de um conjunto de dados **largo** (*wide*), ou seja, com várias colunas, e queremos que essas colunas preecham uma única coluna, e que os valores antes espalhados nessas várias colunas sejam adicionados um embaixo do outro. Para essa operação, podemos utilizar a função `tidyr::pivot_longer()`. Novamente, dos diversos parâmetros que podem compor essa função, trÊs deles são fundamentais: **cols** indicando as colunas que serão usandas para serem pivotadas,  **names_to** que indica a coluna de onde os nomes serão usados e **values_to** a coluna com os valores.
+De modo oposto, podemos partir de um conjunto de dados **largo** (*wide*), ou seja, com várias colunas, e queremos que essas colunas preecham uma única coluna, e que os valores antes espalhados nessas várias colunas sejam adicionados um embaixo do outro. Para essa operação, podemos utilizar a função `tidyr::pivot_longer()`. Novamente, dos diversos parâmetros que podem compor essa função, trÊs deles são fundamentais: **cols** indicando as colunas que serão usandas para serem pivotadas, **names_to** que indica a coluna de onde os nomes serão usados e **values_to** a coluna com os valores.
 
 ```{r}
 # selecionar colunas
@@ -1607,6 +1630,7 @@ Para realizar as **manipulações nos dados** existe uma série de funções, pa
 - `distinct()`: remove linhas com valores repetidos com base nos valores de colunas
 - `slice()`: seleciona linhas pelos números
 - `sample_n()`: amostragem aleatória de linhas
+- `count()`: conta observações para um grupo
 - `summarise()`: agrega ou resume os dados através de funções, podendo considerar valores das colunas
 - `*_join()`: junta dados de duas tabelas através de uma coluna chave
 
@@ -1621,7 +1645,7 @@ As funções verbais **não precisam modificar** o tibble original, sendo que as
 ```{r eval=FALSE}
 tb_dplyr <- tb %>% 
   funcao_verbal(argumento1, argumento2)
-```  
+``` 
 
 Além de `data.frames` e `tibbles`, a manipulação pelo formato *dplyr* torna o trabalho com outros formatos de classes e dados acessível e eficiente.
 
@@ -1629,51 +1653,123 @@ Além de `data.frames` e `tibbles`, a manipulação pelo formato *dplyr* torna o
 - [*dbplyr*](https://dbplyr.tidyverse.org/): manipular conjuntos de dados SQL
 - [*sparklyr*](https://spark.rstudio.com/): manipular conjuntos de dados no Apache Spark
 
-Para nossos exemplos, vamos utilizar os dados que carregamos anteriormente [**palmerpenguins**](https://allisonhorst.github.io/palmerpenguins). Esses dados estão disponíveis no pacote *palmerpenguins*. Mas agora, vamos utilizar o conjunto de dados **penguins**, que é uma versão simplificada dos dados brutos.
+Para nossos exemplos, vamos utilizar os **dados de pinguins** [**palmerpenguins**](https://allisonhorst.github.io/palmerpenguins). Esses dados estão disponíveis no pacote *palmerpenguins*. Vamos utilizar o conjunto de dados **penguins**, que é uma versão simplificada dos dados brutos **penguins_raw**.
 
-Primeiramente, vamos reordenadar as colunas com a função `dplyr::relocate()`. Simplesmente listamos as colunas que queremos mudar de posição. Além disso, há dois argumentos bastante simples: **.before** que indica qual a coluna que as realocadas devem se mover antes e **.after** que indica qual a coluna que as realocadas devem se mover depois, ambas podem ser informadas com os nomes ou posições desses colunas com números.
+Primeiramente, vamos **reordenadar as colunas** com a função `dplyr::relocate()`, onde simplesmente listamos as colunas que queremos mudar de posição e para onde elas devem ir. Para esse último passo há dois argumentos: **.before** que indica qual a coluna que as colunas realocadas devem se mover antes, e o argumentos **.after** indicando onde devem se mover depois. Ambos podem ser informados com os nomes ou posições desses colunas com números.
 
 ```{r}
 # reordenar colunas - nome
 penguins_relocate <- penguins %>% 
-  dplyr::relocate(sex, year, .after = island)
+ dplyr::relocate(sex, year, .after = island)
 
 # reordenar colunas - posicao
 penguins_relocate <- penguins %>% 
   dplyr::relocate(sex, year, .after = 2)
 ```
 
-`rename()`: muda o nome das colunas
+Podemos ainda **renomear colunas** facilmente com a função `dplyr::rename()` e suas variantes `dplyr::rename_with` ou com os sufixos `*_at()`, `*_if()`, `*_all()`, que muito interessantes para mudanças em várias colunas de uma vez.
+
+```{r}
+# mudar o nome das colunas
+penguins_rename <- penguins %>% 
+  dplyr::rename(bill_length = bill_length_mm,
+                bill_depth = bill_depth_mm,
+                flipper_length = flipper_length_mm,
+                body_mass = body_mass_g)
+
+# mudar o nome das colunas todas para miusculas
+penguins_rename_with <- penguins %>% 
+  dplyr::rename_with(toupper)
+```
+
+Outra operação bastante usual dentro da manipulação de dados tabulares é a **seleção de colunas**. Podemos fazer essa operação com a função `dplyr::select()`, que seleciona colunas pelo nome ou pela posição. Aqui há uma séria de possibilidades de seleção de colunas, que listamos na Tabela (\@ref(tab:tab-dplyr-select)).
+
+```{r tab-dplyr-select, echo=FALSE}
+kable(data.frame(
+ Função = c(
+  "`:`", 
+  "`!`", 
+  "`&` e |", 
+  "`c()`", 
+  "`everything()`", 
+  "`last_col()`",
+  "`starts_with()`", 
+  "`ends_with()`", 
+  "`contains()`", 
+  "`matches()`", 
+  "`num_range()`", 
+  "`all_of()`", 
+  "`any_of()`", 
+  "`where()`"),
+ Descrição = c(
+   "Para selecionar um intervalo de colunas consecutivas", 
+   "Para tomar o complemento de um conjunto de colunas", 
+   "Para selecionar a intersecção ou a união de dois conjuntos de colunas", 
+   "Para combinar seleções", 
+   "Corresponde a todas as colunas", 
+   "Seleciona a última coluna",
+   "Começa com um prefixo", 
+   "Termina com um sufixo", 
+   "Contém um caracter literal", 
+   "Corresponde a uma expressão regular",
+   "Corresponde a um intervalo numérico", 
+   "Corresponde aos nomes das variáveis em um vetor de caracteres. Todos os nomes devem estar presentes, senão um erro fora dos limites será gerado",
+   "O mesmo que `all_of()`, exceto que nenhum erro é lançado para nomes que não existem.",
+   "Aplica uma função a todas as variáveis e seleciona aquelas para as quais a função retorna TRUE")),
+ align = "c",
+ caption = "Visão geral dos recursos da função `dplyr::select()`.")
+```
+
+```{r}
+# selecionar as colunas por nomes
+penguins_select <- penguins %>% 
+  dplyr::select(bill_length_mm:body_mass_g)
+
+# selecionar as colunas por padrap
+penguins_select_contains <- penguins %>% 
+  dplyr::select(contains("_mm"))
+```
+
+Quando usamos a função `dplyr::select()`, mesmo que para uma linha, o retorno é sempre um `tibble`. Caso precisemos que essa **coluna se torne um vetor**, dentro so encadeamento dos pipes, usamos a função `dplyr::pull()` que **que extrai uma coluna única coluna como vetor**.
+
+```{r}
+# coluna como vetor
+penguins_select_contains <- penguins %>% 
+  dplyr::pull(bill_length_mm)
+```
+
+Uma das operações mais úteis dentre as operações para colunas é **adicionar ou atualizar os valores** de colunas. Para essa operação, usaremos a função `dplyr::mutate()`. Essa função irá adiconar colunas ou atualizar uma coluna fazendo operações em outras colunas. Existe uma séria de funções que podemos utilizar para fazer essas operações. Destacamos aqui a função `dplyr::across()`, que aplica uma função em múltiplas colunas. Além dessa função, podemos ainda usar os argumentos **.before** e **.after** para indicar onde a nova coluna deve ficar. Temos ainda o parâmetro **.keep** com diversas possibilidades de manter colunas depois de usar a função `dplyr::mutate()`.
+
+```{r}
+# adicionar colunas
+penguins_mutate <- penguins %>% 
+  dplyr::mutate(body_mass_kg = body_mass_g/1e3, .before = sex)
+
+# modificar colunas
+penguins_mutate_modificar <- penguins %>% 
+  dplyr::mutate(across(!c(bill_length_mm, bill_depth_mm, flipper_length_mm,
+                          body_mass_g), as.character))
+```
+
+Além de operações em colunas, podemos fazer **operações em linhas**. Vamos começar com a **reordenação das linhas** com base nos valores de colunas. Para essa operação, usamos a função `dplyr::arrange()`. `desc()`
+**.by_group**
+
+`dplyr::filter()`: seleciona linhas com base em valores
 
 
-`select()`: seleciona colunas pelo nome
+`dplyr::distinct()`: remove linhas com valores repetidos com base nos valores de colunas
 
 
-`pull()`: seleciona uma coluna como vetor
+`dplyr::slice()`: seleciona linhas pelos números
 
 
-`mutate()`: adiciona novas colunas ou adiciona resultados em colunas existentes
+`dplyr::sample_n()`: amostragem aleatória de linhas
 
 
-`arrange()`: reordenar as linhas com base nos valores de colunas
+`dplyr::summarise()`: agrega ou resume os dados através de funções, podendo considerar valores das colunas
 
 
-`filter()`: seleciona linhas com base em valores
-
-
-`distinct()`: remove linhas com valores repetidos com base nos valores de colunas
-
-
-`slice()`: seleciona linhas pelos números
-
-
-`sample_n()`: amostragem aleatória de linhas
-
-
-`summarise()`: agrega ou resume os dados através de funções, podendo considerar valores das colunas
-
-
-`*_join()`: junta dados de duas tabelas através de uma coluna chave
+`dplyr::*_join()`: junta dados de duas tabelas através de uma coluna chave
 
 
 
@@ -1749,7 +1845,7 @@ set.seed(42)
 
 # cria um fator
 fa <- sample(c("alto", "medio", "baixo"), 30, rep = TRUE) %>% 
-  forcats::as_factor()
+ forcats::as_factor()
 fa
 ```
 
@@ -1757,7 +1853,7 @@ fct_recode(): muda o nome dos níveis
 ```{r}
 # muda o nome dos niveis
 fa_recode <- fa %>% 
-  forcats::fct_recode(a = "alto", m = "medio", b = "baixo")
+ forcats::fct_recode(a = "alto", m = "medio", b = "baixo")
 fa_recode
 ```
 
@@ -1765,7 +1861,7 @@ fct_rev(): inverte os níveis
 ```{r}
 # inverte os niveis
 fa_rev <- fa_recode %>% 
-  forcats::fct_rev()
+ forcats::fct_rev()
 fa_rev
 ```
 
@@ -1773,7 +1869,7 @@ fct_relevel(): especifica a classificação de um ou mais níveis
 ```{r}
 # especifica a classificacao de um nivel
 fa_relevel <- fa_recode %>% 
-  forcats::fct_relevel(c("a", "m", "b"))
+ forcats::fct_relevel(c("a", "m", "b"))
 fa_relevel
 ```
 
@@ -1781,7 +1877,7 @@ fct_inorder(): ordem em que aparece
 ```{r}
 # ordem em que aparece
 fa_inorder <- fa_recode %>% 
-  forcats::fct_inorder()
+ forcats::fct_inorder()
 fa_inorder
 ```
 
@@ -1789,7 +1885,7 @@ fct_infreq(): ordem (decrescente) de frequência
 ```{r}
 # ordem (decrescente) de frequencia
 fa_infreq <- fa_recode %>% 
-  forcats::fct_infreq()
+ forcats::fct_infreq()
 fa_infreq
 ```
 
@@ -1797,7 +1893,7 @@ fct_lump(): agregação de níveis raros em um nível
 ```{r}
 # agregacao de niveis raros em um nivel
 fa_lump <- fa_recode %>% 
-  forcats::fct_lump()
+ forcats::fct_lump()
 fa_lump
 ```
 
@@ -2090,16 +2186,16 @@ purrr::pmap_dbl(list(x, y, z), prod)
 Calcular a média para várias colunas
 ```{r eval=FALSE}
 mean_var <- si %>% 
-  dplyr::select(species_number, altitude) %>% 
-  purrr::map_dbl(mean)
+ dplyr::select(species_number, altitude) %>% 
+ purrr::map_dbl(mean)
 mean_var
 ```
 
 Calcular o desvio padrão para várias colunas
 ```{r eval=FALSE}
 sd_var <- si %>% 
-  dplyr::select(species_number, altitude) %>% 
-  purrr::map_dbl(sd)
+ dplyr::select(species_number, altitude) %>% 
+ purrr::map_dbl(sd)
 sd_var
 ```
 
