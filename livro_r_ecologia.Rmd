@@ -1137,7 +1137,7 @@ df[df$abu > 4, ]
 df[df$flo == "floresta", ]
 ```
 
-Além disso, há uma séria de funções para conferência e manipulação de dados que listamos na Tabela \@ref(tab:tab-funcoes-conf-multi).
+Além disso, há uma série de funções para conferência e manipulação de dados que listamos na Tabela \@ref(tab:tab-funcoes-conf-multi).
 
 ```{r tab-funcoes-conf-multi, echo=FALSE}
 kable(data.frame(
@@ -1488,6 +1488,8 @@ Dado que possuímos um conjuntos de dados e que geralmente esse conjunto de dado
 
 Esses pacotes **leem e escrevem grandes arquivos de forma mais rápida**, além de fornecem **medidores de progresso** de importação e exportação, e imprimir a **informação dos modos das colunas** quando faz a importação. Outro ponto bastante positivo, é que também **classificam automaticamente** o modo dos dados de cada coluna, i.e., se uma coluna possui dados numéricos ou apenas texto, essa informação será considerada para classificar a coluna toda. A **classe do objeto** atribuído quando lido por esses pacotes é automaticamente um "tibble", que veremos melhor na seção seguinte. 
 
+Todas as funções deste pacote são listadas na [página de referência](https://readr.tidyverse.org/reference/index.html) do pacote.
+
 Usamos as funções `readr::read_csv()` e `readr::write_csv()` para importar e exportar arquivos .csv do R, respectivamente. Para dados com a extensão .txt, podemos utilizar as funções `readr::read_tsv()` ou ainda `readr::read_delim()`. Para arquivos tabulares com a extensão .xlsx, temos de instalar dois pacotes adicionais: *readxl* e *writexl*, dos quais usaremos as funções `readxl::read_excel()`, `readxl::read_xlsx()` ou `readxl::read_xls()` para importar dados, atentado para o data de podermos indicar a aba com os dados com o argumento **sheet**, e `writexl::write_xlsx()` para exportar.
 
 Se o arquivo .csv foi criado com separador de decimais sendo `.` e separador de colunas sendo `,`, usamos as funções normalmente. Caso tivesse sido criado com separador de decimais sendo `,` e separador de colunas sendo `;`, usaríamos as funções dessa forma: `readr::read_csv2()`.
@@ -1501,6 +1503,8 @@ aa_locais <- readr::read_csv(
   )
 ```
 
+Para se aprofundar no tema, recomendamos a leitura do capítulo [11 Data import](https://r4ds.had.co.nz/data-import.html) de Wickhan & Grolemund (2017).
+
 ### tibble
 
 O **tibble** (`tbl_sf`) é uma **versão aprimorada** do data frame (`data.frame`). Ele é a **classe aconselhada** para que as funções do tidyverse funcionem melhor sobre conjuntos de dados tabulares importados para o R. 
@@ -1508,6 +1512,8 @@ O **tibble** (`tbl_sf`) é uma **versão aprimorada** do data frame (`data.frame
 Geralmente, quando utilizamos **funções tidyverse para importar dados para o R**, é essa classe que esses dados adquirem depois de importados. Além da importação de dados, podemos **criar** um tibble no R usando a função `tibble::tibble()`, semelhante ao uso da função `data.frame()`. Podemos ainda **converter** um `data.frame` para um `tibble` usando a função `tibble::as_tibble()`. Entretanto, em alguns momentos precisaremos da classe `data.frame` para algumas funções específicas, e podemos **converter** um `tibble` para `data.frame` usa-se a função `tibble::as_data_frame()`.
 
 Existem **duas diferenças principais** no uso do `tibble` e do `data.frame`: impressão e subconjunto. Objetos da classe `tibbles` possuem um método de impressão que mostra a **contagem do número de linhas e colunas**, e apenas as **primeiras 10 linhas** e **todas as colunas** que cabem na tela no console, além dos **modos ou tipos das colunas**. Dessa forma, cada coluna ou variável, pode ser do modo numbers (`int` ou `dbl`), character (`chr`), logical (`lgl`), factor (`fctr`), date + time (`dttm`) date e (`date`), além de outras [inúmeras possibilidades](https://tibble.tidyverse.org/articles/types.html).
+
+Todas as funções deste pacote são listadas na [página de referência](https://tibble.tidyverse.org/reference/index.html) do pacote.
 
 ```{r}
 # tibble - impressao
@@ -1527,11 +1533,15 @@ Por fim, podemos **"espiar" os dados** utilizando a função `tibble::glimpse()`
 tibble::glimpse(aa_locais[, 1:10])
 ```
 
+Para se aprofundar no tema, recomendamos a leitura do capítulo [10 Tibbles](https://r4ds.had.co.nz/tibbles.html) de Wickhan & Grolemund (2017).
+
 ### magrittr (pipe - %>%)
 
 O operador pipe `%>%` permite o **encadeamento de várias funções**, eliminando a necessidade de criar objetos para armazenar resultados intermediários. Dessa forma, pipes são uma **ferramenta poderosa** para expressar uma **sequência de múltiplas operações**.
 
 O operador pipe `%>%` vem do pacote *magrittr*, entretanto, todos os pacotes no tidyverse automaticamente tornam o pipe disponível. Essa função torna os **códigos em R mais simples**, pois realizamos múltiplas operações em uma única linha. Ele **captura o resultado de uma declaração** e o **torna a entrada da próxima declaração**, então podemos pensar como "EM SEGUIDA FAÇA" ao final de cada linha de código.
+
+Todas as funções deste pacote são listadas na [página de referência](https://maggritr.tidyverse.org/reference/index.html) do pacote.
 
 A principal vantagem do uso dos pipes é facilitar o **debuging** (achar erros) nos códigos, porque seu uso torna a **linguagem R mais próxima do que falamos e pensamos**, uma vez que evita o uso de funções dentro de funções (funções compostas).
 
@@ -1579,6 +1589,8 @@ Há ainda **três outras variações do pipe** que podem ser úteis em alguns mo
 - `%$%`: "explode" as variáveis em um quadro de dados
 - `%<>%`: permite atribuição usando pipes
 
+Para se aprofundar no tema, recomendamos a leitura do capítulo [18 Pipes](https://r4ds.had.co.nz/pipes.html) de Wickhan & Grolemund (2017).
+
 ### tidyr
 
 Os conjuntos de **dados tidy** (organizados) são mais fáceis de manipular, modelar e visualizar. Um conjunto de dados está arrumado ou não, dependendo de como linhas, colunas e células são combinadas com observações, variáveis e valores. Nos **dados tidy**, as **variáveis estão nas colunas**, **observações estão nas linhas** e **valores estão nas células**, sendo que para esse último, não deve haver mais de um valor por célula (Figura \@ref(fig:fig-r-dados-tidy)).
@@ -1590,6 +1602,8 @@ Os conjuntos de **dados tidy** (organizados) são mais fáceis de manipular, mod
 ```{r fig-r-dados-tidy, fig.align='center', fig.cap="As três regras que tornam um conjunto de dados *tidy*. Adaptado de: Wickhan & Grolemund (2017).", out.width="100%", echo=FALSE}
 include_graphics("img/cap04_tidy.png")
 ```
+
+Todas as funções deste pacote são listadas na [página de referência](https://tidyr.tidyverse.org/reference/index.html) do pacote.
 
 Para realizar **diversas transformações nos dados** a fim de ajustá-los ao formato **tidy**, existe uma série de funções, para diversas finalidades: unir e separar, valores faltantes (`NA`), e pivotar (formato **longo** para **largo**), além de outras [funções específicas](https://tidyr.tidyverse.org/reference/index.html).
 
@@ -1698,68 +1712,81 @@ penguins_raw_pivot_longer <- tidyr::pivot_longer(data = penguins_raw_sel_col,
                                                  values_to = "valores")
 ```
 
+Para se aprofundar no tema, recomendamos a leitura do capítulo [12 Tidy data](https://r4ds.had.co.nz/tidy-data.html) de Wickhan & Grolemund (2017).
+
 ### dplyr
 
 O *dplyr* é um pacote que **facilita a manipulação de dados**, com uma **gramática de manipulação de dados** simples e flexível (por exemplo, como filtragem, reordenamento, seleção, entre outras). Ele foi construído com o intuito de **obter uma forma mais rápida e expressiva** de tratar os dados. O `tibble` é a versão de data frame mais conveniente para se usar com pacote *dplyr*.
 
+Todas as funções deste pacote são listadas na [página de referência](https://dplyr.tidyverse.org/reference/index.html) do pacote.
+
 Sua **gramática simples** contém **funções verbais** para manipulação de dados, baseada em:
 
 - Verbos: `mutate()`, `select()`, `filter()`, `arrange()`, `summarise()`, `slice()`, `rename()`, etc.
-- Sufixos: `*_at()`, `*_if()`, `*_all()`, etc.
-- Agrupamento: `group_by()` e `ungroup()`.
+- Replicação: `across()`, `if_any()`, `if_all()`, `where()`, `starts_with()`, `ends_with()`, `contains()` etc.
+- Agrupamento: `group_by()` e `ungroup()`
 - Junções: `inner_join()`, `full_join()`, `left_join()`, `right_join()`, etc.
+- Combinando: `bind_rows()` e `bind_cols()`
 - Funções resumo: `n()`, `n_distinct()`, `first()`, `last()`, `nth()`, etc.
 
-Para realizar as **manipulações nos dados** existe uma série de funções, para diversas finalidades: manipulação de uma tabela, manipulação de duas tabela, agrupamento, funções de vetores, além de outras [funções específicas](https://dplyr.tidyverse.org/reference/index.html).
+Para realizar as **manipulações nos dados** existe uma série de funções, para diversas finalidades: manipulação de uma tabela, manipulação de duas tabela, replicação, agrupamento, funções de vetores, além de muitas outras [funções específicas](https://dplyr.tidyverse.org/reference/index.html).
 
 - `relocate()`: muda a ordem das colunas
 - `rename()`: muda o nome das colunas
-- `select()`: seleciona colunas pelo nome
+- `select()`: seleciona colunas pelo nome ou posição
 - `pull()`: seleciona uma coluna como vetor
-- `mutate()`: adiciona novas colunas ou adiciona resultados em colunas existentes
-- `arrange()`: reordenar as linhas com base nos valores de colunas
-- `filter()`: seleciona linhas com base em valores
+- `mutate()`: adiciona novas colunas ou resultados em colunas existentes
+- `arrange()`: reordena as linhas com base nos valores de colunas
+- `filter()`: seleciona linhas com base em valores de colunas
 - `slice()`: seleciona linhas de diferente formas
 - `distinct()`: remove linhas com valores repetidos com base nos valores de colunas
 - `count()`: conta observações para um grupo
-- `group_by()`: agrupamento das linhas pelos valores das colunas
-- `summarise()`: resume os dados através de funções, podendo considerar valores das colunas
-- `*_join()`: séria de funções junta dados de duas tabelas através de uma coluna chave
+- `group_by()`: agrupa linhas pelos valores das colunas
+- `summarise()`: resume os dados através de funções considerando valores das colunas
+- `*_join()`: funções que juntam dados de duas tabelas através de uma coluna chave
 
-Todas as funções seguem a mesma **sintaxe**, de modo que o `tibble` é sempre o **primeiro argumento** das funções verbais, seguido de um **pipe** e pelo o **nome da função**. Isso permite o **encademanto** de várias operações consecutivas.
+Todas as funções seguem a mesma **sintaxe**, de modo que o `tibble` é sempre o **primeiro argumento** dessas funções, seguido de um **pipe** e pelo o **nome da função**. Isso permite o **encademanto** de várias operações consecutivas.
 
 1. tibble
 1. operador pipe
 1. nome da função verbal com os argumentos entre parênteses
+1. outras funções verbais...
 
 As funções verbais **não precisam modificar** o tibble original, sendo que as operações de manipulações podem e devem ser atribuídas à um **novo objeto**.
 
 ```{r eval=FALSE}
 tb_dplyr <- tb %>% 
-  funcao_verbal(argumento1, argumento2)
+  funcao_verbal1(argumento1, argumento2, ...) %>% 
+  funcao_verbal2(argumento1, argumento2, ...) %>% 
+  funcao_verbal3(argumento1, argumento2, ...)
 ``` 
 
-Além de `data.frames` e `tibbles`, a manipulação pelo formato *dplyr* torna o trabalho com outros formatos de classes e dados acessível e eficiente.
+Além de `data.frames` e `tibbles`, a manipulação pelo formato *dplyr* torna o trabalho com outros **formatos de classes** e dados acessível e eficiente, como `data.table`, SQL e Apache Spark.
 
 - [*dtplyr*](https://dtplyr.tidyverse.org/): manipular conjuntos de dados `data.table`
 - [*dbplyr*](https://dbplyr.tidyverse.org/): manipular conjuntos de dados SQL
 - [*sparklyr*](https://spark.rstudio.com/): manipular conjuntos de dados no Apache Spark
 
-Para nossos exemplos, vamos utilizar os **dados de pinguins** [**palmerpenguins**](https://allisonhorst.github.io/palmerpenguins). Esses dados estão disponíveis no pacote *palmerpenguins*. Vamos utilizar o conjunto de dados **penguins**, que é uma versão simplificada dos dados brutos **penguins_raw**.
+Para nossos exemplos, vamos utilizar os **dados de pinguins** [**palmerpenguins**](https://allisonhorst.github.io/palmerpenguins). Esses dados estão disponíveis no pacote *palmerpenguins*. Vamos utilizar principalmente o conjunto de dados **penguins**, que é uma versão simplificada dos dados brutos **penguins_raw**.
 
-Primeiramente, vamos **reordenadar as colunas** com a função `dplyr::relocate()`, onde simplesmente listamos as colunas que queremos mudar de posição e para onde elas devem ir. Para esse último passo há dois argumentos: **.before** que indica qual a coluna que as colunas realocadas devem se mover antes, e o argumentos **.after** indicando onde devem se mover depois. Ambos podem ser informados com os nomes ou posições desses colunas com números.
+```{r}
+# carregar os pacote palmerpenguins com os dados
+library(palmerpenguins)
+```
+
+Primeiramente, vamos **reordenadar as colunas** com a função `dplyr::relocate()`, onde simplesmente listamos as colunas que queremos mudar de posição e para onde elas devem ir. Para esse último passo há dois argumentos: **.before** que indica qual a coluna que as colunas realocadas devem se mover antes, e o argumentos **.after** indicando onde devem se mover depois. Ambos podem ser informados com os nomes ou posições dessas colunas com números.
 
 ```{r}
 # reordenar colunas - nome
-penguins_relocate <- penguins %>% 
+penguins_relocate_col <- penguins %>% 
  dplyr::relocate(sex, year, .after = island)
 
 # reordenar colunas - posicao
-penguins_relocate <- penguins %>% 
+penguins_relocate_ncol <- penguins %>% 
   dplyr::relocate(sex, year, .after = 2)
 ```
 
-Podemos ainda **renomear colunas** facilmente com a função `dplyr::rename()`, onde primeiramente informamos o nome que queremos que a coluna tenha, seguido do operador `=` e a coluna do nosso dado. É fundamental mencionar as variações da função `dplyr::rename()` pelo sufixos: `rename_with()`, `dplyr::rename_all()`, `dplyr::rename_at()`, `dplyr::rename_if()` e `dplyr::rename_vars()`, para as quais as funções irão atuar dependendo de respostas booleanas para **mudanças no nome de várias colunas de uma vez**.
+Podemos ainda **renomear colunas** facilmente com a função `dplyr::rename()`, onde primeiramente informamos o nome que queremos que a coluna tenha, seguido do operador `=` e a coluna do nosso dado. Também podemos utilizar a função `dplyr::rename_with()`, que faz a **mudança do nome em múltiplas colunas**, dependendo de resultados booleanos.
 
 ```{r}
 # mudar o nome das colunas
@@ -1769,55 +1796,19 @@ penguins_rename <- penguins %>%
                 flipper_length = flipper_length_mm,
                 body_mass = body_mass_g)
 
-# mudar o nome das colunas todas para miusculas
+# mudar o nome de todas as colunas
 penguins_rename_with <- penguins %>% 
   dplyr::rename_with(toupper)
 ```
 
-Outra operação bastante usual dentro da manipulação de dados tabulares é a **seleção de colunas**. Podemos fazer essa operação com a função `dplyr::select()`, que seleciona colunas pelo nome ou pela posição. Aqui há uma séria de possibilidades de seleção de colunas, que listamos na Tabela (\@ref(tab:tab-dplyr-select)). Além disso, é fundamental destacar as variações da função `dplyr::select()`: `dplyr::select_all()`, `dplyr::select_at()`, `dplyr::select_if()` e `dplyr::select_vars()`, para as quais as funções irão atuar dependendo de respostas booleanas para **seleção de várias colunas de uma vez**.
-
-```{r tab-dplyr-select, echo=FALSE}
-kable(data.frame(
- Função = c(
-  "`:`", 
-  "`!`", 
-  "`&` e |", 
-  "`c()`", 
-  "`everything()`", 
-  "`last_col()`",
-  "`starts_with()`", 
-  "`ends_with()`", 
-  "`contains()`", 
-  "`matches()`", 
-  "`num_range()`", 
-  "`all_of()`", 
-  "`any_of()`", 
-  "`where()`"),
- Descrição = c(
-   "Para selecionar um intervalo de colunas consecutivas", 
-   "Para tomar o complemento de um conjunto de colunas", 
-   "Para selecionar a intersecção ou a união de dois conjuntos de colunas", 
-   "Para combinar seleções", 
-   "Corresponde a todas as colunas", 
-   "Seleciona a última coluna",
-   "Começa com um prefixo", 
-   "Termina com um sufixo", 
-   "Contém um caracter literal", 
-   "Corresponde a uma expressão regular",
-   "Corresponde a um intervalo numérico", 
-   "Corresponde aos nomes das variáveis em um vetor de caracteres. Todos os nomes devem estar presentes, senão um erro fora dos limites será gerado",
-   "O mesmo que `all_of()`, exceto que nenhum erro é lançado para nomes que não existem.",
-   "Aplica uma função a todas as variáveis e seleciona aquelas para as quais a função retorna TRUE")),
- align = "c",
- caption = "Visão geral dos recursos da função `dplyr::select()`.")
-```
+Outra operação bastante usual dentro da manipulação de dados tabulares é a **seleção de colunas**. Podemos fazer essa operação com a função `dplyr::select()`, que seleciona colunas pelo nome ou pela posição. Aqui há uma série de possibilidades de seleção de colunas, desde utilizar operadores como `:` para selecionar intervalos de colunas, `!` para tomar o complemento, além de funções como `dplyr::starts_with()`, `dplyr::ends_with()`, `dplyr::contains()` para **procurar colunas com um padrão de texto**.
 
 ```{r}
-# selecionar as colunas por nomes
+# selecionar colunas por nomes
 penguins_select <- penguins %>% 
   dplyr::select(bill_length_mm:body_mass_g)
 
-# selecionar as colunas por padrap
+# selecionar colunas por padrao
 penguins_select_contains <- penguins %>% 
   dplyr::select(contains("_mm"))
 ```
@@ -1830,20 +1821,20 @@ penguins_select_pull <- penguins %>%
   dplyr::pull(bill_length_mm)
 ```
 
-Uma das operações mais úteis dentre as operações para colunas é **adicionar ou atualizar os valores** de colunas. Para essa operação, usaremos a função `dplyr::mutate()`. Essa função irá adiconar colunas ou atualizar uma coluna fazendo operações em outras colunas. Existe uma série de funções que podemos utilizar para fazer essas operações. Destacamos aqui a função `dplyr::across()`, que aplica uma função em múltiplas colunas. Além dessa função, podemos ainda usar os argumentos **.before** e **.after** para indicar onde a nova coluna deve ficar. Temos ainda o parâmetro **.keep** com diversas possibilidades de manter colunas depois de usar a função `dplyr::mutate()`. Por fim, é fundamental mencionar as variações dos sufixos da função `dplyr::mutate()`: `dplyr::mutate_all()`, `dplyr::mutate_at()`, `dplyr::mutate_if()` e `dplyr::mutate_each()`, para as quais as funções irão atuar dependendo de respostas booleanas, **adicionando ou atualizando valores para várias colunas de uma vez**.
+Uma das operações mais úteis dentre as operações para colunas é **adicionar ou atualizar os valores** de colunas. Para essa operação, usaremos a função `dplyr::mutate()`. Podemos ainda usar os argumentos **.before** e **.after** para indicar onde a nova coluna deve ficar, além do parâmetro **.keep** com diversas possibilidades de manter colunas depois de usar a função `dplyr::mutate()`. Por fim, 
+é fundamental destacar o uso das **funções de replicação**: `dplyr::across()`, `dplyr::if_any()` e `dplyr::if_all()`, para os quais a função irá **fazer alterações em múltiplas colunas de uma vez**, dependendo de resultados booleanos.
 
 ```{r}
 # adicionar colunas
 penguins_mutate <- penguins %>% 
   dplyr::mutate(body_mass_kg = body_mass_g/1e3, .before = sex)
 
-# modificar colunas
-penguins_mutate_modificar <- penguins %>% 
-  dplyr::mutate(across(!c(bill_length_mm, bill_depth_mm, flipper_length_mm,
-                          body_mass_g), as.character))
+# modificar varias colunas
+penguins_mutate_across <- penguins %>% 
+  dplyr::mutate(across(where(is.factor), as.character))
 ```
 
-Além de operações em colunas, podemos fazer **operações em linhas**. Vamos começar com a **reordenação das linhas** com base nos valores das colunas. Para essa operação, usamos a função `dplyr::arrange()`. Podemos reordenadar por uma ou mais colunas de forma crescente ou de forma decrescente usando a função `desc()` ou o operador `-`. Da mesma forma que as funções anteriores, há variações dos sufixos da função `dplyr::arrange()`: `dplyr::arrange_all()`, `dplyr::arrange_at()` e `dplyr::arrange_if()`, para as quais as funções irão atuar dependendo de respostas booleanas, **ordenando linhas para várias colunas de uma vez**.
+Além de operações em colunas, podemos fazer **operações em linhas**. Vamos começar com a **reordenação das linhas** com base nos valores das colunas. Para essa operação, usamos a função `dplyr::arrange()`. Podemos reordenadar por uma ou mais colunas de forma crescente ou de forma decrescente usando a função `desc()` ou o operador `-`. Da mesma forma que na função `dplyr::mutate()`, podemos usar as **funções de replicação** para **ordenar as linhas para várias colunas de uma vez**, dependendo de resultados booleanos.
 
 ```{r}
 # reordenar linhas - crescente
@@ -1855,11 +1846,15 @@ penguins_arrange_desc <- penguins %>%
   dplyr::arrange(desc(body_mass_g))
 
 # reordenar linhas - decrescente
-penguins_arrange_desc <- penguins %>% 
+penguins_arrange_desc_m <- penguins %>% 
   dplyr::arrange(-body_mass_g)
+
+# reordenar linhas - multiplas colunas
+penguins_arrange_across <- penguins %>% 
+  dplyr::arrange(across(where(is.numeric)))
 ```
 
-Uma das principais e mais usuais operações que podemos realizar em linhas é a seleção de linhas através do **filtro por valores de uma ou mais colunas**. Iremos utilizar a função `dplyr::filter()`. Para realizar os filtros iremos utilizar grande parte dos operadores relacionais e lógicos que listamos na Tabela \@ref(tab:tab-operadores), especialmente os lógicos para combinações de filtros em mais de uma coluna. Além desses operadores, podemos utilizar a função `is.na()` para filtros em elementos faltantes, e as funções `dplyr::between()` e `dplyr::near()`, para valores filtros entre valores, e para valores próximos com certa tolerência, respectivamente. Por fim, existem variações dos sufixos da função `dplyr::filter()`: `dplyr::filter_all()`, `dplyr::filter_at()` e `dplyr::filter_if()`, para as quais as funções irão atuar dependendo de respostas booleanas para **filtro das linhas para mais de uma coluna**.
+Uma das principais e mais usuais operações que podemos realizar em linhas é a seleção de linhas através do **filtro por valores de uma ou mais colunas**, utilizando a função `dplyr::filter()`. Para realizar os filtros iremos utilizar grande parte dos operadores relacionais e lógicos que listamos na Tabela \@ref(tab:tab-operadores), especialmente os lógicos para combinações de filtros em mais de uma coluna. Além desses operadores, podemos utilizar a função `is.na()` para filtros em elementos faltantes, e as funções `dplyr::between()` e `dplyr::near()` para valores filtros entre valores, e para valores próximos com certa tolerência, respectivamente. Por fim, podemos usar as **funções de replicação** para **filtro das linhas para mais de uma coluna**, dependendo de resultados booleanos.
 
 ```{r}
 # filtrar linhas
@@ -1867,11 +1862,11 @@ penguins_filter <- penguins %>%
   dplyr::filter(species == "Adelie")
 
 # filtrar linhas
-penguins_filter <- penguins %>% 
+penguins_filter_two <- penguins %>% 
   dplyr::filter(species == "Adelie" & sex == "female")
 
 # filtrar linhas
-penguins_filter <- penguins %>% 
+penguins_filter_in <- penguins %>% 
   dplyr::filter(species %in% c("Adelie", "Gentoo"),
                 sex == "female")
 
@@ -1882,10 +1877,13 @@ penguins_filter_na <- penguins %>%
 # filtrar linhas - between
 penguins_filter_between <- penguins %>% 
   dplyr::filter(between(body_mass_g, 3000, 4000))
+
+# filtrar linhas por varias colunas
+penguins_filter_if <- penguins %>% 
+  dplyr::filter(if_all(where(is.integer), ~ . > 200))
 ```
 
-Além da selecção de linhas por filtros, podemos fazer a **seleção das linhas por intervalos**, indicando quais **linhas desejamos**, usando a função `dplyr::slice()`, e informando o argumento **n** para o número da linha ou intervalo. Essa função possui
-variações no sufixo muito interessantes: `dplyr::slice_head()` e `dplyr::slice_tail()` seleciona as primeiras e últimas linhas, `dplyr::slice_min()` e `dplyr::slice_max()` seleciona linhas com os maiores e menores valores de uma coluna, e `dplyr::slice_sample()` seleciona linhas aleatoriamente.
+Além da selecção de linhas por filtros, podemos fazer a **seleção das linhas por intervalos**, indicando quais **linhas desejamos**, usando a função `dplyr::slice()`, e informando o argumento **n** para o número da linha ou intervalo das linhas. Essa função possui variações no sufixo muito interessantes: `dplyr::slice_head()` e `dplyr::slice_tail()` seleciona as primeiras e últimas linhas, `dplyr::slice_min()` e `dplyr::slice_max()` seleciona linhas com os maiores e menores valores de uma coluna, e `dplyr::slice_sample()` seleciona linhas aleatoriamente.
 
 ```{r}
 # seleciona linhas
@@ -1901,23 +1899,27 @@ penguins_slice_max <- penguins %>%
   dplyr::slice_max(body_mass_g, n = 5)
 
 # seleciona linhas - sample
-penguins_sample <- penguins %>% 
+penguins_slice_sample <- penguins %>% 
   dplyr::slice_sample(n = 30)
 ```
 
-A última operação que apresentaremos aqui será a **retirada de linhas com valores repetidos com base nos valores de colunas** utilizandos a função `dplyr::distinct()`. Essa função por padrão retorna apenas a coluna utilizada para retirar as linhas com valores repetidos, sendo necessário acrescentar o argumento **.keep_all** para retornar todas as colunas. Por fim, existem variações dos sufixos da função `dplyr::distinct()`: `dplyr::distinct_all()`, `dplyr::distinct_at()`, `dplyr::distinct_if()` e `dplyr::distinct_prepare()`, para as quais as funções irão atuar dependendo de respostas booleanas para **retirar linhas com valores repetidos para mais de uma coluna**.
+A última operação que apresentaremos aqui para linhas será a **retirada de linhas com valores repetidos com base nos valores de colunas** utilizandos a função `dplyr::distinct()`. Essa função por padrão retorna apenas a coluna utilizada para retirar as linhas com valores repetidos, sendo necessário acrescentar o argumento **.keep_all** para retornar todas as colunas. Por fim, podemos usar as **funções de replicação** para  **retirar linhas com valores repetidos para mais de uma coluna**, dependendo de resultados booleanos.
 
 ```{r}
 # retirar linhas com valores repetidos
 penguins_distinct <- penguins %>% 
   dplyr::distinct(body_mass_g)
 
-# retirar linhas com valores repetidos - manter as outras colunas.
-penguins_distinct <- penguins %>% 
+# retirar linhas com valores repetidos - manter as outras colunas
+penguins_distinct_keep_all <- penguins %>% 
   dplyr::distinct(body_mass_g, .keep_all = TRUE)
+
+# retirar linhas com valores repetidos para varias colunas
+penguins_distinct_keep_all_across <- penguins %>% 
+  dplyr::distinct(across(where(is.integer)), .keep_all = TRUE)
 ```
 
-Também podemos fazer **contagens resumos dos nossos dados**, utilizando para isso a função `dplyr::count()`. Essa função irá contar valores de uma ou mais colunas, semelhante à função Base R `table()`, mas num contexto `tidyverse`.
+Agora entraremos no assunto de resumo das observações. Podemos fazer **contagens resumos dos nossos dados**, utilizando para isso a função `dplyr::count()`. Essa função irá contar valores de uma ou mais colunas, semelhante à função Base R `table()`, mas num contexto `tidyverse`.
 
 ```{r}
 # contagens de valores para um coluna
@@ -1925,177 +1927,257 @@ penguins_count <- penguins %>%
   dplyr::count(species)
 
 # contagens de valores para mais de uma coluna
-penguins_count <- penguins %>% 
+penguins_count_two <- penguins %>% 
   dplyr::count(species, island)
 ```
 
-Uma grande parte das operações feita nos dados são realizadas em **grupos definidos por valores de colunas ou variáveis categóricas**. A função `dplyr::group_by()` transforma um `tibble` e converte em um `tibble` agrupado, onde as operações são realizadas "por grupo". Essa função é utilizada geralmente com a função `dplyr::summarise()`, que veremos logo em seguida. O agrupamento não altera a aparência dos dados (além de informar como estão agrupados). A função `dplyr::ungroup()` remove o agrupamento. Há ainda variações dos sufixos da função `dplyr::group_by()`: `dplyr::group_by_all()`, `dplyr::group_by_at()`, `dplyr::group_by_if()`, `dplyr::group_by_prepare()`e `dplyr::group_by_drop_default()`, para as quais as funções irão atuar dependendo de respostas booleanas para **fazer os agrupamentos**.
+Uma grande parte das operações feita nos dados são realizadas em **grupos definidos por valores de colunas ou variáveis categóricas**. A função `dplyr::group_by()` transforma um `tibble` e converte em um `tibble` agrupado, onde as operações são realizadas "por grupo". Essa função é utilizada geralmente com a função `dplyr::summarise()`, que veremos logo em seguida. O agrupamento não altera a aparência dos dados (além de informar como estão agrupados). A função `dplyr::ungroup()` remove o agrupamento. Podemos ainda usar **funções de replicação** para **fazer os agrupamentos para mais de uma coluna**, dependendo de resultados booleanos.
 
 ```{r}
 # agrupamento
 penguins_group_by <- penguins %>% 
   dplyr::group_by(species)
+
+# agrupamento
+penguins_group_by_across <- penguins %>% 
+  dplyr::group_by(across(where(is.factor)))
 ```
 
-Como dissemos, muitas vezes queremos resumir nossos dados, principalmente para ter uma noção geral das variáveis (colunas) ou mesmo começar a análise exploratória resumindo variáveis contínuas por grupos de variáveis categóricas. Dessa forma, ao utilizar a função `dplyr::summarise()` teremos um novo `tibble` com os dados resumidos, que é a agregação ou resumo dos dados através de funções. Da mesma forma que outras funções, existem variações dos sufixos da função `dplyr::summarise()`: `dplyr::summarise_all()`, `dplyr::summarise_at()`, `dplyr::summarise_if()` e `dplyr::summarise_each()`, para as quais as funções irão atuar dependendo de respostas booleanas para **resumir valores para mais de uma coluna**.
+Como dissemos, muitas vezes queremos **resumir nossos dados**, principalmente para ter uma noção geral das variáveis (colunas) ou mesmo começar a **análise exploratória resumindo variáveis contínuas por grupos de variáveis categóricas**. Dessa forma, ao utilizar a função `dplyr::summarise()` teremos um novo `tibble` com os dados resumidos, que é a **agregação ou resumo dos dados através de funções**. Da mesma forma que outras funções, podemos usar **funções de replicação** para **resumir valores para mais de uma coluna**, dependendo de resultados booleanos. .
 
 ```{r}
 # resumo
 penguins_summarise <- penguins %>% 
   dplyr::group_by(species) %>% 
-  summarize(mean_bm = mean(body_mass_g, na.rm = TRUE))
+  summarize(body_mass_g_mean = mean(body_mass_g, na.rm = TRUE),
+            body_mass_g_sd = sd(body_mass_g, na.rm = TRUE))
 
-# resumo - if
-penguins_summarise_if <- penguins %>% 
+# resumo
+penguins_summarise_across <- penguins %>% 
   dplyr::group_by(species) %>% 
-  summarize_if(is.numeric, mean, na.rm = TRUE)
+  summarize(across(where(is.numeric), ~ mean(.x, na.rm = TRUE)))
 ```
 
-Finalmente, veremos o último conjunto de funções do pacote *dplyr*, a junção. Essas funções fazem a **combinação de pares de conjunto de dados tabulares**. Há dois tipos de junções: junção de mutação e junção de filtragem. A **junção de mutação** combina variáveis (colunas) de duas tabelas. Ele primeiro combina as observações por suas chaves e, em seguida, copia as variáveis de uma tabela para a outra. Existem quatro tipos de junções, que são realizadas pelas funções `dplyr::inner_join()`, `dplyr::left_join()`, `dplyr::full_join()` e `dplyr::right_join()`, e que podem ser representadas na Figura \@ref(fig:fig-r-join).
+Finalmente, veremos o último conjunto de funções do pacote *dplyr*, a **junção de tabelas**. Nessa operação, fazemos a **combinação de pares de conjunto de dados tabulares por uma ou mais colunas chaves**. Há dois tipos de junções: junção de mutação e junção de filtragem. A **junção de mutação** primeiro combina as observações por suas chaves e, em seguida, **copia as variáveis (colunas) de uma tabela para a outra**. É fundamental destacar a importância da **coluna chave**, que é indicada pelo argumento **by**. Essa coluna deve conter **elementos que sejam comuns às duas tabelas** para que haja a combinação dos elementos. 
+
+Existem quatro tipos de junções, que são realizadas pelas funções `dplyr::inner_join()`, `dplyr::left_join()`, `dplyr::full_join()` e `dplyr::right_join()`, e que podem ser representadas na Figura \@ref(fig:fig-r-join).
 
 ```{r fig-r-join, fig.align='center', fig.cap="Diferentes tipos de joins, representados com um diagram de Venn. Adaptado de: Wickhan & Grolemund (2017).", out.width="80%", echo=FALSE}
 include_graphics("img/cap04_join.png")
 ```
 
-Considerando essa nomenclatura de uma tabela de dados ser `x` e outra ser `y`, temos:
+Considerando a nomenclatura de uma tabela de dados sendo como `x` e `y`, temos:
 
-- **inner join**: mantém apenas as observações em `x` em `y`.
-- **left join**: mantém todas as observações em `x`.
-- **right join**: mantém todas as observações em `y`.
-- **full join**: mantém todas as observações em `x` em `y`.
+- `inner_join(x, y)`: mantém apenas as observações em `x` e em `y`
+- `left_join(x, y)`: mantém todas as observações em `x`
+- `right_join(x, y)`: mantém todas as observações em `y`
+- `full_join(x, y)`: mantém todas as observações em `x` e em `y`
 
-Já a **junção de filtragem**.
+Aqui, vamos demostrar apenas a função `dplyr::left_join()`, trazendo os dados do conjunto de dados do **penguins_raw** para o conjunto de dados do **penguins**.
 
+```{r}
+# add uma coluna chave de ids
+penguin_islands <- tibble(
+  island = c("Torgersen", "Biscoe", "Dream", "Alpha"),
+  longitude = c(-64.083333, -63.775636, -64.233333, -63),
+  latitude = c(-64.766667, -64.818569, -64.733333, -64.316667)
+  )
+  
+# juncao - left
+penguins_left_join <- penguins %>% 
+  dplyr::left_join(penguin_islands, by = "island")
+```
+
+Já a **junção de filtragem** combinam as observações da mesma maneira que as junções de mutação, mas **afetam as observações, não as variáveis (colunas)**. Existem dois tipos:
+
+- `semi_join(x, y)`: mantém todas as observações em `x` que têm uma correspondência em `y`
+- `anti_join(x, y)`: alimina todas as observações em `x` que têm uma correspondência em `y`
+
+*Semi-joins* são úteis para **corresponder tabelas de resumo filtradas de volta às linhas originais**, removendo as linhas que não estavam antes do join. *Anti-joins* são úteis para **diagnosticar incompatibilidades de junção**, por exemplo, ao verificar os elementos que não combinam entre duas tabelas de dados.
+
+Temos ainda **operações de conjuntos** e **comparação de dados**.
+
+- `união(x, y)`: retorna todas as linhas que aparecem em `x`, `y` ou mais dos conjuntos de dados
+- `interesect(x, y)`: retorna apenas as linhas que aparecem em `x` e em `y`
+- `setdiff(x, y)`: retorna as linhas que aparecem `x`, mas não em `y`
+- `setequal(x, y)`: retorna se `x` e `y` são iguais e quais suas diferenças
+
+Para se aprofundar no tema, recomendamos a leitura do capítulo [13 Relational data](https://r4ds.had.co.nz/relational-data.html) de Wickhan & Grolemund (2017).
 
 ### stringr
 
-Pacote para a **manipulação de caracteres ou strings**.
+O pacote *stringr* fornece um conjunto de funções para a **manipulação de caracteres ou strings**. O pacote concentra-se nas funções de manipulação mais importantes e comumente usadas. Para função para específicas, recomenda-se usar para o pacote *stringi*, que fornece um conjunto mais abrangente de funções.
 
-Comprimento
+As funções do *stringr* podem ser agrupadas em algumas operações para tarefas específicas como correspondência de padrões, espaço em branco, maiúsculas e minúsculas, além de outras funções. 
+
+Todas as funções deste pacote são listadas na [página de referência](https://stringr.tidyverse.org/reference/index.html) do pacote.
+
+Demonstraremos **algumas funções para algumas operações mais comuns**, utilizando um vetor de um elemento, com o string "penguins". 
+
+Podemos explorar o **comprimento** de caracteres com a função `stringr::str_length()`.
+
 ```{r}
-stringr::str_length("abc")
+# comprimento
+stringr::str_length(string = "penguins")
 ```
 
-Extração por posição
+**Extrair um caracter** por sua posição usando a função `stringr::str_sub()` ou por um padrão com `stringr::str_extract()`.
+
 ```{r}
-stringr::str_sub("abc", 3)
+# extrair pela posicao
+stringr::str_sub(string = "penguins", end = 3)
+
+# extrair por padrão
+stringr::str_extract(string = "penguins", pattern = "p")
 ```
 
-Inserir espaço em branco - esquerda
+**Substituir caracteres** por outros caracteres com `stringr::str_replace()`.
+
 ```{r}
-stringr::str_pad("abc", width = 4, side = "left")
+# sustituir
+stringr::str_replace(string = "penguins", pattern = "a", replacement = "y")
 ```
 
-Inserir espaço em branco - direira
+**Separar** caracteres por um padrão com a função `stringr::str_split()`.
+
 ```{r}
-stringr::str_pad("abc", width = 4, side = "right")
+stringr::str_split(string = "p-e-n-g-u-i-n-s", pattern = "-", simplify = TRUE)
 ```
 
-Remover espaço em branco do começo, final ou ambos
+**Inserir espaços em brancos** pela esquerda ou direira com a função `stringr::str_pad()`.
+
 ```{r}
-stringr::str_trim(" abc ")
+# inserir espacos em branco
+stringr::str_pad(string = "penguins", width = 10, side = "left")
+stringr::str_pad(string = "penguins", width = 10, side = "right")
+stringr::str_pad(string = "penguins", width = 10, side = "both")
 ```
 
-Minúsculas e maiúsculas
+Também podemos **remover espaços em branco** do começo, final ou ambo, utilizando `stringr::str_trim()`.
+
 ```{r}
-stringr::str_to_upper("abc")
-stringr::str_to_title("abc")
-stringr::str_to_title("aBc")
+# remover espacos em branco
+stringr::str_trim(string = " penguins ", side = "left")
+stringr::str_trim(string = " penguins ", side = "right")
+stringr::str_trim(string = " penguins ", side = "both")
 ```
 
-Ordenação
+Podemos também **alterar minúsculas e maiúsculas** em diferentes, com várias funções.
+
 ```{r}
-le <- sample(letters, 26, rep = TRUE)
-le
-stringr::str_sort(le)
-stringr::str_sort(le, dec = TRUE)
+# alterar minusculas e maiusculas
+stringr::str_to_lower(string = "Penguins")
+stringr::str_to_upper(string = "penguins")
+stringr::str_to_sentence(string = "penGuins")
+stringr::str_to_title(string = "penGuins")
 ```
 
-Extrair por padrão
+Podemos ainda **ordenar os elementos** de um vetor por ordem alfabética, usando `stringr::str_sort()`.
+
 ```{r}
-stringr::str_extract("abc", "b")
+# ordenar
+stringr::str_sort(x = letters)
+stringr::str_sort(x = letters, dec = TRUE)
 ```
 
-Substituir
+Podemos ainda utilizar essas funções em complemento com o pacote *dplyr*, para **alterar os caracteres de colunas** ou **nome das colunas**.
+
 ```{r}
-stringr::str_replace("abc", "a", "y")
+# alterar valores das colunas
+penguins_stringr_valores <- penguins %>% 
+  dplyr::mutate(species = stringr::str_to_lower(species))
+
+# alterar nome das colunas
+penguins_stringr_nomes <- penguins %>% 
+  dplyr::rename_with(stringr::str_to_title)
 ```
 
-Separação
-```{r}
-stringr::str_split("a-b-c", "-")
-```
+Para se aprofundar no tema, recomendamos a leitura do capítulo [14 Strings](https://r4ds.had.co.nz/strings.html) de Wickhan & Grolemund (2017).
 
 ### forcats
 
-Pacote para a manipulação de fatores.
+O pacote *forcats* fornece um **conjunto de ferramentas úteis** para **manipular fatores**. Como dito anterioemente, usamos fatores geralmente quando temos **dados categóricos**: variáveis que têm um conjunto de valores fixos e conhecidos. As funções são principalmente para mudar a ordem dos níveis, mudar os valores dos níveis, adicionar e remover níveis, combinar múltiplos níveis, além de outras funções.
 
-as_factor(): cria fatores
+Todas as funções deste pacote são listadas na [página de referência](https://forcats.tidyverse.org/reference/index.html) do pacote.
 
+Vamos utilizar ainda os dados **penguins** e **penguins_raw** para exemplificar o uso do pacote *forcats*.
 
 ```{r}
-# fixar amostragem
-set.seed(42)
-
-# cria um fator
-fa <- sample(c("alto", "medio", "baixo"), 30, rep = TRUE) %>% 
- forcats::as_factor()
-fa
+# carregar os pacote palmerpenguins com os dados
+library(palmerpenguins)
 ```
 
-fct_recode(): muda o nome dos níveis
+Primeiramente, vamos **converter** dados de **caracter** para **fator**, utilizando a função `forcats::as_factor()`.
+
+```{r}
+# caracter
+forcats::as_factor(penguins_raw$Species) %>% head()
+```
+Podemos facilmente mudar o **nome dos níveis** utilizando a `forcats::fct_recode()`.
+
 ```{r}
 # muda o nome dos niveis
-fa_recode <- fa %>% 
- forcats::fct_recode(a = "alto", m = "medio", b = "baixo")
-fa_recode
+forcats::fct_recode(penguins$sex, f = "female", m = "male") %>% head()
 ```
 
-fct_rev(): inverte os níveis
+Para **inverter os níveis**, usamos a função `forcats::fct_rev()`.
+
 ```{r}
 # inverte os niveis
-fa_rev <- fa_recode %>% 
- forcats::fct_rev()
-fa_rev
+forcats::fct_rev(penguins$sex) %>% head()
 ```
 
-fct_relevel(): especifica a classificação de um ou mais níveis
+forcats::fct_relevel(): especifica a classificação de um ou mais níveis
+
 ```{r}
 # especifica a classificacao de um nivel
-fa_relevel <- fa_recode %>% 
- forcats::fct_relevel(c("a", "m", "b"))
-fa_relevel
+forcats::fct_relevel(penguins$sex) %>% head()
 ```
 
-fct_inorder(): ordem em que aparece
+forcats::fct_inorder(): ordem em que aparece
 ```{r}
 # ordem em que aparece
-fa_inorder <- fa_recode %>% 
- forcats::fct_inorder()
-fa_inorder
+penguins_inorder <- penguins %>% 
+ dplyr::mutate(forcats::fct_inorder())
 ```
 
-fct_infreq(): ordem (decrescente) de frequência
+forcats::fct_infreq(): ordem (decrescente) de frequência
 ```{r}
 # ordem (decrescente) de frequencia
-fa_infreq <- fa_recode %>% 
- forcats::fct_infreq()
-fa_infreq
+penguins_infreq <- penguins %>% 
+ dplyr::mutate(forcats::fct_infreq())
 ```
 
-fct_lump(): agregação de níveis raros em um nível
+forcats::fct_lump(): agregação de níveis raros em um nível
 ```{r}
 # agregacao de niveis raros em um nivel
-fa_lump <- fa_recode %>% 
- forcats::fct_lump()
-fa_lump
+penguins_lump <- penguins %>% 
+ dplyr::mutate(forcats::fct_lump())
 ```
+
+```{r}
+# modificar colunas para caracter
+penguins %>% 
+  dplyr::mutate(across(where(is.factor), as.character))
+
+# transformar um coluna em fator
+penguins_multi_factor <- penguins_caracter %>% 
+  dplyr::mutate(species = forcats::as_factor(species))
+
+# transformar varias colunas em fator
+penguins_multi_factor <- penguins %>% 
+  dplyr::mutate(across(where(is.character), forcats::as_factor))
+```
+
+Para se aprofundar no tema, recomendamos a leitura do capítulo [15 Factors](https://r4ds.had.co.nz/factors.html) de Wickhan & Grolemund (2017).
 
 ### lubridate
 
 Pacote para trabalhar com datas.
 
 Pacote à parte do tidyverse
+
+Todas as funções deste pacote são listadas na [página de referência](https://lubridate.tidyverse.org/reference/index.html) do pacote.
 
 ```{r eval=FALSE}
 # install
@@ -2310,10 +2392,13 @@ lubridate::as.period(r_intervaloo)
 lubridate::as.period(filho_intervalo)
 ```
 
+Para se aprofundar no tema, recomendamos a leitura do capítulo [16 Dates and times](https://r4ds.had.co.nz/dates-and-times.html) de Wickhan & Grolemund (2017).
+
 ### purrr
 
 Pacote que implementa **Programação Funcional**
 
+Todas as funções deste pacote são listadas na [página de referência](https://purrr.tidyverse.org/reference/index.html) do pacote.
 
 Uma função chama outra função para ser aplicada repetidamente percorrendo elementos de um objeto (vetor, lista ou data frame)
 
@@ -2397,6 +2482,7 @@ sd_var
 furrr - Programação funcional paralelizada
 Faz o mapeamento em paralelo mais integrado possível
 
+Para se aprofundar no tema, recomendamos a leitura do capítulo [21 Iteration](https://r4ds.had.co.nz/iteration.html) de Wickhan & Grolemund (2017).
 
 ## Exercícios
 

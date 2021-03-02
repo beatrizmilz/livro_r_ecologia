@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2021-03-01" />
+<meta name="date" content="2021-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1159,9 +1159,9 @@ Figura 5.3: Estruturas de dados mais comuns de R: vetores, matrizes, arrays, lis
 <p>Além disso, podemos utilizar as conversões listadas anteiormente para alterar os modos. Vamos exemplificar combinando os vetores criados anteriormente, e convertendo-os.</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="intro-r.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># coercao</span></span>
 <span id="cb98-2"><a href="intro-r.html#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(colar, amostragem)</span></code></pre></div>
-<pre><code>##  [1] &quot;amostra 1&quot; &quot;amostra 2&quot; &quot;amostra 3&quot; &quot;amostra 4&quot; &quot;amostra 5&quot; &quot;43&quot;       
-##  [7] &quot;4&quot;         &quot;89&quot;        &quot;73&quot;        &quot;90&quot;        &quot;68&quot;        &quot;33&quot;       
-## [13] &quot;70&quot;        &quot;57&quot;        &quot;52&quot;</code></pre>
+<pre><code>##  [1] &quot;amostra 1&quot; &quot;amostra 2&quot; &quot;amostra 3&quot; &quot;amostra 4&quot; &quot;amostra 5&quot; &quot;54&quot;       
+##  [7] &quot;36&quot;        &quot;30&quot;        &quot;88&quot;        &quot;89&quot;        &quot;83&quot;        &quot;48&quot;       
+## [13] &quot;17&quot;        &quot;21&quot;        &quot;98&quot;</code></pre>
 <div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="intro-r.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># conversao</span></span>
 <span id="cb100-2"><a href="intro-r.html#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(repeticao)</span></code></pre></div>
 <pre><code>##  [1] 1 0 1 0 1 0 1 0 1 0</code></pre>
@@ -1593,7 +1593,7 @@ Figura 5.3: Estruturas de dados mais comuns de R: vetores, matrizes, arrays, lis
 ## 8   sp8   8 floresta    1
 ## 9   sp9   9 floresta    0
 ## 10 sp10  10 floresta    1</code></pre>
-<p>Além disso, há uma séria de funções para conferência e manipulação de dados que listamos na Tabela <a href="intro-r.html#tab:tab-funcoes-conf-multi">5.3</a>.</p>
+<p>Além disso, há uma série de funções para conferência e manipulação de dados que listamos na Tabela <a href="intro-r.html#tab:tab-funcoes-conf-multi">5.3</a>.</p>
 <table>
 <caption><span id="tab:tab-funcoes-conf-multi">Tabela 5.3: </span>Funções para verificação e resumo de dados multidimensionais.</caption>
 <thead>
@@ -2017,6 +2017,7 @@ Figura 5.4: Modelo das ferramentas necessárias em um projeto típico de ciênci
 <h3><span class="header-section-number">5.5.4</span> readr, readxl e writexl</h3>
 <p>Dado que possuímos um conjuntos de dados e que geralmente esse conjunto de dados estará no formato tabular com umas das extensões: .csv, .txt ou .xlsx, iremos usar o pacote <em>readr</em> ou <em>readxl</em> para importar esses dados para o R.</p>
 <p>Esses pacotes <strong>leem e escrevem grandes arquivos de forma mais rápida</strong>, além de fornecem <strong>medidores de progresso</strong> de importação e exportação, e imprimir a <strong>informação dos modos das colunas</strong> quando faz a importação. Outro ponto bastante positivo, é que também <strong>classificam automaticamente</strong> o modo dos dados de cada coluna, i.e., se uma coluna possui dados numéricos ou apenas texto, essa informação será considerada para classificar a coluna toda. A <strong>classe do objeto</strong> atribuído quando lido por esses pacotes é automaticamente um “tibble,” que veremos melhor na seção seguinte.</p>
+<p>Todas as funções deste pacote são listadas na <a href="https://readr.tidyverse.org/reference/index.html">página de referência</a> do pacote.</p>
 <p>Usamos as funções <code>readr::read_csv()</code> e <code>readr::write_csv()</code> para importar e exportar arquivos .csv do R, respectivamente. Para dados com a extensão .txt, podemos utilizar as funções <code>readr::read_tsv()</code> ou ainda <code>readr::read_delim()</code>. Para arquivos tabulares com a extensão .xlsx, temos de instalar dois pacotes adicionais: <em>readxl</em> e <em>writexl</em>, dos quais usaremos as funções <code>readxl::read_excel()</code>, <code>readxl::read_xlsx()</code> ou <code>readxl::read_xls()</code> para importar dados, atentado para o data de podermos indicar a aba com os dados com o argumento <strong>sheet</strong>, e <code>writexl::write_xlsx()</code> para exportar.</p>
 <p>Se o arquivo .csv foi criado com separador de decimais sendo <code>.</code> e separador de colunas sendo <code>,</code>, usamos as funções normalmente. Caso tivesse sido criado com separador de decimais sendo <code>,</code> e separador de colunas sendo <code>;</code>, usaríamos as funções dessa forma: <code>readr::read_csv2()</code>.</p>
 <p>Para exemplificar como importar dados no <strong>formato tidyverse</strong>, vamos importar novamente os dados de <strong>comunidades de anfíbios da Mata Atlântica</strong> (Atlantic Amphibians, Vancine et al. 2018), que fizemos o download na seção XX. Estamos usando a função <code>readr::read_csv()</code>, indicando os diretórios com a função <code>here::here()</code>, e a classe do arquivo é “tibble.”</p>
@@ -2042,12 +2043,14 @@ Figura 5.4: Modelo das ferramentas necessárias em um projeto típico de ciênci
 ##   precipitation = col_double()
 ## )
 ## ℹ Use `spec()` for the full column specifications.</code></pre>
+<p>Para se aprofundar no tema, recomendamos a leitura do capítulo <a href="https://r4ds.had.co.nz/data-import.html">11 Data import</a> de Wickhan &amp; Grolemund (2017).</p>
 </div>
 <div id="tibble" class="section level3" number="5.5.5">
 <h3><span class="header-section-number">5.5.5</span> tibble</h3>
 <p>O <strong>tibble</strong> (<code>tbl_sf</code>) é uma <strong>versão aprimorada</strong> do data frame (<code>data.frame</code>). Ele é a <strong>classe aconselhada</strong> para que as funções do tidyverse funcionem melhor sobre conjuntos de dados tabulares importados para o R.</p>
 <p>Geralmente, quando utilizamos <strong>funções tidyverse para importar dados para o R</strong>, é essa classe que esses dados adquirem depois de importados. Além da importação de dados, podemos <strong>criar</strong> um tibble no R usando a função <code>tibble::tibble()</code>, semelhante ao uso da função <code>data.frame()</code>. Podemos ainda <strong>converter</strong> um <code>data.frame</code> para um <code>tibble</code> usando a função <code>tibble::as_tibble()</code>. Entretanto, em alguns momentos precisaremos da classe <code>data.frame</code> para algumas funções específicas, e podemos <strong>converter</strong> um <code>tibble</code> para <code>data.frame</code> usa-se a função <code>tibble::as_data_frame()</code>.</p>
 <p>Existem <strong>duas diferenças principais</strong> no uso do <code>tibble</code> e do <code>data.frame</code>: impressão e subconjunto. Objetos da classe <code>tibbles</code> possuem um método de impressão que mostra a <strong>contagem do número de linhas e colunas</strong>, e apenas as <strong>primeiras 10 linhas</strong> e <strong>todas as colunas</strong> que cabem na tela no console, além dos <strong>modos ou tipos das colunas</strong>. Dessa forma, cada coluna ou variável, pode ser do modo numbers (<code>int</code> ou <code>dbl</code>), character (<code>chr</code>), logical (<code>lgl</code>), factor (<code>fctr</code>), date + time (<code>dttm</code>) date e (<code>date</code>), além de outras <a href="https://tibble.tidyverse.org/articles/types.html">inúmeras possibilidades</a>.</p>
+<p>Todas as funções deste pacote são listadas na <a href="https://tibble.tidyverse.org/reference/index.html">página de referência</a> do pacote.</p>
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="intro-r.html#cb223-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tibble - impressao</span></span>
 <span id="cb223-2"><a href="intro-r.html#cb223-2" aria-hidden="true" tabindex="-1"></a>aa_locais</span></code></pre></div>
 <pre><code>## # A tibble: 1,163 x 25
@@ -2089,11 +2092,13 @@ Figura 5.4: Modelo das ferramentas necessárias em um projeto típico de ciênci
 ## $ complementary_methods &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
 ## $ period                &lt;chr&gt; &quot;mo,da,tw,ni&quot;, &quot;mo,da,tw,ni&quot;, &quot;mo,da,tw,ni&quot;, &quot;mo…
 ## $ month_start           &lt;dbl&gt; 9, 12, 12, 12, 7, NA, 4, 4, 4, 5, 5, 5, 5, 5, 5,…</code></pre>
+<p>Para se aprofundar no tema, recomendamos a leitura do capítulo <a href="https://r4ds.had.co.nz/tibbles.html">10 Tibbles</a> de Wickhan &amp; Grolemund (2017).</p>
 </div>
 <div id="magrittr-pipe--" class="section level3" number="5.5.6">
 <h3><span class="header-section-number">5.5.6</span> magrittr (pipe - %&gt;%)</h3>
 <p>O operador pipe <code>%&gt;%</code> permite o <strong>encadeamento de várias funções</strong>, eliminando a necessidade de criar objetos para armazenar resultados intermediários. Dessa forma, pipes são uma <strong>ferramenta poderosa</strong> para expressar uma <strong>sequência de múltiplas operações</strong>.</p>
 <p>O operador pipe <code>%&gt;%</code> vem do pacote <em>magrittr</em>, entretanto, todos os pacotes no tidyverse automaticamente tornam o pipe disponível. Essa função torna os <strong>códigos em R mais simples</strong>, pois realizamos múltiplas operações em uma única linha. Ele <strong>captura o resultado de uma declaração</strong> e o <strong>torna a entrada da próxima declaração</strong>, então podemos pensar como “EM SEGUIDA FAÇA” ao final de cada linha de código.</p>
+<p>Todas as funções deste pacote são listadas na <a href="https://maggritr.tidyverse.org/reference/index.html">página de referência</a> do pacote.</p>
 <p>A principal vantagem do uso dos pipes é facilitar o <strong>debuging</strong> (achar erros) nos códigos, porque seu uso torna a <strong>linguagem R mais próxima do que falamos e pensamos</strong>, uma vez que evita o uso de funções dentro de funções (funções compostas).</p>
 <p>Digitar <code>%&gt;%</code> é um pouco chato, dessa forma, existe um atalho para sua inserção nos scripts: <code>ctrl + shift + M</code>.</p>
 <p>Para deixar esse tópico <strong>menos estranho</strong> à quem está vendo esse operação pela primeira vez, vamos fazer <strong>alguns exemplos</strong>.</p>
@@ -2131,6 +2136,7 @@ Figura 5.4: Modelo das ferramentas necessárias em um projeto típico de ciênci
 <li><code>%$%</code>: “explode” as variáveis em um quadro de dados</li>
 <li><code>%&lt;&gt;%</code>: permite atribuição usando pipes</li>
 </ul>
+<p>Para se aprofundar no tema, recomendamos a leitura do capítulo <a href="https://r4ds.had.co.nz/pipes.html">18 Pipes</a> de Wickhan &amp; Grolemund (2017).</p>
 </div>
 <div id="tidyr" class="section level3" number="5.5.7">
 <h3><span class="header-section-number">5.5.7</span> tidyr</h3>
@@ -2146,6 +2152,7 @@ Figura 5.4: Modelo das ferramentas necessárias em um projeto típico de ciênci
 Figura 5.5: As três regras que tornam um conjunto de dados <em>tidy</em>. Adaptado de: Wickhan &amp; Grolemund (2017).
 </p>
 </div>
+<p>Todas as funções deste pacote são listadas na <a href="https://tidyr.tidyverse.org/reference/index.html">página de referência</a> do pacote.</p>
 <p>Para realizar <strong>diversas transformações nos dados</strong> a fim de ajustá-los ao formato <strong>tidy</strong>, existe uma série de funções, para diversas finalidades: unir e separar, valores faltantes (<code>NA</code>), e pivotar (formato <strong>longo</strong> para <strong>largo</strong>), além de outras <a href="https://tidyr.tidyverse.org/reference/index.html">funções específicas</a>.</p>
 <ul>
 <li><code>unite()</code>: junta dados de múltiplas colunas em uma coluna</li>
@@ -2255,59 +2262,65 @@ Figura 5.5: As três regras que tornam um conjunto de dados <em>tidy</em>. Adapt
 <span id="cb248-6"><a href="intro-r.html#cb248-6" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">cols =</span> <span class="st">`</span><span class="at">Culmen Length (mm)</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">Body Mass (g)</span><span class="st">`</span>,</span>
 <span id="cb248-7"><a href="intro-r.html#cb248-7" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">names_to =</span> <span class="st">&quot;medidas&quot;</span>, </span>
 <span id="cb248-8"><a href="intro-r.html#cb248-8" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">values_to =</span> <span class="st">&quot;valores&quot;</span>)</span></code></pre></div>
+<p>Para se aprofundar no tema, recomendamos a leitura do capítulo <a href="https://r4ds.had.co.nz/tidy-data.html">12 Tidy data</a> de Wickhan &amp; Grolemund (2017).</p>
 </div>
 <div id="dplyr" class="section level3" number="5.5.8">
 <h3><span class="header-section-number">5.5.8</span> dplyr</h3>
 <p>O <em>dplyr</em> é um pacote que <strong>facilita a manipulação de dados</strong>, com uma <strong>gramática de manipulação de dados</strong> simples e flexível (por exemplo, como filtragem, reordenamento, seleção, entre outras). Ele foi construído com o intuito de <strong>obter uma forma mais rápida e expressiva</strong> de tratar os dados. O <code>tibble</code> é a versão de data frame mais conveniente para se usar com pacote <em>dplyr</em>.</p>
+<p>Todas as funções deste pacote são listadas na <a href="https://dplyr.tidyverse.org/reference/index.html">página de referência</a> do pacote.</p>
 <p>Sua <strong>gramática simples</strong> contém <strong>funções verbais</strong> para manipulação de dados, baseada em:</p>
 <ul>
 <li>Verbos: <code>mutate()</code>, <code>select()</code>, <code>filter()</code>, <code>arrange()</code>, <code>summarise()</code>, <code>slice()</code>, <code>rename()</code>, etc.</li>
-<li>Sufixos: <code>*_at()</code>, <code>*_if()</code>, <code>*_all()</code>, etc.</li>
-<li>Agrupamento: <code>group_by()</code> e <code>ungroup()</code>.</li>
+<li>Replicação: <code>across()</code>, <code>if_any()</code>, <code>if_all()</code>, <code>where()</code>, <code>starts_with()</code>, <code>ends_with()</code>, <code>contains()</code> etc.</li>
+<li>Agrupamento: <code>group_by()</code> e <code>ungroup()</code></li>
 <li>Junções: <code>inner_join()</code>, <code>full_join()</code>, <code>left_join()</code>, <code>right_join()</code>, etc.</li>
+<li>Combinando: <code>bind_rows()</code> e <code>bind_cols()</code></li>
 <li>Funções resumo: <code>n()</code>, <code>n_distinct()</code>, <code>first()</code>, <code>last()</code>, <code>nth()</code>, etc.</li>
 </ul>
-<p>Para realizar as <strong>manipulações nos dados</strong> existe uma série de funções, para diversas finalidades: manipulação de uma tabela, manipulação de duas tabela, agrupamento, funções de vetores, além de outras <a href="https://dplyr.tidyverse.org/reference/index.html">funções específicas</a>.</p>
+<p>Para realizar as <strong>manipulações nos dados</strong> existe uma série de funções, para diversas finalidades: manipulação de uma tabela, manipulação de duas tabela, replicação, agrupamento, funções de vetores, além de muitas outras <a href="https://dplyr.tidyverse.org/reference/index.html">funções específicas</a>.</p>
 <ul>
 <li><code>relocate()</code>: muda a ordem das colunas</li>
 <li><code>rename()</code>: muda o nome das colunas</li>
-<li><code>select()</code>: seleciona colunas pelo nome</li>
+<li><code>select()</code>: seleciona colunas pelo nome ou posição</li>
 <li><code>pull()</code>: seleciona uma coluna como vetor</li>
-<li><code>mutate()</code>: adiciona novas colunas ou adiciona resultados em colunas existentes</li>
-<li><code>arrange()</code>: reordenar as linhas com base nos valores de colunas</li>
-<li><code>filter()</code>: seleciona linhas com base em valores</li>
+<li><code>mutate()</code>: adiciona novas colunas ou resultados em colunas existentes</li>
+<li><code>arrange()</code>: reordena as linhas com base nos valores de colunas</li>
+<li><code>filter()</code>: seleciona linhas com base em valores de colunas</li>
 <li><code>slice()</code>: seleciona linhas de diferente formas</li>
 <li><code>distinct()</code>: remove linhas com valores repetidos com base nos valores de colunas</li>
 <li><code>count()</code>: conta observações para um grupo</li>
-<li><code>group_by()</code>: agrupamento das linhas pelos valores das colunas</li>
-<li><code>summarise()</code>: resume os dados através de funções, podendo considerar valores das colunas</li>
-<li><code>*_join()</code>: séria de funções junta dados de duas tabelas através de uma coluna chave</li>
+<li><code>group_by()</code>: agrupa linhas pelos valores das colunas</li>
+<li><code>summarise()</code>: resume os dados através de funções considerando valores das colunas</li>
+<li><code>*_join()</code>: funções que juntam dados de duas tabelas através de uma coluna chave</li>
 </ul>
-<p>Todas as funções seguem a mesma <strong>sintaxe</strong>, de modo que o <code>tibble</code> é sempre o <strong>primeiro argumento</strong> das funções verbais, seguido de um <strong>pipe</strong> e pelo o <strong>nome da função</strong>. Isso permite o <strong>encademanto</strong> de várias operações consecutivas.</p>
+<p>Todas as funções seguem a mesma <strong>sintaxe</strong>, de modo que o <code>tibble</code> é sempre o <strong>primeiro argumento</strong> dessas funções, seguido de um <strong>pipe</strong> e pelo o <strong>nome da função</strong>. Isso permite o <strong>encademanto</strong> de várias operações consecutivas.</p>
 <ol style="list-style-type: decimal">
 <li>tibble</li>
 <li>operador pipe</li>
 <li>nome da função verbal com os argumentos entre parênteses</li>
+<li>outras funções verbais…</li>
 </ol>
 <p>As funções verbais <strong>não precisam modificar</strong> o tibble original, sendo que as operações de manipulações podem e devem ser atribuídas à um <strong>novo objeto</strong>.</p>
 <div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="intro-r.html#cb249-1" aria-hidden="true" tabindex="-1"></a>tb_dplyr <span class="ot">&lt;-</span> tb <span class="sc">%&gt;%</span> </span>
-<span id="cb249-2"><a href="intro-r.html#cb249-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">funcao_verbal</span>(argumento1, argumento2)</span></code></pre></div>
-<p>Além de <code>data.frames</code> e <code>tibbles</code>, a manipulação pelo formato <em>dplyr</em> torna o trabalho com outros formatos de classes e dados acessível e eficiente.</p>
+<span id="cb249-2"><a href="intro-r.html#cb249-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">funcao_verbal1</span>(argumento1, argumento2, ...) <span class="sc">%&gt;%</span> </span>
+<span id="cb249-3"><a href="intro-r.html#cb249-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">funcao_verbal2</span>(argumento1, argumento2, ...) <span class="sc">%&gt;%</span> </span>
+<span id="cb249-4"><a href="intro-r.html#cb249-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">funcao_verbal3</span>(argumento1, argumento2, ...)</span></code></pre></div>
+<p>Além de <code>data.frames</code> e <code>tibbles</code>, a manipulação pelo formato <em>dplyr</em> torna o trabalho com outros <strong>formatos de classes</strong> e dados acessível e eficiente, como <code>data.table</code>, SQL e Apache Spark.</p>
 <ul>
 <li><a href="https://dtplyr.tidyverse.org/"><em>dtplyr</em></a>: manipular conjuntos de dados <code>data.table</code></li>
 <li><a href="https://dbplyr.tidyverse.org/"><em>dbplyr</em></a>: manipular conjuntos de dados SQL</li>
 <li><a href="https://spark.rstudio.com/"><em>sparklyr</em></a>: manipular conjuntos de dados no Apache Spark</li>
 </ul>
-<p>Para nossos exemplos, vamos utilizar os <strong>dados de pinguins</strong> <a href="https://allisonhorst.github.io/palmerpenguins"><strong>palmerpenguins</strong></a>. Esses dados estão disponíveis no pacote <em>palmerpenguins</em>. Vamos utilizar o conjunto de dados <strong>penguins</strong>, que é uma versão simplificada dos dados brutos <strong>penguins_raw</strong>.</p>
-<p>Primeiramente, vamos <strong>reordenadar as colunas</strong> com a função <code>dplyr::relocate()</code>, onde simplesmente listamos as colunas que queremos mudar de posição e para onde elas devem ir. Para esse último passo há dois argumentos: <strong>.before</strong> que indica qual a coluna que as colunas realocadas devem se mover antes, e o argumentos <strong>.after</strong> indicando onde devem se mover depois. Ambos podem ser informados com os nomes ou posições desses colunas com números.</p>
+<p>Para nossos exemplos, vamos utilizar os <strong>dados de pinguins</strong> <a href="https://allisonhorst.github.io/palmerpenguins"><strong>palmerpenguins</strong></a>. Esses dados estão disponíveis no pacote <em>palmerpenguins</em>. Vamos utilizar principalmente o conjunto de dados <strong>penguins</strong>, que é uma versão simplificada dos dados brutos <strong>penguins_raw</strong>.</p>
+<p>Primeiramente, vamos <strong>reordenadar as colunas</strong> com a função <code>dplyr::relocate()</code>, onde simplesmente listamos as colunas que queremos mudar de posição e para onde elas devem ir. Para esse último passo há dois argumentos: <strong>.before</strong> que indica qual a coluna que as colunas realocadas devem se mover antes, e o argumentos <strong>.after</strong> indicando onde devem se mover depois. Ambos podem ser informados com os nomes ou posições dessas colunas com números.</p>
 <div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="intro-r.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reordenar colunas - nome</span></span>
-<span id="cb250-2"><a href="intro-r.html#cb250-2" aria-hidden="true" tabindex="-1"></a>penguins_relocate <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb250-2"><a href="intro-r.html#cb250-2" aria-hidden="true" tabindex="-1"></a>penguins_relocate_col <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb250-3"><a href="intro-r.html#cb250-3" aria-hidden="true" tabindex="-1"></a> dplyr<span class="sc">::</span><span class="fu">relocate</span>(sex, year, <span class="at">.after =</span> island)</span>
 <span id="cb250-4"><a href="intro-r.html#cb250-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb250-5"><a href="intro-r.html#cb250-5" aria-hidden="true" tabindex="-1"></a><span class="co"># reordenar colunas - posicao</span></span>
-<span id="cb250-6"><a href="intro-r.html#cb250-6" aria-hidden="true" tabindex="-1"></a>penguins_relocate <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb250-6"><a href="intro-r.html#cb250-6" aria-hidden="true" tabindex="-1"></a>penguins_relocate_ncol <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb250-7"><a href="intro-r.html#cb250-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">relocate</span>(sex, year, <span class="at">.after =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p>Podemos ainda <strong>renomear colunas</strong> facilmente com a função <code>dplyr::rename()</code>, onde primeiramente informamos o nome que queremos que a coluna tenha, seguido do operador <code>=</code> e a coluna do nosso dado. É fundamental mencionar as variações da função <code>dplyr::rename()</code> pelo sufixos: <code>rename_with()</code>, <code>dplyr::rename_all()</code>, <code>dplyr::rename_at()</code>, <code>dplyr::rename_if()</code> e <code>dplyr::rename_vars()</code>, para as quais as funções irão atuar dependendo de respostas booleanas para <strong>mudanças no nome de várias colunas de uma vez</strong>.</p>
+<p>Podemos ainda <strong>renomear colunas</strong> facilmente com a função <code>dplyr::rename()</code>, onde primeiramente informamos o nome que queremos que a coluna tenha, seguido do operador <code>=</code> e a coluna do nosso dado. Também podemos utilizar a função <code>dplyr::rename_with()</code>, que faz a <strong>mudança do nome em múltiplas colunas</strong>, dependendo de resultados booleanos.</p>
 <div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="intro-r.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mudar o nome das colunas</span></span>
 <span id="cb251-2"><a href="intro-r.html#cb251-2" aria-hidden="true" tabindex="-1"></a>penguins_rename <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb251-3"><a href="intro-r.html#cb251-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">bill_length =</span> bill_length_mm,</span>
@@ -2315,102 +2328,31 @@ Figura 5.5: As três regras que tornam um conjunto de dados <em>tidy</em>. Adapt
 <span id="cb251-5"><a href="intro-r.html#cb251-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">flipper_length =</span> flipper_length_mm,</span>
 <span id="cb251-6"><a href="intro-r.html#cb251-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">body_mass =</span> body_mass_g)</span>
 <span id="cb251-7"><a href="intro-r.html#cb251-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb251-8"><a href="intro-r.html#cb251-8" aria-hidden="true" tabindex="-1"></a><span class="co"># mudar o nome das colunas todas para miusculas</span></span>
+<span id="cb251-8"><a href="intro-r.html#cb251-8" aria-hidden="true" tabindex="-1"></a><span class="co"># mudar o nome de todas as colunas</span></span>
 <span id="cb251-9"><a href="intro-r.html#cb251-9" aria-hidden="true" tabindex="-1"></a>penguins_rename_with <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb251-10"><a href="intro-r.html#cb251-10" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename_with</span>(toupper)</span></code></pre></div>
-<p>Outra operação bastante usual dentro da manipulação de dados tabulares é a <strong>seleção de colunas</strong>. Podemos fazer essa operação com a função <code>dplyr::select()</code>, que seleciona colunas pelo nome ou pela posição. Aqui há uma séria de possibilidades de seleção de colunas, que listamos na Tabela (<a href="intro-r.html#tab:tab-dplyr-select">5.4</a>). Além disso, é fundamental destacar as variações da função <code>dplyr::select()</code>: <code>dplyr::select_all()</code>, <code>dplyr::select_at()</code>, <code>dplyr::select_if()</code> e <code>dplyr::select_vars()</code>, para as quais as funções irão atuar dependendo de respostas booleanas para <strong>seleção de várias colunas de uma vez</strong>.</p>
-<table>
-<caption><span id="tab:tab-dplyr-select">Tabela 5.4: </span>Visão geral dos recursos da função <code>dplyr::select()</code>.</caption>
-<colgroup>
-<col width="10%" />
-<col width="89%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center">Função</th>
-<th align="center">Descrição</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center"><code>:</code></td>
-<td align="center">Para selecionar um intervalo de colunas consecutivas</td>
-</tr>
-<tr class="even">
-<td align="center"><code>!</code></td>
-<td align="center">Para tomar o complemento de um conjunto de colunas</td>
-</tr>
-<tr class="odd">
-<td align="center"><code>&amp;</code> e |</td>
-<td align="center">Para selecionar a intersecção ou a união de dois conjuntos de colunas</td>
-</tr>
-<tr class="even">
-<td align="center"><code>c()</code></td>
-<td align="center">Para combinar seleções</td>
-</tr>
-<tr class="odd">
-<td align="center"><code>everything()</code></td>
-<td align="center">Corresponde a todas as colunas</td>
-</tr>
-<tr class="even">
-<td align="center"><code>last_col()</code></td>
-<td align="center">Seleciona a última coluna</td>
-</tr>
-<tr class="odd">
-<td align="center"><code>starts_with()</code></td>
-<td align="center">Começa com um prefixo</td>
-</tr>
-<tr class="even">
-<td align="center"><code>ends_with()</code></td>
-<td align="center">Termina com um sufixo</td>
-</tr>
-<tr class="odd">
-<td align="center"><code>contains()</code></td>
-<td align="center">Contém um caracter literal</td>
-</tr>
-<tr class="even">
-<td align="center"><code>matches()</code></td>
-<td align="center">Corresponde a uma expressão regular</td>
-</tr>
-<tr class="odd">
-<td align="center"><code>num_range()</code></td>
-<td align="center">Corresponde a um intervalo numérico</td>
-</tr>
-<tr class="even">
-<td align="center"><code>all_of()</code></td>
-<td align="center">Corresponde aos nomes das variáveis em um vetor de caracteres. Todos os nomes devem estar presentes, senão um erro fora dos limites será gerado</td>
-</tr>
-<tr class="odd">
-<td align="center"><code>any_of()</code></td>
-<td align="center">O mesmo que <code>all_of()</code>, exceto que nenhum erro é lançado para nomes que não existem.</td>
-</tr>
-<tr class="even">
-<td align="center"><code>where()</code></td>
-<td align="center">Aplica uma função a todas as variáveis e seleciona aquelas para as quais a função retorna TRUE</td>
-</tr>
-</tbody>
-</table>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="intro-r.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="co"># selecionar as colunas por nomes</span></span>
+<p>Outra operação bastante usual dentro da manipulação de dados tabulares é a <strong>seleção de colunas</strong>. Podemos fazer essa operação com a função <code>dplyr::select()</code>, que seleciona colunas pelo nome ou pela posição. Aqui há uma série de possibilidades de seleção de colunas, desde utilizar operadores como <code>:</code> para selecionar intervalos de colunas, <code>!</code> para tomar o complemento, além de funções como <code>dplyr::starts_with()</code>, <code>dplyr::ends_with()</code>, <code>dplyr::contains()</code> para <strong>procurar colunas com um padrão de texto</strong>.</p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="intro-r.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="co"># selecionar colunas por nomes</span></span>
 <span id="cb252-2"><a href="intro-r.html#cb252-2" aria-hidden="true" tabindex="-1"></a>penguins_select <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb252-3"><a href="intro-r.html#cb252-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(bill_length_mm<span class="sc">:</span>body_mass_g)</span>
 <span id="cb252-4"><a href="intro-r.html#cb252-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb252-5"><a href="intro-r.html#cb252-5" aria-hidden="true" tabindex="-1"></a><span class="co"># selecionar as colunas por padrap</span></span>
+<span id="cb252-5"><a href="intro-r.html#cb252-5" aria-hidden="true" tabindex="-1"></a><span class="co"># selecionar colunas por padrao</span></span>
 <span id="cb252-6"><a href="intro-r.html#cb252-6" aria-hidden="true" tabindex="-1"></a>penguins_select_contains <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb252-7"><a href="intro-r.html#cb252-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;_mm&quot;</span>))</span></code></pre></div>
 <p>Quando usamos a função <code>dplyr::select()</code>, mesmo que para uma linha, o retorno é sempre um <code>tibble</code>. Caso precisemos que essa <strong>coluna se torne um vetor</strong>, dentro do encadeamento dos <code>pipes</code>, usamos a função <code>dplyr::pull()</code> que <strong>que extrai uma coluna única coluna como vetor</strong>.</p>
 <div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="intro-r.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="co"># coluna como vetor</span></span>
 <span id="cb253-2"><a href="intro-r.html#cb253-2" aria-hidden="true" tabindex="-1"></a>penguins_select_pull <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb253-3"><a href="intro-r.html#cb253-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">pull</span>(bill_length_mm)</span></code></pre></div>
-<p>Uma das operações mais úteis dentre as operações para colunas é <strong>adicionar ou atualizar os valores</strong> de colunas. Para essa operação, usaremos a função <code>dplyr::mutate()</code>. Essa função irá adiconar colunas ou atualizar uma coluna fazendo operações em outras colunas. Existe uma série de funções que podemos utilizar para fazer essas operações. Destacamos aqui a função <code>dplyr::across()</code>, que aplica uma função em múltiplas colunas. Além dessa função, podemos ainda usar os argumentos <strong>.before</strong> e <strong>.after</strong> para indicar onde a nova coluna deve ficar. Temos ainda o parâmetro <strong>.keep</strong> com diversas possibilidades de manter colunas depois de usar a função <code>dplyr::mutate()</code>. Por fim, é fundamental mencionar as variações dos sufixos da função <code>dplyr::mutate()</code>: <code>dplyr::mutate_all()</code>, <code>dplyr::mutate_at()</code>, <code>dplyr::mutate_if()</code> e <code>dplyr::mutate_each()</code>, para as quais as funções irão atuar dependendo de respostas booleanas, <strong>adicionando ou atualizando valores para várias colunas de uma vez</strong>.</p>
+<p>Uma das operações mais úteis dentre as operações para colunas é <strong>adicionar ou atualizar os valores</strong> de colunas. Para essa operação, usaremos a função <code>dplyr::mutate()</code>. Podemos ainda usar os argumentos <strong>.before</strong> e <strong>.after</strong> para indicar onde a nova coluna deve ficar, além do parâmetro <strong>.keep</strong> com diversas possibilidades de manter colunas depois de usar a função <code>dplyr::mutate()</code>. Por fim,
+é fundamental destacar o uso das <strong>funções de replicação</strong>: <code>dplyr::across()</code>, <code>dplyr::if_any()</code> e <code>dplyr::if_all()</code>, para os quais a função irá <strong>fazer alterações em múltiplas colunas de uma vez</strong>, dependendo de resultados booleanos.</p>
 <div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="intro-r.html#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adicionar colunas</span></span>
 <span id="cb254-2"><a href="intro-r.html#cb254-2" aria-hidden="true" tabindex="-1"></a>penguins_mutate <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb254-3"><a href="intro-r.html#cb254-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">body_mass_kg =</span> body_mass_g<span class="sc">/</span><span class="fl">1e3</span>, <span class="at">.before =</span> sex)</span>
 <span id="cb254-4"><a href="intro-r.html#cb254-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb254-5"><a href="intro-r.html#cb254-5" aria-hidden="true" tabindex="-1"></a><span class="co"># modificar colunas</span></span>
-<span id="cb254-6"><a href="intro-r.html#cb254-6" aria-hidden="true" tabindex="-1"></a>penguins_mutate_modificar <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
-<span id="cb254-7"><a href="intro-r.html#cb254-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="fu">across</span>(<span class="sc">!</span><span class="fu">c</span>(bill_length_mm, bill_depth_mm, flipper_length_mm,</span>
-<span id="cb254-8"><a href="intro-r.html#cb254-8" aria-hidden="true" tabindex="-1"></a>                          body_mass_g), as.character))</span></code></pre></div>
-<p>Além de operações em colunas, podemos fazer <strong>operações em linhas</strong>. Vamos começar com a <strong>reordenação das linhas</strong> com base nos valores das colunas. Para essa operação, usamos a função <code>dplyr::arrange()</code>. Podemos reordenadar por uma ou mais colunas de forma crescente ou de forma decrescente usando a função <code>desc()</code> ou o operador <code>-</code>. Da mesma forma que as funções anteriores, há variações dos sufixos da função <code>dplyr::arrange()</code>: <code>dplyr::arrange_all()</code>, <code>dplyr::arrange_at()</code> e <code>dplyr::arrange_if()</code>, para as quais as funções irão atuar dependendo de respostas booleanas, <strong>ordenando linhas para várias colunas de uma vez</strong>.</p>
+<span id="cb254-5"><a href="intro-r.html#cb254-5" aria-hidden="true" tabindex="-1"></a><span class="co"># modificar varias colunas</span></span>
+<span id="cb254-6"><a href="intro-r.html#cb254-6" aria-hidden="true" tabindex="-1"></a>penguins_mutate_across <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb254-7"><a href="intro-r.html#cb254-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.factor), as.character))</span></code></pre></div>
+<p>Além de operações em colunas, podemos fazer <strong>operações em linhas</strong>. Vamos começar com a <strong>reordenação das linhas</strong> com base nos valores das colunas. Para essa operação, usamos a função <code>dplyr::arrange()</code>. Podemos reordenadar por uma ou mais colunas de forma crescente ou de forma decrescente usando a função <code>desc()</code> ou o operador <code>-</code>. Da mesma forma que na função <code>dplyr::mutate()</code>, podemos usar as <strong>funções de replicação</strong> para <strong>ordenar as linhas para várias colunas de uma vez</strong>, dependendo de resultados booleanos.</p>
 <div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="intro-r.html#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reordenar linhas - crescente</span></span>
 <span id="cb255-2"><a href="intro-r.html#cb255-2" aria-hidden="true" tabindex="-1"></a>penguins_arrange <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb255-3"><a href="intro-r.html#cb255-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(body_mass_g)</span>
@@ -2420,19 +2362,23 @@ Figura 5.5: As três regras que tornam um conjunto de dados <em>tidy</em>. Adapt
 <span id="cb255-7"><a href="intro-r.html#cb255-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(body_mass_g))</span>
 <span id="cb255-8"><a href="intro-r.html#cb255-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb255-9"><a href="intro-r.html#cb255-9" aria-hidden="true" tabindex="-1"></a><span class="co"># reordenar linhas - decrescente</span></span>
-<span id="cb255-10"><a href="intro-r.html#cb255-10" aria-hidden="true" tabindex="-1"></a>penguins_arrange_desc <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
-<span id="cb255-11"><a href="intro-r.html#cb255-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="sc">-</span>body_mass_g)</span></code></pre></div>
-<p>Uma das principais e mais usuais operações que podemos realizar em linhas é a seleção de linhas através do <strong>filtro por valores de uma ou mais colunas</strong>. Iremos utilizar a função <code>dplyr::filter()</code>. Para realizar os filtros iremos utilizar grande parte dos operadores relacionais e lógicos que listamos na Tabela <a href="intro-r.html#tab:tab-operadores">5.1</a>, especialmente os lógicos para combinações de filtros em mais de uma coluna. Além desses operadores, podemos utilizar a função <code>is.na()</code> para filtros em elementos faltantes, e as funções <code>dplyr::between()</code> e <code>dplyr::near()</code>, para valores filtros entre valores, e para valores próximos com certa tolerência, respectivamente. Por fim, existem variações dos sufixos da função <code>dplyr::filter()</code>: <code>dplyr::filter_all()</code>, <code>dplyr::filter_at()</code> e <code>dplyr::filter_if()</code>, para as quais as funções irão atuar dependendo de respostas booleanas para <strong>filtro das linhas para mais de uma coluna</strong>.</p>
+<span id="cb255-10"><a href="intro-r.html#cb255-10" aria-hidden="true" tabindex="-1"></a>penguins_arrange_desc_m <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb255-11"><a href="intro-r.html#cb255-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="sc">-</span>body_mass_g)</span>
+<span id="cb255-12"><a href="intro-r.html#cb255-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb255-13"><a href="intro-r.html#cb255-13" aria-hidden="true" tabindex="-1"></a><span class="co"># reordenar linhas - multiplas colunas</span></span>
+<span id="cb255-14"><a href="intro-r.html#cb255-14" aria-hidden="true" tabindex="-1"></a>penguins_arrange_across <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb255-15"><a href="intro-r.html#cb255-15" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric)))</span></code></pre></div>
+<p>Uma das principais e mais usuais operações que podemos realizar em linhas é a seleção de linhas através do <strong>filtro por valores de uma ou mais colunas</strong>, utilizando a função <code>dplyr::filter()</code>. Para realizar os filtros iremos utilizar grande parte dos operadores relacionais e lógicos que listamos na Tabela <a href="intro-r.html#tab:tab-operadores">5.1</a>, especialmente os lógicos para combinações de filtros em mais de uma coluna. Além desses operadores, podemos utilizar a função <code>is.na()</code> para filtros em elementos faltantes, e as funções <code>dplyr::between()</code> e <code>dplyr::near()</code> para valores filtros entre valores, e para valores próximos com certa tolerência, respectivamente. Por fim, podemos usar as <strong>funções de replicação</strong> para <strong>filtro das linhas para mais de uma coluna</strong>, dependendo de resultados booleanos.</p>
 <div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="intro-r.html#cb256-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filtrar linhas</span></span>
 <span id="cb256-2"><a href="intro-r.html#cb256-2" aria-hidden="true" tabindex="-1"></a>penguins_filter <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb256-3"><a href="intro-r.html#cb256-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">&quot;Adelie&quot;</span>)</span>
 <span id="cb256-4"><a href="intro-r.html#cb256-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb256-5"><a href="intro-r.html#cb256-5" aria-hidden="true" tabindex="-1"></a><span class="co"># filtrar linhas</span></span>
-<span id="cb256-6"><a href="intro-r.html#cb256-6" aria-hidden="true" tabindex="-1"></a>penguins_filter <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb256-6"><a href="intro-r.html#cb256-6" aria-hidden="true" tabindex="-1"></a>penguins_filter_two <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb256-7"><a href="intro-r.html#cb256-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">&quot;Adelie&quot;</span> <span class="sc">&amp;</span> sex <span class="sc">==</span> <span class="st">&quot;female&quot;</span>)</span>
 <span id="cb256-8"><a href="intro-r.html#cb256-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb256-9"><a href="intro-r.html#cb256-9" aria-hidden="true" tabindex="-1"></a><span class="co"># filtrar linhas</span></span>
-<span id="cb256-10"><a href="intro-r.html#cb256-10" aria-hidden="true" tabindex="-1"></a>penguins_filter <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb256-10"><a href="intro-r.html#cb256-10" aria-hidden="true" tabindex="-1"></a>penguins_filter_in <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb256-11"><a href="intro-r.html#cb256-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(species <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Gentoo&quot;</span>),</span>
 <span id="cb256-12"><a href="intro-r.html#cb256-12" aria-hidden="true" tabindex="-1"></a>                sex <span class="sc">==</span> <span class="st">&quot;female&quot;</span>)</span>
 <span id="cb256-13"><a href="intro-r.html#cb256-13" aria-hidden="true" tabindex="-1"></a></span>
@@ -2442,9 +2388,12 @@ Figura 5.5: As três regras que tornam um conjunto de dados <em>tidy</em>. Adapt
 <span id="cb256-17"><a href="intro-r.html#cb256-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb256-18"><a href="intro-r.html#cb256-18" aria-hidden="true" tabindex="-1"></a><span class="co"># filtrar linhas - between</span></span>
 <span id="cb256-19"><a href="intro-r.html#cb256-19" aria-hidden="true" tabindex="-1"></a>penguins_filter_between <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
-<span id="cb256-20"><a href="intro-r.html#cb256-20" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">between</span>(body_mass_g, <span class="dv">3000</span>, <span class="dv">4000</span>))</span></code></pre></div>
-<p>Além da selecção de linhas por filtros, podemos fazer a <strong>seleção das linhas por intervalos</strong>, indicando quais <strong>linhas desejamos</strong>, usando a função <code>dplyr::slice()</code>, e informando o argumento <strong>n</strong> para o número da linha ou intervalo. Essa função possui
-variações no sufixo muito interessantes: <code>dplyr::slice_head()</code> e <code>dplyr::slice_tail()</code> seleciona as primeiras e últimas linhas, <code>dplyr::slice_min()</code> e <code>dplyr::slice_max()</code> seleciona linhas com os maiores e menores valores de uma coluna, e <code>dplyr::slice_sample()</code> seleciona linhas aleatoriamente.</p>
+<span id="cb256-20"><a href="intro-r.html#cb256-20" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">between</span>(body_mass_g, <span class="dv">3000</span>, <span class="dv">4000</span>))</span>
+<span id="cb256-21"><a href="intro-r.html#cb256-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb256-22"><a href="intro-r.html#cb256-22" aria-hidden="true" tabindex="-1"></a><span class="co"># filtrar linhas por varias colunas</span></span>
+<span id="cb256-23"><a href="intro-r.html#cb256-23" aria-hidden="true" tabindex="-1"></a>penguins_filter_if <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb256-24"><a href="intro-r.html#cb256-24" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">if_all</span>(<span class="fu">where</span>(is.integer), <span class="sc">~</span> . <span class="sc">&gt;</span> <span class="dv">200</span>))</span></code></pre></div>
+<p>Além da selecção de linhas por filtros, podemos fazer a <strong>seleção das linhas por intervalos</strong>, indicando quais <strong>linhas desejamos</strong>, usando a função <code>dplyr::slice()</code>, e informando o argumento <strong>n</strong> para o número da linha ou intervalo das linhas. Essa função possui variações no sufixo muito interessantes: <code>dplyr::slice_head()</code> e <code>dplyr::slice_tail()</code> seleciona as primeiras e últimas linhas, <code>dplyr::slice_min()</code> e <code>dplyr::slice_max()</code> seleciona linhas com os maiores e menores valores de uma coluna, e <code>dplyr::slice_sample()</code> seleciona linhas aleatoriamente.</p>
 <div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="intro-r.html#cb257-1" aria-hidden="true" tabindex="-1"></a><span class="co"># seleciona linhas</span></span>
 <span id="cb257-2"><a href="intro-r.html#cb257-2" aria-hidden="true" tabindex="-1"></a>penguins_slice <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb257-3"><a href="intro-r.html#cb257-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice</span>(<span class="at">n =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">300</span><span class="sc">:</span><span class="fu">n</span>()))</span>
@@ -2458,208 +2407,278 @@ variações no sufixo muito interessantes: <code>dplyr::slice_head()</code> e <c
 <span id="cb257-11"><a href="intro-r.html#cb257-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice_max</span>(body_mass_g, <span class="at">n =</span> <span class="dv">5</span>)</span>
 <span id="cb257-12"><a href="intro-r.html#cb257-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb257-13"><a href="intro-r.html#cb257-13" aria-hidden="true" tabindex="-1"></a><span class="co"># seleciona linhas - sample</span></span>
-<span id="cb257-14"><a href="intro-r.html#cb257-14" aria-hidden="true" tabindex="-1"></a>penguins_sample <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb257-14"><a href="intro-r.html#cb257-14" aria-hidden="true" tabindex="-1"></a>penguins_slice_sample <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb257-15"><a href="intro-r.html#cb257-15" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">30</span>)</span></code></pre></div>
-<p>A última operação que apresentaremos aqui será a <strong>retirada de linhas com valores repetidos com base nos valores de colunas</strong> utilizandos a função <code>dplyr::distinct()</code>. Essa função por padrão retorna apenas a coluna utilizada para retirar as linhas com valores repetidos, sendo necessário acrescentar o argumento <strong>.keep_all</strong> para retornar todas as colunas. Por fim, existem variações dos sufixos da função <code>dplyr::distinct()</code>: <code>dplyr::distinct_all()</code>, <code>dplyr::distinct_at()</code>, <code>dplyr::distinctr_if()</code> e <code>dplyr::distinctr_prepare()</code>, para as quais as funções irão atuar dependendo de respostas booleanas para <strong>retirar linhas com valores repetidos para mais de uma coluna</strong>.</p>
+<p>A última operação que apresentaremos aqui para linhas será a <strong>retirada de linhas com valores repetidos com base nos valores de colunas</strong> utilizandos a função <code>dplyr::distinct()</code>. Essa função por padrão retorna apenas a coluna utilizada para retirar as linhas com valores repetidos, sendo necessário acrescentar o argumento <strong>.keep_all</strong> para retornar todas as colunas. Por fim, podemos usar as <strong>funções de replicação</strong> para <strong>retirar linhas com valores repetidos para mais de uma coluna</strong>, dependendo de resultados booleanos.</p>
 <div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="intro-r.html#cb258-1" aria-hidden="true" tabindex="-1"></a><span class="co"># retirar linhas com valores repetidos</span></span>
 <span id="cb258-2"><a href="intro-r.html#cb258-2" aria-hidden="true" tabindex="-1"></a>penguins_distinct <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb258-3"><a href="intro-r.html#cb258-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(body_mass_g)</span>
 <span id="cb258-4"><a href="intro-r.html#cb258-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb258-5"><a href="intro-r.html#cb258-5" aria-hidden="true" tabindex="-1"></a><span class="co"># retirar linhas com valores repetidos - manter as outras colunas.</span></span>
-<span id="cb258-6"><a href="intro-r.html#cb258-6" aria-hidden="true" tabindex="-1"></a>penguins_distinct <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
-<span id="cb258-7"><a href="intro-r.html#cb258-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(body_mass_g, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p>Também podemos fazer <strong>contagens resumos dos nossos dados</strong>, utilizando para isso a função <code>dplyr::count()</code>. Essa função irá contar valores de uma ou mais colunas, semelhante à função Base R <code>table()</code>, mas num contexto <code>tidyverse</code>.</p>
+<span id="cb258-5"><a href="intro-r.html#cb258-5" aria-hidden="true" tabindex="-1"></a><span class="co"># retirar linhas com valores repetidos - manter as outras colunas</span></span>
+<span id="cb258-6"><a href="intro-r.html#cb258-6" aria-hidden="true" tabindex="-1"></a>penguins_distinct_keep_all <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb258-7"><a href="intro-r.html#cb258-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(body_mass_g, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb258-8"><a href="intro-r.html#cb258-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb258-9"><a href="intro-r.html#cb258-9" aria-hidden="true" tabindex="-1"></a><span class="co"># retirar linhas com valores repetidos para varias colunas</span></span>
+<span id="cb258-10"><a href="intro-r.html#cb258-10" aria-hidden="true" tabindex="-1"></a>penguins_distinct_keep_all_across <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb258-11"><a href="intro-r.html#cb258-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.integer)), <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Agora entraremos no assunto de resumo das observações. Podemos fazer <strong>contagens resumos dos nossos dados</strong>, utilizando para isso a função <code>dplyr::count()</code>. Essa função irá contar valores de uma ou mais colunas, semelhante à função Base R <code>table()</code>, mas num contexto <code>tidyverse</code>.</p>
 <div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="intro-r.html#cb259-1" aria-hidden="true" tabindex="-1"></a><span class="co"># contagens de valores para um coluna</span></span>
 <span id="cb259-2"><a href="intro-r.html#cb259-2" aria-hidden="true" tabindex="-1"></a>penguins_count <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb259-3"><a href="intro-r.html#cb259-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(species)</span>
 <span id="cb259-4"><a href="intro-r.html#cb259-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb259-5"><a href="intro-r.html#cb259-5" aria-hidden="true" tabindex="-1"></a><span class="co"># contagens de valores para mais de uma coluna</span></span>
-<span id="cb259-6"><a href="intro-r.html#cb259-6" aria-hidden="true" tabindex="-1"></a>penguins_count <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb259-6"><a href="intro-r.html#cb259-6" aria-hidden="true" tabindex="-1"></a>penguins_count_two <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb259-7"><a href="intro-r.html#cb259-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(species, island)</span></code></pre></div>
-<ul>
-<li><code>dplyr::group_by()</code>: série de funções para agrupamento das linhas por uma ou mais colunas. Por fim, existem variações dos sufixos da função <code>dplyr::distinct()</code>: <code>dplyr::distinct_all()</code>, <code>dplyr::distinct_at()</code>, <code>dplyr::distinctr_if()</code> e <code>dplyr::distinctr_prepare()</code>, para as quais as funções irão atuar dependendo de respostas booleanas para <strong>retirar linhas com valores repetidos para mais de uma coluna</strong>.</li>
-</ul>
-<p><code>dplyr::summarise()</code>: agrega ou resume os dados através de funções, podendo considerar valores das colunas. Por fim, existem variações dos sufixos da função <code>dplyr::distinct()</code>: <code>dplyr::distinct_all()</code>, <code>dplyr::distinct_at()</code>, <code>dplyr::distinctr_if()</code> e <code>dplyr::distinctr_prepare()</code>, para as quais as funções irão atuar dependendo de respostas booleanas para <strong>retirar linhas com valores repetidos para mais de uma coluna</strong>.</p>
-<p><code>dplyr::*_join()</code>: junta dados de duas tabelas através de uma coluna chave. Figura <a href="intro-r.html#fig:fig-r-join">5.6</a>.</p>
+<p>Uma grande parte das operações feita nos dados são realizadas em <strong>grupos definidos por valores de colunas ou variáveis categóricas</strong>. A função <code>dplyr::group_by()</code> transforma um <code>tibble</code> e converte em um <code>tibble</code> agrupado, onde as operações são realizadas “por grupo.” Essa função é utilizada geralmente com a função <code>dplyr::summarise()</code>, que veremos logo em seguida. O agrupamento não altera a aparência dos dados (além de informar como estão agrupados). A função <code>dplyr::ungroup()</code> remove o agrupamento. Podemos ainda usar <strong>funções de replicação</strong> para <strong>fazer os agrupamentos para mais de uma coluna</strong>, dependendo de resultados booleanos.</p>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="intro-r.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="co"># agrupamento</span></span>
+<span id="cb260-2"><a href="intro-r.html#cb260-2" aria-hidden="true" tabindex="-1"></a>penguins_group_by <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb260-3"><a href="intro-r.html#cb260-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(species)</span>
+<span id="cb260-4"><a href="intro-r.html#cb260-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb260-5"><a href="intro-r.html#cb260-5" aria-hidden="true" tabindex="-1"></a><span class="co"># agrupamento</span></span>
+<span id="cb260-6"><a href="intro-r.html#cb260-6" aria-hidden="true" tabindex="-1"></a>penguins_group_by_across <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb260-7"><a href="intro-r.html#cb260-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.factor)))</span></code></pre></div>
+<p>Como dissemos, muitas vezes queremos <strong>resumir nossos dados</strong>, principalmente para ter uma noção geral das variáveis (colunas) ou mesmo começar a <strong>análise exploratória resumindo variáveis contínuas por grupos de variáveis categóricas</strong>. Dessa forma, ao utilizar a função <code>dplyr::summarise()</code> teremos um novo <code>tibble</code> com os dados resumidos, que é a <strong>agregação ou resumo dos dados através de funções</strong>. Da mesma forma que outras funções, podemos usar <strong>funções de replicação</strong> para <strong>resumir valores para mais de uma coluna</strong>, dependendo de resultados booleanos. .</p>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="intro-r.html#cb261-1" aria-hidden="true" tabindex="-1"></a><span class="co"># resumo</span></span>
+<span id="cb261-2"><a href="intro-r.html#cb261-2" aria-hidden="true" tabindex="-1"></a>penguins_summarise <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb261-3"><a href="intro-r.html#cb261-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span> </span>
+<span id="cb261-4"><a href="intro-r.html#cb261-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">body_mass_g_mean =</span> <span class="fu">mean</span>(body_mass_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb261-5"><a href="intro-r.html#cb261-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">body_mass_g_sd =</span> <span class="fu">sd</span>(body_mass_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb261-6"><a href="intro-r.html#cb261-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-7"><a href="intro-r.html#cb261-7" aria-hidden="true" tabindex="-1"></a><span class="co"># resumo</span></span>
+<span id="cb261-8"><a href="intro-r.html#cb261-8" aria-hidden="true" tabindex="-1"></a>penguins_summarise_across <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb261-9"><a href="intro-r.html#cb261-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span> </span>
+<span id="cb261-10"><a href="intro-r.html#cb261-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))</span></code></pre></div>
+<p>Finalmente, veremos o último conjunto de funções do pacote <em>dplyr</em>, a <strong>junção de tabelas</strong>. Nessa operação, fazemos a <strong>combinação de pares de conjunto de dados tabulares por uma ou mais colunas chaves</strong>. Há dois tipos de junções: junção de mutação e junção de filtragem. A <strong>junção de mutação</strong> primeiro combina as observações por suas chaves e, em seguida, <strong>copia as variáveis (colunas) de uma tabela para a outra</strong>. É fundamental destacar a importância da <strong>coluna chave</strong>, que é indicada pelo argumento <strong>by</strong>. Essa coluna deve conter <strong>elementos que sejam comuns às duas tabelas</strong> para que haja a combinação dos elementos.</p>
+<p>Existem quatro tipos de junções, que são realizadas pelas funções <code>dplyr::inner_join()</code>, <code>dplyr::left_join()</code>, <code>dplyr::full_join()</code> e <code>dplyr::right_join()</code>, e que podem ser representadas na Figura <a href="intro-r.html#fig:fig-r-join">5.6</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:fig-r-join"></span>
-<img src="img/cap04_join.png" alt="Diferentes tipos de joins com um diagram de Venn. Adaptado de: Wickhan &amp; Grolemund (2017)." width="80%" />
+<img src="img/cap04_join.png" alt="Diferentes tipos de joins, representados com um diagram de Venn. Adaptado de: Wickhan &amp; Grolemund (2017)." width="80%" />
 <p class="caption">
-Figura 5.6: Diferentes tipos de joins com um diagram de Venn. Adaptado de: Wickhan &amp; Grolemund (2017).
+Figura 5.6: Diferentes tipos de joins, representados com um diagram de Venn. Adaptado de: Wickhan &amp; Grolemund (2017).
 </p>
 </div>
+<p>Considerando a nomenclatura de uma tabela de dados sendo como <code>x</code> e <code>y</code>, temos:</p>
+<ul>
+<li><code>inner_join(x, y)</code>: mantém apenas as observações em <code>x</code> e em <code>y</code></li>
+<li><code>left_join(x, y)</code>: mantém todas as observações em <code>x</code></li>
+<li><code>right_join(x, y)</code>: mantém todas as observações em <code>y</code></li>
+<li><code>full_join(x, y)</code>: mantém todas as observações em <code>x</code> e em <code>y</code></li>
+</ul>
+<p>Aqui, vamos demostrar apenas a função <code>dplyr::left_join()</code>, trazendo os dados do conjunto de dados do <strong>penguins_raw</strong> para o conjunto de dados do <strong>penguins</strong>.</p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="intro-r.html#cb262-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add uma coluna chave de ids</span></span>
+<span id="cb262-2"><a href="intro-r.html#cb262-2" aria-hidden="true" tabindex="-1"></a>penguin_islands <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb262-3"><a href="intro-r.html#cb262-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">island =</span> <span class="fu">c</span>(<span class="st">&quot;Torgersen&quot;</span>, <span class="st">&quot;Biscoe&quot;</span>, <span class="st">&quot;Dream&quot;</span>, <span class="st">&quot;Alpha&quot;</span>),</span>
+<span id="cb262-4"><a href="intro-r.html#cb262-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">longitude =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">64.083333</span>, <span class="sc">-</span><span class="fl">63.775636</span>, <span class="sc">-</span><span class="fl">64.233333</span>, <span class="sc">-</span><span class="dv">63</span>),</span>
+<span id="cb262-5"><a href="intro-r.html#cb262-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">latitude =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">64.766667</span>, <span class="sc">-</span><span class="fl">64.818569</span>, <span class="sc">-</span><span class="fl">64.733333</span>, <span class="sc">-</span><span class="fl">64.316667</span>)</span>
+<span id="cb262-6"><a href="intro-r.html#cb262-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb262-7"><a href="intro-r.html#cb262-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb262-8"><a href="intro-r.html#cb262-8" aria-hidden="true" tabindex="-1"></a><span class="co"># juncao - left</span></span>
+<span id="cb262-9"><a href="intro-r.html#cb262-9" aria-hidden="true" tabindex="-1"></a>penguins_left_join <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb262-10"><a href="intro-r.html#cb262-10" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>(penguin_islands, <span class="at">by =</span> <span class="st">&quot;island&quot;</span>)</span></code></pre></div>
+<p>Já a <strong>junção de filtragem</strong> combinam as observações da mesma maneira que as junções de mutação, mas <strong>afetam as observações, não as variáveis (colunas)</strong>. Existem dois tipos:</p>
+<ul>
+<li><code>semi_join(x, y)</code>: mantém todas as observações em <code>x</code> que têm uma correspondência em <code>y</code></li>
+<li><code>anti_join(x, y)</code>: alimina todas as observações em <code>x</code> que têm uma correspondência em <code>y</code></li>
+</ul>
+<p><em>Semi-joins</em> são úteis para <strong>corresponder tabelas de resumo filtradas de volta às linhas originais</strong>, removendo as linhas que não estavam antes do join. <em>Anti-joins</em> são úteis para <strong>diagnosticar incompatibilidades de junção</strong>, por exemplo, ao verificar os elementos que não combinam entre duas tabelas de dados.</p>
+<p>Temos ainda <strong>operações de conjuntos</strong> e <strong>comparação de dados</strong>.</p>
+<ul>
+<li><code>união(x, y)</code>: retorna todas as linhas que aparecem em <code>x</code>, <code>y</code> ou mais dos conjuntos de dados</li>
+<li><code>interesect(x, y)</code>: retorna apenas as linhas que aparecem em <code>x</code> e em <code>y</code></li>
+<li><code>setdiff(x, y)</code>: retorna as linhas que aparecem <code>x</code>, mas não em <code>y</code></li>
+<li><code>setequal(x, y)</code>: retorna se <code>x</code> e <code>y</code> são iguais e quais suas diferenças</li>
+</ul>
+<p>Para se aprofundar no tema, recomendamos a leitura do capítulo <a href="https://r4ds.had.co.nz/relational-data.html">13 Relational data</a> de Wickhan &amp; Grolemund (2017).</p>
 </div>
 <div id="stringr" class="section level3" number="5.5.9">
 <h3><span class="header-section-number">5.5.9</span> stringr</h3>
-<p>Pacote para a <strong>manipulação de caracteres ou strings</strong>.</p>
-<p>Comprimento</p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="intro-r.html#cb260-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_length</span>(<span class="st">&quot;abc&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] 3</code></pre>
-<p>Extração por posição</p>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="intro-r.html#cb262-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_sub</span>(<span class="st">&quot;abc&quot;</span>, <span class="dv">3</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;c&quot;</code></pre>
-<p>Inserir espaço em branco - esquerda</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="intro-r.html#cb264-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_pad</span>(<span class="st">&quot;abc&quot;</span>, <span class="at">width =</span> <span class="dv">4</span>, <span class="at">side =</span> <span class="st">&quot;left&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot; abc&quot;</code></pre>
-<p>Inserir espaço em branco - direira</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="intro-r.html#cb266-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_pad</span>(<span class="st">&quot;abc&quot;</span>, <span class="at">width =</span> <span class="dv">4</span>, <span class="at">side =</span> <span class="st">&quot;right&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;abc &quot;</code></pre>
-<p>Remover espaço em branco do começo, final ou ambos</p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="intro-r.html#cb268-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_trim</span>(<span class="st">&quot; abc &quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;abc&quot;</code></pre>
-<p>Minúsculas e maiúsculas</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="intro-r.html#cb270-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_to_upper</span>(<span class="st">&quot;abc&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;ABC&quot;</code></pre>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="intro-r.html#cb272-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_to_title</span>(<span class="st">&quot;abc&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;Abc&quot;</code></pre>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="intro-r.html#cb274-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_to_title</span>(<span class="st">&quot;aBc&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;Abc&quot;</code></pre>
-<p>Ordenação</p>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="intro-r.html#cb276-1" aria-hidden="true" tabindex="-1"></a>le <span class="ot">&lt;-</span> <span class="fu">sample</span>(letters, <span class="dv">26</span>, <span class="at">rep =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb276-2"><a href="intro-r.html#cb276-2" aria-hidden="true" tabindex="-1"></a>le</span></code></pre></div>
-<pre><code>##  [1] &quot;r&quot; &quot;u&quot; &quot;o&quot; &quot;o&quot; &quot;y&quot; &quot;t&quot; &quot;y&quot; &quot;p&quot; &quot;v&quot; &quot;x&quot; &quot;a&quot; &quot;f&quot; &quot;k&quot; &quot;i&quot; &quot;v&quot; &quot;z&quot; &quot;v&quot; &quot;v&quot; &quot;t&quot;
-## [20] &quot;w&quot; &quot;v&quot; &quot;z&quot; &quot;m&quot; &quot;e&quot; &quot;k&quot; &quot;o&quot;</code></pre>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="intro-r.html#cb278-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_sort</span>(le)</span></code></pre></div>
-<pre><code>##  [1] &quot;a&quot; &quot;e&quot; &quot;f&quot; &quot;i&quot; &quot;k&quot; &quot;k&quot; &quot;m&quot; &quot;o&quot; &quot;o&quot; &quot;o&quot; &quot;p&quot; &quot;r&quot; &quot;t&quot; &quot;t&quot; &quot;u&quot; &quot;v&quot; &quot;v&quot; &quot;v&quot; &quot;v&quot;
-## [20] &quot;v&quot; &quot;w&quot; &quot;x&quot; &quot;y&quot; &quot;y&quot; &quot;z&quot; &quot;z&quot;</code></pre>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="intro-r.html#cb280-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_sort</span>(le, <span class="at">dec =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>##  [1] &quot;z&quot; &quot;z&quot; &quot;y&quot; &quot;y&quot; &quot;x&quot; &quot;w&quot; &quot;v&quot; &quot;v&quot; &quot;v&quot; &quot;v&quot; &quot;v&quot; &quot;u&quot; &quot;t&quot; &quot;t&quot; &quot;r&quot; &quot;p&quot; &quot;o&quot; &quot;o&quot; &quot;o&quot;
-## [20] &quot;m&quot; &quot;k&quot; &quot;k&quot; &quot;i&quot; &quot;f&quot; &quot;e&quot; &quot;a&quot;</code></pre>
-<p>Extrair por padrão</p>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="intro-r.html#cb282-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_extract</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;b&quot;</code></pre>
-<p>Substituir</p>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="intro-r.html#cb284-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_replace</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;y&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;ybc&quot;</code></pre>
-<p>Separação</p>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="intro-r.html#cb286-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_split</span>(<span class="st">&quot;a-b-c&quot;</span>, <span class="st">&quot;-&quot;</span>)</span></code></pre></div>
-<pre><code>## [[1]]
-## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;</code></pre>
+<p>O pacote <em>stringr</em> fornece um conjunto de funções para a <strong>manipulação de caracteres ou strings</strong>. O pacote concentra-se nas funções de manipulação mais importantes e comumente usadas. Para função para específicas, recomenda-se usar para o pacote <em>stringi</em>, que fornece um conjunto mais abrangente de funções.</p>
+<p>As funções do <em>stringr</em> podem ser agrupadas em algumas operações para tarefas específicas como correspondência de padrões, espaço em branco, maiúsculas e minúsculas, além de outras funções.</p>
+<p>Todas as funções deste pacote são listadas na <a href="https://stringr.tidyverse.org/reference/index.html">página de referência</a> do pacote.</p>
+<p>Demonstraremos <strong>algumas funções para algumas operações mais comuns</strong>, utilizando um vetor de um elemento, com o string “penguins.”</p>
+<p>Podemos explorar o <strong>comprimento</strong> de caracteres.</p>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="intro-r.html#cb263-1" aria-hidden="true" tabindex="-1"></a><span class="co"># comprimento</span></span>
+<span id="cb263-2"><a href="intro-r.html#cb263-2" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_length</span>(<span class="at">string =</span> <span class="st">&quot;penguins&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<p><strong>Extrair um caracter</strong> por sua posição ou por um padrão.</p>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="intro-r.html#cb265-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extrair pela posicao</span></span>
+<span id="cb265-2"><a href="intro-r.html#cb265-2" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_sub</span>(<span class="at">string =</span> <span class="st">&quot;penguins&quot;</span>, <span class="at">end =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;pen&quot;</code></pre>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="intro-r.html#cb267-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extrair por padrão</span></span>
+<span id="cb267-2"><a href="intro-r.html#cb267-2" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_extract</span>(<span class="at">string =</span> <span class="st">&quot;penguins&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;p&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;p&quot;</code></pre>
+<p><strong>Substituir caracteres</strong> por outros caracteres.</p>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="intro-r.html#cb269-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sustituir</span></span>
+<span id="cb269-2"><a href="intro-r.html#cb269-2" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_replace</span>(<span class="at">string =</span> <span class="st">&quot;penguins&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;a&quot;</span>, <span class="at">replacement =</span> <span class="st">&quot;y&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;penguins&quot;</code></pre>
+<p><strong>Separar</strong> caracteres por um padrão</p>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="intro-r.html#cb271-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_split</span>(<span class="at">string =</span> <span class="st">&quot;p-e-n-g-u-i-n-s&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;-&quot;</span>, <span class="at">simplify =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
+## [1,] &quot;p&quot;  &quot;e&quot;  &quot;n&quot;  &quot;g&quot;  &quot;u&quot;  &quot;i&quot;  &quot;n&quot;  &quot;s&quot;</code></pre>
+<p><strong>Inserir espaços em brancos</strong> pela esquerda ou direira.</p>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="intro-r.html#cb273-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inserir espacos em branco</span></span>
+<span id="cb273-2"><a href="intro-r.html#cb273-2" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_pad</span>(<span class="at">string =</span> <span class="st">&quot;penguins&quot;</span>, <span class="at">width =</span> <span class="dv">10</span>, <span class="at">side =</span> <span class="st">&quot;left&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;  penguins&quot;</code></pre>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="intro-r.html#cb275-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_pad</span>(<span class="at">string =</span> <span class="st">&quot;penguins&quot;</span>, <span class="at">width =</span> <span class="dv">10</span>, <span class="at">side =</span> <span class="st">&quot;right&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;penguins  &quot;</code></pre>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="intro-r.html#cb277-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_pad</span>(<span class="at">string =</span> <span class="st">&quot;penguins&quot;</span>, <span class="at">width =</span> <span class="dv">10</span>, <span class="at">side =</span> <span class="st">&quot;both&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot; penguins &quot;</code></pre>
+<p>Também podemos <strong>remover espaços em branco</strong> do começo, final ou ambos.</p>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="intro-r.html#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remover espacos em branco</span></span>
+<span id="cb279-2"><a href="intro-r.html#cb279-2" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_trim</span>(<span class="at">string =</span> <span class="st">&quot; penguins &quot;</span>, <span class="at">side =</span> <span class="st">&quot;left&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;penguins &quot;</code></pre>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="intro-r.html#cb281-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_trim</span>(<span class="at">string =</span> <span class="st">&quot; penguins &quot;</span>, <span class="at">side =</span> <span class="st">&quot;right&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot; penguins&quot;</code></pre>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="intro-r.html#cb283-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_trim</span>(<span class="at">string =</span> <span class="st">&quot; penguins &quot;</span>, <span class="at">side =</span> <span class="st">&quot;both&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;penguins&quot;</code></pre>
+<p>Podemos também <strong>alterar minúsculas e maiúsculas</strong> em diferentes.</p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="intro-r.html#cb285-1" aria-hidden="true" tabindex="-1"></a><span class="co"># alterar minusculas e maiusculas</span></span>
+<span id="cb285-2"><a href="intro-r.html#cb285-2" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_to_lower</span>(<span class="at">string =</span> <span class="st">&quot;Penguins&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;penguins&quot;</code></pre>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="intro-r.html#cb287-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_to_upper</span>(<span class="at">string =</span> <span class="st">&quot;penguins&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;PENGUINS&quot;</code></pre>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="intro-r.html#cb289-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_to_sentence</span>(<span class="at">string =</span> <span class="st">&quot;penGuins&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Penguins&quot;</code></pre>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="intro-r.html#cb291-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_to_title</span>(<span class="at">string =</span> <span class="st">&quot;penGuins&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Penguins&quot;</code></pre>
+<p>Podemos ainda <strong>ordenar os elementos</strong> de um vetor por ordem alfabética.</p>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="intro-r.html#cb293-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ordenar</span></span>
+<span id="cb293-2"><a href="intro-r.html#cb293-2" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_sort</span>(<span class="at">x =</span> letters)</span></code></pre></div>
+<pre><code>##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;o&quot; &quot;p&quot; &quot;q&quot; &quot;r&quot; &quot;s&quot;
+## [20] &quot;t&quot; &quot;u&quot; &quot;v&quot; &quot;w&quot; &quot;x&quot; &quot;y&quot; &quot;z&quot;</code></pre>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="intro-r.html#cb295-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_sort</span>(<span class="at">x =</span> letters, <span class="at">dec =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##  [1] &quot;z&quot; &quot;y&quot; &quot;x&quot; &quot;w&quot; &quot;v&quot; &quot;u&quot; &quot;t&quot; &quot;s&quot; &quot;r&quot; &quot;q&quot; &quot;p&quot; &quot;o&quot; &quot;n&quot; &quot;m&quot; &quot;l&quot; &quot;k&quot; &quot;j&quot; &quot;i&quot; &quot;h&quot;
+## [20] &quot;g&quot; &quot;f&quot; &quot;e&quot; &quot;d&quot; &quot;c&quot; &quot;b&quot; &quot;a&quot;</code></pre>
+<p>Podemos ainda complementar essas funções com o pacote <em>dplyr</em>, para</p>
+<p>Para se aprofundar no tema, recomendamos a leitura do capítulo <a href="https://r4ds.had.co.nz/strings.html">14 Strings</a> de Wickhan &amp; Grolemund (2017).</p>
 </div>
 <div id="forcats" class="section level3" number="5.5.10">
 <h3><span class="header-section-number">5.5.10</span> forcats</h3>
 <p>Pacote para a manipulação de fatores.</p>
 <p>as_factor(): cria fatores</p>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="intro-r.html#cb288-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fixar amostragem</span></span>
-<span id="cb288-2"><a href="intro-r.html#cb288-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb288-3"><a href="intro-r.html#cb288-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb288-4"><a href="intro-r.html#cb288-4" aria-hidden="true" tabindex="-1"></a><span class="co"># cria um fator</span></span>
-<span id="cb288-5"><a href="intro-r.html#cb288-5" aria-hidden="true" tabindex="-1"></a>fa <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;alto&quot;</span>, <span class="st">&quot;medio&quot;</span>, <span class="st">&quot;baixo&quot;</span>), <span class="dv">30</span>, <span class="at">rep =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb288-6"><a href="intro-r.html#cb288-6" aria-hidden="true" tabindex="-1"></a> forcats<span class="sc">::</span><span class="fu">as_factor</span>()</span>
-<span id="cb288-7"><a href="intro-r.html#cb288-7" aria-hidden="true" tabindex="-1"></a>fa</span></code></pre></div>
+<p>Todas as funções deste pacote são listadas na <a href="https://forcats.tidyverse.org/reference/index.html">página de referência</a> do pacote.</p>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="intro-r.html#cb297-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fixar amostragem</span></span>
+<span id="cb297-2"><a href="intro-r.html#cb297-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb297-3"><a href="intro-r.html#cb297-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb297-4"><a href="intro-r.html#cb297-4" aria-hidden="true" tabindex="-1"></a><span class="co"># cria um fator</span></span>
+<span id="cb297-5"><a href="intro-r.html#cb297-5" aria-hidden="true" tabindex="-1"></a>fa <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;alto&quot;</span>, <span class="st">&quot;medio&quot;</span>, <span class="st">&quot;baixo&quot;</span>), <span class="dv">30</span>, <span class="at">rep =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb297-6"><a href="intro-r.html#cb297-6" aria-hidden="true" tabindex="-1"></a> forcats<span class="sc">::</span><span class="fu">as_factor</span>()</span>
+<span id="cb297-7"><a href="intro-r.html#cb297-7" aria-hidden="true" tabindex="-1"></a>fa</span></code></pre></div>
 <pre><code>##  [1] alto  alto  alto  alto  medio medio medio alto  baixo baixo alto  alto 
 ## [13] medio medio medio baixo baixo alto  alto  baixo alto  baixo alto  alto 
 ## [25] medio baixo medio alto  medio medio
 ## Levels: alto medio baixo</code></pre>
 <p>fct_recode(): muda o nome dos níveis</p>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="intro-r.html#cb290-1" aria-hidden="true" tabindex="-1"></a><span class="co"># muda o nome dos niveis</span></span>
-<span id="cb290-2"><a href="intro-r.html#cb290-2" aria-hidden="true" tabindex="-1"></a>fa_recode <span class="ot">&lt;-</span> fa <span class="sc">%&gt;%</span> </span>
-<span id="cb290-3"><a href="intro-r.html#cb290-3" aria-hidden="true" tabindex="-1"></a> forcats<span class="sc">::</span><span class="fu">fct_recode</span>(<span class="at">a =</span> <span class="st">&quot;alto&quot;</span>, <span class="at">m =</span> <span class="st">&quot;medio&quot;</span>, <span class="at">b =</span> <span class="st">&quot;baixo&quot;</span>)</span>
-<span id="cb290-4"><a href="intro-r.html#cb290-4" aria-hidden="true" tabindex="-1"></a>fa_recode</span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="intro-r.html#cb299-1" aria-hidden="true" tabindex="-1"></a><span class="co"># muda o nome dos niveis</span></span>
+<span id="cb299-2"><a href="intro-r.html#cb299-2" aria-hidden="true" tabindex="-1"></a>fa_recode <span class="ot">&lt;-</span> fa <span class="sc">%&gt;%</span> </span>
+<span id="cb299-3"><a href="intro-r.html#cb299-3" aria-hidden="true" tabindex="-1"></a> forcats<span class="sc">::</span><span class="fu">fct_recode</span>(<span class="at">a =</span> <span class="st">&quot;alto&quot;</span>, <span class="at">m =</span> <span class="st">&quot;medio&quot;</span>, <span class="at">b =</span> <span class="st">&quot;baixo&quot;</span>)</span>
+<span id="cb299-4"><a href="intro-r.html#cb299-4" aria-hidden="true" tabindex="-1"></a>fa_recode</span></code></pre></div>
 <pre><code>##  [1] a a a a m m m a b b a a m m m b b a a b a b a a m b m a m m
 ## Levels: a m b</code></pre>
 <p>fct_rev(): inverte os níveis</p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="intro-r.html#cb292-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inverte os niveis</span></span>
-<span id="cb292-2"><a href="intro-r.html#cb292-2" aria-hidden="true" tabindex="-1"></a>fa_rev <span class="ot">&lt;-</span> fa_recode <span class="sc">%&gt;%</span> </span>
-<span id="cb292-3"><a href="intro-r.html#cb292-3" aria-hidden="true" tabindex="-1"></a> forcats<span class="sc">::</span><span class="fu">fct_rev</span>()</span>
-<span id="cb292-4"><a href="intro-r.html#cb292-4" aria-hidden="true" tabindex="-1"></a>fa_rev</span></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="intro-r.html#cb301-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inverte os niveis</span></span>
+<span id="cb301-2"><a href="intro-r.html#cb301-2" aria-hidden="true" tabindex="-1"></a>fa_rev <span class="ot">&lt;-</span> fa_recode <span class="sc">%&gt;%</span> </span>
+<span id="cb301-3"><a href="intro-r.html#cb301-3" aria-hidden="true" tabindex="-1"></a> forcats<span class="sc">::</span><span class="fu">fct_rev</span>()</span>
+<span id="cb301-4"><a href="intro-r.html#cb301-4" aria-hidden="true" tabindex="-1"></a>fa_rev</span></code></pre></div>
 <pre><code>##  [1] a a a a m m m a b b a a m m m b b a a b a b a a m b m a m m
 ## Levels: b m a</code></pre>
 <p>fct_relevel(): especifica a classificação de um ou mais níveis</p>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="intro-r.html#cb294-1" aria-hidden="true" tabindex="-1"></a><span class="co"># especifica a classificacao de um nivel</span></span>
-<span id="cb294-2"><a href="intro-r.html#cb294-2" aria-hidden="true" tabindex="-1"></a>fa_relevel <span class="ot">&lt;-</span> fa_recode <span class="sc">%&gt;%</span> </span>
-<span id="cb294-3"><a href="intro-r.html#cb294-3" aria-hidden="true" tabindex="-1"></a> forcats<span class="sc">::</span><span class="fu">fct_relevel</span>(<span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;m&quot;</span>, <span class="st">&quot;b&quot;</span>))</span>
-<span id="cb294-4"><a href="intro-r.html#cb294-4" aria-hidden="true" tabindex="-1"></a>fa_relevel</span></code></pre></div>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="intro-r.html#cb303-1" aria-hidden="true" tabindex="-1"></a><span class="co"># especifica a classificacao de um nivel</span></span>
+<span id="cb303-2"><a href="intro-r.html#cb303-2" aria-hidden="true" tabindex="-1"></a>fa_relevel <span class="ot">&lt;-</span> fa_recode <span class="sc">%&gt;%</span> </span>
+<span id="cb303-3"><a href="intro-r.html#cb303-3" aria-hidden="true" tabindex="-1"></a> forcats<span class="sc">::</span><span class="fu">fct_relevel</span>(<span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;m&quot;</span>, <span class="st">&quot;b&quot;</span>))</span>
+<span id="cb303-4"><a href="intro-r.html#cb303-4" aria-hidden="true" tabindex="-1"></a>fa_relevel</span></code></pre></div>
 <pre><code>##  [1] a a a a m m m a b b a a m m m b b a a b a b a a m b m a m m
 ## Levels: a m b</code></pre>
 <p>fct_inorder(): ordem em que aparece</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="intro-r.html#cb296-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ordem em que aparece</span></span>
-<span id="cb296-2"><a href="intro-r.html#cb296-2" aria-hidden="true" tabindex="-1"></a>fa_inorder <span class="ot">&lt;-</span> fa_recode <span class="sc">%&gt;%</span> </span>
-<span id="cb296-3"><a href="intro-r.html#cb296-3" aria-hidden="true" tabindex="-1"></a> forcats<span class="sc">::</span><span class="fu">fct_inorder</span>()</span>
-<span id="cb296-4"><a href="intro-r.html#cb296-4" aria-hidden="true" tabindex="-1"></a>fa_inorder</span></code></pre></div>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="intro-r.html#cb305-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ordem em que aparece</span></span>
+<span id="cb305-2"><a href="intro-r.html#cb305-2" aria-hidden="true" tabindex="-1"></a>fa_inorder <span class="ot">&lt;-</span> fa_recode <span class="sc">%&gt;%</span> </span>
+<span id="cb305-3"><a href="intro-r.html#cb305-3" aria-hidden="true" tabindex="-1"></a> forcats<span class="sc">::</span><span class="fu">fct_inorder</span>()</span>
+<span id="cb305-4"><a href="intro-r.html#cb305-4" aria-hidden="true" tabindex="-1"></a>fa_inorder</span></code></pre></div>
 <pre><code>##  [1] a a a a m m m a b b a a m m m b b a a b a b a a m b m a m m
 ## Levels: a m b</code></pre>
 <p>fct_infreq(): ordem (decrescente) de frequência</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="intro-r.html#cb298-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ordem (decrescente) de frequencia</span></span>
-<span id="cb298-2"><a href="intro-r.html#cb298-2" aria-hidden="true" tabindex="-1"></a>fa_infreq <span class="ot">&lt;-</span> fa_recode <span class="sc">%&gt;%</span> </span>
-<span id="cb298-3"><a href="intro-r.html#cb298-3" aria-hidden="true" tabindex="-1"></a> forcats<span class="sc">::</span><span class="fu">fct_infreq</span>()</span>
-<span id="cb298-4"><a href="intro-r.html#cb298-4" aria-hidden="true" tabindex="-1"></a>fa_infreq</span></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="intro-r.html#cb307-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ordem (decrescente) de frequencia</span></span>
+<span id="cb307-2"><a href="intro-r.html#cb307-2" aria-hidden="true" tabindex="-1"></a>fa_infreq <span class="ot">&lt;-</span> fa_recode <span class="sc">%&gt;%</span> </span>
+<span id="cb307-3"><a href="intro-r.html#cb307-3" aria-hidden="true" tabindex="-1"></a> forcats<span class="sc">::</span><span class="fu">fct_infreq</span>()</span>
+<span id="cb307-4"><a href="intro-r.html#cb307-4" aria-hidden="true" tabindex="-1"></a>fa_infreq</span></code></pre></div>
 <pre><code>##  [1] a a a a m m m a b b a a m m m b b a a b a b a a m b m a m m
 ## Levels: a m b</code></pre>
 <p>fct_lump(): agregação de níveis raros em um nível</p>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="intro-r.html#cb300-1" aria-hidden="true" tabindex="-1"></a><span class="co"># agregacao de niveis raros em um nivel</span></span>
-<span id="cb300-2"><a href="intro-r.html#cb300-2" aria-hidden="true" tabindex="-1"></a>fa_lump <span class="ot">&lt;-</span> fa_recode <span class="sc">%&gt;%</span> </span>
-<span id="cb300-3"><a href="intro-r.html#cb300-3" aria-hidden="true" tabindex="-1"></a> forcats<span class="sc">::</span><span class="fu">fct_lump</span>()</span>
-<span id="cb300-4"><a href="intro-r.html#cb300-4" aria-hidden="true" tabindex="-1"></a>fa_lump</span></code></pre></div>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="intro-r.html#cb309-1" aria-hidden="true" tabindex="-1"></a><span class="co"># agregacao de niveis raros em um nivel</span></span>
+<span id="cb309-2"><a href="intro-r.html#cb309-2" aria-hidden="true" tabindex="-1"></a>fa_lump <span class="ot">&lt;-</span> fa_recode <span class="sc">%&gt;%</span> </span>
+<span id="cb309-3"><a href="intro-r.html#cb309-3" aria-hidden="true" tabindex="-1"></a> forcats<span class="sc">::</span><span class="fu">fct_lump</span>()</span>
+<span id="cb309-4"><a href="intro-r.html#cb309-4" aria-hidden="true" tabindex="-1"></a>fa_lump</span></code></pre></div>
 <pre><code>##  [1] a     a     a     a     m     m     m     a     Other Other a     a    
 ## [13] m     m     m     Other Other a     a     Other a     Other a     a    
 ## [25] m     Other m     a     m     m    
 ## Levels: a m Other</code></pre>
+<p>Para se aprofundar no tema, recomendamos a leitura do capítulo <a href="https://r4ds.had.co.nz/factors.html">15 Factors</a> de Wickhan &amp; Grolemund (2017).</p>
 </div>
 <div id="lubridate" class="section level3" number="5.5.11">
 <h3><span class="header-section-number">5.5.11</span> lubridate</h3>
 <p>Pacote para trabalhar com datas.</p>
 <p>Pacote à parte do tidyverse</p>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="intro-r.html#cb302-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install</span></span>
-<span id="cb302-2"><a href="intro-r.html#cb302-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;lubridate&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="intro-r.html#cb303-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load</span></span>
-<span id="cb303-2"><a href="intro-r.html#cb303-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code></pre></div>
+<p>Todas as funções deste pacote são listadas na <a href="https://lubridate.tidyverse.org/reference/index.html">página de referência</a> do pacote.</p>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="intro-r.html#cb311-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install</span></span>
+<span id="cb311-2"><a href="intro-r.html#cb311-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;lubridate&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="intro-r.html#cb312-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load</span></span>
+<span id="cb312-2"><a href="intro-r.html#cb312-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code></pre></div>
 <p>As funções date() e as_date() assumem que a ordem segue o padrão da língua inglesa: ano-mês-dia (ymd)
 date: classe para datas</p>
-<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="intro-r.html#cb304-1" aria-hidden="true" tabindex="-1"></a><span class="co"># string</span></span>
-<span id="cb304-2"><a href="intro-r.html#cb304-2" aria-hidden="true" tabindex="-1"></a>data_string <span class="ot">&lt;-</span> <span class="st">&quot;2020-04-24&quot;</span></span>
-<span id="cb304-3"><a href="intro-r.html#cb304-3" aria-hidden="true" tabindex="-1"></a>data_string</span></code></pre></div>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="intro-r.html#cb313-1" aria-hidden="true" tabindex="-1"></a><span class="co"># string</span></span>
+<span id="cb313-2"><a href="intro-r.html#cb313-2" aria-hidden="true" tabindex="-1"></a>data_string <span class="ot">&lt;-</span> <span class="st">&quot;2020-04-24&quot;</span></span>
+<span id="cb313-3"><a href="intro-r.html#cb313-3" aria-hidden="true" tabindex="-1"></a>data_string</span></code></pre></div>
 <pre><code>## [1] &quot;2020-04-24&quot;</code></pre>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="intro-r.html#cb306-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data_string)</span></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="intro-r.html#cb315-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data_string)</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <p>As funções date() e as_date() assumem que a ordem segue o padrão da língua inglesa: ano-mês-dia (ymd)
 date: classe para datas</p>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="intro-r.html#cb308-1" aria-hidden="true" tabindex="-1"></a><span class="co"># criar um objeto com a classe data</span></span>
-<span id="cb308-2"><a href="intro-r.html#cb308-2" aria-hidden="true" tabindex="-1"></a>data_date <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">date</span>(data_string)</span>
-<span id="cb308-3"><a href="intro-r.html#cb308-3" aria-hidden="true" tabindex="-1"></a>data_date</span></code></pre></div>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="intro-r.html#cb317-1" aria-hidden="true" tabindex="-1"></a><span class="co"># criar um objeto com a classe data</span></span>
+<span id="cb317-2"><a href="intro-r.html#cb317-2" aria-hidden="true" tabindex="-1"></a>data_date <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">date</span>(data_string)</span>
+<span id="cb317-3"><a href="intro-r.html#cb317-3" aria-hidden="true" tabindex="-1"></a>data_date</span></code></pre></div>
 <pre><code>## [1] &quot;2020-04-24&quot;</code></pre>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="intro-r.html#cb310-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data_date)</span></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="intro-r.html#cb319-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data_date)</span></code></pre></div>
 <pre><code>## [1] &quot;Date&quot;</code></pre>
 <p>As funções date() e as_date() assumem que a ordem segue o padrão da língua inglesa: ano-mês-dia (ymd)
 date: classe para datas</p>
-<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="intro-r.html#cb312-1" aria-hidden="true" tabindex="-1"></a><span class="co"># criar um objeto com a classe data</span></span>
-<span id="cb312-2"><a href="intro-r.html#cb312-2" aria-hidden="true" tabindex="-1"></a>data_date <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">as_date</span>(data_string)</span>
-<span id="cb312-3"><a href="intro-r.html#cb312-3" aria-hidden="true" tabindex="-1"></a>data_date</span></code></pre></div>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="intro-r.html#cb321-1" aria-hidden="true" tabindex="-1"></a><span class="co"># criar um objeto com a classe data</span></span>
+<span id="cb321-2"><a href="intro-r.html#cb321-2" aria-hidden="true" tabindex="-1"></a>data_date <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">as_date</span>(data_string)</span>
+<span id="cb321-3"><a href="intro-r.html#cb321-3" aria-hidden="true" tabindex="-1"></a>data_date</span></code></pre></div>
 <pre><code>## [1] &quot;2020-04-24&quot;</code></pre>
-<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="intro-r.html#cb314-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data_date)</span></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="intro-r.html#cb323-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data_date)</span></code></pre></div>
 <pre><code>## [1] &quot;Date&quot;</code></pre>
 <p>Datas no padrão da língua portuguesa: dia-mês-ano (dmy)
 date: classe para datas</p>
-<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="intro-r.html#cb316-1" aria-hidden="true" tabindex="-1"></a><span class="co"># string</span></span>
-<span id="cb316-2"><a href="intro-r.html#cb316-2" aria-hidden="true" tabindex="-1"></a>data_string <span class="ot">&lt;-</span> <span class="st">&quot;20-10-2020&quot;</span></span>
-<span id="cb316-3"><a href="intro-r.html#cb316-3" aria-hidden="true" tabindex="-1"></a>data_string</span></code></pre></div>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="intro-r.html#cb325-1" aria-hidden="true" tabindex="-1"></a><span class="co"># string</span></span>
+<span id="cb325-2"><a href="intro-r.html#cb325-2" aria-hidden="true" tabindex="-1"></a>data_string <span class="ot">&lt;-</span> <span class="st">&quot;20-10-2020&quot;</span></span>
+<span id="cb325-3"><a href="intro-r.html#cb325-3" aria-hidden="true" tabindex="-1"></a>data_string</span></code></pre></div>
 <pre><code>## [1] &quot;20-10-2020&quot;</code></pre>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="intro-r.html#cb318-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data_string)</span></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="intro-r.html#cb327-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data_string)</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <p>Datas no padrão da língua portuguesa: dia-mês-ano (dmy)
 date: classe para datas</p>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="intro-r.html#cb320-1" aria-hidden="true" tabindex="-1"></a><span class="co"># criar um objeto com a classe data</span></span>
-<span id="cb320-2"><a href="intro-r.html#cb320-2" aria-hidden="true" tabindex="-1"></a>data_date <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(data_string)</span>
-<span id="cb320-3"><a href="intro-r.html#cb320-3" aria-hidden="true" tabindex="-1"></a>data_date</span></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="intro-r.html#cb329-1" aria-hidden="true" tabindex="-1"></a><span class="co"># criar um objeto com a classe data</span></span>
+<span id="cb329-2"><a href="intro-r.html#cb329-2" aria-hidden="true" tabindex="-1"></a>data_date <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(data_string)</span>
+<span id="cb329-3"><a href="intro-r.html#cb329-3" aria-hidden="true" tabindex="-1"></a>data_date</span></code></pre></div>
 <pre><code>## [1] &quot;2020-10-20&quot;</code></pre>
-<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="intro-r.html#cb322-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data_date)</span></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="intro-r.html#cb331-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data_date)</span></code></pre></div>
 <pre><code>## [1] &quot;Date&quot;</code></pre>
 <p>Além de outros diversos formatos</p>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="intro-r.html#cb324-1" aria-hidden="true" tabindex="-1"></a><span class="co"># formatos</span></span>
-<span id="cb324-2"><a href="intro-r.html#cb324-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">dmy</span>(<span class="dv">20102020</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="intro-r.html#cb333-1" aria-hidden="true" tabindex="-1"></a><span class="co"># formatos</span></span>
+<span id="cb333-2"><a href="intro-r.html#cb333-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">dmy</span>(<span class="dv">20102020</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2020-10-20&quot;</code></pre>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="intro-r.html#cb326-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">dmy</span>(<span class="st">&quot;20102020&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="intro-r.html#cb335-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">dmy</span>(<span class="st">&quot;20102020&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2020-10-20&quot;</code></pre>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="intro-r.html#cb328-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">dmy</span>(<span class="st">&quot;20/10/2020&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="intro-r.html#cb337-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">dmy</span>(<span class="st">&quot;20/10/2020&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2020-10-20&quot;</code></pre>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="intro-r.html#cb330-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">dmy</span>(<span class="st">&quot;20.10.2020&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="intro-r.html#cb339-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">dmy</span>(<span class="st">&quot;20.10.2020&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2020-10-20&quot;</code></pre>
 <p>Especificar horários</p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="intro-r.html#cb332-1" aria-hidden="true" tabindex="-1"></a><span class="co"># especificar horarios</span></span>
-<span id="cb332-2"><a href="intro-r.html#cb332-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">dmy_h</span>(<span class="dv">2010202020</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="intro-r.html#cb341-1" aria-hidden="true" tabindex="-1"></a><span class="co"># especificar horarios</span></span>
+<span id="cb341-2"><a href="intro-r.html#cb341-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">dmy_h</span>(<span class="dv">2010202020</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2020-10-20 20:00:00 UTC&quot;</code></pre>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="intro-r.html#cb334-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">dmy_hm</span>(<span class="dv">201020202035</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="intro-r.html#cb343-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">dmy_hm</span>(<span class="dv">201020202035</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2020-10-20 20:35:00 UTC&quot;</code></pre>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="intro-r.html#cb336-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">dmy_hms</span>(<span class="dv">20102020203535</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="intro-r.html#cb345-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">dmy_hms</span>(<span class="dv">20102020203535</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2020-10-20 20:35:35 UTC&quot;</code></pre>
 <p>Funções úteis</p>
 <p><code>second()</code>: extrai os segundos
@@ -2670,111 +2689,113 @@ date: classe para datas</p>
 <code>month()</code>: extrai o mês
 <code>year()</code>: extrai o ano</p>
 <p>Extração</p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="intro-r.html#cb338-1" aria-hidden="true" tabindex="-1"></a><span class="co"># criar</span></span>
-<span id="cb338-2"><a href="intro-r.html#cb338-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">dmy_hms</span>(<span class="dv">20102020203535</span>)</span>
-<span id="cb338-3"><a href="intro-r.html#cb338-3" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="intro-r.html#cb347-1" aria-hidden="true" tabindex="-1"></a><span class="co"># criar</span></span>
+<span id="cb347-2"><a href="intro-r.html#cb347-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">dmy_hms</span>(<span class="dv">20102020203535</span>)</span>
+<span id="cb347-3"><a href="intro-r.html#cb347-3" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
 <pre><code>## [1] &quot;2020-10-20 20:35:35 UTC&quot;</code></pre>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="intro-r.html#cb340-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extrair</span></span>
-<span id="cb340-2"><a href="intro-r.html#cb340-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">second</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="intro-r.html#cb349-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extrair</span></span>
+<span id="cb349-2"><a href="intro-r.html#cb349-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">second</span>(data)</span></code></pre></div>
 <pre><code>## [1] 35</code></pre>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="intro-r.html#cb342-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">day</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="intro-r.html#cb351-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">day</span>(data)</span></code></pre></div>
 <pre><code>## [1] 20</code></pre>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="intro-r.html#cb344-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">month</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="intro-r.html#cb353-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">month</span>(data)</span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="intro-r.html#cb346-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">wday</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="intro-r.html#cb355-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">wday</span>(data)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="intro-r.html#cb348-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">wday</span>(data, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="intro-r.html#cb357-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">wday</span>(data, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## [1] Tue
 ## Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <p>Inclusão</p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="intro-r.html#cb350-1" aria-hidden="true" tabindex="-1"></a><span class="co"># criar</span></span>
-<span id="cb350-2"><a href="intro-r.html#cb350-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(<span class="dv">20102020</span>)</span>
-<span id="cb350-3"><a href="intro-r.html#cb350-3" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="intro-r.html#cb359-1" aria-hidden="true" tabindex="-1"></a><span class="co"># criar</span></span>
+<span id="cb359-2"><a href="intro-r.html#cb359-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(<span class="dv">20102020</span>)</span>
+<span id="cb359-3"><a href="intro-r.html#cb359-3" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
 <pre><code>## [1] &quot;2020-10-20&quot;</code></pre>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="intro-r.html#cb352-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inlcuir</span></span>
-<span id="cb352-2"><a href="intro-r.html#cb352-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">hour</span>(data) <span class="ot">&lt;-</span> <span class="dv">13</span></span>
-<span id="cb352-3"><a href="intro-r.html#cb352-3" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="intro-r.html#cb361-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inlcuir</span></span>
+<span id="cb361-2"><a href="intro-r.html#cb361-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">hour</span>(data) <span class="ot">&lt;-</span> <span class="dv">13</span></span>
+<span id="cb361-3"><a href="intro-r.html#cb361-3" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
 <pre><code>## [1] &quot;2020-10-20 13:00:00 UTC&quot;</code></pre>
 <p>Extrair a data no instante da execução</p>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="intro-r.html#cb354-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extrair a data no instante da execucao</span></span>
-<span id="cb354-2"><a href="intro-r.html#cb354-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">today</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;2021-03-01&quot;</code></pre>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="intro-r.html#cb356-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extrair a data e horario no instante da execucao</span></span>
-<span id="cb356-2"><a href="intro-r.html#cb356-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">now</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;2021-03-01 21:16:21 -03&quot;</code></pre>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="intro-r.html#cb363-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extrair a data no instante da execucao</span></span>
+<span id="cb363-2"><a href="intro-r.html#cb363-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">today</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;2021-03-02&quot;</code></pre>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="intro-r.html#cb365-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extrair a data e horario no instante da execucao</span></span>
+<span id="cb365-2"><a href="intro-r.html#cb365-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">now</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;2021-03-02 16:25:41 -03&quot;</code></pre>
 <p>Fusos horários</p>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="intro-r.html#cb358-1" aria-hidden="true" tabindex="-1"></a><span class="co"># agora</span></span>
-<span id="cb358-2"><a href="intro-r.html#cb358-2" aria-hidden="true" tabindex="-1"></a>agora <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">ymd_hms</span>(lubridate<span class="sc">::</span><span class="fu">now</span>(), <span class="at">tz =</span> <span class="st">&quot;America/Sao_Paulo&quot;</span>)</span>
-<span id="cb358-3"><a href="intro-r.html#cb358-3" aria-hidden="true" tabindex="-1"></a>agora</span></code></pre></div>
-<pre><code>## [1] &quot;2021-03-01 21:16:21 -03&quot;</code></pre>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="intro-r.html#cb360-1" aria-hidden="true" tabindex="-1"></a><span class="co"># verificar os tz</span></span>
-<span id="cb360-2"><a href="intro-r.html#cb360-2" aria-hidden="true" tabindex="-1"></a><span class="fu">OlsonNames</span>() <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="intro-r.html#cb367-1" aria-hidden="true" tabindex="-1"></a><span class="co"># agora</span></span>
+<span id="cb367-2"><a href="intro-r.html#cb367-2" aria-hidden="true" tabindex="-1"></a>agora <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">ymd_hms</span>(lubridate<span class="sc">::</span><span class="fu">now</span>(), <span class="at">tz =</span> <span class="st">&quot;America/Sao_Paulo&quot;</span>)</span>
+<span id="cb367-3"><a href="intro-r.html#cb367-3" aria-hidden="true" tabindex="-1"></a>agora</span></code></pre></div>
+<pre><code>## [1] &quot;2021-03-02 16:25:41 -03&quot;</code></pre>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="intro-r.html#cb369-1" aria-hidden="true" tabindex="-1"></a><span class="co"># verificar os tz</span></span>
+<span id="cb369-2"><a href="intro-r.html#cb369-2" aria-hidden="true" tabindex="-1"></a><span class="fu">OlsonNames</span>() <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>## [1] &quot;Africa/Abidjan&quot;     &quot;Africa/Accra&quot;       &quot;Africa/Addis_Ababa&quot;
 ## [4] &quot;Africa/Algiers&quot;     &quot;Africa/Asmara&quot;      &quot;Africa/Asmera&quot;</code></pre>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="intro-r.html#cb362-1" aria-hidden="true" tabindex="-1"></a><span class="co"># que horas sao em...</span></span>
-<span id="cb362-2"><a href="intro-r.html#cb362-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">with_tz</span>(agora, <span class="at">tzone =</span> <span class="st">&quot;GMT&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;2021-03-02 00:16:21 GMT&quot;</code></pre>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="intro-r.html#cb364-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">with_tz</span>(agora, <span class="at">tzone =</span> <span class="st">&quot;Europe/Stockholm&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;2021-03-02 01:16:21 CET&quot;</code></pre>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="intro-r.html#cb366-1" aria-hidden="true" tabindex="-1"></a><span class="co"># altera o fuso sem mudar a hora</span></span>
-<span id="cb366-2"><a href="intro-r.html#cb366-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">force_tz</span>(agora, <span class="at">tzone =</span> <span class="st">&quot;GMT&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;2021-03-01 21:16:21 GMT&quot;</code></pre>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="intro-r.html#cb371-1" aria-hidden="true" tabindex="-1"></a><span class="co"># que horas sao em...</span></span>
+<span id="cb371-2"><a href="intro-r.html#cb371-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">with_tz</span>(agora, <span class="at">tzone =</span> <span class="st">&quot;GMT&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;2021-03-02 19:25:41 GMT&quot;</code></pre>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="intro-r.html#cb373-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">with_tz</span>(agora, <span class="at">tzone =</span> <span class="st">&quot;Europe/Stockholm&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;2021-03-02 20:25:41 CET&quot;</code></pre>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="intro-r.html#cb375-1" aria-hidden="true" tabindex="-1"></a><span class="co"># altera o fuso sem mudar a hora</span></span>
+<span id="cb375-2"><a href="intro-r.html#cb375-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">force_tz</span>(agora, <span class="at">tzone =</span> <span class="st">&quot;GMT&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;2021-03-02 16:25:41 GMT&quot;</code></pre>
 <p>Operações com datas
 Intervalos
 Intervalos podem ser salvos em objetos com classe interval</p>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="intro-r.html#cb368-1" aria-hidden="true" tabindex="-1"></a><span class="co"># datas</span></span>
-<span id="cb368-2"><a href="intro-r.html#cb368-2" aria-hidden="true" tabindex="-1"></a>inicio_r <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(<span class="st">&quot;30-11-2011&quot;</span>)</span>
-<span id="cb368-3"><a href="intro-r.html#cb368-3" aria-hidden="true" tabindex="-1"></a>hoje_r <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">today</span>()</span>
-<span id="cb368-4"><a href="intro-r.html#cb368-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb368-5"><a href="intro-r.html#cb368-5" aria-hidden="true" tabindex="-1"></a>r_intervalo <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">interval</span>(inicio_r, hoje_r)</span>
-<span id="cb368-6"><a href="intro-r.html#cb368-6" aria-hidden="true" tabindex="-1"></a>r_intervalo</span></code></pre></div>
-<pre><code>## [1] 2011-11-30 UTC--2021-03-01 UTC</code></pre>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="intro-r.html#cb370-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(r_intervalo)</span></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="intro-r.html#cb377-1" aria-hidden="true" tabindex="-1"></a><span class="co"># datas</span></span>
+<span id="cb377-2"><a href="intro-r.html#cb377-2" aria-hidden="true" tabindex="-1"></a>inicio_r <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(<span class="st">&quot;30-11-2011&quot;</span>)</span>
+<span id="cb377-3"><a href="intro-r.html#cb377-3" aria-hidden="true" tabindex="-1"></a>hoje_r <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">today</span>()</span>
+<span id="cb377-4"><a href="intro-r.html#cb377-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb377-5"><a href="intro-r.html#cb377-5" aria-hidden="true" tabindex="-1"></a>r_intervalo <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">interval</span>(inicio_r, hoje_r)</span>
+<span id="cb377-6"><a href="intro-r.html#cb377-6" aria-hidden="true" tabindex="-1"></a>r_intervalo</span></code></pre></div>
+<pre><code>## [1] 2011-11-30 UTC--2021-03-02 UTC</code></pre>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="intro-r.html#cb379-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(r_intervalo)</span></code></pre></div>
 <pre><code>## [1] &quot;Interval&quot;
 ## attr(,&quot;package&quot;)
 ## [1] &quot;lubridate&quot;</code></pre>
 <p>Operações com datas
 Intervalos
 Intersecção de intervalor com a função int_overlaps()</p>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="intro-r.html#cb372-1" aria-hidden="true" tabindex="-1"></a><span class="co"># outra forma de definir um intervalo: o operador %--%</span></span>
-<span id="cb372-2"><a href="intro-r.html#cb372-2" aria-hidden="true" tabindex="-1"></a>r_intervaloo <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(<span class="st">&quot;30-11-2011&quot;</span>) <span class="sc">%--%</span> lubridate<span class="sc">::</span><span class="fu">today</span>() </span>
-<span id="cb372-3"><a href="intro-r.html#cb372-3" aria-hidden="true" tabindex="-1"></a>filho_intervalo <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(<span class="st">&quot;26-09-2013&quot;</span>) <span class="sc">%--%</span> lubridate<span class="sc">::</span><span class="fu">today</span>()</span>
-<span id="cb372-4"><a href="intro-r.html#cb372-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb372-5"><a href="intro-r.html#cb372-5" aria-hidden="true" tabindex="-1"></a><span class="co"># verificar sobreposicao</span></span>
-<span id="cb372-6"><a href="intro-r.html#cb372-6" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">int_overlaps</span>(r_intervaloo, filho_intervalo)</span></code></pre></div>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="intro-r.html#cb381-1" aria-hidden="true" tabindex="-1"></a><span class="co"># outra forma de definir um intervalo: o operador %--%</span></span>
+<span id="cb381-2"><a href="intro-r.html#cb381-2" aria-hidden="true" tabindex="-1"></a>r_intervaloo <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(<span class="st">&quot;30-11-2011&quot;</span>) <span class="sc">%--%</span> lubridate<span class="sc">::</span><span class="fu">today</span>() </span>
+<span id="cb381-3"><a href="intro-r.html#cb381-3" aria-hidden="true" tabindex="-1"></a>filho_intervalo <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(<span class="st">&quot;26-09-2013&quot;</span>) <span class="sc">%--%</span> lubridate<span class="sc">::</span><span class="fu">today</span>()</span>
+<span id="cb381-4"><a href="intro-r.html#cb381-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb381-5"><a href="intro-r.html#cb381-5" aria-hidden="true" tabindex="-1"></a><span class="co"># verificar sobreposicao</span></span>
+<span id="cb381-6"><a href="intro-r.html#cb381-6" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">int_overlaps</span>(r_intervaloo, filho_intervalo)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Operações com datas
 Aritmética com datas</p>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="intro-r.html#cb374-1" aria-hidden="true" tabindex="-1"></a><span class="co"># somando datas</span></span>
-<span id="cb374-2"><a href="intro-r.html#cb374-2" aria-hidden="true" tabindex="-1"></a>inicio_r <span class="sc">+</span> lubridate<span class="sc">::</span><span class="fu">ddays</span>(<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="intro-r.html#cb383-1" aria-hidden="true" tabindex="-1"></a><span class="co"># somando datas</span></span>
+<span id="cb383-2"><a href="intro-r.html#cb383-2" aria-hidden="true" tabindex="-1"></a>inicio_r <span class="sc">+</span> lubridate<span class="sc">::</span><span class="fu">ddays</span>(<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2011-12-01&quot;</code></pre>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="intro-r.html#cb376-1" aria-hidden="true" tabindex="-1"></a>inicio_r <span class="sc">+</span> lubridate<span class="sc">::</span><span class="fu">dyears</span>(<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="intro-r.html#cb385-1" aria-hidden="true" tabindex="-1"></a>inicio_r <span class="sc">+</span> lubridate<span class="sc">::</span><span class="fu">dyears</span>(<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2012-11-29 06:00:00 UTC&quot;</code></pre>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="intro-r.html#cb378-1" aria-hidden="true" tabindex="-1"></a><span class="co"># criando datas recorrentes</span></span>
-<span id="cb378-2"><a href="intro-r.html#cb378-2" aria-hidden="true" tabindex="-1"></a>reunioes <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">today</span>() <span class="sc">+</span> lubridate<span class="sc">::</span><span class="fu">weeks</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb378-3"><a href="intro-r.html#cb378-3" aria-hidden="true" tabindex="-1"></a>reunioes</span></code></pre></div>
-<pre><code>##  [1] &quot;2021-03-01&quot; &quot;2021-03-08&quot; &quot;2021-03-15&quot; &quot;2021-03-22&quot; &quot;2021-03-29&quot;
-##  [6] &quot;2021-04-05&quot; &quot;2021-04-12&quot; &quot;2021-04-19&quot; &quot;2021-04-26&quot; &quot;2021-05-03&quot;
-## [11] &quot;2021-05-10&quot;</code></pre>
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="intro-r.html#cb380-1" aria-hidden="true" tabindex="-1"></a><span class="co"># duracao de um intervalo </span></span>
-<span id="cb380-2"><a href="intro-r.html#cb380-2" aria-hidden="true" tabindex="-1"></a>r_intervalo <span class="ot">&lt;-</span> inicio_r <span class="sc">%--%</span> lubridate<span class="sc">::</span><span class="fu">today</span>()</span>
-<span id="cb380-3"><a href="intro-r.html#cb380-3" aria-hidden="true" tabindex="-1"></a>r_intervalo</span></code></pre></div>
-<pre><code>## [1] 2011-11-30 UTC--2021-03-01 UTC</code></pre>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="intro-r.html#cb382-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transformacoes</span></span>
-<span id="cb382-2"><a href="intro-r.html#cb382-2" aria-hidden="true" tabindex="-1"></a>r_intervalo <span class="sc">/</span> lubridate<span class="sc">::</span><span class="fu">dyears</span>(<span class="dv">1</span>)</span></code></pre></div>
-<pre><code>## [1] 9.251198</code></pre>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="intro-r.html#cb384-1" aria-hidden="true" tabindex="-1"></a>r_intervalo <span class="sc">/</span> lubridate<span class="sc">::</span><span class="fu">ddays</span>(<span class="dv">1</span>)</span></code></pre></div>
-<pre><code>## [1] 3379</code></pre>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="intro-r.html#cb386-1" aria-hidden="true" tabindex="-1"></a><span class="co"># total do periodo estudando r</span></span>
-<span id="cb386-2"><a href="intro-r.html#cb386-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">as.period</span>(r_intervaloo)</span></code></pre></div>
-<pre><code>## [1] &quot;9y 3m 1d 0H 0M 0S&quot;</code></pre>
-<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="intro-r.html#cb388-1" aria-hidden="true" tabindex="-1"></a><span class="co"># idade do meu filho</span></span>
-<span id="cb388-2"><a href="intro-r.html#cb388-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">as.period</span>(filho_intervalo)</span></code></pre></div>
-<pre><code>## [1] &quot;7y 5m 3d 0H 0M 0S&quot;</code></pre>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="intro-r.html#cb387-1" aria-hidden="true" tabindex="-1"></a><span class="co"># criando datas recorrentes</span></span>
+<span id="cb387-2"><a href="intro-r.html#cb387-2" aria-hidden="true" tabindex="-1"></a>reunioes <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">today</span>() <span class="sc">+</span> lubridate<span class="sc">::</span><span class="fu">weeks</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb387-3"><a href="intro-r.html#cb387-3" aria-hidden="true" tabindex="-1"></a>reunioes</span></code></pre></div>
+<pre><code>##  [1] &quot;2021-03-02&quot; &quot;2021-03-09&quot; &quot;2021-03-16&quot; &quot;2021-03-23&quot; &quot;2021-03-30&quot;
+##  [6] &quot;2021-04-06&quot; &quot;2021-04-13&quot; &quot;2021-04-20&quot; &quot;2021-04-27&quot; &quot;2021-05-04&quot;
+## [11] &quot;2021-05-11&quot;</code></pre>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="intro-r.html#cb389-1" aria-hidden="true" tabindex="-1"></a><span class="co"># duracao de um intervalo </span></span>
+<span id="cb389-2"><a href="intro-r.html#cb389-2" aria-hidden="true" tabindex="-1"></a>r_intervalo <span class="ot">&lt;-</span> inicio_r <span class="sc">%--%</span> lubridate<span class="sc">::</span><span class="fu">today</span>()</span>
+<span id="cb389-3"><a href="intro-r.html#cb389-3" aria-hidden="true" tabindex="-1"></a>r_intervalo</span></code></pre></div>
+<pre><code>## [1] 2011-11-30 UTC--2021-03-02 UTC</code></pre>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="intro-r.html#cb391-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transformacoes</span></span>
+<span id="cb391-2"><a href="intro-r.html#cb391-2" aria-hidden="true" tabindex="-1"></a>r_intervalo <span class="sc">/</span> lubridate<span class="sc">::</span><span class="fu">dyears</span>(<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 9.253936</code></pre>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="intro-r.html#cb393-1" aria-hidden="true" tabindex="-1"></a>r_intervalo <span class="sc">/</span> lubridate<span class="sc">::</span><span class="fu">ddays</span>(<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 3380</code></pre>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="intro-r.html#cb395-1" aria-hidden="true" tabindex="-1"></a><span class="co"># total do periodo estudando r</span></span>
+<span id="cb395-2"><a href="intro-r.html#cb395-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">as.period</span>(r_intervaloo)</span></code></pre></div>
+<pre><code>## [1] &quot;9y 3m 2d 0H 0M 0S&quot;</code></pre>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="intro-r.html#cb397-1" aria-hidden="true" tabindex="-1"></a><span class="co"># idade do meu filho</span></span>
+<span id="cb397-2"><a href="intro-r.html#cb397-2" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">as.period</span>(filho_intervalo)</span></code></pre></div>
+<pre><code>## [1] &quot;7y 5m 4d 0H 0M 0S&quot;</code></pre>
+<p>Para se aprofundar no tema, recomendamos a leitura do capítulo <a href="https://r4ds.had.co.nz/dates-and-times.html">16 Dates and times</a> de Wickhan &amp; Grolemund (2017).</p>
 </div>
 <div id="purrr" class="section level3" number="5.5.12">
 <h3><span class="header-section-number">5.5.12</span> purrr</h3>
 <p>Pacote que implementa <strong>Programação Funcional</strong></p>
+<p>Todas as funções deste pacote são listadas na <a href="https://purrr.tidyverse.org/reference/index.html">página de referência</a> do pacote.</p>
 <p>Uma função chama outra função para ser aplicada repetidamente percorrendo elementos de um objeto (vetor, lista ou data frame)</p>
 <p>Exemplos:
 - Análise de experimento em vários locais
@@ -2787,8 +2808,8 @@ Aritmética com datas</p>
 .x: uma vetor, lista ou data frame
 .f: uma função</p>
 <p>Aplicando uma função em série</p>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="intro-r.html#cb390-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb390-2"><a href="intro-r.html#cb390-2" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">map</span>(x, sum)</span></code></pre></div>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="intro-r.html#cb399-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb399-2"><a href="intro-r.html#cb399-2" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">map</span>(x, sum)</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 15
 ## 
@@ -2810,34 +2831,35 @@ Aritmética com datas</p>
 - <code>map_dfc()</code>: data frame (by column)
 - <code>map_dfr()</code>: data frame (by row)</p>
 <p>Retorna double vector (numeric)</p>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="intro-r.html#cb392-1" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">map_dbl</span>(x, sum)</span></code></pre></div>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="intro-r.html#cb401-1" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">map_dbl</span>(x, sum)</span></code></pre></div>
 <pre><code>## [1] 15 16  3 10</code></pre>
 <p>Retorna strings</p>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="intro-r.html#cb394-1" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">map_chr</span>(x, paste, <span class="at">collapse =</span> <span class="st">&quot; &quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="intro-r.html#cb403-1" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">map_chr</span>(x, paste, <span class="at">collapse =</span> <span class="st">&quot; &quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;1 2 3 4 5&quot; &quot;4 5 7&quot;     &quot;1 1 1&quot;     &quot;2 2 2 2 2&quot;</code></pre>
 <p>Duas listas em paralelo</p>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="intro-r.html#cb396-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb396-2"><a href="intro-r.html#cb396-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb396-3"><a href="intro-r.html#cb396-3" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">map2_dbl</span>(x, y, prod)</span></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="intro-r.html#cb405-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb405-2"><a href="intro-r.html#cb405-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb405-3"><a href="intro-r.html#cb405-3" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">map2_dbl</span>(x, y, prod)</span></code></pre></div>
 <pre><code>## [1]  9 25  0  1</code></pre>
 <p>Várias listas aninhadas</p>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="intro-r.html#cb398-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb398-2"><a href="intro-r.html#cb398-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb398-3"><a href="intro-r.html#cb398-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb398-4"><a href="intro-r.html#cb398-4" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">pmap_dbl</span>(<span class="fu">list</span>(x, y, z), prod)</span></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="intro-r.html#cb407-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb407-2"><a href="intro-r.html#cb407-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb407-3"><a href="intro-r.html#cb407-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb407-4"><a href="intro-r.html#cb407-4" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">pmap_dbl</span>(<span class="fu">list</span>(x, y, z), prod)</span></code></pre></div>
 <pre><code>## [1]  27 125   0   1</code></pre>
 <p>Calcular a média para várias colunas</p>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="intro-r.html#cb400-1" aria-hidden="true" tabindex="-1"></a>mean_var <span class="ot">&lt;-</span> si <span class="sc">%&gt;%</span> </span>
-<span id="cb400-2"><a href="intro-r.html#cb400-2" aria-hidden="true" tabindex="-1"></a> dplyr<span class="sc">::</span><span class="fu">select</span>(species_number, altitude) <span class="sc">%&gt;%</span> </span>
-<span id="cb400-3"><a href="intro-r.html#cb400-3" aria-hidden="true" tabindex="-1"></a> purrr<span class="sc">::</span><span class="fu">map_dbl</span>(mean)</span>
-<span id="cb400-4"><a href="intro-r.html#cb400-4" aria-hidden="true" tabindex="-1"></a>mean_var</span></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="intro-r.html#cb409-1" aria-hidden="true" tabindex="-1"></a>mean_var <span class="ot">&lt;-</span> si <span class="sc">%&gt;%</span> </span>
+<span id="cb409-2"><a href="intro-r.html#cb409-2" aria-hidden="true" tabindex="-1"></a> dplyr<span class="sc">::</span><span class="fu">select</span>(species_number, altitude) <span class="sc">%&gt;%</span> </span>
+<span id="cb409-3"><a href="intro-r.html#cb409-3" aria-hidden="true" tabindex="-1"></a> purrr<span class="sc">::</span><span class="fu">map_dbl</span>(mean)</span>
+<span id="cb409-4"><a href="intro-r.html#cb409-4" aria-hidden="true" tabindex="-1"></a>mean_var</span></code></pre></div>
 <p>Calcular o desvio padrão para várias colunas</p>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="intro-r.html#cb401-1" aria-hidden="true" tabindex="-1"></a>sd_var <span class="ot">&lt;-</span> si <span class="sc">%&gt;%</span> </span>
-<span id="cb401-2"><a href="intro-r.html#cb401-2" aria-hidden="true" tabindex="-1"></a> dplyr<span class="sc">::</span><span class="fu">select</span>(species_number, altitude) <span class="sc">%&gt;%</span> </span>
-<span id="cb401-3"><a href="intro-r.html#cb401-3" aria-hidden="true" tabindex="-1"></a> purrr<span class="sc">::</span><span class="fu">map_dbl</span>(sd)</span>
-<span id="cb401-4"><a href="intro-r.html#cb401-4" aria-hidden="true" tabindex="-1"></a>sd_var</span></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="intro-r.html#cb410-1" aria-hidden="true" tabindex="-1"></a>sd_var <span class="ot">&lt;-</span> si <span class="sc">%&gt;%</span> </span>
+<span id="cb410-2"><a href="intro-r.html#cb410-2" aria-hidden="true" tabindex="-1"></a> dplyr<span class="sc">::</span><span class="fu">select</span>(species_number, altitude) <span class="sc">%&gt;%</span> </span>
+<span id="cb410-3"><a href="intro-r.html#cb410-3" aria-hidden="true" tabindex="-1"></a> purrr<span class="sc">::</span><span class="fu">map_dbl</span>(sd)</span>
+<span id="cb410-4"><a href="intro-r.html#cb410-4" aria-hidden="true" tabindex="-1"></a>sd_var</span></code></pre></div>
 <p>furrr - Programação funcional paralelizada
 Faz o mapeamento em paralelo mais integrado possível</p>
+<p>Para se aprofundar no tema, recomendamos a leitura do capítulo <a href="https://r4ds.had.co.nz/iteration.html">21 Iteration</a> de Wickhan &amp; Grolemund (2017).</p>
 </div>
 </div>
 <div id="exercícios" class="section level2" number="5.6">
