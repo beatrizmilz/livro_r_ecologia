@@ -1,3 +1,95 @@
+--- 
+title: "Introdução ao R com aplicações em biodiversidade e conservação"
+author: ""
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+---
+--- 
+title: "Introdução ao R com aplicações em biodiversidade e conservação"
+author: ""
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+# Pré-requisitos
+
+
+
+<!--chapter:end:index.Rmd-->
+
+# Pré-requisitos
+
+
+
+<!--chapter:end:01_pre_requisitos.Rmd-->
+
+
+# Introdução
+
+Placeholder
+
+
+## Histórico deste livro
+## Objetivo deste livro
+## O que você não encontrará neste livro
+## Por que usar o R? 
+## Como usar este livro
+
+<!--chapter:end:02_introducao.Rmd-->
+
+
+# Voltando ao básico: como dominar a arte de fazer perguntas cientificamente relevantes
+
+Placeholder
+
+
+## Introdução
+## Perguntas devem preceder as análises estatísticas
+### Um bestiário[^1] para o teste de hipóteses (Você está fazendo a pergunta certa?)
+## Fluxograma: Conectando Variáveis para Melhorar o desenho experimental e as análises estatísticas
+## Questões fundamentais em etnobiologia, ecologia e conservação
+## Considerações Finais
+## Referências
+
+<!--chapter:end:03_perguntas_ecologia.Rmd-->
+
+
+
+## Principais erros de iniciantes e a melhor forma de pedir ajuda
+### Procurando e entendendo erros
+#### Certifique-se que leu e entendeu a mensagem de erro
+#### Certifique-se que instalou e carregou os pacotes das funções que irá utilizar
+#### Certifique-se que definiu o diretório correto de onde quer importar ou exportar seus dado
+#### Certifique-se que sua planilha está com separação de decimais e colunas corretos
+#### Certifique-se que os arquivos que irão ser importados não estão corrompidos
+#### Certifique-se que não digitou algum comando errado
+#### Certifique-se que a atribuição foi feita corretamente
+#### Certifique-se que a Classe do objeto é a mesma requerida pela função
+### Tentando resolver seus próprios erros
+#### Leia a documentação das funções
+#### Faça buscas extensivas no Google e no Stack Overflow
+### Idealmente, como pedir ajuda?
+
+<!--chapter:end:04_erros.Rmd-->
+
 # Introdução à linguagem R {#intro-r}
 
 ## Introdução
@@ -1867,48 +1959,26 @@ include_graphics("img/cap04_join.png")
 
 Considerando essa nomenclatura de uma tabela de dados ser `x` e outra ser `y`, temos:
 
-- `inner_join(x, y)`: mantém apenas as observações em `x` em `y`.
-- `left_join(x, y)`: mantém todas as observações em `x`.
-- `right_join(x, y)`: mantém todas as observações em `y`.
-- `full_join(x, y)`: mantém todas as observações em `x` em `y`.
-
-```{r}
-# juncao
-penguins_summarise <- penguins %>% 
-  dplyr::group_by(species) %>% 
-  summarize(mean_bm = mean(body_mass_g, na.rm = TRUE))
-
-# resumo - if
-penguins_summarise_if <- penguins %>% 
-  dplyr::group_by(species) %>% 
-  summarize_if(is.numeric, mean, na.rm = TRUE)
-```
-
+- **inner join**: mantém apenas as observações em `x` em `y`.
+- **left join**: mantém todas as observações em `x`.
+- **right join**: mantém todas as observações em `y`.
+- **full join**: mantém todas as observações em `x` em `y`.
 
 Já a **junção de filtragem**.
 
-- `semi_join(x, y)`: mantém todas as observações em `x` que possuem relação com `y`
-- `anti_join(x, y)`: retira todas as observações em `x` que possuem relação com `y`
 
 ### stringr
 
 Pacote para a **manipulação de caracteres ou strings**.
 
+Comprimento
 ```{r}
-penguins_str <- penguins %>% 
-  dplyr::mutate(across(is.factor, as.character))
+stringr::str_length("abc")
 ```
 
-
+Extração por posição
 ```{r}
-# comprimento
-stringr::str_length(penguins[1, 1])
-```
-
-
-```{r}
-# extracao pela posicao
-stringr::str_sub(penguins[1, ]$species, 3)
+stringr::str_sub("abc", 3)
 ```
 
 Inserir espaço em branco - esquerda
@@ -2394,3 +2464,318 @@ Wickham H (2018) Advanced R. 2nd ed. Chapman & Hall’s R Series.
 ### Links 
 
 [R resources (free courses, books, tutorials, & cheat sheets)](https://paulvanderlaken.com/2017/08/10/r-resources-cheatsheets-tutorials-books)
+
+<!--chapter:end:04_r_tidyverse.Rmd-->
+
+# Gráficos
+
+<!--chapter:end:05_graficos.Rmd-->
+
+
+# Estatística básica
+
+Placeholder
+
+
+## Teste T (de Student) para duas amostras independentes
+### Backgorund da análise
+#### Exemplo prático 1 - Teste T para duas amostras com variâncias iguais
+##### Explicação dos dados
+### Análise
+#### Exemplo prático 2 - Teste T para duas amostras independentes com variâncias diferentes
+##### Explicação dos dados
+### Análise
+## Teste T para amostras pareadas
+### Backgorund da análise
+#### Exemplo prático 1 - Teste T para amostras pareadas
+##### Explicação dos dados
+### Análise
+## Correlação de Pearson
+### Backgorund da análise
+#### Exemplo prático 1 - Correlação de Pearson
+##### Explicação dos dados
+### Análise
+## Regressão Simples
+### Backgorund da análise
+#### Exemplo prático 1 - Regressão simples
+##### Explicação dos dados
+### Análise
+## Regressão Múltipla
+### Backgorund da análise
+#### Exemplo prático 1 - Regressão múltipla
+##### Explicação dos dados
+### Análise
+## Análises de Variância (ANOVA)
+### Backgorund da análise
+## ANOVA de um fator
+#### Exemplo prático 1 - Anova de um fator
+##### Explicação dos dados
+### Análise
+## ANOVA de dois fatores ou Anova fatorial
+#### Exemplo prático 1 - Anova de dois fatores
+##### Explicação dos dados
+### Análise
+## ANOVA em blocos aleatorizados
+#### Exemplo prático 1 - Anova em blocos aleatorizados
+##### Explicação dos dados
+### Análise
+## Análise de covariância (ANCOVA)
+#### Exemplo prático 1 - ANCOVA
+##### Explicação dos dados
+### Análise
+### Para se aprofundar
+
+<!--chapter:end:06_analises_univariadas_lm.Rmd-->
+
+# Análises univariadas - GLM
+
+
+
+<!--chapter:end:07_analises_univariadas_glm.Rmd-->
+
+
+# Introdução à Análises Multidimensionais
+
+Placeholder
+
+
+## Backgorund da análise
+## Exemplo 1: 
+### Explicação da análise
+### Análise
+#### Interpretação dos resultados
+## Exemplo 2: 
+## Backgorund da análise
+## Exemplo 1: 
+### Explicação da análise
+### Análise
+## Backgorund da análise
+## Exemplo 1: 
+### Explicação da análise
+### Análise
+### Para se aprofundar
+
+<!--chapter:end:08_analises_multivariadas.Rmd-->
+
+
+# Rarefação
+
+Placeholder
+
+
+## Background da análise
+## Exemplo prático 1 - Morcegos
+### Explicação
+### Análise
+### Interpretação dos resultados
+## Exemplo prático 2 - Rarefação
+### Explicação
+### Análise
+### Interpretação dos resultados
+## Para se aprofundar
+
+<!--chapter:end:09_rarefacao.Rmd-->
+
+
+# Estimadores de Riqueza
+
+Placeholder
+
+
+## Backgorund da análise
+## Estimadores baseados na abundância das espécies
+### CHAO 1 - (Chao 1984, 1987): 
+#### Exemplo prático - Chao 1
+##### Explicação dos dados
+### Análise
+#### Interpretação dos resultados
+### ACE - *Abundance-based Coverage Estimador* (Chao & Lee 1992, Chao et al. 2000): 
+#### Exemplo prático - ACE
+##### Explicação dos dados
+### Análise
+#### Interpretação dos resultados
+## Estimadores baseados na incidência das espécies
+### CHAO 2 - (Chao 1987): 
+#### Exemplo prático - Chao 2
+##### Explicação dos dados
+### Análise
+#### Interpretação dos resultados
+### JACKKNIFE 1 (Burnham & Overton 1978, 1979): 
+#### Exemplo prático - Jackknife 1
+##### Explicação dos dados
+### Análise
+#### Interpretação dos resultados
+### JACKKNIFE 2 (Burnham & Overton 1978, 1979, Palmer 1991): 
+#### Exemplo prático - Jackknife 2
+##### Explicação dos dados
+### Análise
+#### Interpretação dos resultados
+### BOOTSTRAP (Smith & van Belle 1984): 
+#### Exemplo prático - Bootstrap
+##### Explicação dos dados
+### Análise
+#### Interpretação dos resultados
+### Interpolação e Extrapolação baseadas em rarefação usando amostragens de incidência ou abundância (Chao & Jost 2012, Colwell et al. 2012): 
+#### Exemplo prático 
+##### Explicação dos dados
+### Análise
+#### Interpretação dos resultados
+#### Interpretação dos resultados
+### Para se aprofundar
+
+<!--chapter:end:10_riqueza.Rmd-->
+
+
+# Diversidade Taxonômica
+
+Placeholder
+
+
+## Diversidade alfa (𝛂)
+## Riqueza de espécies ou número de espécies
+#### Exemplo prático 1 - Riqueza de espécies
+## Diversidade de espécies
+#### Exemplo prático 2 - Diversidade de espécies
+## Diagramas de Whittaker ou Curva de Dominância
+## Números de Hill
+## Diversidade beta (𝛃)
+### Para se aprofundar
+
+<!--chapter:end:11_diversidade_taxonomica.Rmd-->
+
+# Diversidade filogenética
+
+
+
+<!--chapter:end:12_diversidade_filogenetica.Rmd-->
+
+# Diversidade funcional
+
+
+
+<!--chapter:end:13_diversidade_funcional.Rmd-->
+
+
+# Dados geográficos no R {#dados-geograficos}
+
+Placeholder
+
+
+## Introdução
+## Pré-requisitos
+## Vetor
+### Pontos
+### Linhas
+### Polígonos
+### Tabela de atributos
+### *sf*: principal pacote no R para dados vetoriais
+## Raster
+### Tipos de raster
+### *raster*: principal pacote no R para dados raster
+## Sistema de Referência de Coordenadas e Unidades
+### Sistema de Coordenadas Geográficas
+### Sistema de Coordenadas Projetadas
+### Datum
+### Sistema de Referência de Coordenadas (CRS) no R
+## Principais fontes de dados geográficos
+### Vetor
+### Raster
+### Pacotes do R
+## Importar e exportar dados geográficos
+### Principais formatos de arquivos geográficos
+### Importar dados
+#### Vetor
+##### Importar dados vetoriais existentes
+##### Importar utilizando pacotes
+##### Criar um objeto espacial de uma tabela de coordenadas
+##### Converter dados espaciais *sp* para *sf*
+#### Raster
+##### Raster Layer
+##### Raster Stack
+### Exportar dados
+#### Vetor
+#### Raster
+## Descrição de objetos espaciais
+### Vetor
+### Raster
+## Reprojeção de dados geográficos
+### Vetor
+### Raster
+## Principais operações com dados geográficos
+### Operações de atributos
+#### Vetor
+##### Filtro
+##### Junção
+##### Agregação
+##### Manipulação da tabela de atributos
+#### Raster
+##### Subconjunto
+##### Renomear
+##### Resumir
+### Operações espaciais
+#### Vetor
+##### Filtro espacial
+##### Junção espacial
+##### Agregação espacial 
+##### Distância espacial
+#### Raster
+##### Operações locais
+##### Operações focais 
+##### Operações zonais
+##### Operações globais
+### Operações geométricas
+#### Vetor
+##### Simplificação
+##### Centroides
+##### Pontos aleatórios 
+##### Buffer
+##### Polígono convexo
+##### Polígonos de Voronoi
+##### Quadrículas e hexágonos
+##### União ("dissolver")
+##### Recorte ("clipar")
+##### Transformações de tipo
+#### Raster
+##### Agregação
+##### Desagregação
+##### Alinhamento de rasters
+#### Interações raster-vetor
+##### Cortes e máscaras
+##### Extração
+#### Conversões raster-vetor
+##### Rasterização
+##### Vetorização
+## Visualização de dados geográficos - Mapas
+### Principais elementos de um mapa
+### Principais pacotes para a composição de mapas
+### Mapas estáticos
+#### Função `plot()`
+#### Pacotes *ggplot2* e *ggspatial*
+#### Pacote tmap
+### Mapas animados
+### Mapas interativos
+#### Pacote tmap
+#### Pacote mapview
+#### Pacote leaflet
+## Exemplos de aplicações de análises geográficas para dados ecológicos
+### Resumir informações de biodiversidade para unidades espaciais
+### Atribuição de dados climáticos para pontos
+### Predições espaciais de objetos raster
+## Para se aprofundar
+
+<!--chapter:end:14_visualizacao_dados_geoespaciais.Rmd-->
+
+# Reprodutibilidade em pesquisa e gerenciamento de dados
+
+## Gestão de projetos acadêmicos no RStudio
+## Documentos dinâmicos (R Markdown)
+## Controle de versão, Git e GitHub
+
+<!--chapter:end:15_reprodutibilidade_pesquisa_gerenciamento_de_dados.Rmd-->
+
+`r if (knitr::is_html_output()) '
+# References {-}
+'`
+
+<!--chapter:end:99-references.Rmd-->
+
