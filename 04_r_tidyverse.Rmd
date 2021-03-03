@@ -1866,6 +1866,20 @@ penguins_summarise_across <- penguins %>%
   summarize(across(where(is.numeric), ~ mean(.x, na.rm = TRUE)))
 ```
 
+Muitas vezes teremos de **combinar duas ou mais tabelas de dados**. Podemos utilizar as funções Base R `rbind` e `cbind`, como vimos. Entrentanto, pode ser interessante avançar para as funções `dplyr::bind_rows()` e `dplyr::bind_cols()` do formato *tidyverse*. A ideia é muito semelhante: a primeira função combina dados por linhas e a segunda por colunas. Entretanto, há vantagens no uso dessas funções, como a identificação das linhas pelo argumento **.id** para a primera função, e a conferência do nome das colunas pelo argumento **.name_repair** para a segunda função.
+
+```{r}
+# selecionar as linhas para dois tibbles
+penguins_01 <- dplyr::slice(penguins, 1:5)
+penguins_02 <- dplyr::slice(penguins, 51:55)
+
+# combinar linhas
+penguins_bind_rows <- dplyr::bind_rows(penguins_01, penguins_02, .id = "id")
+
+# combinar colunas
+penguins_bind_cols <- dplyr::bind_cols(penguins_01, penguins_02, .name_repair = "unique")
+```
+
 Finalmente, veremos o último conjunto de funções do pacote *dplyr*, a **junção de tabelas**. Nessa operação, fazemos a **combinação de pares de conjunto de dados tabulares por uma ou mais colunas chaves**. Há dois tipos de junções: junção de mutação e junção de filtragem. A **junção de mutação** primeiro combina as observações por suas chaves e, em seguida, **copia as variáveis (colunas) de uma tabela para a outra**. É fundamental destacar a importância da **coluna chave**, que é indicada pelo argumento **by**. Essa coluna deve conter **elementos que sejam comuns às duas tabelas** para que haja a combinação dos elementos. 
 
 Existem quatro tipos de junções, que são realizadas pelas funções `dplyr::inner_join()`, `dplyr::left_join()`, `dplyr::full_join()` e `dplyr::right_join()`, e que podem ser representadas na Figura \@ref(fig:fig-r-join).
@@ -1905,7 +1919,7 @@ Já a **junção de filtragem** combinam as observações da mesma maneira que a
 
 Temos ainda **operações de conjuntos** e **comparação de dados**.
 
-- `união(x, y)`: retorna todas as linhas que aparecem em `x`, `y` ou mais dos conjuntos de dados
+- `union(x, y)`: retorna todas as linhas que aparecem em `x`, `y` ou mais dos conjuntos de dados
 - `interesect(x, y)`: retorna apenas as linhas que aparecem em `x` e em `y`
 - `setdiff(x, y)`: retorna as linhas que aparecem `x`, mas não em `y`
 - `setequal(x, y)`: retorna se `x` e `y` são iguais e quais suas diferenças
@@ -1914,9 +1928,7 @@ Para se aprofundar no tema, recomendamos a leitura do capítulo [13 Relational d
 
 ### stringr
 
-O pacote *stringr* fornece um conjunto de funções para a **manipulação de caracteres ou strings**. O pacote concentra-se nas funções de manipulação mais importantes e comumente usadas. Para função para específicas, recomenda-se usar para o pacote *stringi*, que fornece um conjunto mais abrangente de funções.
-
-As funções do *stringr* podem ser agrupadas em algumas operações para tarefas específicas como correspondência de padrões, espaço em branco, maiúsculas e minúsculas, além de outras funções. 
+O pacote *stringr* fornece um conjunto de funções para a **manipulação de caracteres ou strings**. O pacote concentra-se nas funções de manipulação mais importantes e comumente usadas. Para função para específicas, recomenda-se usar para o pacote *stringi*, que fornece um conjunto mais abrangente de funções. As funções do *stringr* podem ser agrupadas em algumas operações para tarefas específicas como correspondência de padrões, espaço em branco, maiúsculas e minúsculas, além de outras funções. 
 
 Todas as funções deste pacote são listadas na [página de referência](https://stringr.tidyverse.org/reference/index.html) do pacote.
 
@@ -2004,7 +2016,7 @@ Para se aprofundar no tema, recomendamos a leitura do capítulo [14 Strings](htt
 
 ### forcats
 
-O pacote *forcats* fornece um **conjunto de ferramentas úteis** para **manipular fatores**. Como dito anterioemente, usamos fatores geralmente quando temos **dados categóricos**: variáveis que têm um conjunto de valores fixos e conhecidos. As funções são principalmente para mudar a ordem dos níveis, mudar os valores dos níveis, adicionar e remover níveis, combinar múltiplos níveis, além de outras funções.
+O pacote *forcats* fornece um conjunto de ferramentas úteis para **manipular fatores**. Como dito anteriormente, usamos fatores geralmente quando temos **dados categóricos**, que são variáveis que possuem um conjunto de valores fixos e conhecidos. As funções são utilizadas principalmente para: mudar a ordem dos níveis, mudar os valores dos níveis, adicionar e remover níveis, combinar múltiplos níveis, além de outras operações.
 
 Todas as funções deste pacote são listadas na [página de referência](https://forcats.tidyverse.org/reference/index.html) do pacote.
 
@@ -2021,59 +2033,54 @@ Primeiramente, vamos **converter** dados de **caracter** para **fator**, utiliza
 # caracter
 forcats::as_factor(penguins_raw$Species) %>% head()
 ```
+
 Podemos facilmente mudar o **nome dos níveis** utilizando a `forcats::fct_recode()`.
 
 ```{r}
 # muda o nome dos niveis
-forcats::fct_recode(penguins$sex, f = "female", m = "male") %>% head()
+forcats::fct_recode(penguins$species, a = "Adelie", c = "Chinstrap", g = "Gentoo") %>% head()
 ```
 
 Para **inverter os níveis**, usamos a função `forcats::fct_rev()`.
 
 ```{r}
 # inverte os niveis
-forcats::fct_rev(penguins$sex) %>% head()
+forcats::fct_rev(penguins$species) %>% head()
 ```
 
-forcats::fct_relevel(): especifica a classificação de um ou mais níveis
+Uma operação muito comum com fatores é **mudar a ordem dos níveis**. Quando precisamos **especificar a ordem dos níveis**, podemos fazer essa operação manualmente com a função `forcats::fct_relevel()`.
 
 ```{r}
-# especifica a classificacao de um nivel
-forcats::fct_relevel(penguins$sex) %>% head()
+# especifica a ordem dos niveis
+forcats::fct_relevel(penguins$species, "Chinstrap", "Gentoo", "Adelie") %>% head()
 ```
 
-forcats::fct_inorder(): ordem em que aparece
-```{r}
-# ordem em que aparece
-penguins_inorder <- penguins %>% 
- dplyr::mutate(forcats::fct_inorder())
-```
+Como vimos, a **reordenação** dos níveis pode ser feita **manualmente**. Mas existe outras formas **automáticas de reordenação** seguindo algumas **regras**, para as quais existem funções específicas.
 
-forcats::fct_infreq(): ordem (decrescente) de frequência
+- `forcats::fct_inorder()`: pela ordem em que aparecem pela primeira vez
+- `forcats::fct_infreq()`: por número de observações com cada nível (o maior primeiro)
+- `forcats::fct_inseq()`: por valor numérico de nível
+
 ```{r}
+# niveis pela ordem em que aparecem
+forcats::fct_inorder(penguins$species) %>% head()
+
 # ordem (decrescente) de frequencia
-penguins_infreq <- penguins %>% 
- dplyr::mutate(forcats::fct_infreq())
+forcats::fct_infreq(penguins$species) %>% head()
 ```
 
-forcats::fct_lump(): agregação de níveis raros em um nível
+Por fim, podemos fazer a **agregação de níveis raros em um nível** utilizando a função `forcats::fct_lump()`.
+
 ```{r}
 # agregacao de niveis raros em um nivel
-penguins_lump <- penguins %>% 
- dplyr::mutate(forcats::fct_lump())
+forcats::fct_lump(penguins$species) %>% head()
 ```
 
+Podemos ainda utilizar essas funções em complemento com o pacote *dplyr*, para fazer **manipulações de fatores nas colunas**.
+
 ```{r}
-# modificar colunas para caracter
-penguins %>% 
-  dplyr::mutate(across(where(is.factor), as.character))
-
-# transformar um coluna em fator
-penguins_multi_factor <- penguins_caracter %>% 
-  dplyr::mutate(species = forcats::as_factor(species))
-
 # transformar varias colunas em fator
-penguins_multi_factor <- penguins %>% 
+penguins_raw_multi_factor <- penguins_raw %>% 
   dplyr::mutate(across(where(is.character), forcats::as_factor))
 ```
 
@@ -2081,86 +2088,65 @@ Para se aprofundar no tema, recomendamos a leitura do capítulo [15 Factors](htt
 
 ### lubridate
 
-Pacote para trabalhar com datas.
-
-Pacote à parte do tidyverse
+O pacote *lubridate* fornece um conjunto de funções para a **manipulação de data-hora**. Dessa forma, esse pacote facilita o manejo desse tipo de dado no R, pois geralmente esses dados não são intuitivos e mudam dependendo do tipo de objeto de data e hora. Além disso, os métodos que usamos com datas e horários devem levar em consideração fusos horários, anos bissextos, horários de verão e além de outras particularidades. Existem diversas funções nesse pacote, sendo as mesmas focadas em: análise de data/hora, durações, períodos, intervalos, além de muitas outras funções específicas.
 
 Todas as funções deste pacote são listadas na [página de referência](https://lubridate.tidyverse.org/reference/index.html) do pacote.
 
+Apesar de estar inserido no escopo do *tidyverse*, este pacote não é instalado com os demais, **requisitando sua instalação solo**.
+
 ```{r eval=FALSE}
-# install
+# instalar
 install.packages("lubridate")
 ```
 
 ```{r}
-# load
+# carregar
 library(lubridate)
 ```
 
-As funções date() e as_date() assumem que a ordem segue o padrão da língua inglesa: ano-mês-dia (ymd)
-date: classe para datas
+Para nossos exemplos, vamos utilizar **dados mais simplificados** para faciliatar o entendimento.
+
+É fundamental também destacar que algumas letras terão um significado temporal, sendo abreviações de períodos em inglês: **y**ear (ano), **m**onth (ano), **w**eak (ano), **d**ay (ano), **h**our (ano), **m**inute (ano), e **s**econd (ano).
+
+Primeiramente, vamos transformar nossos dados para **dados de datas**, com a classe `Date`. Aqui precisamos nos atentar para o fato das funções `lubridate::date()` e `lubridate::as_date()` assumirem que a ordem do stringr ou números **segue o padrão da língua inglesa**, ou seja, `ano-mês-dia (ymd)`.
 
 ```{r}
 # string
-data_string <- "2020-04-24"
-data_string
+dados_string <- "2020-04-24"
 
-class(data_string)
-```
-
-As funções date() e as_date() assumem que a ordem segue o padrão da língua inglesa: ano-mês-dia (ymd)
-date: classe para datas
-
-```{r}
 # criar um objeto com a classe data
-data_date <- lubridate::date(data_string)
-data_date
+dados_date <- lubridate::date(dados_string)
+dados_date
 
-class(data_date)
+# classe
+class(dados_date)
 ```
 
-As funções date() e as_date() assumem que a ordem segue o padrão da língua inglesa: ano-mês-dia (ymd)
-date: classe para datas
-
-```{r}
-# criar um objeto com a classe data
-data_date <- lubridate::as_date(data_string)
-data_date
-class(data_date)
-```
-
-Datas no padrão da língua portuguesa: dia-mês-ano (dmy)
-date: classe para datas
+Já para datas no **padrão da língua portuguesa**, a ordem é diferente, ou seja, `dia-mês-ano (dmy)`. Dessa forma, utilizamos uma função diferente para fazer a transformação na classe `Date`.
 
 ```{r}
 # string
-data_string <- "20-10-2020"
-data_string
+dados_string <- "20-10-2020"
 
-class(data_string)
-```
-
-Datas no padrão da língua portuguesa: dia-mês-ano (dmy)
-date: classe para datas
-
-```{r}
 # criar um objeto com a classe data
-data_date <- lubridate::dmy(data_string)
-data_date
+dados_date <- lubridate::dmy(dados_string)
+dados_date
 
-class(data_date)
+# classe
+class(dados_date)
 ```
 
-Além de outros diversos formatos
+Essas funções de transformação são **muito versáteis**, e **funcionam em outros diversos formatos**. Aqui exemplificamos com o padrão da língua portuguesa.
+
 ```{r}
-# formatos
+# diferentes formatos
 lubridate::dmy(20102020)
 lubridate::dmy("20102020")
 lubridate::dmy("20/10/2020")
 lubridate::dmy("20.10.2020")
 ```
 
-Especificar horários
+Além da data, podemos **especificar horários** atrelados à essas datas.
 
 ```{r}
 # especificar horarios
@@ -2169,17 +2155,15 @@ lubridate::dmy_hm(201020202035)
 lubridate::dmy_hms(20102020203535)
 ```
 
-Funções úteis
+Existe uma grande quantidade de funções úteis para realizar a **extração** de partes de datas e horários.
 
-`second()`: extrai os segundos
-`minute()`: extrai os minutos
-`hour()`: extrai a hora
-`wday()`: extrai o dia da semana
-`mday()`: extrai o dia do mês
-`month()`: extrai o mês
-`year()`: extrai o ano
-
-Extração
+- `second()`: extrai os segundos
+- `minute()`: extrai os minutos
+- `hour()`: extrai a hora
+- `wday()`: extrai o dia da semana
+- `mday()`: extrai o dia do mês
+- `month()`: extrai o mês
+- `year()`: extrai o ano
 
 ```{r}
 # criar
@@ -2194,7 +2178,7 @@ lubridate::wday(data)
 lubridate::wday(data, label = TRUE)
 ```
 
-Inclusão
+Além de extrair informações de datas e horários, podemos fazer a **inclusão** de informações de datas e horários.
 
 ```{r}
 # criar
@@ -2206,7 +2190,7 @@ lubridate::hour(data) <- 13
 data
 ```
 
-Extrair a data no instante da execução
+Outra opção bastante útil é a **informação da data e horários no instante da execução** de um script, por exemplo.
 
 ```{r}
 # extrair a data no instante da execucao
@@ -2216,28 +2200,42 @@ lubridate::today()
 lubridate::now()
 ```
 
-Fusos horários
+**Fusos horários** tendem a ser um fator complicador quando precisamos analisar informações instantâneas de outras partes do planeta, ou mesmo fazer conversões. No *lubridate* há funções para ajudar nesse ponto. Para isso, podemos utilizar a função `lubridate::with_tz()`. No R há uma listagem dos nomes que podemos utilizar no argumento **tzone** para diferentes fusos horários.
 
 ```{r}
-# agora
-agora <- lubridate::ymd_hms(lubridate::now(), tz = "America/Sao_Paulo")
-agora
-
 # verificar os tz
 OlsonNames() %>% head()
 ```
 
+Por fim, podemos nos perguntar que são em outra parte do globo, ou fazer as conversões facilmente no *lubridate*.
+
 ```{r}
 # que horas sao em...
-lubridate::with_tz(agora, tzone = "GMT")
-
-lubridate::with_tz(agora, tzone = "Europe/Stockholm")
+lubridate::with_tz(lubridate::now(), tzone = "GMT")
+lubridate::with_tz(lubridate::now(), tzone = "Europe/Berlin")
 
 # altera o fuso sem mudar a hora
-lubridate::force_tz(agora, tzone = "GMT")
+lubridate::force_tz(lubridate::now(), tzone = "GMT")
 ```
 
-Operações com datas
+Muitas vezes iremos precisa fazer **operações com datas**. Vamos 
+
+Aritmética com datas
+```{r}
+# somando datas
+inicio_r + lubridate::ddays(1)
+inicio_r + lubridate::dyears(1)
+```
+
+```{r}
+# criando datas recorrentes
+reunioes <- lubridate::today() + lubridate::weeks(0:10)
+reunioes
+```
+
+
+
+durações, períodos, intervalos
 Intervalos
 Intervalos podem ser salvos em objetos com classe interval
 
@@ -2266,19 +2264,7 @@ lubridate::int_overlaps(r_intervaloo, filho_intervalo)
 ```
 
 Operações com datas
-Aritmética com datas
-```{r}
-# somando datas
-inicio_r + lubridate::ddays(1)
 
-inicio_r + lubridate::dyears(1)
-```
-
-```{r}
-# criando datas recorrentes
-reunioes <- lubridate::today() + lubridate::weeks(0:10)
-reunioes
-```
 
 ```{r}
 # duracao de um intervalo 
