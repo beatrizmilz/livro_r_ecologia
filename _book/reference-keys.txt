@@ -548,3 +548,7 @@ tab:tab-dplyr-select
 sistema-de-coordenadas-geográficas
 sistema-de-coordenadas-projetadas
 fig:fig-r-join
+tab:tab-epsg
+para-se-aprofundar-6
+array
+visualização-de-dados-geográficos
