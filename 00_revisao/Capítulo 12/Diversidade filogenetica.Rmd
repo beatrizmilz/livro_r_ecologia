@@ -1,0 +1,956 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+# Diversidade Filogenética
+
+## Aspectos teóricos
+
+A diversidade filogenética captura a ancestralidade compartilhada entre as espécies em termos de quantidade da história evolutiva e o grau de parentesco entre as espécies. Pesquisadores tem utilizado diferentes métricas de diversidade filogenética em duas linhas de investigações principais: i) incorporar a história evolutiva das espécies na seleção das áreas prioritárias para conservação visando minimizar a perda da diversidade evolutiva (Vane-Wright et al. 1991; Faith 1992), e ii) produzir *insigths* sobre os processos atuando na montagem das comunidades (Webb et al. 2002; Helmut et al. 2007). A quantidade de artigos abordando ecologia, macroecologia e conservação com diversidade filogenética cresceram exponencialmente nas últimas décadas. Seguindo esta tendência, o número de métricas de diversidade filogénetica propostas não param de aumentar. Tucker et al. (2016) revisaram 70 métricas de diversidade filogenética e classificaram estas métricas em três dimensões: i) **riqueza** que representa a soma da diferença filogenética acumulada entre táxons; ii) **divergência** que representa a diferença filogenética média entre táxons em uma assembleia; e iii) **regularidade** que representa o quão regular são as diferenças filogenéticas entre táxons em uma assembleia. Outros autores utilizaram diferentes classificações (e.g. Pavoine & Bonsall 2011; Vellend et al. 2011; Garamszeg et al. 2014). Neste capítulo, iremos seguir a classificação de Tucker et al. (2016) e mostrar algumas das principais métricas dentro de cada uma dessas dimensões. Alguns autores recomendam que os pesquisadores não foquem em apenas uma dimensão, mas comparem métricas de diferentes dimensões (Villéger et al. 2008; Tucker et al. 2016)
+
+## Básico sobre manipulação de filogenias
+
+Nesta seção iremos descrever as linhas de comando no R para carregar uma filogenia, plotar a filogenia, acessar os dados da filogenia e excluir e adicionar espécies na filogenia. Estas são linhas de comando introdutórias e necessárias para realizarmos as análises de diversidade filogenética. Não iremos descrever os comandos necessários para construir uma filogenia. Estamos assumindo que já existe uma filogenia disponível para os organismos de interesse.
+
+Carregando o arquivo com a filogenia de 37 espécies de aves endêmicas da mata atlântica. A filogenia foi extraída de Jetz et al. (2012).
+
+```{r}
+library(ape)
+library(ecodados)
+minha_arvore <- filogenia_aves
+
+# O objeto (minha_arvore) contem o número de espécies, nome das espécies, se a árvore é enraizada e se inclui o comprimento dos ramos. 
+minha_arvore 
+```
+
+Agora vamos plotar a filogenia para visualizar as relações entre as espécies.
+
+```{r}
+library(phytools)
+plot.phylo (minha_arvore, type = "phylogram", show.tip.label = TRUE, 
+            show.node.label = TRUE, edge.color = "black", edge.width = 1.5, 
+            tip.color = "black", cex = 0.45, label.offset = 2) 
+
+```
+
+Mudando o formato de apresentação da filogenia usando o comando `type` e a cor dos ramos usando o comando `edge.color`.
+
+```{r}
+
+plot.phylo (minha_arvore, type = "fan", show.tip.label = TRUE, 
+            show.node.label = TRUE, edge.color = "blue", edge.width = 1.5, 
+            tip.color = "black", cex = 0.45, label.offset = 2) 
+```
+
+Percebam que existem várias funções para modificar largura e cor dos ramos, tamanho da fonte, distância entre a filogenia e o nomes da espécies e muito mais. Uma sugestão é olharem o blog do professor Liam Revell (<http://blog.phytools.org/>) que é o criador e mantenedor do pacote *phytools* no R.
+
+Um das características mais interessantes do R é que podemos acessar as informações do objeto. Neste caso, o nosso objeto é a filogenia, e muitas vezes, temos interesse nas informações que estão inseridas dentro da filogenia. Para sabermos quais são as informações que podemos acessar na filogenia, vamos usar o comando `names ()`.
+
+```{r}
+
+names(minha_arvore)
+
+```
+
+Percebam que temos acesso a quatro componentes da filogenia: i) nó; ii) comprimento do ramo; iii) número de nós; e iv) nome das espécies. Podemos usar o comando `$` para acessar estes componentes. Veja abaixo como acessar o nome das 37 espécies de aves na filogenia.
+
+```{r}
+
+minha_arvore$tip.label
+```
+
+ou o comprimento de cada um dos ramos da filogenia.
+
+```{r}
+
+minha_arvore$edge.length
+```
+
+Nas análises de diversidade filogenética, as espécies que estarão presentes na filogenia normalmente são aquelas que foram amostradas no seu projeto. Contudo, muitas vezes utilizamos filogenias contendo espécies que não estão presentes no nosso estudo. Neste caso, precisamos excluir essas espécies da filogenia. O comando `drop.tip ()` faz essa tarefa.
+
+```{r}
+
+# Vamos criar um novo nome para o objeto e excluir as espécies Leucopternis polionotus e Aramides saracura da filogenia
+filogenia_cortada <- drop.tip(minha_arvore, c("Leucopternis_polionotus", 
+                                              "Aramides_saracura")) 
+
+filogenia_cortada
+```
+
+Vejam que agora a filogenia tem 35 espécies de aves. As duas espécies que selecionamos foram excluídas da filogenia.
+
+Outra situação bem comum é quando precisamos inserir espécies que foram amostradas no nosso estudo, mas não estão presente na filogenia. O comando `add.species.to.genus ()` faz essa tarefa.
+
+```{r}
+
+# Vamos inserir as espécies Megascops_sp1, Carponis_sp, Strix_sp1, Strix_sp2 e Strix_sp3 na filogenia
+Megascops <- c("Megascops_sp1")
+Carpornis <- c("Carpornis_sp1")
+Strix <- c("Strix_sp1", "Strix_sp2", "Strix_sp3")
+
+filogenia_nova <- add.species.to.genus(force.ultrametric(minha_arvore), Megascops)
+filogenia_nova <- add.species.to.genus(force.ultrametric(filogenia_nova), Carpornis)
+# Para inserir mais de uma espécie dentro do gênero, vamos utilizar um loop.  
+for(i in 1:length(Strix)) 
+filogenia_nova <- add.species.to.genus(force.ultrametric(filogenia_nova),
+                                       Strix[i], where="root")
+
+plot(filogenia_nova, cex = 0.5, no.margin = TRUE)
+```
+
+## Métricas de diversidade alfa filogenética
+
+Métricas de diversidade alfa (⍺) utilizam os dados de presença e ausência ou abundância das espécies para determinar um valor de diversidade para cada comunidade ou sítio de interesse.
+
+#### Exemplo prático 1 - Medidas de diversidade filogenética
+
+**Explicação dos dados**
+
+Neste exemplo avaliaremos a diversidade filogenética de 10 comunidades de aves amostradas ao longo de um gradiente de precipitação. Utilizaremos este conjunto de dados para todos os exemplos das métricas de diversidade filogenética.
+
+**Pergunta:**
+
+> A distribuição dos valores de diversidade filogenética das comunidades está associada com o gradiente de precipitação?
+
+**Predições**
+
+> Os valores de diversidade filogenética serão maiores nas comunidades localizadas em regiões com altas precipitações do que em regiões mais secas.
+
+**Variáveis**
+
+-   Variáveis preditoras
+
+    -   Dataframe com as comunidades (unidade amostral) nas linhas e as espécies de aves nas colunas.
+    -   Dataframe com as comunidades (unidade amostral) nas linhas e a variável precipitação anual na coluna
+    -   Arquivo com a filogenia das 37 espécies de aves
+
+**Checklist**
+
+-   Verificar se os dataframes de composição de espécies e variáveis ambientais estão com as unidades amostrais nas linhas e variáveis preditores nas colunas
+
+-   Verificar se as comunidades nos dataframes de composição de espécies e variáveis ambientais estão distruídos na mesma sequencia/ordem nos dois arquivos.
+
+-   Verificar se o nome das espécies de aves no dataframe de composição de espécies é idêntico ao nome das espécies na filogenia
+
+### Análise da dimensão divergência da diversidade alfa filogenética
+
+As métricas de divergência utilizam a média da distribuição das unidades extraídas da árvore filogenética (Tucker et al. 2016).
+
+#### Mean Pairwise Distance (MPD, Webb et al. 2002)
+
+Esta métrica utiliza a matriz de distância filogenética para quantificar a média total do parentesco entre pares de espécies em uma comunidade. Este índice pode ser calculado considerando dados de presença e ausência ou considerando dados de abundância das espécies. Importante, o MPD é uma métrica basal que pesa a estrutura interna da filogenia (e.g. relações entre espécies de famílias diferentes).
+
+Abaixo demonstramos os comandos no R para o cálculo do MPD utilizando os dados das comunidades de aves.
+
+```{r}
+# Carregando o dataframe com a composição de espécies de aves nas comunidades e a filogenia com as 37 espécies. Estão na pacote ecodados. Caso ainda não tenha carregado o pacote irá precisar carrega-lo aqui. 
+composicao_especies <- composicao_aves_filogenetica
+filogenia_aves <- filogenia_aves
+
+# Confere se há nomes das espécies de aves no dataframe de composição que não estão na filogenia - zero é que os nomes estão corretos. Caso contrário, arrumar.
+setdiff(colnames(composicao_especies), filogenia_aves$tip.label)
+```
+
+Os nomes das espécies que estão na planilha são iguais aos nomes que estão na filogenia. Vamos ver o contrário.
+
+```{r}
+
+# Confere se há nomes das espécies na filogenia que não estão no dataframe de composição - zero é que os nomes estão corretos. Caso contrário, arrumar. 
+setdiff(filogenia_aves$tip.label, colnames(composicao_especies))
+
+```
+
+Os nomes das espécies são os mesmo. Podemos continuar as análises.
+
+```{r}
+# Pacote com a função para calcular o MPD 
+library(picante)
+
+# Análise com dados de presença e ausência das espécies nas comunidades
+resultados_MPD_PA <- mpd(composicao_especies, cophenetic(filogenia_aves), 
+                         abundance.weighted = FALSE)
+resultados_MPD_PA # mostra os valores de MPD para cada comunidade
+```
+
+Vamos refazer a análise do MPD, mas desta vez, considerando a abundância das espécies de aves nas comunidades.
+
+```{r}
+# Análise com dados de abundância das espécies nas comunidades
+resultados_MPD_AB <- mpd(composicao_especies, cophenetic(filogenia_aves), 
+                         abundance.weighted = TRUE)
+resultados_MPD_AB # mostra os valores de MPD para cada comunidade
+```
+
+#### Mean Nearest Taxon Distance (MNTD, Webb et al. 2002)
+
+Esta métrica utiliza a matriz de distância filogenética para quantificar a média dos valores mínimos de parentesco entre pares de espécies em uma comunidade. Este índice pode ser calculado considerando dados de presença e ausência ou considerando dados de abundância das espécies. Diferente do MPD , o MNTD é uma métrica terminal que pesa as relações nas pontas da filogenia (e.g. espécies dentro do mesmo gênero).
+
+Abaixo demonstramos os comandos no R para o cálculo do MNTD utilizando os dados das comunidades de aves.
+
+```{r}
+
+# Dados já foram carregados no exemplo do MPD
+# Pacote com a função para calcular o MNTD
+library(picante)
+
+# Análise com dados de presença e ausência das espécies nas comunidades
+resultados_MNTD_PA <- mntd(composicao_especies, cophenetic(filogenia_aves), 
+                         abundance.weighted = FALSE)
+resultados_MNTD_PA # mostra os valores de MPD para cada comunidade
+```
+
+Vamos refazer a análise do MNTD, mas desta vez, considerando a abundância das espécies de aves nas comunidades.
+
+```{r}
+
+# Análise com dados de abundância das espécies nas comunidades
+resultados_MNTD_AB <- mntd(composicao_especies, cophenetic(filogenia_aves), 
+                         abundance.weighted = TRUE)
+resultados_MNTD_AB # mostra os valores de MPD para cada comunidade
+```
+
+#### Phylogenetic Species Variability (PSV, Helmut et al. 2007)
+
+Esta métrica quantifica como a relação de parentesco filogenético diminiu a variância de um atributo hipotético (não amostrado) que é compartilhado por todas as espécies na comunidade. Quando todas as espécies em uma amostra não são aparentadas (i.e. filogenia em estrela) , o valor do PSV é 1 (um), indicando máxima variabilidade. Quando as espécies tornando-se mais aparentadas, o valor de PSV aproxima-se de 0 (zero), indicando reduzida variabilidade. Os valores esperados de PSV são estatisticamente independentes da riqueza de espécies. Importante, os valores de PSV são identicos ao MPD quando a filogenia é ultramétrica.
+
+Abaixo demonstramos os comandos no R para o cálculo do PSV utilizando os dados das comunidades de aves.
+
+```{r}
+
+# Dados já foram carregados no exemplo do MPD
+# Pacote com a função para calcular o PSV
+library(picante)
+
+# Análise com dados de presença e ausência das espécies nas comunidades
+resultados_PSV <- psv(composicao_especies,filogenia_aves)
+resultados_PSV # mostra os valores de MPD para cada comunidade
+```
+
+### Análise da dimensão riqueza da diversidade alfa filogenética
+
+As métricas de riqueza somam a quantidade da diferença filogenética presente em uma comunidade (Tucker et al. 2016).
+
+#### Phylogenetic diversity (PD, Faith 1992)
+
+Esta métrica é definda pela soma do comprimento dos ramos conectando todas as espécies. Abaixo demonstramos os comandos no R para o cálculo de PD para as comunidades de aves.
+
+```{r}
+
+# Dados já foram carregados no exemplo do MPD
+# Calculando a métrica de diversidade filogenética proposta por Faith (1992)
+library(picante)
+
+resultados_PD <- pd(composicao_especies, filogenia_aves)
+head(resultados_PD) # mostra o valor de PD e riqueza de espécies para cada comunidade
+```
+
+#### Phylogenetic Species Richness (PSR, Helmut et al. 2007)
+
+Esta métrica é calculada multiplicando a riqueza de espécies registrada na comunidade pelo PSV da comunidade. PSR é diretamente comparável ao número de espécies na comunidade, mas inclui o parestenco filogenético entre as espécies.
+
+Abaixo demonstramos os comandos no R para o cálculo do PSR utilizando os dados das comunidades de aves.
+
+```{r}
+
+# Dados já foram carregados no exemplo do MPD
+# Pacote com a função para calcular o PSR
+library(picante)
+
+# Análise com dados de composição das espécies nas comunidades
+resultados_PSR <- psr(composicao_especies,filogenia_aves)
+resultados_PSR # mostra os valores de PSR para cada comunidade
+```
+
+#### Phylogenetic Endemism (PE, Rosauer et al. 2009)
+
+Esta métrica calcula a fração dos ramos restritas a regiões específicas. PE reflete a singularidade espacial dos ramos da filogenia. PE é uma métrica proposta para auxiliar estudos de conservação estabelecendo critérios para priorizar regiões a serem conservadas com base na importância evolutiva das espécies que ocorrem nestes locais.
+
+Abaixo demonstramos os comandos no R para o cálculo do PE utilizando os dados das comunidades de aves.
+
+```{r}
+
+# Dados já foram carregados no exemplo do MPD
+# Pacote com a função para calcular PE
+library(phyloregion)
+
+# transformando data.frame em matriz
+dados_matriz <- as.matrix(composicao_especies)
+
+# Análise
+resultados_PE <- phylo_endemism(dados_matriz, filogenia_aves, 
+                               weighted = TRUE)
+resultados_PE # mostra os valores de PE para cada comunidade
+```
+
+#### Species Evolutionary Distinctiveness (ED, Redding & Mooers 2006)
+
+Esta métrica calcula qual é a fração da árvore filogenética que é atribuída para uma espécie. ED reflete quão evolutivamente isolada uma espécie é comparada com as outras espécies na filogenia. ED é uma métrica proposta para auxiliar estudos de conservação estabelecendo critérios para priorizar as espécies a serem conservadas com base na sua importância evolutiva. Portanto, apenas as informações da filogenia são utilizadas para o calculo de ED.
+
+Abaixo demonstramos os comandos no R para o cálculo do ED utilizando os dados das comunidades de aves.
+
+```{r}
+
+# Dados já foram carregados no exemplo do MPD
+# Pacote com a função para calcular ED
+library(picante)
+
+# Análise
+resultados_ED <- evol.distinct(filogenia_aves)
+resultados_ED # mostra os valores de ED para cada espécie
+```
+
+### Análise da dimensão regularidade da diversidade alfa filogenética
+
+As métricas de regularidade caracterizam como uma árvore filogenética difere de uma filogenia em estrela (i.e. uma filogenia na qual as espécies são igualmente não relacionadas; Tucker et al. 2016).
+
+#### Variance of Pairwise Distance (VPD, Clarke & Warwick 2001)
+
+Esta métrica utiliza a matriz de distância filogenética para quantificar a variância do parentesco entre pares de espécies em uma comunidade.
+
+Abaixo demonstramos os comandos no R para o cálculo do VPD utilizando os dados das comunidades de aves.
+
+```{r}
+
+# Dados já foram carregados no exemplo do MPD
+# Pacote com a função para calcular VPD
+library(pez)
+
+# transformando data.frame em matriz
+dados_matriz <- as.matrix(composicao_especies)
+
+# transformar os dados para o formato requerido pelo pacote pez
+dados <- comparative.comm (filogenia_aves, dados_matriz)
+
+# Análise
+resultados_VPD <- .vpd(dados, cophenetic(filogenia_aves))
+resultados_VPD # mostra os valores de VPD para cada comunidade
+```
+
+#### Correlação entre as métricas de diversidade alfa filogenética
+
+Vamos avaliar a correlação entre os valores das métricas de diversidade alfa filogenética
+
+```{r}
+
+# Vamos criar um data.frame com os resultados das métricas separados para as dimensões de riqueza e divergência. Não iremos fazer para regularidade pois só apresentamos uma métrica de diversidade filogenética nesta dimensão.
+
+metricas_riqueza <- data.frame(riqueza = resultados_PD$SR,
+                       PD = resultados_PD$PD,
+                       PSR = resultados_PSR$PSR,
+                       PE = resultados_PE)
+
+# gráfico
+library(GGally)
+ggpairs(metricas_riqueza, upper=list(continuous = wrap("cor", size = 4)))
+```
+
+Percebam que as três métricas apresentam entre elas correlações acima de 96%. Isso indica que as métricas são redundantes. Portanto, não há necessidade de calcular mais de uma métrica dentro da dimensão da riqueza filogenética. Percebem que as três métricas de diversidade alfa filogenética também apresentam alta correlação com a riqueza de espécies. Veja a seção de modelos nulos que controla o efeito da riqueza de espécies nas métricas de diversidade filogenética.
+
+Vamos avaliar a correlação entre os valores das métricas de diversidade alfa filogénetica para a dimensão divergência.
+
+```{r}
+
+# Vamos criar um data.frame com os resultados das métricas da dimensão divergência.
+
+metricas_divergencia <- data.frame(riqueza = resultados_PD$SR,
+                       MPD = resultados_MPD_PA,
+                       MPD_AB = resultados_MPD_AB,
+                       MNTD = resultados_MNTD_PA,
+                       MNTD_AB = resultados_MNTD_AB,
+                       PSV = resultados_PSV$PSVs)
+
+# Gráfico
+library(GGally)
+ggpairs(metricas_divergencia, upper=list(continuous = wrap("cor", size = 4)))
+```
+
+Como mencionado, as métricas MPD e PSV são identicas quando usamos uma filogenia ultramétrica. Contudo, as métricas de divergência não apresentam correlações tão altas como as métricas da dimensão riqueza. Além disso, estas métricas não são tão afetadas pela riqueza de espécies das comunidades como as métricas da dimensão riqueza.
+
+#### Associação entre as métricas de diversidade alfa filogenética e o gradiente de precipitação
+
+Vamos avaliar e plotar a relação entre os valores de algumas métrica de diversidade alfa filogenética (variável resposta) e os valores de precipitação (variável preditora).
+
+#### Gráficos das métricas da dimensão divergência da diversidade alfa filogenética
+
+```{r}
+
+# Vamos carregar a planilha com os dados de precipitação para cada comunidade. Estes dados estão no pacote ecodados já carregado no início do capítulo.
+precipitacao <- precipitacao_filogenetica
+
+# Vamos inserir os dados de precipitação na planilha metrica_divergencia
+metricas_divergencia$precipitacao <- precipitacao$prec
+
+# Gráficos
+library(ggplot2)
+library(ggpubr)
+MPD_PA_plot <- ggplot(metricas_divergencia, aes(precipitacao, MPD)) +
+        labs(x = "Precipitação (mm)", 
+             y = "Mean Pairwise Distance\n (MPD - Ausência e Presença)") +
+        geom_point(size = 5, shape = 19, col = "gray") + 
+        theme_bw() +
+        theme(panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(), 
+              axis.title.y = element_text(size = 8),
+               axis.title.x = element_text(size = 8)) +
+        geom_smooth(method = lm, se = FALSE, color = "black", linetype="dashed") +
+        geom_text(x = 1450, y = 157, label = "R2 = 0,26; P = 0,07", 
+                  color = "black", size = 2.5) 
+MPD_AB_plot <- ggplot(metricas_divergencia, aes(precipitacao, MPD_AB)) +
+        labs(x = "Precipitação (mm)", 
+             y = "Mean Pairwise Distance\n (MPD - Abundância)", size = 8) +
+        geom_point(size = 5, shape = 19, col = "gray") + 
+        theme_bw() +
+        theme(panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(),
+              axis.title.y = element_text(size = 8),
+              axis.title.x = element_text(size = 8)) +
+        geom_smooth(method = lm, se = FALSE, color = "black", linetype="dashed") +
+        geom_text(x = 1450, y = 142.5, label = "R2 = 0,25; P = 0,07", 
+                  color = "black", size = 2.5)
+MNTD_AP_plot <- ggplot(metricas_divergencia, aes(precipitacao, MNTD)) +
+        labs(x = "Precipitação (mm)", 
+             y = "Mean Nearest Taxon Distance\n (MNTD - Ausência e Presença)", 
+             size = 8) +
+        geom_point(size = 5, shape = 19, col = "gray") + 
+        theme_bw() +
+        theme(panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(),
+              axis.title.y = element_text(size = 8),
+              axis.title.x = element_text(size = 8)) +
+        geom_smooth(method = lm, se = FALSE, color = "black", linetype="dashed") +
+        geom_text(x = 2650, y = 110, label = "R2 = 0,22; P = 0,09", 
+                  color = "black", size = 2.5)
+MNTD_AB_plot <- ggplot(metricas_divergencia, aes(precipitacao, MNTD_AB)) +
+        labs(x = "Precipitação (mm)", 
+             y = "Mean Nearest Taxon Distance\n (MNTD - Abundância)", 
+             size = 8) +
+        geom_point(size = 5, shape = 19, col = "gray") + 
+        theme_bw() +
+        theme(panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(),
+              axis.title.y = element_text(size = 8),
+              axis.title.x = element_text(size = 8)) +
+        geom_smooth(method = lm, se = FALSE, color = "black") +
+        geom_text(x = 2650, y = 124, label = "R2 = 0,61; P = 0,0004", 
+                  color = "black", size = 2.5)
+ggarrange(MPD_PA_plot, MPD_AB_plot, MNTD_AP_plot, MNTD_AB_plot, nrow = 2, ncol = 2)
+```
+
+O MPD que avalia as relações de parentesco mais internas da filogenia (i.e. relações entre espécies de famílias diferentes) não apresentou associação com o gradiente de precipitação. Por outro lado, o MNTD que avalia as relações mais terminais da filogenia (i.e. espécies dentro do mesmo gênero) apresentou uma relação negativa com o gradiente de precipitação. Contudo, esta associação só foi significativa quando pesamos a análise pela abundância das espécies nas comunidades.
+
+#### Gráficos das métricas da dimensão riqueza da diversidade alfa filogenética
+
+```{r}
+
+# Vamos inserir os dados de precipitação na planilha metrica_riqueza
+metricas_riqueza$precipitacao <- precipitacao$prec
+
+# Gráficos
+library(ggplot2)
+library(ggpubr)
+Riqueza_plot <- ggplot(metricas_riqueza, aes(precipitacao, riqueza)) +
+        labs(x = "Precipitação (mm)", 
+             y = "Riqueza de espécies") +
+        geom_point(size = 5, shape = 19, col = "gray") + 
+        theme_bw() +
+        theme(panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(), 
+              axis.title.y = element_text(size = 8),
+               axis.title.x = element_text(size = 8)) +
+        geom_smooth(method = lm, se = FALSE, color = "black") +
+        geom_text(x = 2650, y = 10, label = "R2 = 0,95; P < 0,001", 
+                  color = "black", size = 2.5) 
+PD_plot <- ggplot(metricas_riqueza, aes(precipitacao, PD)) +
+        labs(x = "Precipitação (mm)", 
+             y = "Diversidade Filogenética\n (Faith)", size = 8) +
+        geom_point(size = 5, shape = 19, col = "gray") + 
+        theme_bw() +
+        theme(panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(),
+              axis.title.y = element_text(size = 8),
+              axis.title.x = element_text(size = 8)) +
+        geom_smooth(method = lm, se = FALSE, color = "black") +
+        geom_text(x = 2650, y = 620, label = "R2 = 0,90; P < 0,001", 
+                  color = "black", size = 2.5)
+PSR_plot <- ggplot(metricas_riqueza, aes(precipitacao, PSR)) +
+        labs(x = "Precipitação (mm)", 
+             y = "Phylogenetic Species Richness\n (PSR)", 
+             size = 8) +
+        geom_point(size = 5, shape = 19, col = "gray") + 
+        theme_bw() +
+        theme(panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(),
+              axis.title.y = element_text(size = 8),
+              axis.title.x = element_text(size = 8)) +
+        geom_smooth(method = lm, se = FALSE, color = "black") +
+        geom_text(x = 2650, y = 6, label = "R2 = 0,94; P < 0,001", 
+                  color = "black", size = 2.5)
+PE_plot <- ggplot(metricas_riqueza, aes(precipitacao, PE)) +
+        labs(x = "Precipitação (mm)", 
+             y = "Phylogenetic Endemism\n (PE)", 
+             size = 8) +
+        geom_point(size = 5, shape = 19, col = "gray") + 
+        theme_bw() +
+        theme(panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(),
+              axis.title.y = element_text(size = 8),
+              axis.title.x = element_text(size = 8)) +
+        geom_smooth(method = lm, se = FALSE, color = "black") +
+        geom_text(x = 2650, y = 72, label = "R2 = 0,8; P < 0,001", 
+                  color = "black", size = 2.5)
+ggarrange(Riqueza_plot, PD_plot, PSR_plot, PE_plot, nrow = 2, ncol = 2)
+```
+
+As três métricas de diversidade filogenética foram relacionadas com o gradiente de precipitação. Comunidades localizadas em áreas com maior precipitação anual abrigaram maior diversidade filogenética do que comunidades localizadas em áreas mais secas. Contudo, estas métricas são dependentes da riqueza de espécies nas comunidades. Veja a seção de modelos nulos para entender como lidar com essa dependência.
+
+## Métricas de diversidade beta filogenética
+
+Métricas de diversidade beta filogenética utilizam dados de presença e ausência ou abundância das espécies para determinar um valor que representa a diferença entre comunidades em relação a história evolutiva das linhagens.
+
+### Análise da dimensão divergência da diversidade beta filogenética
+
+#### Community Mean Pairwise Distance (COMDIST, Webb et al. 2008)
+
+Esta métrica é uma extensão do MPD. COMDIST calcula a média da distância filogenética entre as espécies de duas comunidades. COMDIST pode ser calculada usando dados de presença e ausência ou abundância das espécies. Está extensão do MPD também é conhecida na literatura como Dpw (Swenson 2011) .
+
+Abaixo demonstramos os comandos no R para o cálculo do COMDIST utilizando os dados das comunidades de aves.
+
+```{r}
+# Dados já foram carregados no exemplo do MPD
+# Pacote com a função para calcular o COMDIST
+library(picante)
+
+# Análise com dados de presença e ausência das espécies nas comunidades
+resultados_Comdist_PA <- comdist(composicao_especies, 
+                                 cophenetic(filogenia_aves), 
+                                 abundance.weighted = FALSE)
+resultados_Comdist_PA # mostra uma matriz triangular com a média da distância filogenética entre as espécies das duas comunidades
+```
+
+Vamos refazer a análise do COMDIST, mas desta vez, considerando a abundância das espécies de aves nas comunidades.
+
+```{r}
+# Análise com dados de abundância das espécies nas comunidades
+resultados_Comdist_AB <- comdist(composicao_especies, 
+                                 cophenetic(filogenia_aves), 
+                                 abundance.weighted = TRUE)
+resultados_Comdist_AB # mostra uma matriz triangular com a média da distância filogenética entre as espécies das duas comunidades
+```
+
+#### Community Mean Nearest Taxon Distance (COMDISTNT, Webb et al. 2008)
+
+Esta métrica é uma extensão do MNTD. COMDISTNT calcula a média da distância filogenética entre o táxon mais próximo das espécies de duas comunidades. COMDISTNT pode ser calculada usando dados de presença e ausência ou abundância das espécies. Está extensão do MNTD também é conhecida na literatura como Dnn (Swenson 2011) .
+
+Abaixo demonstramos os comandos no R para o cálculo do COMDISTNT utilizando os dados das comunidades de aves.
+
+```{r}
+# Dados já foram carregados no exemplo do MPD
+# Pacote com a função para calcular o COMDISTNT
+library(picante)
+
+# Análise com dados de presença e ausência das espécies nas comunidades
+resultados_Comdistnt_PA <- comdistnt(composicao_especies, 
+                                     cophenetic(filogenia_aves), 
+                                     abundance.weighted = FALSE)
+resultados_Comdistnt_PA # mostra uma matriz triangular com a média da distância filogenética entre o táxon mais próximo das espécies das duas comunidades
+```
+
+Vamos refazer a análise do COMDISTNT, mas desta vez, considerando a abundância das espécies de aves nas comunidades.
+
+```{r}
+# Análise com dados de abundância das espécies nas comunidades
+resultados_Comdistnt_AB <- comdistnt(composicao_especies, 
+                                     cophenetic(filogenia_aves), 
+                                     abundance.weighted = TRUE)
+resultados_Comdistnt_AB # mostra uma matriz triangular com a média da distância filogenética entre o táxon mais próximo das espécies das duas comunidades
+```
+
+### Análise da dimensão riqueza da diversidade beta filogenética
+
+#### Phylogenetic index of beta diversity (Phylosor, Bryant et al. 2008)
+
+Phylosor é uma métrica de similaridade e determina o comprimento total dos ramos da filogenia que é compartilhado entre pares de comunidades.
+
+Abaixo demonstramos os comandos no R para o cálculo do Phylosor utilizando os dados das comunidades de aves.
+
+```{r}
+# Dados já foram carregados no exemplo do MPD
+# Pacote com a função para calcular o Phylosor
+library(picante)
+
+# Análise com dados de presença e ausência das espécies nas comunidades
+resultados_Phylosor <- phylosor(composicao_especies,filogenia_aves)
+resultados_Phylosor # mostra uma matriz triangular com a similaridade entre a fração dos ramos compartilahdos entre duas comunidades
+```
+
+#### Unique Fraction metric (UniFrac, Lozupone & Knight 2005)
+
+UniFrac é uma métrica de dissimilaridade e determina a fração única da filogenia contida em cada uma das duas comunidades.
+
+Abaixo demonstramos os comandos no R para o cálculo da UniFrac utilizando os dados das comunidades de aves.
+
+```{r}
+# Dados já foram carregados no exemplo do MPD
+# Pacote com a função para calcular a UniFrac
+library(picante)
+
+# Análise com dados de presença e ausência das espécies nas comunidades
+resultados_UniFrac <- unifrac(composicao_especies,filogenia_aves)
+resultados_UniFrac # mostra uma matriz triangular com a fração única entre duas comunidades
+```
+
+#### Correlação entre as métricas de diversidade beta filogenética
+
+#### Vamos avaliar a correlação entre os valores das métricas de diversidade beta filogénetica
+
+```{r}
+
+# Vamos criar um data.frame com os resultados das métricas separados para as dimensões de riqueza e divergência.
+
+metricas_riqueza_beta <- data.frame(Phylosor = as.numeric(resultados_Phylosor),
+                       UniFrac = as.numeric(resultados_UniFrac))
+
+# gráfico
+library(GGally)
+ggpairs(metricas_riqueza_beta, upper=list(continuous = wrap("cor", size = 4)))
+```
+
+Os valores de Phylosor e UniFrac apresenta 99% de correlação entre eles. Portanto, essas duas métricas identificam padrões identicos e não devem ser utilizadas simultaneamente.
+
+Vamos avaliar a correlação entre os valores das métricas da diversidade beta filogénetica para a dimensão divergência.
+
+```{r}
+
+# Vamos criar um data.frame com os resultados das métricas da dimensão divergência.
+metricas_divergencia_beta <- data.frame(
+                               COMDIST_PA = as.numeric(resultados_Comdist_PA),
+                               COMDIST_AB = as.numeric(resultados_Comdist_AB),
+                               COMDISTNT_PA = as.numeric(resultados_Comdistnt_PA),
+                               COMDISTNT_AB = as.numeric(resultados_Comdistnt_AB))
+
+# gráfico
+library(GGally)
+ggpairs(metricas_divergencia_beta, upper=list(continuous = wrap("cor", size = 4)))
+```
+
+Os valores das métricas de divergência filogenética beta apresentam correlações mais baixas do que as métricas da dimensão riqueza . Lembrem-se que COMDIST e COMDISTNT dão pesos diferentes para as relações de parentesco. COMDIST pesa as relações mais basais e internas da filogenia enquanto COMDISTNT pesa as relações nas partes terminais da filogenia. Portanto, elas podem trazer informações complementares.
+
+#### Associação entre as métricas de diversidade beta filogenética e o gradiente de precipitação
+
+Vamos avaliar e plotar a relação entre os valores de algumas métrica de diversidade beta filogenética (variável resposta) e os valores de precipitação (variável preditora).
+
+#### Gráficos das métricas da dimensão divergência da diversidade beta filogenética
+
+```{r}
+
+# Planilha precipitação foi carregada na diversidade alfa filogenética
+# Precisamos calcular a dissimilaridade par a par da preciítação entre s comunidades
+library(vegan)
+dis_prec <- vegdist(precipitacao, "euclidian")
+
+# Vamos inserir estes dados na planilha metrica_divergencia_beta
+metricas_divergencia_beta$dis_prec <- as.numeric(dis_prec)
+
+# Gráficos
+library(ggplot2)
+library(ggpubr)
+COMDIST_PA_plot <- ggplot(metricas_divergencia_beta, aes(dis_prec, COMDIST_PA)) +
+        labs(x = "Diferença na precipitação (mm)", 
+             y = "COMDIST\n (Presença e Ausência)") +
+        geom_point(size = 5, shape = 19, col = "gray") + 
+        theme_bw() +
+        theme(panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(), 
+              axis.title.y = element_text(size = 8),
+               axis.title.x = element_text(size = 8)) +
+        geom_smooth(method = lm, se = FALSE, color = "black", linetype="dashed") +
+        geom_text(x = 1700, y = 153, label = "R2 = 0,00; P = 0,82", 
+                  color = "black", size = 2.5) 
+COMDIST_AB_plot <- ggplot(metricas_divergencia_beta, aes(dis_prec, COMDIST_AB)) +
+        labs(x = "Diferença na precipitação (mm)", 
+             y = "COMDIST\n (Abundância)", size = 8) +
+        geom_point(size = 5, shape = 19, col = "gray") + 
+        theme_bw() +
+        theme(panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(),
+              axis.title.y = element_text(size = 8),
+              axis.title.x = element_text(size = 8)) +
+        geom_smooth(method = lm, se = FALSE, color = "black") +
+        geom_text(x = 500, y = 155, label = "R2 = 0,24; P < 0,001", 
+                  color = "black", size = 2.5)
+COMDISTNT_PA_plot <- ggplot(metricas_divergencia_beta, aes(dis_prec, COMDISTNT_PA)) +
+        labs(x = "Diferença na precipitação (mm)", 
+             y = "COMDISTNT\n (Ausência e Presença)", 
+             size = 8) +
+        geom_point(size = 5, shape = 19, col = "gray") + 
+        theme_bw() +
+        theme(panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(),
+              axis.title.y = element_text(size = 8),
+              axis.title.x = element_text(size = 8)) +
+        geom_smooth(method = lm, se = FALSE, color = "black") +
+        geom_text(x = 1700, y = 15, label = "R2 = 0,23; P < 0,001", 
+                  color = "black", size = 2.5)
+COMDISTNT_AB_plot <- ggplot(metricas_divergencia_beta, aes(dis_prec, COMDISTNT_AB)) +
+        labs(x = "Diferença na precipitação (mm)", 
+             y = " COMDISTNT\n (Abundância)", 
+             size = 8) +
+        geom_point(size = 5, shape = 19, col = "gray") + 
+        theme_bw() +
+        theme(panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(),
+              axis.title.y = element_text(size = 8),
+              axis.title.x = element_text(size = 8)) +
+        geom_smooth(method = lm, se = FALSE, color = "black", linetype="dashed") +
+        geom_text(x = 1700, y = 80, label = "R2 = 0,01; P = 0,23", 
+                  color = "black", size = 2.5)
+ggarrange(COMDIST_PA_plot, COMDIST_AB_plot, COMDISTNT_PA_plot, 
+          COMDISTNT_AB_plot, nrow = 2, ncol = 2)
+```
+
+O COMDIST que avalia as relações de parentesco mais internas da filogenia (i.e. relações entre espécies de famílias diferentes) apresentou associação com o gradiente de precipitação quando avaliado pensando pela abundância das espécies. Por outro lado, o COMDISTNT que avalia as relações mais terminais da filogenia (i.e. espécies dentro do mesmo gênero) apresentou uma relação negativa com o gradiente de precipitação quando avaliado usando a presença e ausência das espécies.
+
+#### Gráficos das métricas da dimensão riqueza da diversidade beta filogenética
+
+```{r}
+
+# Vamos inserir os dados de precipitação na planilha metrica_riqueza_beta
+metricas_riqueza_beta$dis_prec <- as.numeric(dis_prec)
+
+# Gráficos
+library(ggplot2)
+library(ggpubr)
+Phylosor_plot <- ggplot(metricas_riqueza_beta, aes(dis_prec, Phylosor)) +
+        labs(x = "Diferença na precipitação (mm)", 
+             y = "Phylosor") +
+        geom_point(size = 5, shape = 19, col = "gray") + 
+        theme_bw() +
+        theme(panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(), 
+              axis.title.y = element_text(size = 8),
+               axis.title.x = element_text(size = 8)) +
+        geom_smooth(method = lm, se = FALSE, color = "black") +
+        geom_text(x = 1700, y =0.9, label = "R2 = 0,29; P < 0,001", 
+                  color = "black", size = 2.5) 
+UniFrac_plot <- ggplot(metricas_riqueza_beta, aes(dis_prec, UniFrac)) +
+        labs(x = "Diferença na precipitação (mm)", 
+             y = "UniFrac", size = 8) +
+        geom_point(size = 5, shape = 19, col = "gray") + 
+        theme_bw() +
+        theme(panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(),
+              axis.title.y = element_text(size = 8),
+              axis.title.x = element_text(size = 8)) +
+        geom_smooth(method = lm, se = FALSE, color = "black") +
+        geom_text(x = 1700, y = 0.2, label = "R2 = 0,30; P < 0,001", 
+                  color = "black", size = 2.5)
+ggarrange(Phylosor_plot, UniFrac_plot, nrow = 1)
+```
+
+Phylosor e UniFrac foram relacionadas com o gradiente de precipitação. Comunidades com quantidade de precipitação parecidas abrigaram linhagens similares enquanto comunidades que recebem quantidade de precipitação diferentes abrigam linhagens mais distintas.
+
+### Partição da diversidade beta filogenética
+
+As métricas, Phylosor e UniFrac, podem ser parcionadas em dois componentes (Baselga 2010; Leprieur et al. 2012): i) subsituição de espécies entre as comunidades; e ii) aninhamento que representa a perda ou ganho de espécies entre comunidades atribuídos a diferença na riqueza de espécies. A partição da diversidade beta nestes componentes permite avaliar diferentes hipóteses sobre os processos e mecanismos atuando na montagem de comunidades.
+
+Abaixo demonstramos os comandos no R para o cálculo da partição da diversidade beta filogenética utilizando os dados das comunidades de aves.
+
+```{r}
+# Dados já foram carregados no exemplo do MPD
+# Pacote com a função para calcular a partição dos componentes do Phylosor
+library(betapart)
+
+# temos que transformar os dados para presença e ausência das espécies nas comunidades
+library (vegan)
+dados_PA <- decostand(composicao_especies, "pa")
+
+# Partição dos componentes do Phylosor
+resultados_Phylosor_particao <- phylo.beta.pair(dados_PA,
+                                                filogenia_aves, 
+                                                index.family = "sorensen")
+resultados_Phylosor_particao # mostra três matrizes: i) dissimilaridade total (phylo.beta.sor), ii) componente de substituição de espécies (phylo.beta.sim); e iii) componente aninhamento (phylo.beta.sne).
+```
+
+Vamos refazer a análise para UniFrac.
+
+```{r}
+# Partição dos componentes do UniFrac
+resultados_UniFrac_particao <- phylo.beta.pair(dados_PA,
+                                                filogenia_aves, 
+                                                index.family = "jaccard")
+resultados_UniFrac_particao # mostra três matrizes: i) dissimilaridade total (phylo.beta.jac), ii) componente substituição de espécies (phylo.beta.jtu); e iii) componente aninhamento (phylo.beta.jne).
+```
+
+#### Gráficos com os resultados da partição da diversidade beta filogenética
+
+Gráfico com os resultados dos componentes substituição e aninhamento da diversidade beta filogenética - Phylosor
+
+```{r}
+
+# Vamos preparar os dados para o gráfico
+particao_phylosor <- data.frame(
+      substituicao = as.numeric(resultados_Phylosor_particao$phylo.beta.sim),
+      aninhamento = as.numeric(resultados_Phylosor_particao$phylo.beta.sne),
+      sorensen = as.numeric(resultados_Phylosor_particao$phylo.beta.sor),
+      dis_prec = as.numeric(dis_prec))
+
+library(reshape2)
+dados_phylosor <- melt(particao_phylosor, id.vars="dis_prec")
+
+# Gráficos
+library(ggplot2)
+ggplot(dados_phylosor, aes(dis_prec, value, col = variable)) +
+        labs(x = "Diferença na precipitação (mm)", 
+             y = "Diversidade beta filogenética") +
+        geom_point(size = 5, shape = 19) + 
+        scale_color_manual(labels = c("Substituição", "Aninhamento", "Sorensen"),
+                           values = c("substituicao" = "red", 
+                                      "aninhamento" = "blue",
+                                      "sorensen" = "black")) +
+        theme_bw() +
+        theme(panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(), 
+              axis.title.y = element_text(size = 8),
+               axis.title.x = element_text(size = 8),
+              legend.position = "bottom",
+              legend.title = element_blank()) +
+        geom_smooth(method = lm, fill = NA) +
+        geom_text(x = 1700, y =0.9, label = "R2 = 0,29; P < 0,001", 
+                  color = "black", size = 2.5) 
+```
+
+Gráfico com os resultados dos componentes substituição e aninhamento da diversidade beta filogenética - UniFrac
+
+```{r}
+
+# Vamos preparar os dados para o gráfico
+particao_UniFrac <- data.frame(
+        substituicao = as.numeric(resultados_UniFrac_particao$phylo.beta.jtu),
+        aninhamento = as.numeric(resultados_UniFrac_particao$phylo.beta.jne),
+        jaccard = as.numeric(resultados_UniFrac_particao$phylo.beta.jac),
+        dis_prec = as.numeric(dis_prec))
+
+library(reshape2)
+dados_unifrac <- melt(particao_UniFrac, id.vars="dis_prec")
+
+# Gráficos
+library(ggplot2)
+ggplot(dados_unifrac, aes(dis_prec, value, col = variable)) +
+        labs(x = "Diferença na precipitação (mm)", 
+             y = "Diversidade beta filogenética") +
+        geom_point(size = 5, shape = 19) + 
+        scale_color_manual(labels = c("Substituição", "Aninhamento", "Jaccard"),
+                           values = c("substituicao" = "red", 
+                                      "aninhamento" = "blue",
+                                      "jaccard" = "black")) +
+        theme_bw() +
+        theme(panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(), 
+              axis.title.y = element_text(size = 8),
+               axis.title.x = element_text(size = 8),
+              legend.position = "bottom",
+              legend.title = element_blank()) +
+        geom_smooth(method = lm, fill = NA) +
+        geom_text(x = 1700, y =0.9, label = "R2 = 0,29; P < 0,001", 
+                  color = "black", size = 2.5)
+```
+
+Percebam que nos dois gráficos o componente substituiçao é maior entre comunidades que apresentam diferenças altas na quantidade de precitação enquanto o componente aninhamento é maior entre as comunidades apresentam quantidade similar de precipitação.
+
+## Modelos Nulos
+
+Em muitos casos os valores de diversidade filogenética são correlacionados com a riqueza de espécies nas comunidades. Por exemplo, se um pesquisador relata que duas comunidades apresentam diferentes valores de PD, é impossível saber se esta diferença é simplesmente porque elas tem diferentes valores de riqueza de espécies ou se há algum fator fundamental sobre a informação filogenética que é importante. Outra questão abordada nos estudos de montagem das comunidades é saber se os valores observados para as métricas (e.g. MPD ou MNTD) relacionadas com a estrutura filogenética das comunidades seriam diferentes se a colonização das espécies do pool regional fosse aleatória? Os modelos nulos respondem estas perguntas.
+
+Os modelos nulos são construídos considerando processos ecológicos ou evolutivos de interesse. Eles geram padrões que são baseados na aleatorização dos dados ecológicos ou amostragens aleatórias de uma distribuição conhecida ou hipótetica (Gotelli & Graves 1996). Neste caso, alguns elementos dos dados são mantidos constantes, e outros são permitidos variar estocasticamente para criar novos padrões. O principal motivo para a construção de modelos nulos é produzir um padrão que seria esperado na ausência de um mecanismo ecológico específico (Gotelli & Graves 1996). Contudo, ressaltamos que os modelos nulos podem revelar padrões não comuns, mas eles não podem determinar os mecanismos responsáveis por gerar estes padrões (Gotelli & Graves 1996).
+
+Os modelos nulos empregados para contrapor os padrões observados pelas métricas de diversidade filogenética utilizam a aleatorização dos dados de duas formas principais: i) aleatorizando o nome das espécies na árvore filogenética mantendo a estrutura e composição da matriz de co-ocorrência das espécies e o comprimento dos ramos da árvore inalterados; e ii) aleatorizando as linhas e/ou colunas da matriz de co-ocorrência das espécies (Gotelli 2000; Ulrich & Gotelli 2010). De forma geral, nas análises de diversidade filogenética as aleatorizações são repetidas 999 vezes (pode ser mais ou menos a critério do pesquisador) e calcula-se a média e o desvio padrão dos valores gerados pelo modelos. Com estes dados, calcula-se o tamanho do efeito padronizado (do inglês Standardized Effect Size - SES) utilizando a seguinte fórmula:
+
+> SES = (Valor Observado - Média dos valores gerados na aleatorização)/ Desvio Padrão dos valores gerados na aleatorização
+
+Os valores de SES são utilizados para rejeitar ou não a hipótese nula que o padrão observado é diferente do esperado pelo acaso. Contudo, tenha em mente que a definição do esquema de aleatorização dos modelos nulos não é meramente uma questão técnica (Gotzenberger et al. 2012). A definição do esquema de aleatorização irá determinar quais os mecanismos ecológicos são permitidos ou excluídos no modelo nulo (Gotzenberger et al. 2012). Consequentemente, ele estará avaliando diferentes hipóteses nulas.
+
+Abaixo demonstramos os comando no R para calcular os modelos nulos para as métricas de diversidade filogenética.
+
+#### Nearest Relative Index (NRI) ou Standardized Effect Size of MPD (Webb et al. 2008)
+
+Esta métrica calcula o tamanho do efeito padronizado para a métrica MPD. Contudo, NRI é calculado multiplicando os resultados do SES por -1. Valores positivos de NRI indicam agrupamento filogenético e valores negativos de NRI indicam dispersão filogenética.
+
+```{r}
+# NRI ou SES_MPD 
+resultados_SES_MPD <- ses.mpd(composicao_especies, cophenetic(filogenia_aves),
+                              null.model = "taxa.labels", 
+                              abundance.weighted = FALSE,
+                              runs = 999) 
+resultados_SES_MPD # mostra a riqueza de espéices,MPD observado, média e desvio padrão dos valores de MPD das aleatorizações, SES e o valor de p.
+```
+
+Veja a ajuda deste comando usando`?ses.mpd` para ver todas as possibilidades de modelos nulos disponíveis.
+
+#### Nearest Taxon Index (NTI) ou Standardized Effect Size of MNTD (Webb et al. 2008)
+
+Esta métrica calcula o tamanho do efeito padronizado para a métrica MNTD. Contudo, NTI é calculado multiplicando os resultados do SES por -1. Valores positivos de NTI indicam agrupamento filogenético e valores negativos de NTI indicam dispersão filogenética.
+
+```{r}
+# NTI ou SES_MNTD 
+resultados_SES_MNTD <- ses.mntd(composicao_especies, cophenetic(filogenia_aves),
+                              null.model = "taxa.labels", 
+                              abundance.weighted = FALSE,
+                              runs = 999) 
+resultados_SES_MNTD # mostra a riqueza de espéices,MNTD observado, média e desvio padrão dos valores de MNTD das aleatorizações, SES e o valor de p.
+```
+
+#### Standardized Effect Size of PD (Webb et al. 2008)
+
+Esta métrica calcula o tamanho do efeito padronizado para a métrica PD.
+
+```{r}
+# SES_PD 
+resultados_SES_PD <- ses.pd(composicao_especies, filogenia_aves,
+                              null.model = "independentswap", 
+                              runs = 999) 
+resultados_SES_PD # mostra a riqueza de espéices,MNTD observado, média e desvio padrão dos valores de PD das aleatorizações, SES e o valor de p.
+```
+
+#### Standardized Effect Size of Phylosor
+
+Não há pacotes que calculam o SES para a métrica Phylosor. Assim, iremos usar o comando `phylosor.rnd()`para criar modelos nulos para o Physolor, e em seguida, iremos usar uma função para calcular os valores de SES e os valores de P.
+
+```{r}
+# Modelo nulo que rearranja o nome das espécies na filogenia 
+
+modelos_nulo <- phylosor.rnd(composicao_especies, filogenia_aves, 
+                             null.model = "taxa.labels", runs = 9)
+
+# Função para calcular o SES eo valor de P
+ses.physo <- function(obs, nulo_phylosor){
+  nulo_phylosor <- t(as.data.frame(lapply
+			(nulo_phylosor, as.vector)))
+  physo.obs <- as.numeric(obs)
+  physo.mean <- apply(nulo_phylosor, MARGIN = 2, 
+	FUN = mean, na.rm = TRUE)
+  physo.sd <- apply(nulo_phylosor, MARGIN = 2, 
+	FUN = sd, na.rm = TRUE)
+  physo.ses <- (physo.obs - physo.mean)/physo.sd
+  physo.obs.rank <- apply(X = rbind(physo.obs, 
+		nulo_phylosor), MARGIN = 2, 
+		FUN = rank)[1, ]
+  physo.obs.rank <- ifelse(is.na(physo.mean), NA, 
+				physo.obs.rank)
+  data.frame(physo.obs, physo.mean, physo.sd, 
+		physo.obs.rank, physo.ses, 
+		physo.obs.p = physo.obs.rank/
+		(dim(nulo_phylosor)[1] + 1))
+}
+
+ses.physo (resultados_Phylosor, modelos_nulo)
+```
+
+### Para se aprofundar
+
+-   Recomendamos aos interessados os livros: i) Swenson (2014) Functional and Phylogenetic Ecology in R; ii) Paradis (2012) Analysis of Phylogenetics and Evolution in R; iii) Cadotte & Davies (2016) Phylogenies in Ecology, iv) Gotelli & Graves (2006) Null Models in Ecology; e v) Magurran & McGill (2010) - Biological Diversity Frontiers in Measurement and Assessment.
+
+### Referências

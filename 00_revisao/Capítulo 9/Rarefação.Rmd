@@ -1,0 +1,316 @@
+---
+bibliography: references.bib
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+# 6. Rarefação
+
+## 6.1 Background da análise
+
+Um das dificuldades na comparação da riqueza de espécies entre comunidades é decorrente da diferença no esforço amostral (e.g.diferença no número de indivíduos, discrepância na quantidade de unidades amostrais ou área amostrada) que inevitavelmente influenciará no número de espécies observadas [@gotelli2013]. O método de rarefação nos permite comparar o número de espécies entre comunidades quando o tamanho da amostra ou a abundância de indivíduos não são iguais. A rarefação calcula o número esperado de espécies em cada comunidade tendo como base comparativa um valor em que todas as amostras atinjam um tamanho padrão, ou comparações baseadas na comunidade com menor número de amostragens ou com menos indivíduos. O teste foi formulado considerando seguinte pergunta: Se considerarmos *n* indivíduos ou amostras (*n* \< N) para cada comunidade, quantas espécies registraríamos nas comunidades considerando o mesmo número de indivíduos ou amostras?
+
+> $$E(S) = \sum 1 - \frac{{(N - N_1)}/{n}}{{N}/{n}}$$
+
+Onde:
+
+-   E(S) = Número de espécies esperado,
+
+-   N = Número total de indivíduos na amostra,
+
+-   Ni = Número de indivíduos da iésima espécie,
+
+-   *n* = tamanho da amostra padronizada (menor amostra).
+
+> #### Gotelli & Colwell [-@gotelli2001] descrevem este método e discutem em detalhes as restrições sobre seu uso na ecologia:
+>
+> -   As amostras a serem comparados devem ser consistentes do ponto de vista taxonômico, ou seja, todos os indivíduos devem pertencer ao mesmo grupo taxonômico;
+> -   As comparações devem ser realizadas somente entre amostras com as mesmas técnicas de coleta;
+> -   Os tipos de hábitat onde as amostras são obtidas devem ser semelhantes;
+> -   É um método para estimar a riqueza de espécies em uma amostra menor -- não pode ser usado para extrapolar e estimar riqueza.
+
+Contudo, é importante ressaltar que esta última restrição foi superada por Colwell et al. [-@colwell2012] e Chao & Jost [-@chao2012] que desenvolveram uma nova abordagem onde os dados podem ser interpolados (rarefeito) para amostras menores e extrapolados para amostras maiores.
+
+<p>
+
+ 
+
+</p>
+
+#### 6.2 Exemplo prático 1 - Morcegos
+
+##### 6.2.1 Explicação dos dados
+
+Neste exemplo usaremos os dados de espécies de morcegos amostradas em três fragmentos florestais [@breviglieri2008]: i) Mata Ciliar do Córrego Talhadinho com 12 hectares inserida em uma matriz de pastagem; ii) Mata Ciliar do Córrego dos Tenentes com 10 hectares inserida em uma matriz de cultivo de cana-de-açúcar e pastagem; e iii) Fazenda Experimental de Pindorama com 128 hectares inserida uma matriz de cana-de-açúcar e pastagem.
+
+**Pergunta:**
+
+> A riqueza de espécies de morcegos é maior na Fazenda Experimental do que nos fragmentos florestais menores?
+
+**Predições**
+
+> O número de espécies será maior em fragmentos florestais maiores.
+
+**Variáveis**
+
+-   Variáveis preditoras
+
+    -   matriz ou dataframe com as abundâncias das espécies de morcegos registradas nos três fragmentos florestais
+
+**Checklist**
+
+-   Verificar se a sua matriz ou dataframe estão com as espécies nas linhas e os fragmentos florestais nas colunas
+
+### 6.2.2 Análise
+
+Calculo da rarefação
+
+```{r}
+library(iNEXT)
+library(devtools)
+library(ecodados)
+
+dados_rarefacao <- rarefacao_morcegos
+resultados_morcegos <- iNEXT(dados_rarefacao, q = 0, 
+                             datatype = "abundance", endpoint = 800)
+# q refere-se a família *Hill-numbers* (Hill 1973) onde 0 = riqueza de espécies, 1 =  diversidade de Shannon, e 2 = diversidade de Simpson.
+# datatype refere-se ao tipo de dados que você vai analisar (e.g. abudância, incidência).
+# endpoint refere-se ao valor de referência que você determina para a extrapolação.
+
+# Visualizar os resultados 
+ggiNEXT(resultados_morcegos, type = 1)
+```
+
+**6.2.3 Interpretação dos resultados**
+
+Foram registrados 166 indivíduos na MC\_Tenentes, 413 na MC\_Talhadinho e 223 na FF\_Experimental. Lembrando, você não pode comparar a riqueza de espécies observada diretamente: 15 espécies na MC\_Tenentes, 17 espécies na MC\_Talhadinho, e 13 espécies no FF\_Experimental. A comparação da riqueza de espécies entre as comunidades deve ser feita com base na riqueza de espécies rarefeita que é calculada com base no número de indivíduos da comunidade com menor abundância (166 indivíduos). Olhando o gráfico é possível perceber que a riqueza de espécies de morcegos rarefeita não é diferente entre os três fragmentos florestais quando corrigimos o problema da abundância pela rarefação. A interpretação é feita com base no intervalo de confiança de 95%. As curvas serão diferentes quando os intervalos de confiança não se sobreporem [@chao2014]. Percebam que está abordagem, além da interpolação (rarefação), também realiza extrapolações que podem ser usadas para estimar o número de espécies caso o esforço de coleta fosse maior. Este é o assunto do nosso próximo capítulo.
+
+<p>
+
+ 
+
+</p>
+
+#### 6.3 Exemplo prático 2 - Anuros e Répteis
+
+##### 6.3.1 Explicação dos dados
+
+Neste exemplo iremos comparar o número de espécies de anuros e répteis (serpentes e lagartos) usando informações dos indivíduos depositados em coleções científicas e coletas de campo [@silva2017].
+
+**Pergunta:**
+
+> A riqueza de espécies de anuros e répteis é maior em coleções científicas do que nas coletas de campo?
+
+**Predições**
+
+> O número de espécies será maior em coleções científicas devido ao maior esforço amostral (i.e. maior variação temporal para depositar os indíviduos e maior número de pessoas contribuindo com as informações de diferentes estudos e/ou coletas esporádicas).
+
+**Variáveis**
+
+-   Variáveis preditoras
+
+    -   matriz ou dataframe com as abundâncias das espécies de anuros e répteis (planilhas separadas) registradas em coleções científicas e coletas de campo.
+
+**Checklist**
+
+-   Verificar se a sua matriz ou dataframe estão com as espécies nas linhas e a fonte dos dados nas colunas.
+
+### 6.3.2 Análise
+
+Calculo da rarefação para os dados de répteis
+
+```{r}
+rarefacao_repteis <- rarefacao_repteis
+resultados_repteis <- iNEXT(rarefacao_repteis, q = 0,
+                            datatype = "abundance", endpoint = 200)
+
+# Visualizar os resultados 
+ggiNEXT(resultados_repteis, type = 1)
+```
+
+**6.3.3 Interpretação dos resultados - répteis**
+
+Foram registradas oito espécies de répteis nas coletas de campo (40 indivíduos) e 28 espécies nas coleções científicas (77 indivíduos). Com base na rarefação, concluímos que a riqueza de espécies de répteis obtida nas coleções científicas é 2,5 vezes maior do que a obtida em coletas de campo.
+
+<p>
+
+ 
+
+</p>
+
+Calculo da rarefação para os dados dos anuros
+
+```{r}
+rarefacao_anuros <- rarefacao_anuros
+resultados_anuros <- iNEXT(rarefacao_anuros, q = 0, 
+                           datatype = "abundance", endpoint = 800)
+
+# Visualizar os resultados 
+ggiNEXT(resultados_anuros, type = 1, grey = TRUE)
+```
+
+**6.3.4 Interpretação dos resultados - anuros**
+
+Foram registradas 21 espécies de anuros nas coletas de campo (709 indivíduos) e 12 espécies nas coleções científicas (37 indivíduos). Com base na rarefação, concluímos que não há diferença entre a riqueza de espécies de anuros obtida em coletas de campo e coleções científicas.
+
+<p>
+
+ 
+
+</p>
+
+#### 6.4 Exemplo prático 3 - Generalized Least Squares (GLS)
+
+##### 6.4.1 Explicação dos dados
+
+Neste exemplo iremos refazer o exercício do Capítulo 6 onde usamos generalized least squares (GLS) para testar a relação da riqueza de ácaros com a quantidade de água no substrato. Contudo, ao invés de considerar a riqueza de espécies de ácaros observada como variável resposta, iremos utilizar a riqueza rarefeita para controlar o efeito da amostragem (i.e. diferentes abundâncias entre as comunidades). Os dados que usaremos estão disponíveis no pacote *vegan* e representa a composição de espécies de ácaros amostradas em 70 comunidades.
+
+**Pergunta:**
+
+> A riqueza rarefeita de espécies de ácaros é maior em comunidades localizadas em áreas com substratos secos?
+
+**Predições**
+
+> O número de espécies rarefeita será maior em substratos secos uma vez que as limitações fisiológicas impostas pela umidade limitam a ocorrência de várias espécies de ácaros.
+
+**Variáveis**
+
+-   Variáveis preditoras
+
+    -   matriz ou dataframe com as abundâncias das espécies de ácaros registradas em 70 comunidades.
+
+**Checklist**
+
+-   Verificar se a sua matriz ou dataframe estão com as espécies nas linhas e as comunidades nas colunas.
+
+### 6.4.2 Análise
+
+Vamos iniciar carregando os dados do pacote *vegan* [@oksanen2019]*,* e depois, calcular a riqueza rarefeita com base na comunidade com menor abundância.
+
+```{r}
+library(vegan)
+
+# Carregando os dados de composição disponível no pacote vegan
+data("mite")
+
+# Os dados estão com as comunidades nas colunas e as espécies nas linhas. Para as análises teremos que transpor a planilha.
+composicao_acaros <- t(mite)
+
+# Verificar qual é a menor abundância registrada nas comunidades. 
+min(colSums(composicao_acaros))
+
+# Calcular a riqueza rarefeita de espécies para todas as comunidades considerando a menor abundância. Para padronizar e facilitar a extração dos resultados, definimos o knots e o endpoint com o valor de abundância = 8.
+resultados_rarefacao <- iNEXT(composicao_acaros, q = 0, 
+                              datatype = "abundance", 
+                              knots = 8, endpoint = 8)
+
+# Criando um loop para extrair a riqueza rarefeita para as 70 comunidades
+resultados_comunidades <- data.frame()
+riqueza_rarefeita <- c()
+for (i in 1:70){
+resultados_comunidades <- data.frame(resultados_rarefacao$iNextEst[i])
+riqueza_rarefeita[i] <- resultados_comunidades[8,4]
+}
+```
+
+Agora, seguindo os passos descritos no Capítulo 6, vamos identificar o melhor modelo que representa a estrutura espacial dos dados da riqueza rarefeita.
+
+```{r}
+library(nlme)
+library(dplyr)
+library(piecewiseSEM)
+
+# carregando as coordenadas geográficas das comunidades
+data("mite.xy")
+coord <- mite.xy
+colnames(coord) <- c("long", "lat")
+
+# Carregando os dados das variáveis ambientais e separando a variável preditora concentração de água 
+data("mite.env")
+agua <- mite.env[,2]
+
+# Agrupando os dados em um dataframe final
+dados_combinado <- data.frame(riqueza_rarefeita, agua, coord)
+
+# Criando diferentes modelos usando a função gls 
+# sem estrutura espacial
+no_spat_gls <- gls(riqueza_rarefeita ~ agua, data = dados_combinado, 
+                   method = "REML")
+
+# Covariância esférica 
+espher_model <- gls(riqueza_rarefeita ~ agua, data = dados_combinado, 
+                    corSpher(form=~lat+long, nugget = TRUE))
+
+# Covariância exponencial 
+expon_model <- gls(riqueza_rarefeita ~ agua, data = dados_combinado, 
+                   corExp(form=~lat+long, nugget = TRUE))
+
+# Covariância Gaussiana 
+gauss_model <- gls(riqueza_rarefeita ~ agua, data = dados_combinado, 
+                   corGaus(form=~lat+long, nugget = TRUE))
+
+# Covariância razão quadrática 
+ratio_model <- gls(riqueza_rarefeita ~ agua, data = dados_combinado, 
+                   corRatio(form=~lat+long, nugget = TRUE))
+
+```
+
+Agora vamos usar o AIC para selecionar o modelo mais "provável" explicando a distribuição da riqueza rarefeita das espécies de ácaros.
+
+```{r}
+# Seleção dos modelos
+aic_fit <- AIC(no_spat_gls, espher_model, expon_model, 
+               gauss_model, ratio_model)
+
+aic_fit %>% arrange(AIC)
+
+# Visualizando os resíduos do modelo selecionado
+plot(gauss_model)
+```
+
+Percebam que os pontos estão dispersos no gráfico e não apresentam padrões que indiquem heterogeneidade de variância.
+
+```{r}
+# Visualizando os resultados 
+summary(gauss_model)$tTable 
+
+# Calculando o R-squared
+rsquared(gauss_model)
+
+# Plotando os resultados no gráfico. 
+library(ggplot2)
+predito <-  predict(gauss_model) 
+
+ggplot(data = dados_combinado, aes(x= agua, y= riqueza_rarefeita)) + 
+  labs(x = "Concentração de água no substrato", 
+       y = "Riqueza rarefeita \ndas espécies de ácaros", size = 15) +
+  geom_point(size = 6, shape = 21, fill = "gray") +
+  theme_bw() +
+  theme(axis.title.y = element_text(size = 15), 
+        axis.title.x = element_text(size = 15)) +
+  theme(axis.text.y = element_text(size = 15), 
+        axis.text.x = element_text(size = 15)) +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        panel.border = element_rect(colour = "black", fill=NA, size = 2)) +
+  geom_line(aes(y = predito), size = 1)
+```
+
+**6.4.3 Interpretação dos resultados**
+
+A concentração de água no substrato explica 29,9% da variação na riqueza rarefeita das espécies de ácaros. Como predito, a riqueza de espécies de ácaros foi maior em comunidades localizadas em áreas com substratos secos do que em áreas com substratos úmidos (t = -4.71, P \< 0.01).
+
+### 6.5 Para se aprofundar
+
+-   Recomendamos aos interessados que olhem a página do [EstimateS software](http://viceroy.eeb.uconn.edu/estimates) e baixem o manual do usuário que contém informações detalhadas sobre os índices de rarefação. Este site foi criado e é mantido pelo Dr. Robert K. Colwell, um dos maiores especialistas do mundo em estimativas da biodiversidade
+
+-   Recomendamos também o livro *Biological Diversity Frontiers in Measurement and Assessment* [@magurran2011].
+
+### 6.6 Referências

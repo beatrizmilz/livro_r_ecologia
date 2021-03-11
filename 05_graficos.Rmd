@@ -1,1 +1,540 @@
-# Gráficos
+# Visualização de dados {#graficos}
+
+## Introdução
+
+A visualização de dados através de gráficos geralmente é a melhor forma de apresentar e discutir seus dados, fazendo uma uma síntese para melhor entendimento de padrões. Geralmente, os gráficos são necessários em quase todas as análises estatísticas, além de enriquecer a argumentação e discussão de hipóteses levatandas para publicações, trabalhos de consultoria, TCC, dissertação, tese, etc.
+
+Dessa forma, dedicamos esse capítulo inteiramente a apresentar os principais conceitos, como a gramática de gráficos, um guia de bolso de gráficos apresentando os principais tipos de gráficos baseados nas variáveis representadas, e no último tópico focamos na finalização de gráficos para publicação.
+
+Existem uma ampla gama de pacotes para fazer gráficos no R, sendo esse um ponto muito forte dessa linguagem: a ampla disponibilidade, e como esses pacotes se ajustam aos mais diferentes tidos de dados, além da praticidade, sendo que a maior parte dos pacotes possui uma sintaxe relativamente simples para a apresentação de gráficos excelentes e de ótima qualidade. Mais adiante no Capítulo \@ref(geo-r), dicutimos como usar o R para a construção de mapas.
+
+## Principais pacotes
+
+Fazemos aqui uma listagem dos principais pacotes para fazer gráficos:
+
+- [*graphics*](http://search.r-project.org/R/library/graphics/html/00Index.html): é o pacote *default* do R para produzir gráfios simples, porém útil para visualizações rápidas de quase todos as classes de objetos. Possui funções como: `plot()`, `hist()`, `barplot()`, `boxplot()`, `abline()`, `points()`, `lines()` e `polygon()`.
+
+- [*ggplot2*](https://ggplot2.tidyverse.org/): pacote integrado ao *tidyverse* (Capítulo \@ref(tidy)), possui uma sintaxe própria baseada na grática de gráficos por camadas (*layers*), necessitando de funções específicas para objetos de classes diferentes, demandando geralmente mais tempo para realização. Possui funções como `ggplot()`, `aes()`, `geom_*()`, `facet_*()`, `stats_*()`, `coord_*()` e `theme_*()`, que são conectadas pelo operador `+`. 
+
+- [*ggplot2 extentions*](https://exts.ggplot2.tidyverse.org/): conjunto de pacotes que adicionam diversas expansões ao pacote ggplot2. Exemplos: [*gganimate*](https://gganimate.com/), [*GGally*](https://ggobi.github.io/ggally/), [*patchwork*](https://patchwork.data-imaginist.com/) e [*esquisse*](https://dreamrs.github.io/esquisse/).
+
+- [*visdat *](https://docs.ropensci.org/visdat/): Crie visualizações preliminares de dados exploratórios de um conjunto de dados inteiro para identificar problemas ou recursos inesperados usando 'ggplot2'. Possui diversas funções específicas: `vis_dat()` - visão geral dos dados, `vis_miss()` - visão de dados faltantes (`NA`), `vis_compare()` - visualiza a diferença entre dados.
+
+- [*ggpubr*](https://rpkgs.datanovia.com/ggpubr/): pacote que fornece funções simplificadas para criar e personalizar gráficos para publicação baseados no "ggplot2". Possui funções específicas: `gghistogram()`, `ggdensity()`, `ggboxplot()`, `ggviolin()`, `ggbarplot()` e `ggscatter()`.
+
+- [plotly](https://plotly.com/r/): pacote para criar gráficos interativos da web por meio da biblioteca gráfica de JavaScript de código aberto [plotly.js](https://plotly.com/). Também possui funções específicas: `plot_ly()`, `add_histogram()`, `add_bars()`, `add_boxplot()`, `add_markers()`, `add_paths()`, `add_lines()` e `add_polygons()`.
+
+## Grámatica dos gráficos
+
+
+    ggplot(data = <DATA>) + 
+      <GEOM_FUNCTION>(
+         mapping = aes(<MAPPINGS>),
+         stat = <STAT>, 
+         position = <POSITION>
+      ) +
+      <COORDINATE_FUNCTION> +
+      <FACET_FUNCTION> +
+      <SCALE_FUNCTION> +
+      <THEME_FUNCTION>
+      
+### ggplot2
+
+```{r}
+# carregar o pacote
+library(ggplot2)
+library(tidyverse)
+```
+      
+## Guia de bolso de gráficos no R
+
+Existem vários tipos de gráficos para diferentes tipos de finalidades, até mesmo mais de um para representar o mesmo tipo de dado. Nesta seção, focaremos nos gráficos mais simples, para representar um ou duas variáveis.
+
+Dependendo do tipo de variável (categórica ou contínua - veja os tipos no Capítulo \@ref(perguntas-ecologia)) os gráficos mais indicados para representar os dados mudam. Resumindo de forma bastante simplificada, nossos gráficos são representações dos nossos dados tabulares. Dessa forma, os eixos representam as colunas e as feições (pontos, linhas, barras, caixas, etc.) representam as linhas.
+
+Geralmente, nossos gráficos vão ser a representação de uma ou duas colunas, quando muito três, em gráficos de três dimensões. Para mais colunas, partimos para dados agregados que são vistos nos capítulo de análise multivariada.
+
+### Tipos de gráficos
+
+Nesta seção, listamos os principais gráficos, e uma descrição de quantas colunas e o tipo de variável que eles representam.
+
+- **Histograma (*histogram*)**: distribuição de frequência de uma coluna para dados contínuos
+- **Gráfico de densidade (*density plot*)**: distribuição da densidade de uma coluna para dados contínuos
+- **Diagrama de pontos (*dot plot*)**: distribuição da quantidade de valores agrupados de uma coluna para dados contínuos
+- **Gráfico de setores (*pie chart* e *donut chart*)**: representação da quantidade de valores de uma coluna para dados categóricos, geralmente em proporção ou porcentagem
+- **Gráfico de barras (*bar plot*)**: representação da quantidade de valores de uma ou mais colunas para dados categóricos
+- **Gráfico de caixa (*box plot*)**: distribuição de valores contínuos de uma coluna (Y) para dois ou mais fatores categóricos de outra coluna (X) no formato de caixas
+- **Gráfico de violino (*violin plot*)**: distribuição de valores contínuos de uma coluna (Y) para dois ou mais fatores categóricos de outra coluna (X) no formato de "violinos" (considerando a variação)
+- **Gráfico de dispersão (*scatter plot*)**: relação entre valores de duas colunas para dados contínuos (X e Y)
+- **Gráfico pareado (*pairs plot*)**: relação entre valores de duas colunas para dados contínuos (X e Y), para colunas par a par
+
+### palmerpenguins
+
+Para exemplicar o funcionamento dessas funções, usaremos os dados de medidas de pinguins chamados [**palmerpenguins**](https://allisonhorst.github.io/palmerpenguins). Esses dados estão disponíveis no pacote *palmerpenguins*.
+
+```{r eval=FALSE}
+# instalar o pacote
+install.packages("palmerpenguins")
+```
+
+Esses dados foram coletados e disponibilizados pela [Dra. Kristen Gorman](https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php) e pela [Palmer Station, Antarctica LTER](https://pal.lternet.edu/), membro da Long Term Ecological Research Network.
+
+O pacote *palmerpenguins* contém dois conjuntos de dados. Um é chamado de **penguins** e é uma versão simplificada dos dados brutos. O segundo conjunto de dados é **penguins_raw** e contém todas as variáveis e nomes originais baixados. Ambos os conjuntos de dados contêm dados para 344 pinguins, de três espécies diferentes, coletados em três ilhas no arquipélago de Palmer, na Antártica.
+
+```{r}
+# carregar o pacote palmerpenguins
+library(palmerpenguins)
+
+# ajuda dos dados
+?penguins
+?penguins_raw
+```
+
+### Histograma (*histogram*) {#hist}
+
+Nesta seção iremos apresentar [histogramas](https://pt.wikipedia.org/wiki/Histograma) no R utilizando o ggplot2.
+
+#### Histograma (simples)
+
+Vamos utilizar o conjunto de dados *palmerpenguins*, para plotar a distribuição da variável **flipper_length_mm** em um gráfico de histograma. A função `geom_hitogram()` plota uma variável contínua no eixo x e a frequência de cada categoria no eixo y. 
+
+```{r message=FALSE, warning=FALSE, , fig.align='center'}
+# histograma de uma variavel continua
+ggplot(data = penguins, aes(x = flipper_length_mm)) +
+  geom_histogram()
+```
+
+#### Número de classes
+
+Vamos utilizar o __argumento__ `bins` para definir em quantas classes a variável __x__ deve ser dividida.
+
+```{r message=FALSE, warning=FALSE, out.width="50%" }
+# histograma com 10 classes
+ggplot(data = penguins, aes(x = flipper_length_mm)) +
+  geom_histogram(bins = 10) +
+  ggtitle("10 classes")
+
+# histograma com 30 classes
+ggplot(data = penguins, aes(x = flipper_length_mm)) +
+  geom_histogram(bins = 30) +
+  ggtitle("30 classes")
+```
+
+#### Múltiplas categorias 
+
+Se quisermos comparar a distribuição de uma variável contínua entre diferentes categorias, podemos utilizar o argumento `fill` para colorir o gráfico. No exemplo abaixo, utilizamos cores diferentes para ilustrar a distribuição da variável x entre espécies diferentes (fill = species).
+
+```{r message=FALSE, warning=FALSE, out.width="50%"}
+# histograma com cores para diferentes categorias com sobreposicao
+ggplot(data = penguins, aes(x = flipper_length_mm, fill = species)) +
+  geom_histogram(alpha = .5) +
+  ggtitle("Com sobreposiçao")
+
+# Histograma com cores para diferentes categorias sem sobreposição
+ggplot(data = penguins, aes(x = flipper_length_mm, fill = species)) +
+  geom_histogram(position = "dodge") +
+  ggtitle("Sem sobreposiçao")
+```
+
+#### Histograma (bonito)
+
+No final de cada seção, iremos demonstrar de um gráfico mais elegante. 
+Veja a seção XX para mais detalhes de como manipular cada detalhe do gráfico com o pacote *ggplot2*.
+
+```{r message=FALSE, warning=FALSE, , fig.align='center'}
+# Histogram example: flipper length by species
+ggplot(data = penguins, aes(x = flipper_length_mm, fill = species)) +
+  geom_histogram(alpha = .5, position = "identity") +
+  scale_fill_manual(values = c("darkorange", "darkorchid", "cyan4")) +
+  theme_classic(base_size = 18) +
+  xlab("Comprimento da nadadeira (mm)") + 
+  ylab("Frequência")
+```
+
+### Gráfico de densidade (*density plot*) {#dens}
+
+Nesta seção iremos aprender a criar um [gráfico de densidade](https://datavizcatalogue.com/methods/density_plot.html) no R utilizando o ggplot2.
+
+O __gráfico de densidade__ é utilizado para visualizar a distribuição de uma variável contínua em intervalos. Esse gráfico é uma variação do Histograma (ver seção \@ref(hist)) que utiliza [Kernel Smoother](https://en.wikipedia.org/wiki/Kernel_smoother).   
+
+#### Gráfico de densidade (simples)
+
+Vamos utilizar o conjunto de dados *palmerpenguins*, para plotar a distribuição da variável **flipper_length_mm** em um Gráfico de densidade. Utilizaremos a função `geom_density()` para plotar uma variável no eixo x.
+
+```{r message=FALSE, warning=FALSE, , fig.align='center'}
+# Gráfico de densidade de uma variavel continua
+ggplot(data = penguins, aes(x = flipper_length_mm)) +
+  geom_density()
+```
+
+#### Gráfico de densidade (colorido)
+
+Podemos utilizar o argumento `fill` para definir a cor de preenchimento do gráfico e o argumento `alpha` para definir a transparência do preenchimento. Utilizamos ainda o argumento `color` para definir a cor da linha.
+
+```{r message=FALSE, warning=FALSE, out.width="50%" }
+# Gráfico de densidade de uma variavel continua
+ggplot(data = penguins, aes(x = flipper_length_mm)) +
+  geom_density(fill = "tomato")
+
+# Gráfico de densidade de uma variavel continua
+ggplot(data = penguins, aes(x = flipper_length_mm)) +
+  geom_density(fill = "steelblue", color = "red", alpha = .5)
+```
+
+#### Múltiplas categorias 
+
+Em algumas situações, queremos comparar a distribuição de uma variável contínua entre diferentes categorias. Dessa forma, podemos utilizar o argumento `fill` para colorir o gráfico. No exemplo abaixo, utilizamos cores diferentes para ilustrar a distribuição da variável x entre espécies diferentes (fill = species).
+
+```{r message=FALSE, warning=FALSE, out.width="50%"}
+# grafico de densidade com cores para diferentes categorias sem sobreposicao
+ggplot(data = penguins, aes(x = flipper_length_mm, fill = species)) +
+  geom_density() +
+  ggtitle("Com sobreposiçao")
+
+# Gráfico de densidade com cores para diferentes categorias com sobreposicao
+ggplot(data = penguins, aes(x = flipper_length_mm, fill = species)) +
+  geom_density(alpha = .5) +
+  ggtitle("Com sobreposiçao")
+```
+
+#### Gráfico de densidade (bonito)
+
+```{r message=FALSE, warning=FALSE, , fig.align='center'}
+ggplot(data = penguins, aes(x = flipper_length_mm, fill = species)) +
+  geom_density(alpha = .5) +
+  theme_classic(base_size = 18) +
+  scale_fill_manual(values = c("darkorange", "darkorchid", "cyan4")) +
+  scale_x_continuous(breaks = seq(from = 160, to = 240, by = 10), limits = c(160, 240)) +
+  scale_y_continuous(breaks = seq(from = 0, to = .07, by = .01)) +
+  theme_classic(base_size = 18) +
+  xlab("Comprimento da nadadeira (mm)") + 
+  ylab("Densidade")
+```
+
+### Diagrama de pontos (*dot plot*) {#dot}
+
+Nesta seção iremos aprender a criar um [Dot plot](https://en.wikipedia.org/wiki/Dot_plot_(statistics)) no R utilizando o ggplot2.
+
+#### Dotplot (simples)
+
+```{r message=FALSE, warning=FALSE, fig.align='center'}
+ggplot(data = penguins, aes(x = flipper_length_mm)) +
+  geom_dotplot()
+```
+
+#### Ajustes básicos
+
+__Argumentos__   
+
+- **fill**: para definir a cor de preenchimento dos pontos
+- **color**: para definir a cor da linha de contorno dos pontos 
+- **alpha**: para definir a transparência dos pontos
+
+#### Cor e preenchimento
+
+```{r message=FALSE, warning=FALSE, out.width="50%"}
+ggplot(data = penguins, aes(x = flipper_length_mm)) +
+  geom_dotplot(fill = "tomato")
+ggplot(data = penguins, aes(x = flipper_length_mm)) +
+  geom_dotplot(color = "red", fill = "gray")
+```
+
+#### Dotplot (bonito)
+
+```{r message=FALSE, warning=FALSE, , fig.align='center'}
+ggplot(data = penguins, aes(x = flipper_length_mm)) +
+  geom_dotplot(color = "white", fill = "Tomato") +
+  theme_classic(base_size = 18) +
+  scale_y_continuous(breaks = seq(from = 0, to = 1.2, by = .1)) +
+  xlab("Comprimento da nadadeira (mm)") + 
+  ylab("Frequência")
+```
+
+### Gráfico de setores (*pie chart* e *donut chart*)
+
+### Gráfico de barras (*bar plot*) {#bars}
+
+Nesta seção você irá aprender a criar [Gráfico de Barra](https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_barras) no R utilizando o ggplot2.
+
+#### Gráfico de Barras (simples)
+
+O gráfico de barras utiliza retângulos para repsentar uma variável contínua, sendo que o comprimeno dos retângulos é proporcional ao valor que ele está representando. A função `geom_bar()` plota uma variável contínua em função de uma variável categórica no eixo x. 
+
+```{r message=FALSE, warning=FALSE, , fig.align='center'}
+# Simulando um banco de dados
+df <- data.frame(tratamento = c("a", "b", "c"),
+                 tamanho = c(1.3, 1.9, 3.2))
+
+# Boxplot
+ggplot(df, aes(y = tamanho, x = tratamento)) +
+  geom_bar(stat = "identity")
+```
+
+#### Ajustes básicos
+
+__Argumentos__   
+
+- **width** para definir a largura das barras.
+- **fill** para definir a cor de preenchimento das barras.
+- **color** para definir a cor da linha de contorno das barras.
+
+##### Cor e preenchimento
+
+```{r message=FALSE, warning=FALSE, out.width="50%"}
+#Gráfico de Barras com preenchimento colorido
+ggplot(df, aes(y = tamanho, x = tratamento)) +
+  geom_bar(stat = "identity", fill = "tomato")
+#Gráfico de Barras com contorno colorido
+ggplot(df, aes(y = tamanho, x = tratamento)) +
+  geom_bar(stat = "identity", color = "tomato")
+
+```
+
+##### Largura das barras
+
+```{r message=FALSE, warning=FALSE, out.width="50%"}
+#Gráfico de Barras com largura modificada
+ggplot(df, aes(y = tamanho, x = tratamento)) +
+  geom_bar(stat = "identity", width = .75) +
+  ggtitle("width = .75")
+#Gráfico de Barras com largura modificada
+ggplot(df, aes(y = tamanho, x = tratamento)) +
+  geom_bar(stat = "identity", width = 0.25) +
+  ggtitle("width = .25") 
+```
+
+##### Orientação das barras
+
+```{r message=FALSE, warning=FALSE, out.width="50%"}
+#Gráfico de Barras Vertical
+ggplot(df, aes(y = tamanho, x = tratamento)) +
+  geom_bar(stat = "identity")
+
+#Gráfico de Barras Horizontal
+ggplot(df, aes(y = tamanho, x = tratamento)) +
+  geom_bar(stat = "identity") + 
+  coord_flip()
+```
+
+##### Colorindo por categoria
+
+No exemplo abaixo, utilizamos cores diferentes para ilustrar os tratamentos diferentes através do argumento `fill = tratamento`.
+
+```{r message=FALSE, warning=FALSE, , fig.align='center'}
+#Gráfico de Barras com preenchimento colorido
+ggplot(df, aes(y = tamanho, x = tratamento, fill = tratamento)) +
+  geom_bar(stat = "identity")
+```
+
+##### Gráfico de barras (bonito)
+
+Todo o final de capítulo temos a demonstração de um gráfico mais elegante. 
+Veja o capítulo XXX para mais detalhes de como manipular cada detalhe do seu gráfico com o ggplot2, mas ao observar o script abaixo você pode ir aprendendo com cada exemplo.
+
+```{r message=FALSE, warning=FALSE, out.width="70%"}
+#Gráfico de Barras
+ggplot(df, aes(y = tamanho, x = tratamento)) +
+  geom_bar(stat = "identity", fill = gray(.3)) +
+  scale_y_continuous(limits = c(0,3.5), breaks = seq(0,3.5,.5)) +
+  theme_classic(base_size = 18) +
+  xlab("Tratamento") + 
+  ylab("Comprimento da plântula (cm)") 
+```
+
+
+### Gráfico de caixa (*box plot*)
+
+```{r echo=F}
+library(ggplot2)
+```
+
+Nesta seção você irá aprender a criar [boxplots](https://pt.wikipedia.org/wiki/Diagrama_de_caixa) no R utilizando o ggplot2.
+
+#### Boxplot (simples)
+
+Utilize o banco de dados `iris`, para plotar um diagrama de caixa (boxplot). A função `geom_boxplot()` plota uma variável contínua (Sepal.Length) no eixo y em função de uma variável categórica no eixo x (Species). A definição de qual coluna do bando de dados é a x e qual é a y é feita dentro do comendo `aes()`. 
+
+```{r message=FALSE, warning=FALSE, , fig.align='center'}
+# Carrgue um banco de dados
+data("iris")
+
+# Boxplot
+ggplot(iris, aes(y = Sepal.Length, x = Species)) +
+  geom_boxplot()
+```
+
+#### Destque para os outliers
+
+Utilize o __argumento__ `outlier.color` para definir a cor dos outliers.
+
+```{r message=FALSE, warning=FALSE, , fig.align='center'}
+ggplot(iris, aes(y = Sepal.Length, x = Species)) +
+  geom_boxplot(outlier.color = "red")
+```
+
+Utilize o __argumento__ `notch = T` para produzir diagramas de caixa entalhados (notched). 
+Estes diagramas são úteis para inferir de forma aproximada se exite diferença significativa entre as medias dos grupos. 
+
+```{r message=FALSE, warning=FALSE, , fig.align='center'}
+ggplot(iris, aes(y = Sepal.Length, x = Species)) +
+  geom_boxplot(notch = T)
+```
+
+#### Colorindo por categoria
+
+No exemplo abaixo, utilizamos cores diferentes para ilustrar espécies diferentes através do argumento `fill = Species`.
+
+```{r message=FALSE, warning=FALSE, , fig.align='center'}
+# Histograma com cores para diferentes categorias com sobreposição
+ggplot(iris, aes(y = Sepal.Length, x = Species, fill = Species)) +
+  geom_boxplot() 
+```
+
+#### Gráfico de caixas (bonito)
+
+Todo o final de capítulo temos a demonstração de um gráfico mais elegante. 
+Veja o capítulo XXX para mais detalhes de como manipular cada detalhe do seu gráfico com o ggplot2, mas ao observar o script abaixo você pode ir aprendendo com cada exemplo.
+
+```{r message=FALSE, warning=FALSE, , fig.align='center'}
+ggplot(iris, aes(y = Sepal.Length, x = Species, fill = Species)) +
+  geom_boxplot(show.legend = F, alpha = .5) +
+  scale_y_continuous(limits = c(4,8), breaks = seq(4,8,1)) +
+  theme_classic(base_size = 18) +
+  xlab("Espécie") + 
+  ylab("Comprimento da nadadeira (mm)")
+```
+
+### Gráfico de violino (*violin plot*)
+
+### Gráfico de dispersão (*scatter plot*)
+
+```{r echo=F}
+library(ggplot2)
+```
+
+Nesta seção você irá aprender a criar [Gráfico de dispersão](https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_barras) no R utilizando o ggplot2.
+
+#### Gráfico de dispersão (simples)
+
+> O gráfico de dispersão ("scatter plot") é um tipo de gráfico que utiliza cordenadas cartesianas para representar a relação entre duas (ou mais) variáveis de um banco de dados. Para plotar esse gráfico você deve utilizar a função 'geom_point()'.
+
+```{r message=FALSE, warning=FALSE, , fig.align='center'}
+# carregando banco de dados
+data("iris")
+
+# Gráfico de dispersão
+ggplot(iris, aes(y = Petal.Length, x = Petal.Width)) +
+  geom_point()
+```
+
+#### Ajustes básicos
+
+__Argumentos__   
+
+- **shape** para definir o símbolo dos pontos.  
+- **size** para definir o tamanho dos pontos.  
+- **fill** para definir a cor de preenchimento dos pontos.  
+- **color** para definir a cor da linha de contorno dos pontos.  
+
+#### Tipos de símbolos
+
+O tipo de símbolo que será plotado é definido pelo argumento "shape =" dentro da função 'geom_point()'.
+As opções disponíveis são:
+
+```{r out.width ="100%", echo=F}
+knitr::include_graphics("img/shapes.png")
+```
+
+#### Símbolo
+
+```{r message=FALSE, warning=FALSE, out.width="50%"}
+#Gráfico de dispersão com shape 1
+ggplot(iris, aes(y = Petal.Length, x = Petal.Width)) +
+  geom_point(shape = 1, size = 3)
+#Gráfico de dispersão com shape 1
+ggplot(iris, aes(y = Petal.Length, x = Petal.Width)) +
+  geom_point(shape = 17, size = 3)
+```
+
+#### Tamanho
+
+```{r message=FALSE, warning=FALSE, out.width="50%"}
+#Gráfico de dispersão com shape 1
+ggplot(iris, aes(y = Petal.Length, x = Petal.Width)) +
+  geom_point(size = 1)
+#Gráfico de dispersão com shape 1
+ggplot(iris, aes(y = Petal.Length, x = Petal.Width)) +
+  geom_point(size = 5)
+```
+
+#### Cor e preenchimento
+
+```{r message=FALSE, warning=FALSE, out.width="50%"}
+# Alterando cor e preenchimento
+ggplot(iris, aes(y = Petal.Length, x = Petal.Width)) +
+  geom_point(color = "blue", fill = "red", shape = 21)
+# Alterando cor e preenchimento
+ggplot(iris, aes(y = Petal.Length, x = Petal.Width)) +
+  geom_point(color = "red", fill = "black", shape = 21)
+```
+
+#### Gráfico de dispersão (bonito)
+
+Todo o final de capítulo temos a demonstração de um gráfico mais elegante. 
+Veja o capítulo XXX para mais detalhes de como manipular cada detalhe do seu gráfico com o ggplot2, mas ao observar o script abaixo você pode ir aprendendo com cada exemplo.
+
+```{r message=FALSE, warning=FALSE, out.width="70%"}
+#Gráfico de Barras
+ggplot(iris, aes(y = Petal.Length, x = Sepal.Length ,
+                 shape = Species, color = Species)) +
+  geom_point(size = 3, alpha = .7) +
+  scale_y_continuous(limits = c(0,7), breaks = seq(0,6,1)) +
+  theme_classic(base_size = 18) +
+  theme(legend.position = "top") +
+  xlab("Largura das Pétalas (mm)") + 
+  ylab("Comprimento das Pétalas (cm)") 
+```
+
+### Gráfico pareado (*pairs plot*)
+
+```{r}
+penguins %>%
+  select(species, flipper_length_mm, ends_with("_mm")) %>%
+  GGally::ggpairs(aes(color = species)) +
+  scale_colour_manual(values = c("darkorange","purple","cyan4")) +
+  scale_fill_manual(values = c("darkorange","purple","cyan4"))
+```
+
+
+## Finalização de gráficos para publicação
+
+## Exercíios
+
+
+## Para se aprofundar
+
+### Books
+
+Chang W. 2018. R Graphics Cookbook. [http://www.cookbook-r.com/Graphs/]
+
+Healy K. 2019. Data Visualization: a practical introduction. Princeton University Press. [https://socviz.co/´]
+
+Kabacoff R. 2020. Data Visualization with R. [https://rkabacoff.github.io/datavis/]
+
+Rahlf T. 2019. Data Visualisation with R: 111 Examples. 2ed. Springer. [http://www.datavisualisation-r.com/]
+
+Sievert C. 2019. Interactive web-based data visualization with R, plotly, and shiny. Chapman & Hall/CRC. [https://plotly-r.com/]
+
+Wickham H. 2016. ggplot2: elegant graphics for data analysis. Springer. [https://ggplot2-book.org/]
+
+Wilke C O. 2019. Fundamentals of Data Visualization. O'Reilly Media. [https://clauswilke.com/dataviz/]
+
+Wilkinson L, Wills D, Rope D, Norton A, Dubbs R. 2005. The Grammar of Graphics. Springer.
+
+### Links
+
+[The R Graph Gallery](https://www.r-graph-gallery.com/index.html)
+
+[From Data to Viz](https://www.data-to-viz.com/)
+
+[Data Viz Project](https://datavizproject.com/)

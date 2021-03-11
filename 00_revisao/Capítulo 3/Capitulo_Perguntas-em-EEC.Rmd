@@ -1,0 +1,606 @@
+# Voltando ao básico: como dominar a arte de fazer perguntas cientificamente relevantes
+
+*Capítulo originalmente publicado por Gonçalves-Souza, Provete, Garey, Silva & Albuquerque 2019, in Methods and Techniques in Ethnobiology and Ethnoecology (tradução autorizada por Springer)*
+
+## Introdução
+
+> *Aquele que ama a prática sem teoria é como um marinheiro que embarca em um barco sem um leme e uma bússola e nunca sabe onde pode atracar - Leonardo da Vinci*
+
+Qual é a sua pergunta? Talvez esta seja a frase que pesquisadores mais jovens ouvem quando começam suas atividades científicas. Apesar de aparentemente simples, responder a esta pergunta se torna um dos maiores desafios da formação científica. Seja na pesquisa quantitativa ou qualitativa, todo o processo de busca de conhecimento parte de uma questão/problema formulado pelo pesquisador no início do processo. Esta questão guiará o pesquisador em todas as etapas da pesquisa. No caso específico de pesquisa quantitativa, a questão é a porta de entrada de uma das formas mais poderosas de pensar cientificamente: o método hipotético-dedutivo (MHD) defendido por Karl Popper (Popper 1959). Este capítulo propõe uma maneira de pensar sobre hipóteses (geradas dentro do MHD) para melhorar o pensamento estatístico usando um fluxograma que relaciona variáveis por ligações causais. Além disso, argumentamos que você pode facilmente usar fluxogramas para (1) identificar variáveis relevantes e como elas afetam umas às outras; (2) melhorar (quando necessário) o desenho experimental/observacional; (3) facilitar a escolha de análises estatísticas; e (4) impulsionar a interpretação e comunicação dos dados.
+
+## Perguntas devem preceder as análises estatísticas
+
+### Um bestiário[^1] para o teste de hipóteses (Você está fazendo a pergunta certa?)
+
+[^1]: O bestiário é uma literatura do Século XII que descrevia animais (reais ou imaginados) com uma visão divertida e fantasiosa. Parte da interpretação continha lições de moral dos monges católicos que escreviam e ilustravam os bestiários. Longe de ser uma lição de moral ou mesmo uma descrição fantasiosa, usamos o termo bestiário neste livro para expressar o que há de mais importante e fantástico (na visão dos autores) para fazer um bom teste de hipóteses.
+
+A maioria dos alunos e professores de ciências biológicas têm aversão à palavra "estatística". Não surpreendentemente, enquanto a maioria das disciplinas acadêmicas que compõem o "STEM" (termo em inglês para aglomerar Ciência, Tecnologia, Engenharia e Matemática) têm uma sólida formação estatística durante a graduação, cursos de ciências biológicas têm um currículo fraco ao integrar o pensamento estatístico dentro de um contexto biológico (Metz 2008). Esses cursos têm sido freqüentemente ministrados sem qualquer abordagem prática para integrar os alunos em uma plataforma de solução de problemas (Horgan et al. 1999). Infelizmente, a Etnobiologia, Ecologia e Conservação (daqui em diante EEC) não são exceções. Talvez mais importante, uma grande preocupação durante o treinamento estatístico de estudantes de EEC é a necessidade de trabalhar com problemas complexos e multidemensionais que exigem soluções analíticas ainda mais complicadas para um público sem experiência em estatística e matemática. Por este motivo, muitos pesquisadores consideram a estatística como a parte mais problemática de sua pesquisa científica. Argumentamos neste capítulo que a dificuldade de usar estatística em EEC está associada à ausência de uma plataforma de solução de problemas gerando hipóteses claras que são derivadas de uma teoria. No entanto, concordamos que há um grande desafio em algumas disciplinas como a Etnobiologia para integrar esta abordagem direcionada por hipóteses, uma vez que foi introduzida apenas recentemente (veja Philips & Gentry 1993a, b; Albuquerque & Hanazaki 2009). Devido à falta de uma plataforma de solução de problemas, frequentemente percebemos que alunos/pesquisadores na EEC geralmente têm dificuldades de responder
+perguntas básicas para uma pesquisa científica, tais como:
+
+1. Qual é a principal teoria ou raciocínio lógico do seu estudo? 
+1. Qual é a questão principal do seu estudo?
+1. Qual é a sua hipótese? Quais são suas predições?
+1. Qual é a unidade amostral, variável independente e dependente de seu trabalho? Existe alguma covariável?
+1. Qual é o grupo de controle?
+
+Como selecionar qualquer teste estatístico sem responder a essas cinco perguntas? A estrutura estatística frequentista fornece uma maneira de ir progressivamente suportando ou falseando uma hipótese (Neyman & Pearson 1933, Popper 1959). A decisão de rejeitar uma hipótese nula é feita usando um valor de probabilidade (geralmente P \< 0,05) calculado pela comparação de eventos observados com observações repetidas obtidas a partir de uma distribuição nula.
+
+Agora, vamos ensinar através de um exemplo e apresentar um "guia para o pensamento estatístico" que conecta alguns elementos essenciais para executar qualquer análise multivariada (ou univariada) (Fig. \@ref(fig:fig-statistical-thinking), veja também a Fig. 1.3 em Legendre & Legendre 2012 e Fig. 1 em Underwood 1997). Primeiro, imagine que você observou os seguintes fenômenos na natureza: (1) "indivíduos de uma população tradicional selecionar algumas plantas para fins médicos" e (2)"manchas monodominantes da árvore *Prosopis juliflora*, uma espécie invasora em várias regiões". Do lado da etnobiologia, para entender como e porque o conhecimento tradicional é construído, existe uma teoria ou hipótese (por exemplo, hipótese de aparência: Gonçalves et al. 2016) explicando os principais processos que ditam a seleção da planta (Fig. 1a).Então, você pode fazer uma ou mais perguntas relacionadas àquele fenômeno observado (Fig. 1b). Por exemplo, como a urbanização afeta o conhecimento das pessoas sobre o uso de plantas medicinais em diferentes biomas? Do lado ecológico/conservação, para entender por que espécies introduzidas afetam as espécies nativas locais, você precisa entender as teorias do nicho ecológico e evolutiva (MacDougall et al. 2009, Saul & Jeschke 2015). Você pode perguntar, por exemplo, como as plantas exóticas afetam a estrutura de comunidades de plantas nativas? Questões complexas ou vagas dificultam a construção do fluxograma de pesquisa (ver descrição abaixo) e a seleção de testes estatísticos. Em vez disso, uma pergunta útil deve indicar as variáveis relevantes do seu estudo, como as independentes e dependentes, covariáveis, unidade de amostral e a escala espacial de interesse (Fig. \@ref(fig:fig-statistical-thinking)b). No exemplo etnobiológico fornecido, a urbanização e o conhecimento das pessoas são as variáveis independentes e dependentes, respectivamente. Além disso, este estudo tem uma escala ampla, pois compara biomas diferentes. A próxima etapa é construir a hipótese biológica (Fig. \@ref(fig:fig-statistical-thinking)c), que indicará a associação entre variáveis independentes e dependentes. No exemplo etnobiológico, a hipótese é que (1) "a urbanização afeta o conhecimento das pessoas sobre o uso de plantas medicinais", enquanto a hipótese ecológica é que (2) "espécies exóticas afetam a estrutura de comunidades de plantas nativas". Observe que isso é muito semelhante à questão principal. Mas você pode ter múltiplas hipóteses (Platt 1964) derivado de uma teoria. Depois de selecionar a hipótese biológica (ou científica), é hora de pensar sobre a derivação lógica da hipótese, que é chamada de predição ou previsão (Fig. 1d). Os padrões preditos são uma etapa muito importante, pois após defini-los você pode operacionalizar suas variáveis e visualizar seus dados. Por exemplo, a variável teórica "Urbanização" pode ser medida como "grau de urbanização ao longo das áreas urbanas, periurbanas e rurais" e "conhecimento das pessoas" como "o número e tipo de espécies de plantas úteis usadas para diferentes doenças" Assim, a predição é que o grau de urbanização diminua o número e tipo de espécies de plantas conhecidas utilizadas para fins medicinais. No exemplo ecológico, a variável "espécies exóticas" pode ser medida como "a densidade da planta exótica *Prosopis juliflora*" e "Estrutura da comunidade" como "riqueza e composição de espécies nativas". Depois de operacionalizar o seu trabalho à luz do método hipotético-dedutivo (HDM), o próximo passo é "pensar estatisticamente" sobre a hipótese biológica formulada (ver Figura \@ref(fig:fig-statistical-thinking) e, f).
+
+```{r fig-statistical-thinking, fig.align='center', fig.cap="Um guia para o pensamento estatístico combinando o método hipotético-dedutivo (a -- d, i) e estatística frequentista (e -- i). Veja também a Fig. 1 em Underwood 1997, Fig. 1 em Ford 2004 e Fig. 1.3 em Legendre & Legendre 2012.", out.width="50%", echo=FALSE}
+knitr::include_graphics("images/Figure 1 - Statistical thinking_port.png")
+```
+
+Então, você precisa definir as hipótese estatística nula (H<sub>0</sub>)
+e a alternativa (H<sub>1</sub>). Duas "hipóteses estatísticas"
+diferentes podem ser derivadas de uma hipótese biológica (Fig. 1e).
+Portanto, nós usamos o termo "hipótese estatística" entre aspas, porque
+as chamadas hipóteses estatísticas são predições *sensu stricto*, e
+muitas vezes confundem jovens estudantes. A hipótese estatística nula
+representa uma ausência de relacão entre as variáveis independentese e
+dependentes. Depois de definir a hipótese estatística nula, você pode
+derivar uma ou várias hipóteses estatísticas alternativas, que
+demonstram a(s) associação(ões) esperada(s) entre suas variáveis (Fig.
+1e). Em nosso exemplo, a hipótese nula é que "o grau de urbanização não
+afeta o número de espécies de plantas úteis conhecidas pela população
+local". Por sua vez, a hipótese alternativa é que "o grau de urbanização
+afeta o número de espécies de plantas úteis conhecidas pela população
+local". Depois de operacionalizar suas variáveis e definir o valor nulo
+e hipóteses alternativas, é hora de visualizar o resultado esperado
+(Fig. 2, Caixa 1) e escolher um método estatístico adequado. Por
+exemplo, se você deseja comparar a diferença na composição de plantas
+úteis entre áreas urbanas, periurbanas e rurais, você pode executar uma
+PERMANOVA (Gonçalves-Souza et al. 2019) que usa uma estatística de teste
+chamada *pseudo-F*. Então, você deve escolher o limite de probabilidade
+(o valor P) do teste estatístico para decidir se a hipótese nula deve ou
+não deve ser rejeitada (Gotelli & Ellison 2012). Se você encontrar um P
+\< 0,05, você deve rejeitar a hipótese estatística nula (urbanização não
+afeta o número e a composição das plantas. Por outro lado, um P \> 0,05
+indica que você não pode rejeitar a hipótese nula estatística. Assim, a
+estatística do teste e o valor P representam a última parte do teste de
+hipótese estatística, que é a decisão e conclusões apropriadas que serão
+usadas para retroalimentar a teoria principal (Figuras 1g -- i ).
+Generalizando seus resultados e falseando (ou não) suas hipóteses, o
+estudo busca refinar a construção conceitual da teoria, que muda
+constantemente (Fig. 1i , Ford 2004). No entanto, há um ponto crítico
+nesta última frase, porque a significância estatística não significa
+necessariamente relevância biológica (ver discussão em Gotelli e Ellison
+(2012), Martínez-Abraín 2008). Nas palavras de Ford (2004): "as
+estatísticas são usadas para iluminar o problema, e não para apoiar uma
+posição. "Além disso, o procedimento de teste de hipótese tem alguma
+incerteza, que pode influenciar resultados "falso-positivos" (erro tipo
+1) e "falso-negativos"(erro tipo 2) (Whitlock & Schluter 2015). Para
+simplificar, não discutiremos em detalhes os prós e contras da
+estatística frequentista, bem como métodos alternativos (por exemplo,
+Bayesiano e Máxima Verossimilhança), e questões filosóficas relativas ao
+"valor p" (para uma discussão sobre esses tópicos, consulte o fórum em
+Ellison et al. 2014)
+
+    Caixa 1. Tipo de variáveis e visualização de dados - Conforme descrito na Seção 3, o fluxograma é essencial para conectar variáveis relevantes para a pesquisa. Para aproveitar ao máximo esta abordagem, você pode desenhar suas próprias predições gráficas para te ajudar a pensar sobre diferentes possibilidades analíticas. Aqui, nós fornecemos uma descrição completa dos tipos de variáveis que você deve saber antes de executar qualquer análise estatística e representar seus resultados. Além disso, mostramos uma breve galeria (Fig. 2) com exemplos de boas práticas em visualização de dados (Fig. 3b, veja também figuras em Gonçalves-Souza et al. 2019). Além de conectar diferentes variáveis no fluxograma, você deve distinguir o tipo de variável. Primeiro você deve identificar as variáveis independentes (também conhecidos como explicativas ou preditoras) e dependentes (também conhecidas como resposta). A variável independente é aquela (ou aquelas) que prevê ou afeta a variável resposta (por exemplo, a fertilidade do solo é a variável independente capaz de afetar a abundância de uma espécie de planta focal, a variável dependente). Além disso, uma covariável é uma variável contínua que pode afetar tanto a variável resposta quanto a independente (ou ambos), mas geralmente não é do interesse do pesquisador. Depois de definir as variáveis relevantes, conectando-as no fluxograma, é hora de diferenciar seu tipo: (1) quantitativa ou contínua, e (2) categórica ou qualitativa (Fig. 2a, Caixa 1). O tipo de variável irá definir que tipo de figura você pode selecionar. Por exemplo, se você está comparando duas variáveis contínuas ou uma variável contínua e uma binária, a melhor maneira de visualizá-los (Fig. 2b) é um gráfico de dispersão (Fig. 2c, d). A linha representa os valores preditos pelo modelo estatístico usado (por exemplo, linear, logístico). Se você está interessado em comparar a gama de diferentes atributos (ou a descrição de qualquer variável numérica) entre as variáveis categóricas (por exemplo, espécies ou populações locais), um gráfico de halteres (do inglês Dumbell plot) é uma boa opção (Fig. 2e). Histogramas também podem ser usados para mostrar a distribuição de duas variáveis contínuas de dois grupos ou fatores (Fig. 2f ). No entanto, se você quiser testar o efeito de uma variável categórica independente (como em um desenho de ANOVA) sobre uma variável dependente, boxplots (Fig. 2g) ou gráficos de violino podem resumir essas relações de maneira elegante. Conjuntos de dados multivariados, por sua vez, podem ser visualizados com ordenação (Fig. 2h) ou gráficos de agrupamento (não mostrados). Existe um site abrangente apresentando várias maneiras de visualizar dados chamado https://www.datavizproject.com/.
+
+> **Figura 2**. (A) Tipos de variáveis e (B) visualização de dados para
+> representar a relação entre variáveis independentes e dependentes ou
+> covariáveis.
+
+## Fluxograma: Conectando Variáveis para Melhorar o desenho experimental e as análises estatísticas
+
+McIntosh e Pontius (2016) afirmaram que o pensamento estatístico
+(repre-enviado na Fig. 1) inclui quatro etapas importantes: (1) quais
+perguntasvocê investigaria (Seção 4), (2) como e onde coletar odados
+(Ruxton & Colegrave 2016), (3) quais fatores devem ser considerados e
+como elesafetam suas variáveis de interesse (e como elas afetam umas às
+outras),e (4) qual análise estatística você deve usar e como
+interpretare comunicar os resultados (Seção 4 ). No entanto, a etapa (3)
+deve serfeito antes de coletar os dados. Por exemplo, se você está
+interessadona investigação dos benefícios das matas ciliares para as
+espécies nativas de peixes,quais variáveis devem ser incluídas no
+estudo? Se você escolher rioscom e sem mata ciliar como única variável
+preditora,seu projeto de amostragem irá omitir outras variáveis de
+confusão, comoordem do rio e carbono orgânico do solo a montante.
+Vellend (2016) nomeou esta este problema como o "problema de três
+caixas" (ver também Ruxton & Colegrave 2016), que se refere à limitação
+em inferir que X (variável independente) causa variação em Y (variável
+depende) quando outras variáveis criam ou ampliam a correlação entre X e
+Y (ver Fig. 2 em Ruxton & Colegrave 2016). Uma ferramenta útil para
+compreender a relação entre todas as variáveis relevantes do seu estudo
+é um fluxograma. No "fluxograma de pesquisa" (ver também Magnusson et
+al. 2015) proposto aqui, variáveis dependentes (também conhecidas como
+resposta) e independentes (ou preditora), bem como covariáveis são
+representadas como caixas (com formas distintas: Fig. 3). Além disso,
+você pode usar uma seta para representar uma (possível) via causal
+indicando força e sinal (positivo ou negativo) da variável preditora na
+variável dependente (Fig. 3) Ao fazer isso, você pode melhorar o desenho
+experimental ou observaciona incluindo ou controlando variáveis de
+confusão o que, por sua vez, pode ajudar a separar a contribuição
+relativa de diferentes variáveis preditoras em seu sistema. Mais
+importante, fazer conexões entre variáveis melhora sua capacidade de
+visualizar o "Quadro geral" de sua pesquisa, o que pode afetar seu
+experimento, análise estatística e revisão da literatura. Na verdade,
+Arlidge et al. (2017) argumentam que fluxogramas facilitam a construção
+de narrativas, melhorando: (1) a definição de múltiplas hipóteses, (2)
+coleta, interpretação e disseminação de dados e (3) a comunicação do
+conteúdo do estudo. Você também pode ler o livro de Magnusson et al.
+(2015) para entender mais como usar fluxogramas para auxiliar sanálises
+estatísticas. Além disso, Ford (2004) recomenda o uso de uma abordagem
+analítica para fomentar o desenvolvimento da pesquisa. Além disso, o
+fluxograma de pesquisa pode ser usado como uma ferramenta forte para
+contemplar os conselhos de Ford (2004), que foram: (1) definir a
+pergunta da pesquisa, (2) definir a teoria a ser usada, (3) definir a
+técnica de investigação (por exemplo, experimento, observação de campo),
+(4) definir as medições,(5) definir como fazer inferência, e (6)
+interpretar, generalizar,e sintetizar a partir de dados que, por sua
+vez, são usados para refinar a teoria e modificar (quando necessário)
+questões futuras (Fig. 1)
+
+![](images/Figure%202%20-%20Research%20Flowchart_port-01.png)
+
+> **Figura 3**. Exemplo de como usar um fluxograma para melhorar o
+> entendimento do sistema estudado. A pergunta teórica "Qual é o impacto
+> da invasão na comunidade nativa e nas propriedades do ecossistema?"
+> pode gerar duas predições: (1) a planta exótica *Prosopis juliflora*
+> reduz a diversidade beta de comunidades de plantas nativas, e (2)
+> *Prosopis juliflora* modifica a composição da planta e reduz o estoque
+> de carbono e as taxas de decomposição. Após selecionar suas predições,
+> você pode construir um fluxograma conectando as variáveis relevantes e
+> as associações entre elas. Além disso, você pode usar as informações
+> na **Caixa 1** para identificar que tipo de variável você irá coletar
+> e quais figuras podem ser usadas (b).
+
+## Questões fundamentais em etnobiologia, ecologia e conservação
+
+> *As teorias são generalizações. As teorias contêm perguntas. Para
+> algumas teorias, as perguntas são explícitas e representam o que a
+> teoria pretende explicar. Para outras, as questões são implícitas e se
+> relacionam com a quantidade e tipo de generalização, dada a escolha de
+> métodos e exemplos usados por pesquisadores na construção da teoria.
+> As teorias mudam continuamente, à medida que exceções são encontradas
+> às suas generalizações e como questões implícitas sobre método e
+> opções de estudos são expostas. - E. David Ford (2004)*
+
+Como argumentamos antes, uma questão relevante e testável precede as
+análises estatísticas. Assim, apresentamos a seguir 12 questões que
+podem estimular pesquisa futura na ECC. Observe, no entanto, que não
+queremos dizer que eles são as únicas questões relevantes a serem
+testadas na EEC (ver, por exemplo, Sutherland et al. 2013 para uma
+avaliação completa da pesquisa de ponta em Ecologia; e Caixa 6.1 em
+Pickett et al. 2007[^2]). Especificamente, essas questões são muito
+amplas e podem ser desenvolvidas em perguntas, hipóteses e predições
+mais restritas. Depois de cada questão teórica, apresentamos um estudo
+que testou essas hipóteses bem como as variáveis relevantes que podem
+estimular estudos futuros.
+
+[^2]: Após a publicação original deste capítulo, Ulysses Albuquerque e
+    colaboradores publicaram artigo sugerindo questões fundamentais em
+    Etnobiologia: Albuquerque et al. 2019, Acta Bot. Bras. 33, 2.
+
+(a) **Como o uso da terra afeta a manutenção da biodiversidade e a
+    distribuição de espécies em diferentes escalas espaciais?**
+
+    1.  Vários estudos em diferentes ecossistemas e escalas investigaram
+        como o uso da terra afeta a biodiversidade. No entanto,
+        destacamos um estudo comparando os efeitos globais do uso da
+        terra (por exemplo, densidade populacional humana, paisagem para
+        usos humanos, tempo desde a conversão da floresta) em espécies
+        terrestres (por exemplo, mudança líquida na riqueza local,
+        dissimilaridade composicional média) (Newbold et al. 2015)
+
+(b) **Qual é o impacto da invasão biótica nas comunidades nativas e
+    propriedades do ecossistema?**
+
+    1.  Investigar como o estabelecimento de espécies exóticas afeta a
+        riqueza de espécies do receptor, a comunidade nativanidades, bem
+        como como isso afeta a entrega do ecossistemaServiços. Estudos
+        anteriores controlaram a presença de inva-várias espécies ou
+        registros históricos comparados (observacionalestudo) dessas
+        espécies e como elas impactam a biodiversidade. DentroAlém
+        disso, há algum esforço em compreender os preditoresde
+        invasibilidade (por exemplo, produto interno bruto de regiões,
+        humanosdensidade populacional, litoral continental e ilhas)
+        Dawson et al. (2017)
+
+(c) **Como o declínio do predador de topo afeta a entrega de
+    ecossistemastem serviços?**
+
+    1.  Investigar como a remoção de grandes carnívoros afeta o
+        fornecimento de serviços ecossistêmicos, como o sequestro de
+        carbono, doenças e controle de danos às colheitas. Estudos
+        anteriores investigaram esta questão controlando a presença de
+        predadores de topo ou comparando registros históricos (estudo
+        observacionais) de espécies e vários preditores (por exemplo,
+        perda e fragmentação de hábitats, conflito entre humanos e
+        espécies caçadas, utilização para a medicina tradicional e
+        superexploração de presas) (Ripple et al. 2014).
+
+(d) **Como a acidificação dos oceanos afeta a produtividade primária
+    eteias alimentares em ecossistemas marinhos?**
+
+    1.  Estudos recentes testaram os efeitos individuais e interativos
+        da acidificação e do aquecimento do oceano nas interações
+        tróficas em uma teia alimentar. A acidificação e o aquecimento
+        foram manipulados pela mudança dos níveis de CO<sub>2</sub> e
+        temperatura, respectivamente. Estudos anteriores demonstraram
+        que elevação de CO<sub>2</sub> e temperatura aumentou a
+        produtividade primária e afetou a força do controle de cima para
+        baixo exercido por predadores (Goldenberg et al. 2017).
+
+(e) **Como podemos reconciliar as necessidades da sociedade por recursos
+    naturais com conservação da Natureza?**
+
+    1.  Existe uma literatura crescente usando abordagens de paisagem
+        para melhorar a gestão da terra para reconciliar conservação e
+        desenvolvimento econômico. Os estudos possuem diversos
+        objetivos, mas em geral eles usaram o engajamento das partes
+        interessadas, apoio institucional, estruturas eficazes de
+        governança como variáveis preditoras e melhorias ambientais (por
+        exemplo, conservação do solo e da água, cobertura vegetal) e
+        socioeconômicas (renda, capital social, saúde pública, emprego)
+        como variáveis dependentes (Reed et al. 2017).
+
+(f) **Qual é o papel das áreas protegidas (UCs) para a manutençãoda
+    biodiversidade e dos serviços ecossistêmicos?**
+
+    1.  Houve um trabalho considerável na última década comparando a
+        eficácia das UCs para a conservação da biodiversidade. Embora
+        esta questão não esteja completamente separada da questão
+        anterior, o desenho dos estudos é relativamente distinto. Em
+        geral, os pesquisadores contrastam o número de espécies e o
+        fornecimento de serviços ecossistêmicos (por exemplo, retenção
+        de água e solo, sequestro de carbono) entre áreas legamente
+        protegidas (UCs) e não protegidas (Xu et al. 2017)
+
+(g) **Como integrar o conhecimento científico e das pessoas locais para
+    mitigar os impactos negativos das mudanças climáticas e do uso da
+    terra na biodiversidade?**
+
+    1.  Eventos climáticos extremos podem ter forte impacto sobre
+        rendimento agrícola e produção de alimentos. Autores recentes
+        têm argumentado que esse efeito pode ser mais forte para os
+        pequenos agricultores. Estudos futuros podem investigar como a
+        precipitação e a temperatura afetam o rendimento agrícola e como
+        os agricultores tradicionais ou indígenas lidam com esse impacto
+        negativo. Sistemas de agricultura tradicional têm menor erosão
+        do solo e emissões de N<sub>2</sub>O / CO<sub>2</sub> do que as
+        monoculturas e, portanto, podem ser vistos como uma atividade de
+        mitigação viável em um mundo em constante mudança (Niggli et al.
+        2009, Altieri & Nicholls 2017).
+
+(h) **Como as mudanças climáticas afetam a resiliência e estratégias
+    adaptativas em sistemas socioecológicos?**
+
+    1.  A mudança do clima altera tanto a pesca quanto a agricultura em
+        todo o mundo, o que por sua vez obriga os humanos a mudar suas
+        estratégias de cultivo. Estudos recentes têm argumentado que a
+        agricultura em alguns países enfrentará riscos com as mudanças
+        climáticas. Esses estudos comparam diferentes sistemas de
+        produção, de agricultura convencional a outros tipos empregados
+        por populações locais. Por exemplo, há uma forte conexão entre
+
+        (1) espécies ameaçadas e sobrepesca, (2) índice de
+            desenvolvimento humano (IDH) e dependência média da pesca e
+            aquicultura. Além disso, há evidências de que a
+            biodiversidade pode amortecer os impactos das mudanças
+            climáticas aumentando a resiliência da terra (Niggli et al.
+            2009, Altieri & Nicholls 2017, Blanchard et al. 2017). Uma
+            abordagem interessante é investigar como as populações
+            locais lidam com esses desafios em termos de percepções e
+            comportamento.
+
+(i) **Como a invasão biológica afeta espacial e temporalmente a
+    estrutura e funcionalidade dos sistemas sócio-ecológicos?**
+
+    1.  Muitos estudos demonstraram que espécies invasoras têm
+        consequências biológicas, econômicas e sociais negativas. Aqui,
+        da mesma forma que a pergunta B, os pesquisadores controlaram a
+        presença de espécies invasoras ou utilizaram registros
+        históricos. No entanto, trabalhos recentes quantificam não
+        apenas a riqueza e composição de espécies nativas, mas também
+        atributos funcionais de animais / vegetais que afetam
+        diretamente o fornecimento de serviços ecossistêmicos como
+        abastecimento (comida, água), regulação (clima, controle de
+        inundações), suporte (ciclagem de nutrientes, formação do solo)
+        e cultural (ecoturismo, patrimônio cultural) (Chaffin et al.
+        2016). Mas, espécies invasoras podem provocar efeitos positivos
+        no sistema sócio-ecológico aumentando a disponibilidade de
+        recursos naturais, impactando como as pessoas gerenciam e usam a
+        biodiversidade local.
+
+(j) **Qual é a relação entre as diversidades filogenética e taxonômica
+    com a diversidade biocultural?**
+
+    1.  Estudos recentes mostraram que existe um padrão filogenético e
+        taxonômico nos recursos que as pessoas incorporam em seus
+        sistemas sócio-ecológicos, especialmente em plantas medicinais.
+        Existe uma tendência para as pessoas, em diferentes partes do
+        mundo, para usar plantas próximas filogeneticamente para os
+        mesmos propósitos. Aqui, os pesquisadores podem testar o quanto
+        isso afeta a diversidade de práticas em um sistema
+        sócio-ecológico, considerando o ambiente, bem como sua estrutura
+        e funções (Saslis-Lagoudakis et al. 2012, 2014).
+
+(k) **Quais variáveis ambientais e sócio-políticas mudam a estrutura e
+    funcionalidade dos sistemas sócio-ecológicos tropicais?**
+
+    1.  Testar a influência das mudanças ambientais afetadas pela
+        espécie humana (por exemplo, fogo, exploração madeireira,
+        aquecimento) em espécies-chave e, consequentemente, como esse
+        efeito em cascata pode afetar outras espécies e serviços
+        ecossistêmicos (por exemplo, armazenamento de carbono, ciclo da
+        água e dinâmica do fogo) (Lindenmayer & Sato 2018).
+
+(l) **Os atributos das espécies influenciam como as populações locais
+    distinguem plantas oi animais úteis e não úteis?**
+
+    1.  Investigar se a população local possui preferência ao selecionar
+        espécies de animais ou plantas. Você pode avaliar se grupos
+        diferentes (por exemplo, turistas) ou populações locais (por
+        exemplo, pescadores) selecionam espécies com base em atributos
+        das espécies. Estudos recentes têm mostrado uma ligação
+        potencial entre planta (por exemplo, cor, folha, floração) e
+        pássaro (por exemplo, cor, vocalzação) e alguns serviços
+        culturais do ecossistema, como estética, recreativa e espiritual
+        / religiosa (Goodness et al. 2016).
+
+Como você notou, as questões eram mais teóricas e, consequentemente,
+você pode derivar prediões testáveis (usando variáveis) a partir delas
+(Figuras 1 e 3). Por exemplo, da questão *"Como o uso da terra afeta a
+manutenção da biodiversidade edistribuição de espécies em diferentes
+escalas?"* podemos derivar duas predições diferentes: (1) densidade
+populacional (variável operacional de uso da terra) muda a composição de
+espécies e reduz a riqueza de espécies na escala da paisagem (predição
+derivada da hipótese da homogeneização biótica: Solar et al. 2015); (2)
+a composição dos atributos funcionais das plantas é diferente em
+remanescentes florestais com diferentes matrizes (cana-de-açúcar, gado,
+cidade, etc.).
+
+## Considerações Finais
+
+> *Conte-me seus segredos*
+>
+> *E faça-me suas perguntas*
+>
+> *Oh, vamos voltar para o início*
+>
+> *Correndo em círculos, perseguindo caudas*
+>
+> *Cabeças em uma ciência à parte*
+>
+> *Ninguém disse que seria fácil*
+>
+> *(...) Desfazendo enígmas*
+>
+> *Questões da ciência, ciência e progresso --- O Cientista, Coldplay*
+
+Este é um trecho de uma música da banda britânica de rock Coldplay, do
+álbum de 2002 *A Rush of Blood to the Head*. A letra é uma comparação
+incrível entre a ciência e os altos e baixos de um relacionamento fadado
+ao fracaço. A banda traz uma mensagem surpreendentemente clara de que
+como cientistas, nós (deveríamos) frequentemente fazer perguntas, voltar
+ao início após descobrir que estávamos errados (ou não) e que corremos
+em círculos tentando melhorar nosso conhecimento. A banda descreveu de
+uma forma tão precisa o quão cíclico (mas não repetitivo) é o método
+científico. Como disse a canção: não é fácil, mas aprender como fazer
+boas perguntas é um passo essencial para a consolidação do conhecimento.
+Ao incluir o teste de hipótese no EEC, podemos ser mais precisos.
+Definitivamente, isso não significa que a ciência descritiva seja
+inútil. Ao contrário, o desenvolvimento da ECC e principalmente da
+Etnobiologia, foi construído sobre uma linha de frente descritiva, o que
+significa que foi valioso para a fundação da Etnobiologia como
+disciplina consolidada (Ethnobiology Working Group 2003, Steep 2005). No
+entanto, estudos recentes defendem que a etnobiologia deve dialogar com
+disciplinas com maior respaldo teórico, como ecologia e biologia
+evolutiva para melhorar a pesquisa sobre biodiversidade (Albuquerque &
+Ferreira-Júnior 2017). Por sua vez, incorporando o conhecimento local em
+ecologia e evolução irá certamente refinar seu próprio desenvolvimento,
+que em última análise beneficia a conservação biológica
+(Saslis-Lagoudakis et al. 2013). Além disso, há uma necessidade urgente
+de formar jovens pesquisadores em filosofia e metodologia da ciência,
+bem como comunicação e produção científica (Albuquerque 2013). Como
+comentário final, acreditamos que a formação dos alunos em EEC precisa
+de uma reavaliação que necessariamente volta ao conceitos e métodos
+básicos. Assim, os pesquisadores podem combinar o método
+hipotético-dedutivo com pensamento estatístico usando um fluxograma de
+pesquisa para ir além da descrição básica.
+
+| Termo[^3]   | Definição                                                                                                                                                                       |
+|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Pressuposto | Condições necessárias para sustentar uma hipótese ou construçãoa teoria                                                                                                         |
+| Hipótese    | Afirmação testável derivada ou representando vários componentes de uma teoria                                                                                                   |
+| Mecanismo   | Interação direta de uma relação causal que resultaem um fenômeno                                                                                                                |
+| Padrão      | Eventos repetidos, entidades recorrentes ou relações replicadasrelações observadas no tempo ou no espaço                                                                        |
+| Fenômeno    | Um evento, entidade ou relacionamento observável                                                                                                                                |
+| Predição    | Uma declaração de expectativa deduzida da lógicaestrutura ou derivada da estrutura causal de um teoria                                                                          |
+| Processo    | Um subconjunto de fenômenos em que os eventos seguem umoutro no tempo ou espaço, que pode ou não sercausalmente conectado. É causa, mecanismo ou contensão explicando um padrão |
+
+[^3]: Glossário (adaptado de Pickett et al. 2007)
+
+## Referências
+
+1.  Popper K (1959) The logic of scientific discovery, 2nd edn.
+    Routledge, London
+
+2.  Metz AM (2008) Teaching statistics in biology: using inquiry-based
+    learning to strengthen understanding of statistical analysis in
+    biology laboratory courses. CBE Life Sci Educ 7:317--326.
+
+3.  Horgan GW, Elston DA, Franklin MF, Glasbey CA, Hunter EA, Talbot M,
+    Kempton RA, McNicol JW, Wright F (1999) Teaching statistics to
+    biological research scientists. J R Stat Soc D Stat 48:393--400.
+
+4.  Phillips O, Gentry AH (1993) The useful plants of Tambopata,
+    Peru: II. Additional hypothesis testing in quantitative ethnobotany.
+    Econ Bot 47:33--43.
+
+5.  Phillips O, Gentry AH (1993) The useful plants of Tambopata,
+    Peru: I. Statistical hypotheses tests with a new quantitative
+    technique. Econ Bot 47:15--32.
+
+6.  Albuquerque UP, Hanazaki N (2009) Five problems in current
+    ethnobotanical research -- and some suggestions for strengthening
+    them. Hum Ecol 37:653--661.
+
+7.  Neyman J, Pearson ES (1933) On the problem of the most efficient
+    tests of statistical hypotheses. Phil T R Soc A 231:289--337.
+
+8.  Legendre P, Legendre L (2012) Num Ecol, 3rd edn. Elsevier, Amsterdam
+
+9.  Underwood AJ (1997) Experiments in ecology: their logical design and
+    interpretation using analysis of variance. Cambridge University
+    Press, Cambridge.
+
+10. Gonçalves PHS, Albuquerque UP, Medeiros PM (2016) The most commonly
+    available woody plant species are the most useful for human
+    populations: a meta-analysis. Ecol Appl 26:2238--2253.
+
+11. MacDougall AS, Gilbert B, Levine JM (2009) Plant invasions and the
+    niche. J Ecol 97:609--615.
+
+12. Saul WC, Jeschke JM (2015) Eco-evolutionary experience in novel
+    species interactions. Ecol Lett 18:236--245.
+
+13. Platt JR (1964) Strong inference: certain systematic methods of
+    scientific thinking may produce much more rapid progress than
+    others. Science 146:347--353
+
+14. Gotelli NJ, Ellison AM (2012) A primer of ecological statistics, 2nd
+    edn. Sinauer Associates Publishers, Sunderland, MA.
+
+15. Ford ED (2004) Scientific method for ecological research. Cambridge
+    University Press, Cambridge.
+
+16. Martínez-Abraín A (2008) Statistical significance and biological
+    relevance: a call for a more cautious interpretation of results in
+    ecology. Acta Oecol 34:9--11.
+
+17. Whitlock M, Schluter D (2015) The analysis of biological data, 2nd
+    edn. Roberts and Co. Publishers, Greenwood Village, CO.
+
+18. Ellison AM, Gotelli NJ, Inouye BD, Strong DR (2014) P values,
+    hypothesis testing, and model selection: it's de´ja\` vu all over
+    again.Ecology 95:609--610.
+
+19. McIntosh A, Pontius J (2016) Science and the global environment:
+    case studies for integrating science and the global environment, 1st
+    edn. Elsevier, Amsterdam.
+
+20. Ruxton GD, Colegrave N (2016) Experimental design for the life
+    sciences, 4th edn. Oxford University Press, Oxford, NY.
+
+21. Vellend M (2016) The theory of ecological communities. Princeton
+    University Press, Princeton.
+
+22. Magnusson WE, Mourão G, Costa F (2015) Statistics without math, 2nd
+    edn. Editora Planta, Londrina.
+
+23. Arlidge SM, Thanukos A, Bean JR (2017) Using the understanding
+    science flowchart to illustrate and bring students' science stories
+    to life. Bull Ecol Soc Am 98:211--226
+
+24. Sutherland WJ, Freckleton RP, Godfray HCJ, Beissinger SR, Benton T,
+    Cameron DD, Carmel Y, Coomes DA, Coulson T, Emmerson MC, Hails RS,
+    Hays GC, Hodgson DJ, Hutchings MJ, Johnson D, Jones JPG, Keeling MJ,
+    Kokko H, Kunin WE, Lambin X, Lewis OT, Malhi Y, Mieszkowska N,
+    Milner-Gulland EJ, Norris K, Phillimore AB, Purves DW, Reid JM,
+    Reuman DC, Thompson K, Travis JMJ, Turnbull LA, Wardle DA, Wiegand T
+
+    (2013) Identification of 100 fundamental ecological questions. J
+           Ecol 101:58--67.
+
+25. Pickett ST, Kolasa J, Jones CG (2007) Ecological understanding: the
+    nature of theory and the theory of nature, 2nd edn. Elsevier,
+    Amsterdam.
+
+26. Newbold T, Hudson LN, Hill SLL, Contu S, Lysenko I, Senior RA,
+    Börger L, Bennett DJ, Choimes A, Collen B, Day J, De Palma A, Díaz
+    S, Echeverria-Londoño S, Edgar MJ, Feldman A, Garon M, Harrison MLK,
+    Alhusseini T, Ingram DJ, Itescu Y, Kattge J, Kemp V, Kirkpatrick L,
+    Kleyer M, Correia DLP, Martin CD, Meiri S, Novosolov M, Pan Y,
+    Phillips HRP, Purves DW, Robinson A, Simpson J, Tuck SL, Weiher E,
+    White HJ, Ewers RM, Mace GM, Scharlemann JPW, Purvis A (2015) Global
+    effects of land use on local terrestrial biodiversity. Nature
+    520:45--50.
+
+27. Dawson W, Moser D, Mvan K, Kreft H, Pergl J, Pysek P, Weigelt P,
+    Winter M, Lenzner B, Blackburn TM, Dyer EE, Cassey P, Scrivens SL,
+    Economo EP, Guénard B, Capinha C, Seebens H, García Díaz P, Nentwig
+    W, García-Berthou E, Casal C, Mandrak NE, Fuller P, Meyer C, Essl F
+
+    (2017) Global hotspots and correlates of alien species richness
+           across taxonomic groups. Nat Ecol Evol 1:0186.
+
+28. Ripple WJ, Estes JA, Beschta RL, Wilmers CC, Ritchie EG, Hebblewhite
+    M, Berger J, Elmhagen B, Letnic M, Nelson MP, Schmitz OJ, Smith DW,
+    Wallach AD, Wirsing AJ. 2014. Status and ecological effects of the
+    world's largest carnivores. Science 343:1241484.
+
+<!-- -->
+
+29. Goldenberg SU, Nagelkerken I, Ferreira CM, Ullah H, Connell SD
+
+    (2017) Boosted food web productivity through ocean acidification
+           collapses under warming. Glob Change Biol 23:4177--4184.
+
+30. Reed J, Vianen JV, Barlow J, Sunderland T (2017) Have integrated
+    landscape approaches reconciled societal and environmental issues in
+    the tropics? Land Use Policy 63:481--492.
+
+31. Xu W, Xiao Y, Zhang J, Yang W, Zhang L, Hull V, Wang Z, Zheng H, Liu
+    J, Polasky S, Jiang L, Xiao Y, Shi X, Rao E, Lu F, Wang X, Daily GC,
+    Ouyang Z (2017) Strengthening protected areas for biodiversity and
+    ecosystem services in China. Proc Natl Acad Sci U S A
+    114:1601--1606.
+
+32. Altieri MA, Nicholls CI (2017) The adaptation and mitigation
+    potential of traditional agriculture in a changing climate. Clim
+    Change 140:33--45
+
+33. Niggli U, Fliessbach A, Hepperly P, Scialabba N (2009) Low
+    greenhouse gas agriculture: mitigation and adaptation potential of
+    sustainable farming systems. FAO - Food and Agriculture Organization
+    of the United Nations, Rome.
+
+34. Blanchard JL, Watson RA, Fulton EA, Cottrell RS, Nash KL,
+    Bryndum-Buchholz A, Bu¨chner M, Carozza DA, Cheung WWL, Elliott J,
+    Davidson LNK, Dulvy NK, Dunne JP, Eddy TD, Galbraith E, Lotze HK,
+    Maury O, Müller C, Tittensor DP, Jennings S Linked sustainability
+    challenges and trade-offs among fisheries, aquaculture and
+    agriculture. Nat Ecol Evol 1:1240--1249.
+
+<!-- -->
+
+35. Chaffin BC, Garmestani AS, Angeler DG, Herrmann DL, Stow CA, Nyström
+    M, Sendzimir J, Hopton ME, Kolasa J, Allen CR Biological invasions,
+    ecological resilience and adaptive governance. J Environ Manag
+    183:399--407.
+
+<!-- -->
+
+36. Saslis-Lagoudakis CH, Savolainen V, Williamson EM, Forest F,
+    Wagstaff SJ, Baral SR, Watson MF, Pendry CA, Hawkins JA (2012)
+    Phylogenies reveal predictive power of traditional medicine in
+    bioprospecting. Proc Natl Acad Sci U S A 109:15835--15840.
+37. Saslis-Lagoudakis CH, Hawkins JA, Greenhill SJ, Pendry CA, Watson
+    MF, TuladharDouglas W, Baral SR, Savolainen V (2014) The evolution
+    of traditional knowledge: environment shapes medicinal plant use in
+    Nepal. Proc R Soc B 281:20132768.
+38. Lindenmayer DB, Sato C (2018) Hidden collapse is driven by fire and
+    logging in a socioecological forest ecosystem. Proc Natl Acad Sci U
+    S A 115:5181--5186.
+39. Goodness J, Andersson E, Anderson PML, Elmqvist T (2016) Exploring
+    the links between functional traits and cultural ecosystem services
+    to enhance urban ecosystem management. Ecol Indic 70:597--605.
+40. Solar RRC, Barlow J, Ferreira J, Berenguer E, Lees AC, Thomson JR,
+    Louzada J, Maués M, Moura NG, Oliveira VHF, Chaul JCM, Schoereder
+    JH, Vieira ICG, MacNally R, Gardner TA (2015) How pervasive is
+    biotic homogenization in human-modified tropical forest landscapes?
+    Ecol Lett 18:1108--1118.
+41. Ethnobiology Working Group (2003) Intellectual imperatives in
+    ethnobiology. Missouri Botanical Garden Press, St. Louis, MO
+42. Stepp JR (2005) Advances in ethnobiological field methods. Field
+    Method 17:211--218.
+43. Albuquerque UP, Ferreira Júnior WS (2017) What do we study in
+    evolutionary ethnobiology? Defining the theoretical basis for a
+    research program. Evol Biol 44:206--215.
+44. Saslis-Lagoudakis CH, Clarke AC (2013) Ethnobiology: the missing
+    link in ecology and evolution. Trends Ecol Evol 28:67--68.
+45. Albuquerque UP (2013) How to improve the quality of scientific
+    publications in ethnobiology. Ethnobiol Cons 2:1--5.

@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 4 Voltando ao básico: como dominar a arte de fazer perguntas cientificamente relevantes | Introdução ao R com aplicações em biodiversidade e conservação</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 4 Voltando ao básico: como dominar a arte de fazer perguntas cientificamente relevantes | Introdução ao R com aplicações em biodiversidade e conservação" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 4 Voltando ao básico: como dominar a arte de fazer perguntas cientificamente relevantes | Introdução ao R com aplicações em biodiversidade e conservação" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+
+
+<meta name="date" content="2021-03-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introdução.html"/>
+<link rel="next" href="intro-r.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Introdução ao R com aplicações em biodiversidade e conservação</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Pré-requisitos</a></li>
+<li class="chapter" data-level="2" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html"><i class="fa fa-check"></i><b>2</b> Pré-requisitos</a></li>
+<li class="chapter" data-level="3" data-path="introdução.html"><a href="introdução.html"><i class="fa fa-check"></i><b>3</b> Introdução</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introdução.html"><a href="introdução.html#histórico-deste-livro"><i class="fa fa-check"></i><b>3.1</b> Histórico deste livro</a></li>
+<li class="chapter" data-level="3.2" data-path="introdução.html"><a href="introdução.html#objetivo-deste-livro"><i class="fa fa-check"></i><b>3.2</b> Objetivo deste livro</a></li>
+<li class="chapter" data-level="3.3" data-path="introdução.html"><a href="introdução.html#o-que-você-não-encontrará-neste-livro"><i class="fa fa-check"></i><b>3.3</b> O que você não encontrará neste livro</a></li>
+<li class="chapter" data-level="3.4" data-path="introdução.html"><a href="introdução.html#por-que-usar-o-r"><i class="fa fa-check"></i><b>3.4</b> Por que usar o R?</a></li>
+<li class="chapter" data-level="3.5" data-path="introdução.html"><a href="introdução.html#como-usar-este-livro"><i class="fa fa-check"></i><b>3.5</b> Como usar este livro</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><i class="fa fa-check"></i><b>4</b> Voltando ao básico: como dominar a arte de fazer perguntas cientificamente relevantes</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#introdução-1"><i class="fa fa-check"></i><b>4.1</b> Introdução</a></li>
+<li class="chapter" data-level="4.2" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#perguntas-devem-preceder-as-análises-estatísticas"><i class="fa fa-check"></i><b>4.2</b> Perguntas devem preceder as análises estatísticas</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#um-bestiário1-para-o-teste-de-hipóteses-você-está-fazendo-a-pergunta-certa"><i class="fa fa-check"></i><b>4.2.1</b> Um bestiário para o teste de hipóteses (Você está fazendo a pergunta certa?)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fluxograma-conectando-variáveis-para-melhorar-o-desenho-experimental-e-as-análises-estatísticas"><i class="fa fa-check"></i><b>4.3</b> Fluxograma: Conectando Variáveis para Melhorar o desenho experimental e as análises estatísticas</a></li>
+<li class="chapter" data-level="4.4" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#questões-fundamentais-em-etnobiologia-ecologia-e-conservação"><i class="fa fa-check"></i><b>4.4</b> Questões fundamentais em etnobiologia, ecologia e conservação</a></li>
+<li class="chapter" data-level="4.5" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#considerações-finais"><i class="fa fa-check"></i><b>4.5</b> Considerações Finais</a></li>
+<li class="chapter" data-level="4.6" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#referências"><i class="fa fa-check"></i><b>4.6</b> Referências</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="intro-r.html"><a href="intro-r.html"><i class="fa fa-check"></i><b>5</b> Introdução à linguagem R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="intro-r.html"><a href="intro-r.html#introdução-2"><i class="fa fa-check"></i><b>5.1</b> Introdução</a></li>
+<li class="chapter" data-level="5.2" data-path="intro-r.html"><a href="intro-r.html#r-e-rstudio"><i class="fa fa-check"></i><b>5.2</b> R e RStudio</a></li>
+<li class="chapter" data-level="5.3" data-path="intro-r.html"><a href="intro-r.html#funcionamento-da-linguagem-r"><i class="fa fa-check"></i><b>5.3</b> Funcionamento da linguagem R</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="intro-r.html"><a href="intro-r.html#console"><i class="fa fa-check"></i><b>5.3.1</b> Console</a></li>
+<li class="chapter" data-level="5.3.2" data-path="intro-r.html"><a href="intro-r.html#scripts"><i class="fa fa-check"></i><b>5.3.2</b> Scripts</a></li>
+<li class="chapter" data-level="5.3.3" data-path="intro-r.html"><a href="intro-r.html#operadores"><i class="fa fa-check"></i><b>5.3.3</b> Operadores</a></li>
+<li class="chapter" data-level="5.3.4" data-path="intro-r.html"><a href="intro-r.html#objetos"><i class="fa fa-check"></i><b>5.3.4</b> Objetos</a></li>
+<li class="chapter" data-level="5.3.5" data-path="intro-r.html"><a href="intro-r.html#funções"><i class="fa fa-check"></i><b>5.3.5</b> Funções</a></li>
+<li class="chapter" data-level="5.3.6" data-path="intro-r.html"><a href="intro-r.html#pacotes"><i class="fa fa-check"></i><b>5.3.6</b> Pacotes</a></li>
+<li class="chapter" data-level="5.3.7" data-path="intro-r.html"><a href="intro-r.html#ajuda-help"><i class="fa fa-check"></i><b>5.3.7</b> Ajuda (<em>Help</em>)</a></li>
+<li class="chapter" data-level="5.3.8" data-path="intro-r.html"><a href="intro-r.html#ambiente-environment"><i class="fa fa-check"></i><b>5.3.8</b> Ambiente (<em>Environment</em>)</a></li>
+<li class="chapter" data-level="5.3.9" data-path="intro-r.html"><a href="intro-r.html#citações"><i class="fa fa-check"></i><b>5.3.9</b> Citações</a></li>
+<li class="chapter" data-level="5.3.10" data-path="intro-r.html"><a href="intro-r.html#principais-erros-de-iniciantes"><i class="fa fa-check"></i><b>5.3.10</b> Principais erros de iniciantes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="intro-r.html"><a href="intro-r.html#estrutura-e-manipulação-de-objetos"><i class="fa fa-check"></i><b>5.4</b> Estrutura e manipulação de objetos</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="intro-r.html"><a href="intro-r.html#atributo-dos-objetos"><i class="fa fa-check"></i><b>5.4.1</b> Atributo dos objetos</a></li>
+<li class="chapter" data-level="5.4.2" data-path="intro-r.html"><a href="intro-r.html#manipulação-de-objetos-unidimensionais"><i class="fa fa-check"></i><b>5.4.2</b> Manipulação de objetos unidimensionais</a></li>
+<li class="chapter" data-level="5.4.3" data-path="intro-r.html"><a href="intro-r.html#manipulação-de-objetos-multidimensionais"><i class="fa fa-check"></i><b>5.4.3</b> Manipulação de objetos multidimensionais</a></li>
+<li class="chapter" data-level="5.4.4" data-path="intro-r.html"><a href="intro-r.html#valores-faltantes-e-especiais"><i class="fa fa-check"></i><b>5.4.4</b> Valores faltantes e especiais</a></li>
+<li class="chapter" data-level="5.4.5" data-path="intro-r.html"><a href="intro-r.html#diretório-de-trabalho"><i class="fa fa-check"></i><b>5.4.5</b> Diretório de trabalho</a></li>
+<li class="chapter" data-level="5.4.6" data-path="intro-r.html"><a href="intro-r.html#importar-dados"><i class="fa fa-check"></i><b>5.4.6</b> Importar dados</a></li>
+<li class="chapter" data-level="5.4.7" data-path="intro-r.html"><a href="intro-r.html#conferência-de-dados-importados"><i class="fa fa-check"></i><b>5.4.7</b> Conferência de dados importados</a></li>
+<li class="chapter" data-level="5.4.8" data-path="intro-r.html"><a href="intro-r.html#exportar-dados"><i class="fa fa-check"></i><b>5.4.8</b> Exportar dados</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="intro-r.html"><a href="intro-r.html#tidyverse"><i class="fa fa-check"></i><b>5.5</b> Tidyverse</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="intro-r.html"><a href="intro-r.html#contextualização"><i class="fa fa-check"></i><b>5.5.1</b> Contextualização</a></li>
+<li class="chapter" data-level="5.5.2" data-path="intro-r.html"><a href="intro-r.html#tidyverse-1"><i class="fa fa-check"></i><b>5.5.2</b> <em>tidyverse</em></a></li>
+<li class="chapter" data-level="5.5.3" data-path="intro-r.html"><a href="intro-r.html#here"><i class="fa fa-check"></i><b>5.5.3</b> here</a></li>
+<li class="chapter" data-level="5.5.4" data-path="intro-r.html"><a href="intro-r.html#readr-readxl-e-writexl"><i class="fa fa-check"></i><b>5.5.4</b> readr, readxl e writexl</a></li>
+<li class="chapter" data-level="5.5.5" data-path="intro-r.html"><a href="intro-r.html#tibble"><i class="fa fa-check"></i><b>5.5.5</b> tibble</a></li>
+<li class="chapter" data-level="5.5.6" data-path="intro-r.html"><a href="intro-r.html#magrittr-pipe--"><i class="fa fa-check"></i><b>5.5.6</b> magrittr (pipe - %&gt;%)</a></li>
+<li class="chapter" data-level="5.5.7" data-path="intro-r.html"><a href="intro-r.html#tidyr"><i class="fa fa-check"></i><b>5.5.7</b> tidyr</a></li>
+<li class="chapter" data-level="5.5.8" data-path="intro-r.html"><a href="intro-r.html#dplyr"><i class="fa fa-check"></i><b>5.5.8</b> dplyr</a></li>
+<li class="chapter" data-level="5.5.9" data-path="intro-r.html"><a href="intro-r.html#stringr"><i class="fa fa-check"></i><b>5.5.9</b> stringr</a></li>
+<li class="chapter" data-level="5.5.10" data-path="intro-r.html"><a href="intro-r.html#forcats"><i class="fa fa-check"></i><b>5.5.10</b> forcats</a></li>
+<li class="chapter" data-level="5.5.11" data-path="intro-r.html"><a href="intro-r.html#lubridate"><i class="fa fa-check"></i><b>5.5.11</b> lubridate</a></li>
+<li class="chapter" data-level="5.5.12" data-path="intro-r.html"><a href="intro-r.html#purrr"><i class="fa fa-check"></i><b>5.5.12</b> purrr</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="intro-r.html"><a href="intro-r.html#exercícios"><i class="fa fa-check"></i><b>5.6</b> Exercícios</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="intro-r.html"><a href="intro-r.html#base-r"><i class="fa fa-check"></i><b>5.6.1</b> Base R</a></li>
+<li class="chapter" data-level="5.6.2" data-path="intro-r.html"><a href="intro-r.html#tidyverse-2"><i class="fa fa-check"></i><b>5.6.2</b> <em>tidyverse</em></a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="intro-r.html"><a href="intro-r.html#para-se-aprofundar"><i class="fa fa-check"></i><b>5.7</b> Para se aprofundar</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="intro-r.html"><a href="intro-r.html#livros"><i class="fa fa-check"></i><b>5.7.1</b> Livros</a></li>
+<li class="chapter" data-level="5.7.2" data-path="intro-r.html"><a href="intro-r.html#links"><i class="fa fa-check"></i><b>5.7.2</b> Links</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="gráficos.html"><a href="gráficos.html"><i class="fa fa-check"></i><b>6</b> Gráficos</a></li>
+<li class="chapter" data-level="7" data-path="estatística-básica.html"><a href="estatística-básica.html"><i class="fa fa-check"></i><b>7</b> Estatística básica</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="estatística-básica.html"><a href="estatística-básica.html#teste-t-de-student-para-duas-amostras-independentes"><i class="fa fa-check"></i><b>7.1</b> Teste T (de Student) para duas amostras independentes</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise"><i class="fa fa-check"></i><b>7.1.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="7.1.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise"><i class="fa fa-check"></i><b>7.1.2</b> Análise</a></li>
+<li class="chapter" data-level="7.1.3" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-1"><i class="fa fa-check"></i><b>7.1.3</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="estatística-básica.html"><a href="estatística-básica.html#teste-t-para-amostras-pareadas"><i class="fa fa-check"></i><b>7.2</b> Teste T para amostras pareadas</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-1"><i class="fa fa-check"></i><b>7.2.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="7.2.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-2"><i class="fa fa-check"></i><b>7.2.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="estatística-básica.html"><a href="estatística-básica.html#correlação-de-pearson"><i class="fa fa-check"></i><b>7.3</b> Correlação de Pearson</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-2"><i class="fa fa-check"></i><b>7.3.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="7.3.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-3"><i class="fa fa-check"></i><b>7.3.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="estatística-básica.html"><a href="estatística-básica.html#regressão-simples"><i class="fa fa-check"></i><b>7.4</b> Regressão Simples</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-3"><i class="fa fa-check"></i><b>7.4.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="7.4.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-4"><i class="fa fa-check"></i><b>7.4.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="estatística-básica.html"><a href="estatística-básica.html#regressão-múltipla"><i class="fa fa-check"></i><b>7.5</b> Regressão Múltipla</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-4"><i class="fa fa-check"></i><b>7.5.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="7.5.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-5"><i class="fa fa-check"></i><b>7.5.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="estatística-básica.html"><a href="estatística-básica.html#análises-de-variância-anova"><i class="fa fa-check"></i><b>7.6</b> Análises de Variância (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-5"><i class="fa fa-check"></i><b>7.6.1</b> Backgorund da análise</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="estatística-básica.html"><a href="estatística-básica.html#anova-de-um-fator"><i class="fa fa-check"></i><b>7.7</b> ANOVA de um fator</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-6"><i class="fa fa-check"></i><b>7.7.1</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="estatística-básica.html"><a href="estatística-básica.html#anova-de-dois-fatores-ou-anova-fatorial"><i class="fa fa-check"></i><b>7.8</b> ANOVA de dois fatores ou Anova fatorial</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-7"><i class="fa fa-check"></i><b>7.8.1</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="estatística-básica.html"><a href="estatística-básica.html#anova-em-blocos-aleatorizados"><i class="fa fa-check"></i><b>7.9</b> ANOVA em blocos aleatorizados</a>
+<ul>
+<li class="chapter" data-level="7.9.1" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-8"><i class="fa fa-check"></i><b>7.9.1</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="7.10" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-de-covariância-ancova"><i class="fa fa-check"></i><b>7.10</b> Análise de covariância (ANCOVA)</a>
+<ul>
+<li class="chapter" data-level="7.10.1" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-9"><i class="fa fa-check"></i><b>7.10.1</b> Análise</a></li>
+<li class="chapter" data-level="7.10.2" data-path="estatística-básica.html"><a href="estatística-básica.html#para-se-aprofundar-1"><i class="fa fa-check"></i><b>7.10.2</b> Para se aprofundar</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="análises-univariadas-glm.html"><a href="análises-univariadas-glm.html"><i class="fa fa-check"></i><b>8</b> Análises univariadas - GLM</a></li>
+<li class="chapter" data-level="9" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html"><i class="fa fa-check"></i><b>9</b> Introdução à Análises Multidimensionais</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#backgorund-da-análise-6"><i class="fa fa-check"></i><b>9.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="9.2" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#exemplo-1"><i class="fa fa-check"></i><b>9.2</b> Exemplo 1:</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#explicação-da-análise"><i class="fa fa-check"></i><b>9.2.1</b> Explicação da análise</a></li>
+<li class="chapter" data-level="9.2.2" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#análise-10"><i class="fa fa-check"></i><b>9.2.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#exemplo-2"><i class="fa fa-check"></i><b>9.3</b> Exemplo 2:</a></li>
+<li class="chapter" data-level="9.4" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#backgorund-da-análise-7"><i class="fa fa-check"></i><b>9.4</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="9.5" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#exemplo-1-1"><i class="fa fa-check"></i><b>9.5</b> Exemplo 1:</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#explicação-da-análise-1"><i class="fa fa-check"></i><b>9.5.1</b> Explicação da análise</a></li>
+<li class="chapter" data-level="9.5.2" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#análise-11"><i class="fa fa-check"></i><b>9.5.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#backgorund-da-análise-8"><i class="fa fa-check"></i><b>9.6</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="9.7" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#exemplo-1-2"><i class="fa fa-check"></i><b>9.7</b> Exemplo 1:</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#explicação-da-análise-2"><i class="fa fa-check"></i><b>9.7.1</b> Explicação da análise</a></li>
+<li class="chapter" data-level="9.7.2" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#análise-12"><i class="fa fa-check"></i><b>9.7.2</b> Análise</a></li>
+<li class="chapter" data-level="9.7.3" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#para-se-aprofundar-2"><i class="fa fa-check"></i><b>9.7.3</b> Para se aprofundar</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="rarefação.html"><a href="rarefação.html"><i class="fa fa-check"></i><b>10</b> Rarefação</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="rarefação.html"><a href="rarefação.html#background-da-análise"><i class="fa fa-check"></i><b>10.1</b> Background da análise</a></li>
+<li class="chapter" data-level="10.2" data-path="rarefação.html"><a href="rarefação.html#exemplo-prático-1---morcegos"><i class="fa fa-check"></i><b>10.2</b> Exemplo prático 1 - Morcegos</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="rarefação.html"><a href="rarefação.html#explicação"><i class="fa fa-check"></i><b>10.2.1</b> Explicação</a></li>
+<li class="chapter" data-level="10.2.2" data-path="rarefação.html"><a href="rarefação.html#análise-13"><i class="fa fa-check"></i><b>10.2.2</b> Análise</a></li>
+<li class="chapter" data-level="10.2.3" data-path="rarefação.html"><a href="rarefação.html#interpretação-dos-resultados-1"><i class="fa fa-check"></i><b>10.2.3</b> Interpretação dos resultados</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="rarefação.html"><a href="rarefação.html#exemplo-prático-2---rarefação"><i class="fa fa-check"></i><b>10.3</b> Exemplo prático 2 - Rarefação</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="rarefação.html"><a href="rarefação.html#explicação-1"><i class="fa fa-check"></i><b>10.3.1</b> Explicação</a></li>
+<li class="chapter" data-level="10.3.2" data-path="rarefação.html"><a href="rarefação.html#análise-14"><i class="fa fa-check"></i><b>10.3.2</b> Análise</a></li>
+<li class="chapter" data-level="10.3.3" data-path="rarefação.html"><a href="rarefação.html#interpretação-dos-resultados-2"><i class="fa fa-check"></i><b>10.3.3</b> Interpretação dos resultados</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="rarefação.html"><a href="rarefação.html#para-se-aprofundar-3"><i class="fa fa-check"></i><b>10.4</b> Para se aprofundar</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html"><i class="fa fa-check"></i><b>11</b> Estimadores de Riqueza</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#backgorund-da-análise-9"><i class="fa fa-check"></i><b>11.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="11.2" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#estimadores-baseados-na-abundância-das-espécies"><i class="fa fa-check"></i><b>11.2</b> Estimadores baseados na abundância das espécies</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#chao-1---chao-1984-1987"><i class="fa fa-check"></i><b>11.2.1</b> CHAO 1 - (Chao 1984, 1987):</a></li>
+<li class="chapter" data-level="11.2.2" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-15"><i class="fa fa-check"></i><b>11.2.2</b> Análise</a></li>
+<li class="chapter" data-level="11.2.3" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#ace---abundance-based-coverage-estimador-chao-lee-1992-chao-et-al.-2000"><i class="fa fa-check"></i><b>11.2.3</b> ACE - <em>Abundance-based Coverage Estimador</em> (Chao &amp; Lee 1992, Chao et al. 2000):</a></li>
+<li class="chapter" data-level="11.2.4" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-16"><i class="fa fa-check"></i><b>11.2.4</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#estimadores-baseados-na-incidência-das-espécies"><i class="fa fa-check"></i><b>11.3</b> Estimadores baseados na incidência das espécies</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#chao-2---chao-1987"><i class="fa fa-check"></i><b>11.3.1</b> CHAO 2 - (Chao 1987):</a></li>
+<li class="chapter" data-level="11.3.2" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-17"><i class="fa fa-check"></i><b>11.3.2</b> Análise</a></li>
+<li class="chapter" data-level="11.3.3" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#jackknife-1-burnham-overton-1978-1979"><i class="fa fa-check"></i><b>11.3.3</b> JACKKNIFE 1 (Burnham &amp; Overton 1978, 1979):</a></li>
+<li class="chapter" data-level="11.3.4" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-18"><i class="fa fa-check"></i><b>11.3.4</b> Análise</a></li>
+<li class="chapter" data-level="11.3.5" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#jackknife-2-burnham-overton-1978-1979-palmer-1991"><i class="fa fa-check"></i><b>11.3.5</b> JACKKNIFE 2 (Burnham &amp; Overton 1978, 1979, Palmer 1991):</a></li>
+<li class="chapter" data-level="11.3.6" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-19"><i class="fa fa-check"></i><b>11.3.6</b> Análise</a></li>
+<li class="chapter" data-level="11.3.7" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#bootstrap-smith-van-belle-1984"><i class="fa fa-check"></i><b>11.3.7</b> BOOTSTRAP (Smith &amp; van Belle 1984):</a></li>
+<li class="chapter" data-level="11.3.8" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-20"><i class="fa fa-check"></i><b>11.3.8</b> Análise</a></li>
+<li class="chapter" data-level="11.3.9" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#interpolação-e-extrapolação-baseadas-em-rarefação-usando-amostragens-de-incidência-ou-abundância-chao-jost-2012-colwell-et-al.-2012"><i class="fa fa-check"></i><b>11.3.9</b> Interpolação e Extrapolação baseadas em rarefação usando amostragens de incidência ou abundância (Chao &amp; Jost 2012, Colwell et al. 2012):</a></li>
+<li class="chapter" data-level="11.3.10" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-21"><i class="fa fa-check"></i><b>11.3.10</b> Análise</a></li>
+<li class="chapter" data-level="11.3.11" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#para-se-aprofundar-4"><i class="fa fa-check"></i><b>11.3.11</b> Para se aprofundar</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html"><i class="fa fa-check"></i><b>12</b> Diversidade Taxonômica</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#diversidade-alfa-𝛂"><i class="fa fa-check"></i><b>12.1</b> Diversidade alfa (𝛂)</a></li>
+<li class="chapter" data-level="12.2" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#riqueza-de-espécies-ou-número-de-espécies"><i class="fa fa-check"></i><b>12.2</b> Riqueza de espécies ou número de espécies</a></li>
+<li class="chapter" data-level="12.3" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#diversidade-de-espécies"><i class="fa fa-check"></i><b>12.3</b> Diversidade de espécies</a></li>
+<li class="chapter" data-level="12.4" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#diagramas-de-whittaker-ou-curva-de-dominância"><i class="fa fa-check"></i><b>12.4</b> Diagramas de Whittaker ou Curva de Dominância</a></li>
+<li class="chapter" data-level="12.5" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#números-de-hill"><i class="fa fa-check"></i><b>12.5</b> Números de Hill</a></li>
+<li class="chapter" data-level="12.6" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#diversidade-beta-𝛃"><i class="fa fa-check"></i><b>12.6</b> Diversidade beta (𝛃)</a>
+<ul>
+<li class="chapter" data-level="12.6.1" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#para-se-aprofundar-5"><i class="fa fa-check"></i><b>12.6.1</b> Para se aprofundar</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="diversidade-filogenética.html"><a href="diversidade-filogenética.html"><i class="fa fa-check"></i><b>13</b> Diversidade filogenética</a></li>
+<li class="chapter" data-level="14" data-path="diversidade-funcional.html"><a href="diversidade-funcional.html"><i class="fa fa-check"></i><b>14</b> Diversidade funcional</a></li>
+<li class="chapter" data-level="15" data-path="dados-geograficos.html"><a href="dados-geograficos.html"><i class="fa fa-check"></i><b>15</b> Dados geográficos no R</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#introdução-3"><i class="fa fa-check"></i><b>15.1</b> Introdução</a></li>
+<li class="chapter" data-level="15.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#pré-requisitos-2"><i class="fa fa-check"></i><b>15.2</b> Pré-requisitos</a></li>
+<li class="chapter" data-level="15.3" data-path="dados-geograficos.html"><a href="dados-geograficos.html#vetor-1"><i class="fa fa-check"></i><b>15.3</b> Vetor</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#pontos"><i class="fa fa-check"></i><b>15.3.1</b> Pontos</a></li>
+<li class="chapter" data-level="15.3.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#linhas"><i class="fa fa-check"></i><b>15.3.2</b> Linhas</a></li>
+<li class="chapter" data-level="15.3.3" data-path="dados-geograficos.html"><a href="dados-geograficos.html#polígonos"><i class="fa fa-check"></i><b>15.3.3</b> Polígonos</a></li>
+<li class="chapter" data-level="15.3.4" data-path="dados-geograficos.html"><a href="dados-geograficos.html#tabela-de-atributos"><i class="fa fa-check"></i><b>15.3.4</b> Tabela de atributos</a></li>
+<li class="chapter" data-level="15.3.5" data-path="dados-geograficos.html"><a href="dados-geograficos.html#sf-principal-pacote-no-r-para-dados-vetoriais"><i class="fa fa-check"></i><b>15.3.5</b> <em>sf</em>: principal pacote no R para dados vetoriais</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="dados-geograficos.html"><a href="dados-geograficos.html#raster"><i class="fa fa-check"></i><b>15.4</b> Raster</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#tipos-de-raster"><i class="fa fa-check"></i><b>15.4.1</b> Tipos de raster</a></li>
+<li class="chapter" data-level="15.4.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#raster-principal-pacote-no-r-para-dados-raster"><i class="fa fa-check"></i><b>15.4.2</b> <em>raster</em>: principal pacote no R para dados raster</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="dados-geograficos.html"><a href="dados-geograficos.html#sistema-de-referência-de-coordenadas-e-unidades"><i class="fa fa-check"></i><b>15.5</b> Sistema de Referência de Coordenadas e Unidades</a>
+<ul>
+<li class="chapter" data-level="15.5.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#sistema-de-coordenadas-geográficas"><i class="fa fa-check"></i><b>15.5.1</b> Sistema de Coordenadas Geográficas</a></li>
+<li class="chapter" data-level="15.5.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#sistema-de-coordenadas-projetadas"><i class="fa fa-check"></i><b>15.5.2</b> Sistema de Coordenadas Projetadas</a></li>
+<li class="chapter" data-level="15.5.3" data-path="dados-geograficos.html"><a href="dados-geograficos.html#datum"><i class="fa fa-check"></i><b>15.5.3</b> Datum</a></li>
+<li class="chapter" data-level="15.5.4" data-path="dados-geograficos.html"><a href="dados-geograficos.html#sistema-de-referência-de-coordenadas-crs-no-r"><i class="fa fa-check"></i><b>15.5.4</b> Sistema de Referência de Coordenadas (CRS) no R</a></li>
+</ul></li>
+<li class="chapter" data-level="15.6" data-path="dados-geograficos.html"><a href="dados-geograficos.html#principais-fontes-de-dados-geográficos"><i class="fa fa-check"></i><b>15.6</b> Principais fontes de dados geográficos</a>
+<ul>
+<li class="chapter" data-level="15.6.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#vetor-2"><i class="fa fa-check"></i><b>15.6.1</b> Vetor</a></li>
+<li class="chapter" data-level="15.6.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#raster-1"><i class="fa fa-check"></i><b>15.6.2</b> Raster</a></li>
+<li class="chapter" data-level="15.6.3" data-path="dados-geograficos.html"><a href="dados-geograficos.html#pacotes-do-r"><i class="fa fa-check"></i><b>15.6.3</b> Pacotes do R</a></li>
+</ul></li>
+<li class="chapter" data-level="15.7" data-path="dados-geograficos.html"><a href="dados-geograficos.html#importar-e-exportar-dados-geográficos"><i class="fa fa-check"></i><b>15.7</b> Importar e exportar dados geográficos</a>
+<ul>
+<li class="chapter" data-level="15.7.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#principais-formatos-de-arquivos-geográficos"><i class="fa fa-check"></i><b>15.7.1</b> Principais formatos de arquivos geográficos</a></li>
+<li class="chapter" data-level="15.7.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#importar-dados-1"><i class="fa fa-check"></i><b>15.7.2</b> Importar dados</a></li>
+<li class="chapter" data-level="15.7.3" data-path="dados-geograficos.html"><a href="dados-geograficos.html#exportar-dados-1"><i class="fa fa-check"></i><b>15.7.3</b> Exportar dados</a></li>
+</ul></li>
+<li class="chapter" data-level="15.8" data-path="dados-geograficos.html"><a href="dados-geograficos.html#descrição-de-objetos-espaciais"><i class="fa fa-check"></i><b>15.8</b> Descrição de objetos espaciais</a>
+<ul>
+<li class="chapter" data-level="15.8.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#vetor-5"><i class="fa fa-check"></i><b>15.8.1</b> Vetor</a></li>
+<li class="chapter" data-level="15.8.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#raster-4"><i class="fa fa-check"></i><b>15.8.2</b> Raster</a></li>
+</ul></li>
+<li class="chapter" data-level="15.9" data-path="dados-geograficos.html"><a href="dados-geograficos.html#reprojeção-de-dados-geográficos"><i class="fa fa-check"></i><b>15.9</b> Reprojeção de dados geográficos</a>
+<ul>
+<li class="chapter" data-level="15.9.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#vetor-6"><i class="fa fa-check"></i><b>15.9.1</b> Vetor</a></li>
+<li class="chapter" data-level="15.9.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#raster-5"><i class="fa fa-check"></i><b>15.9.2</b> Raster</a></li>
+</ul></li>
+<li class="chapter" data-level="15.10" data-path="dados-geograficos.html"><a href="dados-geograficos.html#principais-operações-com-dados-geográficos"><i class="fa fa-check"></i><b>15.10</b> Principais operações com dados geográficos</a>
+<ul>
+<li class="chapter" data-level="15.10.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#operações-de-atributos"><i class="fa fa-check"></i><b>15.10.1</b> Operações de atributos</a></li>
+<li class="chapter" data-level="15.10.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#operações-espaciais"><i class="fa fa-check"></i><b>15.10.2</b> Operações espaciais</a></li>
+<li class="chapter" data-level="15.10.3" data-path="dados-geograficos.html"><a href="dados-geograficos.html#operações-geométricas"><i class="fa fa-check"></i><b>15.10.3</b> Operações geométricas</a></li>
+</ul></li>
+<li class="chapter" data-level="15.11" data-path="dados-geograficos.html"><a href="dados-geograficos.html#visualização-de-dados-geográficos"><i class="fa fa-check"></i><b>15.11</b> Visualização de dados geográficos</a>
+<ul>
+<li class="chapter" data-level="15.11.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#principais-elementos-de-um-mapa"><i class="fa fa-check"></i><b>15.11.1</b> Principais elementos de um mapa</a></li>
+<li class="chapter" data-level="15.11.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#principais-pacotes-para-a-composição-de-mapas"><i class="fa fa-check"></i><b>15.11.2</b> Principais pacotes para a composição de mapas</a></li>
+<li class="chapter" data-level="15.11.3" data-path="dados-geograficos.html"><a href="dados-geograficos.html#mapas-estáticos"><i class="fa fa-check"></i><b>15.11.3</b> Mapas estáticos</a></li>
+<li class="chapter" data-level="15.11.4" data-path="dados-geograficos.html"><a href="dados-geograficos.html#mapas-animados"><i class="fa fa-check"></i><b>15.11.4</b> Mapas animados</a></li>
+<li class="chapter" data-level="15.11.5" data-path="dados-geograficos.html"><a href="dados-geograficos.html#mapas-interativos"><i class="fa fa-check"></i><b>15.11.5</b> Mapas interativos</a></li>
+</ul></li>
+<li class="chapter" data-level="15.12" data-path="dados-geograficos.html"><a href="dados-geograficos.html#exemplos-de-aplicações-de-análises-geográficas-para-dados-ecológicos"><i class="fa fa-check"></i><b>15.12</b> Exemplos de aplicações de análises geográficas para dados ecológicos</a>
+<ul>
+<li class="chapter" data-level="15.12.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#resumir-informações-de-biodiversidade-para-unidades-espaciais"><i class="fa fa-check"></i><b>15.12.1</b> Resumir informações de biodiversidade para unidades espaciais</a></li>
+<li class="chapter" data-level="15.12.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#atribuição-de-dados-climáticos-para-pontos"><i class="fa fa-check"></i><b>15.12.2</b> Atribuição de dados climáticos para pontos</a></li>
+<li class="chapter" data-level="15.12.3" data-path="dados-geograficos.html"><a href="dados-geograficos.html#predições-espaciais-de-objetos-raster"><i class="fa fa-check"></i><b>15.12.3</b> Predições espaciais de objetos raster</a></li>
+</ul></li>
+<li class="chapter" data-level="15.13" data-path="dados-geograficos.html"><a href="dados-geograficos.html#para-se-aprofundar-6"><i class="fa fa-check"></i><b>15.13</b> Para se aprofundar</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><a href="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><i class="fa fa-check"></i><b>16</b> Reprodutibilidade em pesquisa e gerenciamento de dados</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><a href="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html#gestão-de-projetos-acadêmicos-no-rstudio"><i class="fa fa-check"></i><b>16.1</b> Gestão de projetos acadêmicos no RStudio</a></li>
+<li class="chapter" data-level="16.2" data-path="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><a href="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html#documentos-dinâmicos-r-markdown"><i class="fa fa-check"></i><b>16.2</b> Documentos dinâmicos (R Markdown)</a></li>
+<li class="chapter" data-level="16.3" data-path="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><a href="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html#controle-de-versão-git-e-github"><i class="fa fa-check"></i><b>16.3</b> Controle de versão, Git e GitHub</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução ao R com aplicações em biodiversidade e conservação</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes" class="section level1" number="4">
+<h1><span class="header-section-number">Capítulo 4</span> Voltando ao básico: como dominar a arte de fazer perguntas cientificamente relevantes</h1>
+<p><em>Capítulo originalmente publicado por Gonçalves-Souza, Provete, Garey, Silva &amp; Albuquerque 2019, in Methods and Techniques in Ethnobiology and Ethnoecology (tradução autorizada por Springer).</em></p>
+<div id="introdução-1" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Introdução</h2>
+<blockquote>
+<p><em>Aquele que ama a prática sem teoria é como um marinheiro que embarca em um barco sem um leme e uma bússola e nunca sabe onde pode atracar - Leonardo da Vinci.</em></p>
+</blockquote>
+<p>Qual é a sua pergunta? Talvez esta seja a frase que pesquisadores mais jovens ouvem quando começam suas atividades científicas. Apesar de aparentemente simples, responder a esta pergunta se torna um dos maiores desafios da formação científica. Seja na pesquisa quantitativa ou qualitativa, todo processo de busca de conhecimento parte de uma questão/problema formulada pelo pesquisador no início desse processo. Esta questão guiará o pesquisador em todas as etapas da pesquisa. No caso específico de pesquisa quantitativa, a questão é a porta de entrada de uma das formas mais poderosas de pensar cientificamente: o método hipotético-dedutivo (MHD) definido por Karl Popper (Popper 1959). Este capítulo propõe uma maneira de pensar sobre hipóteses (geradas dentro do MHD) para melhorar o pensamento estatístico usando um fluxograma que relaciona variáveis por ligações causais. Além disso, argumentamos que você pode facilmente usar fluxogramas para (1) identificar variáveis relevantes e como elas afetam umas às outras; (2) melhorar (quando necessário) o desenho experimental/observacional; (3) facilitar a escolha de análises estatísticas; e (4) melhorar a interpretação e comunicação dos dados e análises.</p>
+</div>
+<div id="perguntas-devem-preceder-as-análises-estatísticas" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Perguntas devem preceder as análises estatísticas</h2>
+<div id="um-bestiário1-para-o-teste-de-hipóteses-você-está-fazendo-a-pergunta-certa" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Um bestiário<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> para o teste de hipóteses (Você está fazendo a pergunta certa?)</h3>
+<p>A maioria dos alunos e professores de ciências biológicas possuem aversão à palavra “estatística.” Não surpreendentemente, enquanto a maioria das disciplinas acadêmicas que compõem o “STEM” (termo em inglês para aglomerar <em>Ciência, Tecnologia, Engenharia e Matemática</em>) têm uma sólida formação estatística durante a graduação, cursos de ciências biológicas têm um currículo fraco ao integrar o pensamento estatístico dentro de um contexto biológico (Metz 2008). Esses cursos têm sido frequentemente ministrados sem qualquer abordagem prática para integrar os alunos em uma plataforma de solução de problemas (Horgan et al. 1999). Infelizmente, a Etnobiologia, Ecologia e Conservação (daqui em diante EEC) não são exceções. Talvez mais importante, uma grande preocupação durante o treinamento estatístico de estudantes de EEC é a necessidade de trabalhar com problemas complexos e multidemensionais que exigem soluções analíticas ainda mais complicadas para um público sem experiência em estatística e matemática. Por este motivo, muitos pesquisadores consideram a estatística como a parte mais problemática de sua pesquisa científica. Argumentamos neste capítulo que a dificuldade de usar estatística em EEC está associada à ausência de uma plataforma de solução de problemas gerando hipóteses claras que são derivadas de uma teoria. No entanto, concordamos que há um grande desafio em algumas disciplinas como a Etnobiologia para integrar esta abordagem direcionada por hipóteses, uma vez que foi introduzida apenas recentemente (veja Philips &amp; Gentry 1993a, b; Albuquerque &amp; Hanazaki 2009). Devido à falta de uma plataforma de solução de problemas, frequentemente percebemos que alunos/pesquisadores na EEC geralmente têm dificuldades de responder
+perguntas básicas para uma pesquisa científica, tais como:</p>
+<ol style="list-style-type: decimal">
+<li>Qual é a principal teoria ou raciocínio lógico do seu estudo?</li>
+<li>Qual é a questão principal do seu estudo?</li>
+<li>Qual é a sua hipótese? Quais são suas predições?</li>
+<li>Qual é a unidade amostral, variável independente e dependente de seu trabalho? Existe alguma covariável?</li>
+<li>Qual é o grupo controle?</li>
+</ol>
+<p>Como selecionar qualquer teste estatístico sem responder a essas cinco perguntas? A estrutura estatística frequentista fornece uma maneira de ir progressivamente suportando ou falseando uma hipótese (Neyman &amp; Pearson 1933, Popper 1959). A decisão de rejeitar uma hipótese nula é feita usando um valor de probabilidade (geralmente P &lt; 0,05) calculado pela comparação de eventos observados com observações repetidas obtidas a partir de uma distribuição nula.</p>
+<p>Agora, vamos ensinar através de um exemplo e apresentar um “guia para o pensamento estatístico” que conecta alguns elementos essenciais para executar qualquer análise multivariada (ou univariada) (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-statistical-thinking">4.1</a>, veja também a Fig. 1.3 em Legendre &amp; Legendre 2012 e Fig. 1 em Underwood 1997). Primeiro, imagine que você observou os seguintes fenômenos na natureza: (1) “indivíduos de uma população tradicional selecionar algumas plantas para fins médicos” e (2)“manchas monodominantes da árvore <em>Prosopis juliflora</em>, uma espécie invasora em várias regiões.” Do lado da etnobiologia, para entender como e porque o conhecimento tradicional é construído, existe uma teoria ou hipótese (por exemplo, hipótese de aparência: Gonçalves et al. 2016) explicando os principais processos que ditam a seleção da planta (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-statistical-thinking">4.1</a>a).Então, você pode fazer uma ou mais perguntas relacionadas àquele fenômeno observado (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-statistical-thinking">4.1</a>b). Por exemplo, como a urbanização afeta o conhecimento das pessoas sobre o uso de plantas medicinais em diferentes biomas? Do lado ecológico/conservação, para entender por que espécies introduzidas afetam as espécies nativas locais, você precisa entender as teorias do nicho ecológico e evolutiva (MacDougall et al. 2009, Saul &amp; Jeschke 2015). Você pode perguntar, por exemplo, como as plantas exóticas afetam a estrutura de comunidades de plantas nativas? Questões complexas ou vagas dificultam a construção do fluxograma de pesquisa (ver descrição abaixo) e a seleção de testes estatísticos. Em vez disso, uma pergunta útil deve indicar as variáveis relevantes do seu estudo, como as independentes e dependentes, covariáveis, unidade de amostral e a escala espacial de interesse (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-statistical-thinking">4.1</a>b). No exemplo etnobiológico fornecido, a urbanização e o conhecimento das pessoas são as variáveis independentes e dependentes, respectivamente. Além disso, este estudo tem uma escala ampla, pois compara biomas diferentes. A próxima etapa é construir a hipótese biológica (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-statistical-thinking">4.1</a>c), que indicará a associação entre variáveis independentes e dependentes. No exemplo etnobiológico, a hipótese é que (1) “a urbanização afeta o conhecimento das pessoas sobre o uso de plantas medicinais,” enquanto a hipótese ecológica é que (2) “espécies exóticas afetam a estrutura de comunidades de plantas nativas.” Observe que isso é muito semelhante à questão principal. Mas você pode ter múltiplas hipóteses (Platt 1964) derivado de uma teoria. Depois de selecionar a hipótese biológica (ou científica), é hora de pensar sobre a derivação lógica da hipótese, que é chamada de predição ou previsão (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-statistical-thinking">4.1</a>d). Os padrões preditos são uma etapa muito importante, pois após defini-los você pode operacionalizar suas variáveis e visualizar seus dados. Por exemplo, a variável teórica “Urbanização” pode ser medida como “grau de urbanização ao longo das áreas urbanas, periurbanas e rurais” e “conhecimento das pessoas” como “o número e tipo de espécies de plantas úteis usadas para diferentes doenças.” Assim, a predição é que o grau de urbanização diminua o número e tipo de espécies de plantas conhecidas utilizadas para fins medicinais. No exemplo ecológico, a variável “espécies exóticas” pode ser medida como “a densidade da planta exótica <em>Prosopis juliflora</em>” e “Estrutura da comunidade” como “riqueza e composição de espécies nativas.” Depois de operacionalizar o seu trabalho à luz do método hipotético-dedutivo (HDM), o próximo passo é “pensar estatisticamente” sobre a hipótese biológica formulada (ver Figura <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-statistical-thinking">4.1</a> e, f).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-statistical-thinking"></span>
+<img src="img/cap03_fig01.png" alt="Um guia para o pensamento estatístico combinando o método hipotético-dedutivo (a -- d, i) e estatística frequentista (e -- i). Veja também a Fig. 1 em Underwood 1997, Fig. 1 em Ford 2004 e Fig. 1.3 em Legendre &amp; Legendre 2012." width="70%" />
+<p class="caption">
+Figura 4.1: Um guia para o pensamento estatístico combinando o método hipotético-dedutivo (a – d, i) e estatística frequentista (e – i). Veja também a Fig. 1 em Underwood 1997, Fig. 1 em Ford 2004 e Fig. 1.3 em Legendre &amp; Legendre 2012.
+</p>
+</div>
+<p>Então, você precisa definir as hipótese estatística nula (H<sub>0</sub>) e a alternativa (H<sub>1</sub>). Duas “hipóteses estatísticas” diferentes podem ser derivadas de uma hipótese biológica (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-statistical-thinking">4.1</a>e). Portanto, nós usamos o termo “hipótese estatística” entre aspas, porque as chamadas hipóteses estatísticas são predições <em>sensu stricto</em>, e muitas vezes confundem jovens estudantes. A hipótese estatística nula representa uma ausência de relacão entre as variáveis independentese e dependentes. Depois de definir a hipótese estatística nula, você pode derivar uma ou várias hipóteses estatísticas alternativas, que demonstram a(s) associação(ões) esperada(s) entre suas variáveis (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-statistical-thinking">4.1</a>e). Em nosso exemplo, a hipótese nula é que “o grau de urbanização não afeta o número de espécies de plantas úteis conhecidas pela população local.” Por sua vez, a hipótese alternativa é que “o grau de urbanização afeta o número de espécies de plantas úteis conhecidas pela população local.” Depois de operacionalizar suas variáveis e definir o valor nulo e hipóteses alternativas, é hora de visualizar o resultado esperado (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-box">4.2</a>, Caixa 1) e escolher um método estatístico adequado. Por exemplo, se você deseja comparar a diferença na composição de plantas úteis entre áreas urbanas, periurbanas e rurais, você pode executar uma PERMANOVA (Gonçalves-Souza et al. 2019) que usa uma estatística de teste chamada <em>pseudo-F</em>. Então, você deve escolher o limite de probabilidade (o valor P) do teste estatístico para decidir se a hipótese nula deve ou não deve ser rejeitada (Gotelli &amp; Ellison 2012). Se você encontrar um P &lt; 0,05, você deve rejeitar a hipótese estatística nula (urbanização não afeta o número e a composição das plantas). Por outro lado, um P &gt; 0,05 indica que você não pode rejeitar a hipótese nula estatística. Assim, a estatística do teste e o valor P representam a última parte do teste de hipótese estatística, que é a decisão e conclusões apropriadas que serão usadas para retroalimentar a teoria principal (Figura <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-statistical-thinking">4.1</a>g – i). Generalizando seus resultados e falseando (ou não) suas hipóteses, o estudo busca refinar a construção conceitual da teoria, que muda constantemente (Fig. 1i, Ford 2004). No entanto, há um ponto crítico nesta última frase, porque a significância estatística não significa necessariamente relevância biológica (ver discussão em Gotelli e Ellison (2012), Martínez-Abraín 2008). Nas palavras de Ford (2004): “as estatísticas são usadas para iluminar o problema, e não para apoiar uma posição.” Além disso, o procedimento de teste de hipótese tem alguma incerteza, que pode influenciar resultados “falso-positivos” (erro tipo 1) e “falso-negativos” (erro tipo 2) (Whitlock &amp; Schluter 2015). Para simplificar, não discutiremos em detalhes os prós e contras da estatística frequentista, bem como métodos alternativos (por exemplo, Bayesiano e Máxima Verossimilhança), e questões filosóficas relativas ao “valor P” (para uma discussão sobre esses tópicos, consulte o fórum em Ellison et al. 2014).</p>
+<blockquote>
+<p><strong>Caixa 1. Tipo de variáveis e visualização de dados</strong>
+Conforme descrito na Seção 3, o fluxograma é essencial para conectar variáveis relevantes para a pesquisa. Para aproveitar ao máximo esta abordagem, você pode desenhar suas próprias predições gráficas para te ajudar a pensar sobre diferentes possibilidades analíticas. Aqui, nós fornecemos uma descrição completa dos tipos de variáveis que você deve saber antes de executar qualquer análise estatística e representar seus resultados. Além disso, mostramos uma breve galeria (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-box">4.2</a>) com exemplos de boas práticas em visualização de dados (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-research-flowchart">4.3</a>b, veja também figuras em Gonçalves-Souza et al. 2019). Além de conectar diferentes variáveis no fluxograma, você deve distinguir o tipo de variável. Primeiro você deve identificar as variáveis independentes (também conhecidos como explicativas ou preditoras) e dependentes (também conhecidas como resposta). A variável independente é aquela (ou aquelas) que prevê ou afeta a variável resposta (por exemplo, a fertilidade do solo é a variável independente capaz de afetar a abundância de uma espécie de planta focal, a variável dependente). Além disso, uma covariável é uma variável contínua que pode afetar tanto a variável resposta quanto a independente (ou ambos), mas geralmente não é do interesse do pesquisador. Depois de definir as variáveis relevantes, conectando-as no fluxograma, é hora de diferenciar seu tipo: (1) quantitativa ou contínua, e (2) categórica ou qualitativa (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-box">4.2</a>a, Caixa 1). O tipo de variável irá definir que tipo de figura você pode selecionar. Por exemplo, se você está comparando duas variáveis contínuas ou uma variável contínua e uma binária, a melhor maneira de visualizá-los (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-box">4.2</a>b) é um gráfico de dispersão (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-box">4.2</a>c, d). A linha representa os valores preditos pelo modelo estatístico usado (por exemplo, linear, logístico). Se você está interessado em comparar a gama de diferentes atributos (ou a descrição de qualquer variável numérica) entre as variáveis categóricas (por exemplo, espécies ou populações locais), um gráfico de halteres (do inglês Dumbbell plot) é uma boa opção (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-box">4.2</a>e). Histogramas também podem ser usados para mostrar a distribuição de duas variáveis contínuas de dois grupos ou fatores (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-box">4.2</a>f). No entanto, se você quiser testar o efeito de uma variável categórica independente (como em um desenho de ANOVA) sobre uma variável dependente, boxplots (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-box">4.2</a>g) ou gráficos de violino podem resumir essas relações de maneira elegante. Conjuntos de dados multivariados, por sua vez, podem ser visualizados com ordenação (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-box">4.2</a>h) ou gráficos de agrupamento (não mostrados). Existe um site abrangente apresentando várias maneiras de visualizar dados chamado <a href="https://www.datavizproject.com/" class="uri">https://www.datavizproject.com/</a>.</p>
+</blockquote>
+<div class="figure" style="text-align: center"><span id="fig:fig-box"></span>
+<img src="img/cap03_fig02.png" alt="(A) Tipos de variáveis e (B) visualização de dados para representar a relação entre variáveis independentes e dependentes ou covariáveis." width="100%" />
+<p class="caption">
+Figura 4.2: (A) Tipos de variáveis e (B) visualização de dados para representar a relação entre variáveis independentes e dependentes ou covariáveis.
+</p>
+</div>
+</div>
+</div>
+<div id="fluxograma-conectando-variáveis-para-melhorar-o-desenho-experimental-e-as-análises-estatísticas" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Fluxograma: Conectando Variáveis para Melhorar o desenho experimental e as análises estatísticas</h2>
+<p>McIntosh e Pontius (2016) afirmaram que o pensamento estatístico (representado na Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-statistical-thinking">4.1</a> inclui quatro etapas importantes: (1) quais perguntas você investigaria (Seção 4), (2) como e onde coletar os dados (Ruxton &amp; Colegrave 2016), (3) quais fatores devem ser considerados e como eles afetam suas variáveis de interesse (e como elas afetam umas às outras), e (4) qual análise estatística você deve usar e como interpretar e comunicar os resultados (Seção 4). No entanto, a etapa (3) deve ser feita antes de coletar os dados. Por exemplo, se você está interessado na investigação dos benefícios das matas ciliares para as espécies nativas de peixes, quais variáveis devem ser incluídas no estudo? Se você escolher rios com e sem mata ciliar como única variável preditora, seu projeto de amostragem irá omitir outras variáveis de confusão, como ordem do rio e carbono orgânico do solo a montante. Vellend (2016) nomeou este problema como o “problema de três caixas” (ver também Ruxton &amp; Colegrave 2016), que se refere à limitação em inferir que X (variável independente) causa variação em Y (variável depende) quando outras variáveis criam ou ampliam a correlação entre X e Y (ver Fig. 2 em Ruxton &amp; Colegrave 2016). Uma ferramenta útil para compreender a relação entre todas as variáveis relevantes do seu estudo é um fluxograma. No “fluxograma de pesquisa” (ver também Magnusson et al. 2015) proposto aqui, variáveis dependentes (também conhecidas como resposta) e independentes (ou preditora), bem como covariáveis são representadas como caixas (com formas distintas: Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-research-flowchart">4.3</a>). Além disso, você pode usar uma seta para representar uma (possível) via causal indicando força e sinal (positivo ou negativo) da variável preditora na variável dependente (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-research-flowchart">4.3</a>) Ao fazer isso, você pode melhorar o desenho experimental ou observacional incluindo ou controlando variáveis de confusão o que, por sua vez, pode ajudar a separar a contribuição relativa de diferentes variáveis preditoras em seu sistema. Mais importante, fazer conexões entre variáveis melhora sua capacidade de visualizar o “Quadro geral” de sua pesquisa, o que pode afetar seu experimento, análise estatística e revisão da literatura. Na verdade, Arlidge et al. (2017) argumentam que fluxogramas facilitam a construção de narrativas, melhorando: (1) a definição de múltiplas hipóteses, (2) coleta, interpretação e disseminação de dados e (3) a comunicação do conteúdo do estudo. Você também pode ler o livro de Magnusson et al. (2015) para entender mais como usar fluxogramas para auxiliar análises estatísticas. Além disso, Ford (2004) recomenda o uso de uma abordagem analítica para fomentar o desenvolvimento da pesquisa. Além disso, o fluxograma de pesquisa pode ser usado como uma ferramenta forte para contemplar os conselhos de Ford (2004), que foram: (1) definir a pergunta da pesquisa, (2) definir a teoria a ser usada, (3) definir a técnica de investigação (por exemplo, experimento, observação de campo), (4) definir as medições, (5) definir como fazer inferência, e (6) interpretar, generalizar,e sintetizar a partir de dados que, por sua vez, são usados para refinar a teoria e modificar (quando necessário) questões futuras (Fig. <a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fig:fig-statistical-thinking">4.1</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-research-flowchart"></span>
+<img src="img/cap03_fig03.png" alt="Exemplo de como usar um fluxograma para melhorar o entendimento do sistema estudado. A pergunta teórica &quot;Qual é o impacto da invasão na comunidade nativa e nas propriedades do ecossistema?&quot; pode gerar duas predições: (1) a planta exótica *Prosopis juliflora* reduz a diversidade beta de comunidades de plantas nativas, e (2) *Prosopis juliflora* modifica a composição das comunidades de plantas e reduz o estoque de carbono e as taxas de decomposição. Após selecionar suas predições, você pode construir um fluxograma conectando as variáveis relevantes e as associações entre elas. Além disso, você pode usar as informações na **Caixa 1** para identificar que tipo de variável você irá coletar e quais figuras podem ser usadas (b)." width="100%" />
+<p class="caption">
+Figura 4.3: Exemplo de como usar um fluxograma para melhorar o entendimento do sistema estudado. A pergunta teórica “Qual é o impacto da invasão na comunidade nativa e nas propriedades do ecossistema?” pode gerar duas predições: (1) a planta exótica <em>Prosopis juliflora</em> reduz a diversidade beta de comunidades de plantas nativas, e (2) <em>Prosopis juliflora</em> modifica a composição das comunidades de plantas e reduz o estoque de carbono e as taxas de decomposição. Após selecionar suas predições, você pode construir um fluxograma conectando as variáveis relevantes e as associações entre elas. Além disso, você pode usar as informações na <strong>Caixa 1</strong> para identificar que tipo de variável você irá coletar e quais figuras podem ser usadas (b).
+</p>
+</div>
+</div>
+<div id="questões-fundamentais-em-etnobiologia-ecologia-e-conservação" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Questões fundamentais em etnobiologia, ecologia e conservação</h2>
+<blockquote>
+<p><em>As teorias são generalizações. As teorias contêm perguntas. Para algumas teorias, as perguntas são explícitas e representam o que a teoria pretende explicar. Para outras, as questões são implícitas e se relacionam com a quantidade e tipo de generalização, dada a escolha de métodos e exemplos usados por pesquisadores na construção da teoria. As teorias mudam continuamente, à medida que exceções são encontradas às suas generalizações e como questões implícitas sobre método e opções de estudos são expostas. - E. David Ford (2004)</em></p>
+</blockquote>
+<p>Como argumentamos antes, uma questão relevante e testável precede as análises estatísticas. Assim, apresentamos a seguir 12 questões que podem estimular pesquisas futuras na ECC. Observe, no entanto, que não queremos dizer que eles são as únicas questões relevantes a serem testadas na EEC (ver, por exemplo, Sutherland et al. 2013 para uma avaliação completa da pesquisa de ponta em Ecologia; e Caixa 6.1 em Pickett et al. 2007<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>). Especificamente, essas questões são muito amplas e podem ser desenvolvidas em perguntas, hipóteses e predições mais restritas. Depois de cada questão teórica, apresentamos um estudo que testou essas hipóteses bem como as variáveis relevantes que podem estimular estudos futuros.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p><strong>Como o uso da terra afeta a manutenção da biodiversidade e a distribuição de espécies em diferentes escalas espaciais?</strong></p>
+<p><em>Exemplo</em>: Vários estudos em diferentes ecossistemas e escalas investigaram como o uso da terra afeta a biodiversidade. No entanto, destacamos um estudo comparando os efeitos globais do uso da terra (por exemplo, densidade populacional humana, paisagem para usos humanos, tempo desde a conversão da floresta) em espécies terrestres (por exemplo, mudança líquida na riqueza local, dissimilaridade composicional média) (Newbold et al. 2015).</p></li>
+<li><p><strong>Qual é o impacto da invasão biótica nas comunidades nativas e propriedades do ecossistema?</strong></p>
+<p><em>Exemplo</em>: Investigar como o estabelecimento de espécies exóticas afetam a riqueza de espécies do receptor, comunidades nativas, bem como como isso afeta a entrega do serviços ecossitêmicos. Estudos anteriores controlaram a presença de espécies invasoras ou registros históricos comparados (estudos observacionais) dessas espécies e como elas impactam a biodiversidade. Além disso, há algum esforço em compreender os preditores de invasibilidade (por exemplo, produto interno bruto de regiões, densidade populacional humana, litoral continental e ilhas) Dawson et al. (2017).</p></li>
+<li><p><strong>Como o declínio do predador de topo afeta a entrega de serviços ecossistêmicos?</strong></p>
+<p><em>Exemplo</em>: Investigar como a remoção de grandes carnívoros afeta o fornecimento de serviços ecossistêmicos, como o sequestro de carbono, doenças e controle de danos às colheitas. Estudos anteriores investigaram esta questão controlando a presença de predadores de topo ou comparando registros históricos (estudo observacionais) de espécies e vários preditores (por exemplo, perda e fragmentação de habitat, conflito entre humanos e espécies caçadas, utilização para a medicina tradicional e superexploração de presas) (Ripple et al. 2014).</p></li>
+<li><p><strong>Como a acidificação dos oceanos afeta a produtividade primária e teias alimentares em ecossistemas marinhos?</strong></p>
+<p><em>Exemplo</em>: Estudos recentes testaram os efeitos individuais e interativos da acidificação e do aquecimento do oceano nas interações tróficas em uma teia alimentar. A acidificação e o aquecimento foram manipulados pela mudança dos níveis de CO<sub>2</sub> e temperatura, respectivamente. Estudos anteriores demonstraram que elevação de CO<sub>2</sub> e temperatura aumentou a produtividade primária e afetou a força do controle de cima para baixo exercido por predadores (Goldenberg et al. 2017).</p></li>
+<li><p><strong>Como podemos reconciliar as necessidades da sociedade por recursos naturais com conservação da Natureza?</strong></p>
+<p><em>Exemplo</em>: Existe uma literatura crescente usando abordagens de paisagem para melhorar a gestão da terra para reconciliar conservação e desenvolvimento econômico. Os estudos possuem diversos objetivos, mas em geral eles usaram o engajamento das partes interessadas, apoio institucional, estruturas eficazes de governança como variáveis preditoras e melhorias ambientais (por exemplo, conservação do solo e da água, cobertura vegetal) e socioeconômicas (renda, capital social, saúde pública, emprego) como variáveis dependentes (Reed et al. 2017).</p></li>
+<li><p><strong>Qual é o papel das áreas protegidas (UCs) para a manutenção da biodiversidade e dos serviços ecossistêmicos?</strong></p>
+<p><em>Exemplo</em>: Houve um trabalho considerável na última década comparando a eficácia das UCs para a conservação da biodiversidade. Embora esta questão não esteja completamente separada da questão anterior, o desenho dos estudos é relativamente distinto. Em geral, os pesquisadores contrastam o número de espécies e o fornecimento de serviços ecossistêmicos (por exemplo, retenção de água e solo, sequestro de carbono) entre áreas legalmente protegidas (UCs) e não protegidas (Xu et al. 2017).</p></li>
+<li><p><strong>Como integrar o conhecimento científico e das pessoas locais para mitigar os impactos negativos das mudanças climáticas e do uso da terra na biodiversidade?</strong></p>
+<p><em>Exemplo</em>: Eventos climáticos extremos podem ter forte impacto sobre rendimento agrícola e produção de alimentos. Autores recentes têm argumentado que esse efeito pode ser mais forte para os pequenos agricultores. Estudos futuros podem investigar como a precipitação e a temperatura afetam o rendimento agrícola e como os agricultores tradicionais ou indígenas lidam com esse impacto negativo. Sistemas de agricultura tradicional têm menor erosão do solo e emissões de N<sub>2</sub>O / CO<sub>2</sub> do que as monoculturas e, portanto, podem ser vistos como uma atividade de mitigação viável em um mundo em constante mudança (Niggli et al. 2009, Altieri &amp; Nicholls 2017).</p></li>
+<li><p><strong>Como as mudanças climáticas afetam a resiliência e estratégias adaptativas em sistemas socioecológicos?</strong></p>
+<p><em>Exemplo</em>: A mudança do clima altera tanto a pesca quanto a agricultura em todo o mundo, o que por sua vez obriga os humanos a mudar suas estratégias de cultivo. Estudos recentes têm argumentado que a agricultura em alguns países enfrentará riscos com as mudanças climáticas. Esses estudos comparam diferentes sistemas de produção, de agricultura convencional a outros tipos empregados por populações locais. Por exemplo, há uma forte conexão entre (1) espécies ameaçadas e sobrepesca, (2) índice de desenvolvimento humano (IDH) e dependência média da pesca e aquicultura. Além disso, há evidências de que a biodiversidade pode amortecer os impactos das mudanças climáticas aumentando a resiliência da terra (Niggli et al. 2009, Altieri &amp; Nicholls 2017, Blanchard et al. 2017). Uma abordagem interessante é investigar como as populações locais lidam com esses desafios em termos de percepções e comportamento.</p></li>
+<li><p><strong>Como a invasão biológica afeta espacial e temporalmente a estrutura e funcionalidade dos sistemas sócio-ecológicos?</strong></p>
+<p><em>Exemplo</em>: Muitos estudos demonstraram que espécies invasoras têm consequências biológicas, econômicas e sociais negativas. Aqui, da mesma forma que a pergunta B, os pesquisadores controlaram a presença de espécies invasoras ou utilizaram registros históricos. No entanto, trabalhos recentes quantificam não apenas a riqueza e composição de espécies nativas, mas também atributos funcionais de animais/vegetais que afetam diretamente o fornecimento de serviços ecossistêmicos como abastecimento (comida, água), regulação (clima, controle de inundações), suporte (ciclagem de nutrientes, formação do solo) e cultural (ecoturismo, patrimônio cultural) (Chaffin et al. 2016). Mas, espécies invasoras podem provocar efeitos positivos no sistema sócio-ecológico aumentando a disponibilidade de recursos naturais, impactando como as pessoas gerenciam e usam a biodiversidade local.</p></li>
+<li><p><strong>Qual é a relação entre as diversidades filogenética e taxonômica com a diversidade biocultural?</strong></p>
+<p><em>Exemplo</em>: Estudos recentes mostraram que existe um padrão filogenético e taxonômico nos recursos que as pessoas incorporam em seus sistemas sócio-ecológicos, especialmente em plantas medicinais. Existe uma tendência para as pessoas, em diferentes partes do mundo, para usar plantas próximas filogeneticamente para os mesmos propósitos. Aqui, os pesquisadores podem testar o quanto isso afeta a diversidade de práticas em um sistema sócio-ecológico considerando o ambiente, bem como sua estrutura e funções (Saslis-Lagoudakis et al. 2012, 2014).</p></li>
+<li><p><strong>Quais variáveis ambientais e sócio-políticas mudam a estrutura e funcionalidade dos sistemas sócio-ecológicos tropicais?</strong></p>
+<p><em>Exemplo</em>: Testar a influência das mudanças ambientais afetadas pela espécie humana (por exemplo, fogo, exploração madeireira, aquecimento) em espécies-chave e, consequentemente, como esse efeito em cascata pode afetar outras espécies e serviços ecossistêmicos (por exemplo, armazenamento de carbono, ciclo da água e dinâmica do fogo) (Lindenmayer &amp; Sato 2018).</p></li>
+<li><p><strong>Os atributos das espécies influenciam como as populações locais distinguem plantas ou animais úteis e não-úteis?</strong></p>
+<p><em>Exemplo</em>: Investigar se a população local possui preferência ao selecionar espécies de animais ou plantas. Você pode avaliar se grupos diferentes (por exemplo, turistas) ou populações locais (por exemplo, pescadores) selecionam espécies com base em atributos das espécies. Estudos recentes têm mostrado uma ligação potencial entre planta (por exemplo, cor, folha, floração) e pássaro (por exemplo, cor, vocalzação) e alguns serviços culturais do ecossistema, como estética, recreativa e espiritual/religiosa (Goodness et al. 2016).</p></li>
+</ol>
+<p>Como você notou, as questões eram mais teóricas e, consequentemente, você pode derivar prediões testáveis (usando variáveis) a partir delas (Figuras 1 e 3). Por exemplo, da questão <em>“Como o uso da terra afeta a manutenção da biodiversidade e distribuição de espécies em diferentes escalas?”</em> podemos derivar duas predições diferentes: (1) densidade populacional (variável operacional de uso da terra) muda a composição de espécies e reduz a riqueza de espécies na escala da paisagem (predição derivada da hipótese da homogeneização biótica: Solar et al. 2015); (2) a composição dos atributos funcionais das plantas é diferente em remanescentes florestais com diferentes matrizes (cana-de-açúcar, gado, cidade, etc.).</p>
+</div>
+<div id="considerações-finais" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> Considerações Finais</h2>
+<blockquote>
+<p><em>Conte-me seus segredos</em><br />
+<em>E faça-me suas perguntas</em><br />
+<em>Oh, vamos voltar para o início</em><br />
+<em>Correndo em círculos, perseguindo caudas</em><br />
+<em>Cabeças em uma ciência à parte</em><br />
+<em>Ninguém disse que seria fácil</em><br />
+<em>(…) Desfazendo enígmas</em><br />
+<em>Questões da ciência, ciência e progresso</em><br />
+<em>- O Cientista, Coldplay</em></p>
+</blockquote>
+<p>Este é um trecho de uma música da banda britânica de rock Coldplay, do álbum de 2002 <em>A Rush of Blood to the Head</em>. A letra é uma comparação incrível entre a ciência e os altos e baixos de um relacionamento fadado ao fracaço. A banda traz uma mensagem surpreendentemente clara de que como cientistas, nós (deveríamos) frequentemente fazer perguntas, voltar ao início após descobrir que estávamos errados (ou não) e que corremos em círculos tentando melhorar nosso conhecimento. A banda descreveu de uma forma tão precisa o quão cíclico (mas não repetitivo) é o método científico. Como disse a canção: não é fácil, mas aprender como fazer boas perguntas é um passo essencial para a consolidação do conhecimento. Ao incluir o teste de hipótese no EEC, podemos ser mais precisos. Definitivamente, isso não significa que a ciência descritiva seja inútil. Ao contrário, o desenvolvimento da ECC e principalmente da Etnobiologia, foi construído sobre uma linha de frente descritiva, o que significa que foi valioso para a fundação da Etnobiologia como disciplina consolidada (Ethnobiology Working Group 2003, Steep 2005). No entanto, estudos recentes defendem que a etnobiologia deve dialogar com disciplinas com maior respaldo teórico, como ecologia e biologia evolutiva para melhorar a pesquisa sobre biodiversidade (Albuquerque &amp; Ferreira-Júnior 2017). Por sua vez, incorporando o conhecimento local em ecologia e evolução irá certamente refinar seu próprio desenvolvimento, que em última análise beneficia a conservação biológica (Saslis-Lagoudakis et al. 2013). Além disso, há uma necessidade urgente de formar jovens pesquisadores em filosofia e metodologia da ciência, bem como comunicação e produção científica (Albuquerque 2013). Como comentário final, acreditamos que a formação dos alunos em EEC precisa de uma reavaliação que necessariamente volta aos conceitos e métodos básicos. Assim, os pesquisadores podem combinar o método hipotético-dedutivo com pensamento estatístico usando um fluxograma de pesquisa para ir além da descrição básica.</p>
+<table>
+<colgroup>
+<col width="6%" />
+<col width="93%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Termo<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></th>
+<th>Definição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pressuposto</td>
+<td>Condições necessárias para sustentar uma hipótese ou construçãoa teoria</td>
+</tr>
+<tr class="even">
+<td>Hipótese</td>
+<td>Afirmação testável derivada ou representando vários componentes de uma teoria</td>
+</tr>
+<tr class="odd">
+<td>Mecanismo</td>
+<td>Interação direta de uma relação causal que resultaem um fenômeno</td>
+</tr>
+<tr class="even">
+<td>Padrão</td>
+<td>Eventos repetidos, entidades recorrentes ou relações replicadasrelações observadas no tempo ou no espaço</td>
+</tr>
+<tr class="odd">
+<td>Fenômeno</td>
+<td>Um evento, entidade ou relacionamento observável</td>
+</tr>
+<tr class="even">
+<td>Predição</td>
+<td>Uma declaração de expectativa deduzida da lógicaestrutura ou derivada da estrutura causal de um teoria</td>
+</tr>
+<tr class="odd">
+<td>Processo</td>
+<td>Um subconjunto de fenômenos em que os eventos seguem umoutro no tempo ou espaço, que pode ou não sercausalmente conectado. É causa, mecanismo ou contensão explicando um padrão</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="referências" class="section level2" number="4.6">
+<h2><span class="header-section-number">4.6</span> Referências</h2>
+<ol style="list-style-type: decimal">
+<li><p>Popper K (1959) The logic of scientific discovery, 2nd edn. Routledge, London</p></li>
+<li><p>Metz AM (2008) Teaching statistics in biology: using inquiry-based learning to strengthen understanding of statistical analysis in biology laboratory courses. CBE Life Sci Educ 7:317–326.</p></li>
+<li><p>Horgan GW, Elston DA, Franklin MF, Glasbey CA, Hunter EA, Talbot M, Kempton RA, McNicol JW, Wright F (1999) Teaching statistics to biological research scientists. J R Stat Soc D Stat 48:393–400.</p></li>
+<li><p>Phillips O, Gentry AH (1993) The useful plants of Tambopata, Peru: II. Additional hypothesis testing in quantitative ethnobotany. Econ Bot 47:33–43.</p></li>
+<li><p>Phillips O, Gentry AH (1993) The useful plants of Tambopata, Peru: I. Statistical hypotheses tests with a new quantitative technique. Econ Bot 47:15–32.</p></li>
+<li><p>Albuquerque UP, Hanazaki N (2009) Five problems in current ethnobotanical research – and some suggestions for strengthening them. Hum Ecol 37:653–661.</p></li>
+<li><p>Neyman J, Pearson ES (1933) On the problem of the most efficient tests of statistical hypotheses. Phil T R Soc A 231:289–337.</p></li>
+<li><p>Legendre P, Legendre L (2012) Num Ecol, 3rd edn. Elsevier, Amsterdam</p></li>
+<li><p>Underwood AJ (1997) Experiments in ecology: their logical design and interpretation using analysis of variance. Cambridge University Press, Cambridge.</p></li>
+<li><p>Gonçalves PHS, Albuquerque UP, Medeiros PM (2016) The most commonly available woody plant species are the most useful for human populations: a meta-analysis. Ecol Appl 26:2238–2253.</p></li>
+<li><p>MacDougall AS, Gilbert B, Levine JM (2009) Plant invasions and the niche. J Ecol 97:609–615.</p></li>
+<li><p>Saul WC, Jeschke JM (2015) Eco-evolutionary experience in novel species interactions. Ecol Lett 18:236–245.</p></li>
+<li><p>Platt JR (1964) Strong inference: certain systematic methods of scientific thinking may produce much more rapid progress than others. Science 146:347–353</p></li>
+<li><p>Gotelli NJ, Ellison AM (2012) A primer of ecological statistics, 2nd edn. Sinauer Associates Publishers, Sunderland, MA.</p></li>
+<li><p>Ford ED (2004) Scientific method for ecological research. Cambridge University Press, Cambridge.</p></li>
+<li><p>Martínez-Abraín A (2008) Statistical significance and biological relevance: a call for a more cautious interpretation of results in ecology. Acta Oecol 34:9–11.</p></li>
+<li><p>Whitlock M, Schluter D (2015) The analysis of biological data, 2nd edn. Roberts and Co. Publishers, Greenwood Village, CO.</p></li>
+<li><p>Ellison AM, Gotelli NJ, Inouye BD, Strong DR (2014) P values, hypothesis testing, and model selection: it’s de´ja` vu all over again.Ecology 95:609–610.</p></li>
+<li><p>McIntosh A, Pontius J (2016) Science and the global environment: case studies for integrating science and the global environment, 1st edn. Elsevier, Amsterdam.</p></li>
+<li><p>Ruxton GD, Colegrave N (2016) Experimental design for the life sciences, 4th edn. Oxford University Press, Oxford, NY.</p></li>
+<li><p>Vellend M (2016) The theory of ecological communities. Princeton University Press, Princeton.</p></li>
+<li><p>Magnusson WE, Mourão G, Costa F (2015) Statistics without math, 2nd edn. Editora Planta, Londrina.</p></li>
+<li><p>Arlidge SM, Thanukos A, Bean JR (2017) Using the understanding science flowchart to illustrate and bring students’ science stories to life. Bull Ecol Soc Am 98:211–226</p></li>
+<li><p>Sutherland WJ, Freckleton RP, Godfray HCJ, Beissinger SR, Benton T, Cameron DD, Carmel Y, Coomes DA, Coulson T, Emmerson MC, Hails RS, Hays GC, Hodgson DJ, Hutchings MJ, Johnson D, Jones JPG, Keeling MJ, Kokko H, Kunin WE, Lambin X, Lewis OT, Malhi Y, Mieszkowska N, Milner-Gulland EJ, Norris K, Phillimore AB, Purves DW, Reid JM, Reuman DC, Thompson K, Travis JMJ, Turnbull LA, Wardle DA, Wiegand T (2013) Identification of 100 fundamental ecological questions. J Ecol 101:58–67.</p></li>
+<li><p>Pickett ST, Kolasa J, Jones CG (2007) Ecological understanding: the nature of theory and the theory of nature, 2nd edn. Elsevier, Amsterdam.</p></li>
+<li><p>Newbold T, Hudson LN, Hill SLL, Contu S, Lysenko I, Senior RA, Börger L, Bennett DJ, Choimes A, Collen B, Day J, De Palma A, Díaz S, Echeverria-Londoño S, Edgar MJ, Feldman A, Garon M, Harrison MLK, Alhusseini T, Ingram DJ, Itescu Y, Kattge J, Kemp V, Kirkpatrick L, Kleyer M, Correia DLP, Martin CD, Meiri S, Novosolov M, Pan Y, Phillips HRP, Purves DW, Robinson A, Simpson J, Tuck SL, Weiher E, White HJ, Ewers RM, Mace GM, Scharlemann JPW, Purvis A (2015) Global
+effects of land use on local terrestrial biodiversity. Nature 520:45–50.</p></li>
+<li><p>Dawson W, Moser D, Mvan K, Kreft H, Pergl J, Pysek P, Weigelt P, Winter M, Lenzner B, Blackburn TM, Dyer EE, Cassey P, Scrivens SL, Economo EP, Guénard B, Capinha C, Seebens H, García Díaz P, Nentwig W, García-Berthou E, Casal C, Mandrak NE, Fuller P, Meyer C, Essl F (2017) Global hotspots and correlates of alien species richness across taxonomic groups. Nat Ecol Evol 1:0186.</p></li>
+<li><p>Ripple WJ, Estes JA, Beschta RL, Wilmers CC, Ritchie EG, Hebblewhite M, Berger J, Elmhagen B, Letnic M, Nelson MP, Schmitz OJ, Smith DW, Wallach AD, Wirsing AJ. 2014. Status and ecological effects of the world’s largest carnivores. Science 343:1241484.</p></li>
+<li><p>Goldenberg SU, Nagelkerken I, Ferreira CM, Ullah H, Connell SD (2017) Boosted food web productivity through ocean acidification collapses under warming. Glob Change Biol 23:4177–4184.</p></li>
+<li><p>Reed J, Vianen JV, Barlow J, Sunderland T (2017) Have integrated landscape approaches reconciled societal and environmental issues in the tropics? Land Use Policy 63:481–492.</p></li>
+<li><p>Xu W, Xiao Y, Zhang J, Yang W, Zhang L, Hull V, Wang Z, Zheng H, Liu J, Polasky S, Jiang L, Xiao Y, Shi X, Rao E, Lu F, Wang X, Daily GC, Ouyang Z (2017) Strengthening protected areas for biodiversity and ecosystem services in China. Proc Natl Acad Sci U S A 114:1601–1606.</p></li>
+<li><p>Altieri MA, Nicholls CI (2017) The adaptation and mitigation potential of traditional agriculture in a changing climate. Clim Change 140:33–45</p></li>
+<li><p>Niggli U, Fliessbach A, Hepperly P, Scialabba N (2009) Low greenhouse gas agriculture: mitigation and adaptation potential of sustainable farming systems. FAO - Food and Agriculture Organization of the United Nations, Rome.</p></li>
+<li><p>Blanchard JL, Watson RA, Fulton EA, Cottrell RS, Nash KL, Bryndum-Buchholz A, Bu¨chner M, Carozza DA, Cheung WWL, Elliott J, Davidson LNK, Dulvy NK, Dunne JP, Eddy TD, Galbraith E, Lotze HK, Maury O, Muller C, Tittensor DP, Jennings S Linked sustainability challenges and trade-offs among fisheries, aquaculture and agriculture. Nat Ecol Evol 1:1240–1249.</p></li>
+<li><p>Chaffin BC, Garmestani AS, Angeler DG, Herrmann DL, Stow CA, Nyström M, Sendzimir J, Hopton ME, Kolasa J, Allen CR Biological invasions, ecological resilience and adaptive governance. J Environ Manag 183:399–407.</p></li>
+<li><p>Saslis-Lagoudakis CH, Savolainen V, Williamson EM, Forest F, Wagstaff SJ, Baral SR, Watson MF, Pendry CA, Hawkins JA (2012) Phylogenies reveal predictive power of traditional medicine in bioprospecting. Proc Natl Acad Sci U S A 109:15835–15840.</p></li>
+<li><p>Saslis-Lagoudakis CH, Hawkins JA, Greenhill SJ, Pendry CA, Watson MF, TuladharDouglas W, Baral SR, Savolainen V (2014) The evolution of traditional knowledge: environment shapes medicinal plant use in Nepal. Proc R Soc B 281:20132768.</p></li>
+<li><p>Lindenmayer DB, Sato C (2018) Hidden collapse is driven by fire and logging in a socioecological forest ecosystem. Proc Natl Acad Sci U S A 115:5181–5186.</p></li>
+<li><p>Goodness J, Andersson E, Anderson PML, Elmqvist T (2016) Exploring the links between functional traits and cultural ecosystem services to enhance urban ecosystem management. Ecol Indic 70:597–605.</p></li>
+<li><p>Solar RRC, Barlow J, Ferreira J, Berenguer E, Lees AC, Thomson JR, Louzada J, Maués M, Moura NG, Oliveira VHF, Chaul JCM, Schoereder JH, Vieira ICG, MacNally R, Gardner TA (2015) How pervasive is biotic homogenization in human-modified tropical forest landscapes? Ecol Lett 18:1108–1118.</p></li>
+<li><p>Ethnobiology Working Group (2003) Intellectual imperatives in ethnobiology. Missouri Botanical Garden Press, St. Louis, MO</p></li>
+<li><p>Stepp JR (2005) Advances in ethnobiological field methods. Field Method 17:211–218.</p></li>
+<li><p>Albuquerque UP, Ferreira Júnior WS (2017) What do we study in evolutionary ethnobiology? Defining the theoretical basis for a research program. Evol Biol 44:206–215.</p></li>
+<li><p>Saslis-Lagoudakis CH, Clarke AC (2013) Ethnobiology: the missing link in ecology and evolution. Trends Ecol Evol 28:67–68.</p></li>
+<li><p>Albuquerque UP (2013) How to improve the quality of scientific publications in ethnobiology. Ethnobiol Cons 2:1–5.</p></li>
+</ol>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>O bestiário é uma literatura do Século XII que descrevia animais (reais ou imaginários) com uma visão divertida e fantasiosa. Parte da interpretação continha lições de moral dos monges católicos que escreviam e ilustravam os bestiários. Longe de ser uma lição de moral ou mesmo uma descrição fantasiosa, usamos o termo bestiário neste livro para expressar o que há de mais importante e fantástico (na visão dos autores) para fazer um bom teste de hipóteses.<a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Após a publicação original deste capítulo, Ulysses Albuquerque e colaboradores publicaram artigo sugerindo questões fundamentais em Etnobiologia: Albuquerque et al. 2019, Acta Bot. Bras. 33, 2.<a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Glossário (adaptado de Pickett et al. 2007)<a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#fnref3" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introdução.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="intro-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/paternogbc/livro_r_ecologia/edit/master/03_perguntas_ecologia.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["livro_r_ecologia.pdf", "livro_r_ecologia.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

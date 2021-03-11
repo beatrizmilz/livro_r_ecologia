@@ -1,0 +1,398 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+# Diversidade Funcional
+
+## Aspectos teóricos
+
+Até a década de 1990, a teoria ecológica  investigava basicamente quais processos  determinavam a abundância e riqueza de espécies no espaço e tempo. Esta década foi marcada por intensos debates sobre as regras de montagem de comunidades e como interações e filtros ambientais determinavam a coexistência de espécies (Strong et al. 1984). Porém, a década 2000 foi marcada pelo uso mais explícito da características das espécies como uma variável fundamental tanto explicar como as espécies seriam afetadas pelo ambiente, quanto para entender como tais espécies afetariam o ecossistema (Diaz & Cabido 2001, McGill et al. 2006). O primeiro estudo que utilizou o termo Diversidade Funcional foi publicado por Williams (1994), que comparou espécies de naúplios filogenéticamente relacionadas e demonstrou que elas possuem alta plasticidade funcional que favorecem ampla variação de comportamentos e, desse modo, permitem que sejam espécies generalistas em ambientes em contante mudança. 
+A unidade básica desses estudos, o atributo funcional (do inglês "functional trait"), é definido como uma propriedade mensurável dos organismos (geralmente em nível individual) que represente características morfológicas, fisiológicas ou fenológicas que afetam a aptidão alterando aspectos do crescimento, reprodução e sobrevivência (Violle et al. 2007). Mais especificamente, o atributo funcional pode ser divido em atributo efeito (i.e., atributos do organismo que afetam condições ambientais ou propriedades do ecossistema) e resposta (i.e., atributos do organismo que variam em resposta a condições ambientais) (Violle et al. 2007).  
+
+As medidas de diversidade, então, passam a ser representadas não somente por diferenças no número e na quantidade de espécies. Ao invés disso, as diferenças/semelhanças dos atributos funcionais das espécies dentro e entre localidades é usada como uma medida de diversidade. Desse modo, a variação no grau de expressão de diferentes atributos funcionais entre diferentes populações, comunidades ou ecossistemas é definida como *Diversidade Funcional* (**sensu** Garnier 2015). Porém, a diversidade funcional não deve ser usada como medida única, uma vez que tais diferenças entre os atributos funcionais pode ser medida a partir da abundância relativa, riqueza e variação dos atributos funcionais. Desse modo, podemos dividir a diversidade funcional em três diferentes medidas: *(1)* riqueza funcional, *(2)* divergência funcional, e *(3)* regularidade funcional (Villéger et al. 2008). Existem dezenas de métricas que calculam cada uma dessas "dimensões" da diversidadade funcional, mas se destacam aquelas baseadas em dendrograma (e.g., FD: Petchey & Gaston 2004) ou em medidas de distância (e.g., Villeger et al. 2008). Assim como a diversidade taxonômica (*Capítulo XXX*), a diversidade funcional pode ser medida em componentes alfa e beta. A seguir, apresentamos diferentes maneiras de calcular a distância entre localidades tendo como base os atributos funcionais das espécies e, além disso, demonstramos como calcular algumas das métricas de diversidade (alfa e beta) funcional mais usadas em ecologia. A parte final deste capítulo apresenta dois exemplos de como podemos testar hipóteses ecológicas comparando a diversidade funcional alfa e beta.
+
+## Definindo a dis(similaridade) entre espécies
+
+Definir o quão diferente ou semelhante são duas espécies que ocorrem em um determinada localidade é a base para calcular a diversidade alfa e beta funcional. Para isso, é fundamental ter em mente que os atributos funcionais podem ser de vários tipos como, por exemplo, contínuo (e.g., tamanho corporal em cm), categórico (e.g., guilda: frugívoro, detritívoro, etc.), ordinal (e.g., 1 para organismo até 5 cm, 2 para organismos entre 5 e 30 cm,  e 3 para organismos amiores do que 30 cm), binários (e.g., presença ou ausência de espinho), entre outros (veja Tabela 1 em Gonçalves-Souza et al. 2019). Por este motivo, a decisão do método de distância só será possível após o reconhecimento do tipo de cada um dos atributos funcionais escolhidos. Em linhas gerais, para variáveis contínuas a distância euclideana é a melhor opção, enquanto para os outros tipos de variáveis ou para matrizes com mais de um tipo de variáveis, a distância de Gower deve ser usada (Pavoine et al. 2009). 
+
+
+```{r}
+
+### Pacotes 
+
+library(FD)
+library(ade4)
+library(ecodados)
+library(gridExtra)
+library(ggplot2)
+library(ggrepel)
+library(tidyverse)
+library(picante)
+library(vegan)
+library(SYNCSA)
+library(GGally)
+
+### Dados
+
+
+comun_fren_dat <- ecodados::fundiv_frenette2012a_comu
+ambie_fren_dat <- ecodados::fundiv_frenette2012a_amb
+trait_fren_dat <- ecodados::fundiv_frenette2012a_trait
+trait_dat      <- ecodados::fundiv_barbaro2009a_trait
+comun_dat      <- ecodados::fundiv_barbaro2009a_comu
+ambie_dat      <- ecodados::fundiv_barbaro2009a_amb
+
+
+# Medidas de distância com dados contínuos (quantitativos)
+
+trait_cont <- trait_fren_dat
+trait_pad <- decostand(trait_cont, "standardize")
+euclid_dis <- vegdist(trait_pad, "euclidean")
+
+pcoa_traits_cont <- pcoa(euclid_dis, correction="cailliez") # Resultados são idênticos ao de uma PCA
+eixos_cont <- as.data.frame(pcoa_traits_cont$vectors[,1:2]) # Selecionar os dois primeiros eixos
+
+eixos_cont %>% 
+  ggplot(aes(x=Axis.1, y=Axis.2)) + 
+  geom_point(pch=21, size=3, color = "black", fill="#4575b4") + 
+   geom_text_repel(aes(Axis.1, Axis.2, label = rownames(eixos_cont))) +
+  xlab("PCO 1") + ylab("PCO 2") + 
+  theme(axis.title.x = element_text(face="bold", size=14),
+        axis.text.x = element_text(vjust=0.5, size=12)) + 
+  theme(axis.title.y = element_text(face="bold", size=14),
+        axis.text.y = element_text(vjust=0.5, size=12)) + 
+  geom_hline(yintercept = 0, linetype=2) + 
+  geom_vline(xintercept = 0, linetype=2)+ 
+  theme(legend.position = "top", legend.title=element_blank()) -> plot_trait_cont
+plot_trait_cont
+
+
+# Medidas de distância com dados categóricos
+
+trait_dat %>% 
+  dplyr::select_if(is.character) -> trait_cat 
+dist_categ <- gowdis(trait_cat)
+
+# Visualize os dados com uma PCoA 
+
+pcoa_traits_cat <- pcoa(dist_categ, correction="cailliez")
+eixos_cat <- as.data.frame(pcoa_traits_cat$vectors[,1:2]) # Selecionar os dois primeiros eixos
+
+eixos_cat %>% 
+  ggplot(aes(x=Axis.1, y=Axis.2)) + 
+  geom_point(pch=21, size=3, color = "black", fill="#4575b4") + 
+   geom_text_repel(aes(Axis.1, Axis.2, label = rownames(eixos_cat))) +
+  xlab("PCO 1") + ylab("PCO 2") + 
+  theme(axis.title.x = element_text(face="bold", size=14),
+        axis.text.x = element_text(vjust=0.5, size=12)) + 
+  theme(axis.title.y = element_text(face="bold", size=14),
+        axis.text.y = element_text(vjust=0.5, size=12)) + 
+  geom_hline(yintercept = 0, linetype=2) + 
+  geom_vline(xintercept = 0, linetype=2)+ 
+  theme(legend.position = "top", legend.title=element_blank()) -> plot_trait_cat
+plot_trait_cat
+
+
+# Medidas de distância com dados mistos: contínuos, categóricos, entre outros
+# Primeiro, é necessário organizar cada tipo de dado com a função prep.TYPE
+
+# Verifique a classe de todos os traits e veja se estão de acordo com sua expectativa
+
+trait_dat %>% 
+  dplyr::summarise_all(class) %>% 
+  tidyr::gather(variable, class)
+
+# Atribuir classe ORDINAL para os traits ordinais, uma vez que foram reconhecidos como numéricos ("integer")
+
+trait_dat$regio <- as.ordered(trait_dat$regio)
+trait_dat$body <- as.ordered(trait_dat$body)
+
+## Combinar cada tipo de trait em um data.frame separado
+# Categóricos
+
+trait_categ <- cbind.data.frame(trend=trait_dat$trend, redlist=trait_dat$redlist, biog=trait_dat$biog, activ=trait_dat$activ,  diet=trait_dat$diet, winter=trait_dat$winter,color=trait_dat$color, breed=trait_dat$breed,wing=trait_dat$wing, period=trait_dat$period)
+
+# Ordinais
+trait_ord <- cbind.data.frame(regio=trait_dat$regio, body=trait_dat$body)
+rownames(trait_categ) <- rownames(trait_dat)
+rownames(trait_ord) <- rownames(trait_dat)
+
+# Agora, combinar os dois data.frames em uma lista chamada "ktab"
+ktab_list <- ktab.list.df(list(trait_categ, trait_ord))
+
+# Por fim, calcular a distância funcional entre as espécies
+# Em "type", a letra N indica variável categórica (ou nominal), enquanto a letra
+# O indica variável ordinal
+
+dist_mist <- dist.ktab(ktab_list, type= c("N", "O"))
+
+# Visualize os dados com uma PCoA (Ver Capítulo XXX)
+
+pcoa_traits_mist <- pcoa(dist_mist, correction="cailliez")
+eixos_mist <- as.data.frame(pcoa_traits_mist$vectors[,1:2])  # exportar 2 eixos
+
+eixos_mist %>% 
+  ggplot(aes(x=Axis.1, y=Axis.2)) + 
+  geom_point(pch=21, size=3, color = "black", fill="#d73027") + 
+  geom_text_repel(aes(Axis.1, Axis.2, label = rownames(eixos_mist)))+
+  xlab("PCO 1") + ylab("PCO 2") + 
+  theme(axis.title.x = element_text(face="bold", size=14),
+        axis.text.x = element_text(vjust=0.5, size=12)) + 
+  theme(axis.title.y = element_text(face="bold", size=14),
+        axis.text.y = element_text(vjust=0.5, size=12)) + 
+  geom_hline(yintercept = 0, linetype=2) + 
+  geom_vline(xintercept = 0, linetype=2)+ 
+  theme(legend.position = "top", legend.title=element_blank()) -> plot_trait_mist
+plot_trait_mist
+
+# Podemos combinar os dois gráficos para comparar as duas medidas de distância, uma somente com dados categóricos (Gower) e uma com dados categóricos e ordinais (Gower)
+
+grid.arrange(plot_trait_cat, plot_trait_mist, ncol=2)
+
+
+```
+
+
+## Métricas de diversidade funcional (alpha)
+### Riqueza funcional
+
+A riqueza funcional mede a quantidade de espaço funcional preenchido pela espécies de uma comunidade (Mason & Mouillot 2013). A estimativa desse espaço pode ser calculada usando dengrogramas (Petchey & Gaston 2002) ou através do método **Convex Hull** (Cornwell et al. 2006) que dão origem, respectivamente, as duas métricas mais usadas: (1) Diversidade Funcional (FD) e (Riqueza Funcional - FRic). Os índices de riqueza funcional geralmente são usados como indicadores do espaço de nicho que é potencialmente usado ou não (Schleuter et al. 2010). 
+
+```{r}
+
+# Antes de calcular as métricas de diversidade funcional, vamos calcular a riqueza de espécies com intuito de comparação entre métricas
+
+richness <- dbFD(dist_mist, comun_dat)$nbsp # Calcula a riqueza de espécies
+
+
+# Primeiro passo: definir uma distância apropriada (veja descrição anterior)
+
+# O índice "Functional Richness" só funciona para comunidades com 3 ou mais espécies
+# Caso você tenha comunidades com 1 ou 2 espécies, o valor será NA
+
+fric <- dbFD(dist_mist, comun_dat)$FRic
+
+# Functional Diversity (Petchey & Gaston 2002)
+
+## Passo 1: análise de agrupamento para criar o dendrograma 
+
+dend <- hclust(dist_mist, "average")
+
+## Passo 2: transformar o dengrograma em um arquivo da classe phylo
+
+tree_dend <-as.phylo(dend)
+
+## Passo 3: calcular o valor da diversidade funcional 
+
+FD <- pd(comun_dat, tree_dend)$PD
+
+```
+
+### Divergência funcional
+#!!!! Inserir uma Figura com o desenho esquemático de cada componente !!!!!!!!
+
+A divergência funcional é uma medida que descreve a irregularidade na distribuição dos valores dos atributos no volume do espaço funcional ocupado por todas as espécies de uma certa comunidade (Garnier 2015, Figura ???). Para obter os valores de divergência, o espaço funcional é calculado através do método **Convex Hull** (Functional Divergence) ou do espaço multidimensional calculado com um PCoA (Functional Dispersion). Nos dois casos, o valor da métrica representa a distância média das espécies para o centro de gravidade ou centroide do espaço funcional, ponderado pela abundância relativa das espécies (Villeger et al. 2008, Laliberté & Legendre 2010). Desse modo, a divergência funcional é uma medida que calcula o grau de diferenciação em que a distribuição da abundância maximiza a divergência entre entre os atributos funcionais (Mason & Mouillot).  Em geral, estudos que usam esses índices buscam entender o grau de diferenciação de recursos de espécies que coexistem em uma comunidade (Garnier 2015).
+
+```{r}
+
+# Primeiro passo: definir uma distância apropriada (veja descrição anterior)
+
+# Aqui, iremos utilizar a matriz de distância obtida dos dados trait_dat (variáveis categóricas e ordinais) e nomeada como dist_mist
+
+
+# O índice "Functional Divergence" só é calculado para comunidades com 3 ou mais espécies
+# Caso você tenha comunidades com 1 ou 2 espécies, a análise irá retornar o valor "NA"
+
+fdiv <- dbFD(dist_mist, comun_dat)$FDiv
+
+# O índice "Functional Dispersion" atribui valor 0 para comunidades com 1 ou 2 espécies
+fdis <- dbFD(dist_mist, comun_dat)$FDis
+
+
+```
+### Regularidade funcional
+A regularidade funcional (do inglês **Functional Evenness**) mede o quão regular é a distribuição da abundância dos valores dos atributos funcionais no espaço funcional. Diferente dos outros métodos, a versão multidimensional deste índice utiliza um método chamado **Minimum Spanning Tree** (MST) para conectar todas espécies no espaço funcional. A distância par-a-par das espécies na MST é  ponderada pela abundância relativa das espécies e, desse modo, o valor final da regularidade funcional (FEve) vai variar de 0 (máxima irregularidade da distribuição da abundância ou distância funcional das espécies) a 1 (máxima regularidade).
+
+
+```{r}
+
+# Aqui, iremos utilizar a matriz de distância obtida dos dados trait_dat (variáveis categóricas e ordinais) e nomeada como dist_mist
+
+# O índice "Functional evenness" só funciona para comunidades com 3 ou mais espécies
+# Caso você tenha comunidades com 1 ou 2 espécies, a análise irá retornar o valor NA
+
+feve <- dbFD(dist_mist, comun_dat)$FEve
+
+
+### Você pode criar uma tabela com os resultados de todas as métricas
+
+locais <- rownames(comun_dat)
+
+metricas <- data.frame(richness=richness,
+                       FD_gp = FD,
+                       fric = fric,
+                       fdiv = fdiv,
+                       fdis = fdis,
+                       feve = feve)
+
+### Gráfico para comparar o comportamento das métricas
+
+ggpairs(metricas)
+
+
+```
+
+
+## 2.3 Métricas de diversidade funcional (beta)
+
+
+```{r}
+library(FD)
+library(tidyverse)
+library(ecodados)
+library(vegan)
+library(GGally)
+library(betapart)
+library(vegan)
+
+### Partição da Diversidade beta (Método Baselga)
+
+comun_fren_pa <- as.matrix(decostand(comun_fren_dat, "pa"))
+trait <- as.matrix(trait_fren_dat)
+ 
+rowSums(comun_fren_pa)>ncol(trait)
+colnames(comun_fren_pa)==rownames(trait)
+
+fun_beta <- functional.beta.pair(x = comun_fren_pa, trait=trait, index="jaccard") # Está bem lento!!! Conferir
+
+# Os comandos abaixo permitem extrair a matriz de distância (par-a-par) com a partição em turnover e nestedness
+
+fun_turnover <- fun_beta$funct.beta.jne
+fun_nestedness <- fun_beta$funct.beta.jne
+
+
+### Composição Funcional: Community Wegihed Means (CWM)
+
+cwm_fren <- functcomp(trait_pad, as.matrix(comun_fren_dat))
+cwm_fren
+
+```
+
+
+```{r}
+
+### Exemplo 1: diversidade funcional (alfa) de 34 espécies de plantas em um gradiente de aridez (Frenette-Dussault et al. 2012)
+
+
+# Dados
+
+comun_fren_dat # matriz de espécies por localidade
+ambie_fren_dat # matriz de variáveis ambientais por localidade
+trait_fren_dat # matriz de atributos contínuos por espécie
+
+# Hipótese e predições:
+
+# Hipótese: O gradiente de aridez influencia a divergência e regularidade funcional de plantas
+# Predição 1: locais mais áridos possuem menor divergência funcional de plantas (métrica escolhida: FDis)
+# Predição 2: locais mais úmidos possuem menor regularidade funcional de plantas (métrica escolhida: FEve)
+
+## Passo 1: calcular a distância funcional
+
+trait_pad <- decostand(trait_fren_dat, "standardize")
+euclid_dis <- vegdist(trait_pad, "euclidean")
+
+
+## Passo 2: calcular a Divergência funcional (FDis) e Regularidade Funcional (FEve)
+
+fdis <- dbFD(euclid_dis, comun_fren_dat)$FDis# Fdis=0 em locais com somente uma espécie
+feve <- dbFD(euclid_dis, comun_fren_dat)$FEve
+
+## Passo 3: Utilizar um modelo linear para comparar o efeito da aridez sobre FDis (predição 1) e FEve (predição 2)
+
+lm_dat <- data.frame(aridez = ambie_fren_dat$Aridity, fdis = fdis, feve = feve)
+
+mod1 <- lm(fdis ~ aridez, data = lm_dat)
+plot(mod1) # conferir os pressupostos da análise
+
+anova(mod1) # Conclusão: a aridez não tem efeito sobre a divergência funcional
+
+mod2 <- lm(feve ~ aridez, data = lm_dat)
+plot(mod2) # conferir os pressupostos da análise
+
+anova(mod2) # Conclusão: a aridez não tem efeito sobre a regularidade funcional
+
+## Passo 4: gráfico para visualizar os dois resultados  
+
+lm_dat %>% 
+  ggplot(aes(x=aridez, y=fdis)) + 
+  geom_point(pch=21, size=3, color = "black", fill="royalblue") + 
+  xlab("Aridez") + ylab("Divergência Funcional (FDis)") + 
+  theme(axis.title.x = element_text(face="bold", size=14),
+        axis.text.x = element_text(vjust=0.5, size=12)) + 
+  theme(axis.title.y = element_text(face="bold", size=14),
+        axis.text.y = element_text(vjust=0.5, size=12)) + 
+  theme(legend.position = "top", legend.title=element_blank()) -> plot_pred1
+plot_pred1
+
+
+lm_dat %>% 
+  ggplot(aes(x=aridez, y=feve)) + 
+  geom_point(pch=21, size=3, color = "black", fill="#d73027") + 
+  xlab("Aridez") + ylab("Regularidade Funcional (FEve)") + 
+  theme(axis.title.x = element_text(face="bold", size=14),
+        axis.text.x = element_text(vjust=0.5, size=12)) + 
+  theme(axis.title.y = element_text(face="bold", size=14),
+        axis.text.y = element_text(vjust=0.5, size=12)) + 
+  theme(legend.position = "top", legend.title=element_blank()) -> plot_pred2
+plot_pred2
+
+## Visualização dos dois gráficos em um única janela
+
+grid.arrange(plot_pred1, plot_pred2, ncol=2)
+
+```
+
+```{r}
+
+### Exemplo 2: o pastejo influencia a diversidade beta funcional de 34 espécies de plantas (Frenette-Dussault et al. 2012)
+
+
+# Dados
+
+comun_fren_dat # matriz de espécies por localidade
+ambie_fren_dat # matriz de variáveis ambientais por localidade
+trait_fren_dat # matriz de atributos contínuos por espécie
+
+# Hipótese e predições:
+
+# Hipótese: o pastejo determina a ocorrência de espécies de plantas com diferentes atributos funcionais 
+# Predição 1: a composição funcional de plantas é diferente entre áreas com e sem pastejo
+
+
+## Passo 1: calcular a distância funcional
+
+cwm_dis <- vegdist(cwm_fren, "euclidean")
+
+## Passo 2: calcular os valores de composição funcional (CWM)
+
+cwm_fren <- functcomp(trait_pad, as.matrix(comun_fren_dat))
+
+## Passo 3: testar se a composição funcional varia entre as áreas com uma PERMANOVA
+
+perman_fren <- adonis(cwm_fren~Grazing, data = ambie_fren_dat)
+
+## Passo 4: comparar a variação dentro de cada grupo com Betadisper 
+
+betad_fren <- betadisper(cwm_dis, ambie_fren_dat$Grazing)
+permutest(betad_fren)
+
+## Passo 5: visualização com PCoA
+
+plot(betad_fren)
+
+
+```

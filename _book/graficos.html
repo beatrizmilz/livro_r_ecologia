@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 6 Visualização de dados | Introdução ao R com aplicações em biodiversidade e conservação</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 6 Visualização de dados | Introdução ao R com aplicações em biodiversidade e conservação" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 6 Visualização de dados | Introdução ao R com aplicações em biodiversidade e conservação" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+
+
+<meta name="date" content="2021-03-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="tidyverse.html"/>
+<link rel="next" href="estatística-básica.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Introdução ao R com aplicações em biodiversidade e conservação</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Pré-requisitos</a></li>
+<li class="chapter" data-level="2" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html"><i class="fa fa-check"></i><b>2</b> Pré-requisitos</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#introdução"><i class="fa fa-check"></i><b>2.1</b> Introdução</a></li>
+<li class="chapter" data-level="2.2" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#r-e-rstudio"><i class="fa fa-check"></i><b>2.2</b> R e RStudio</a></li>
+<li class="chapter" data-level="2.3" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#funcionamento-da-linguagem-r"><i class="fa fa-check"></i><b>2.3</b> Funcionamento da linguagem R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#console"><i class="fa fa-check"></i><b>2.3.1</b> Console</a></li>
+<li class="chapter" data-level="2.3.2" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#scripts"><i class="fa fa-check"></i><b>2.3.2</b> Scripts</a></li>
+<li class="chapter" data-level="2.3.3" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#operadores"><i class="fa fa-check"></i><b>2.3.3</b> Operadores</a></li>
+<li class="chapter" data-level="2.3.4" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#objetos"><i class="fa fa-check"></i><b>2.3.4</b> Objetos</a></li>
+<li class="chapter" data-level="2.3.5" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#funções"><i class="fa fa-check"></i><b>2.3.5</b> Funções</a></li>
+<li class="chapter" data-level="2.3.6" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#pacotes"><i class="fa fa-check"></i><b>2.3.6</b> Pacotes</a></li>
+<li class="chapter" data-level="2.3.7" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#ajuda-help"><i class="fa fa-check"></i><b>2.3.7</b> Ajuda (<em>Help</em>)</a></li>
+<li class="chapter" data-level="2.3.8" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#ambiente-environment"><i class="fa fa-check"></i><b>2.3.8</b> Ambiente (<em>Environment</em>)</a></li>
+<li class="chapter" data-level="2.3.9" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#citações"><i class="fa fa-check"></i><b>2.3.9</b> Citações</a></li>
+<li class="chapter" data-level="2.3.10" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#principais-erros-de-iniciantes"><i class="fa fa-check"></i><b>2.3.10</b> Principais erros de iniciantes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#estrutura-e-manipulação-de-objetos"><i class="fa fa-check"></i><b>2.4</b> Estrutura e manipulação de objetos</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#atributo-dos-objetos"><i class="fa fa-check"></i><b>2.4.1</b> Atributo dos objetos</a></li>
+<li class="chapter" data-level="2.4.2" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#manipulação-de-objetos-unidimensionais"><i class="fa fa-check"></i><b>2.4.2</b> Manipulação de objetos unidimensionais</a></li>
+<li class="chapter" data-level="2.4.3" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#manipulação-de-objetos-multidimensionais"><i class="fa fa-check"></i><b>2.4.3</b> Manipulação de objetos multidimensionais</a></li>
+<li class="chapter" data-level="2.4.4" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#valores-faltantes-e-especiais"><i class="fa fa-check"></i><b>2.4.4</b> Valores faltantes e especiais</a></li>
+<li class="chapter" data-level="2.4.5" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#diretório-de-trabalho"><i class="fa fa-check"></i><b>2.4.5</b> Diretório de trabalho</a></li>
+<li class="chapter" data-level="2.4.6" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#importar-dados"><i class="fa fa-check"></i><b>2.4.6</b> Importar dados</a></li>
+<li class="chapter" data-level="2.4.7" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#conferência-de-dados-importados"><i class="fa fa-check"></i><b>2.4.7</b> Conferência de dados importados</a></li>
+<li class="chapter" data-level="2.4.8" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#exportar-dados"><i class="fa fa-check"></i><b>2.4.8</b> Exportar dados</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#exercícios"><i class="fa fa-check"></i><b>2.5</b> Exercícios</a></li>
+<li class="chapter" data-level="2.6" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#para-se-aprofundar"><i class="fa fa-check"></i><b>2.6</b> Para se aprofundar</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#livros"><i class="fa fa-check"></i><b>2.6.1</b> Livros</a></li>
+<li class="chapter" data-level="2.6.2" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#links"><i class="fa fa-check"></i><b>2.6.2</b> Links</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introdução-1.html"><a href="introdução-1.html"><i class="fa fa-check"></i><b>3</b> Introdução</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introdução-1.html"><a href="introdução-1.html#histórico-deste-livro"><i class="fa fa-check"></i><b>3.1</b> Histórico deste livro</a></li>
+<li class="chapter" data-level="3.2" data-path="introdução-1.html"><a href="introdução-1.html#objetivo-deste-livro"><i class="fa fa-check"></i><b>3.2</b> Objetivo deste livro</a></li>
+<li class="chapter" data-level="3.3" data-path="introdução-1.html"><a href="introdução-1.html#o-que-você-não-encontrará-neste-livro"><i class="fa fa-check"></i><b>3.3</b> O que você não encontrará neste livro</a></li>
+<li class="chapter" data-level="3.4" data-path="introdução-1.html"><a href="introdução-1.html#por-que-usar-o-r"><i class="fa fa-check"></i><b>3.4</b> Por que usar o R?</a></li>
+<li class="chapter" data-level="3.5" data-path="introdução-1.html"><a href="introdução-1.html#como-usar-este-livro"><i class="fa fa-check"></i><b>3.5</b> Como usar este livro</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="perguntas-ecologia.html"><a href="perguntas-ecologia.html"><i class="fa fa-check"></i><b>4</b> Voltando ao básico: como dominar a arte de fazer perguntas cientificamente relevantes</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="perguntas-ecologia.html"><a href="perguntas-ecologia.html#introdução-2"><i class="fa fa-check"></i><b>4.1</b> Introdução</a></li>
+<li class="chapter" data-level="4.2" data-path="perguntas-ecologia.html"><a href="perguntas-ecologia.html#perguntas-devem-preceder-as-análises-estatísticas"><i class="fa fa-check"></i><b>4.2</b> Perguntas devem preceder as análises estatísticas</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="perguntas-ecologia.html"><a href="perguntas-ecologia.html#um-bestiário1-para-o-teste-de-hipóteses-você-está-fazendo-a-pergunta-certa"><i class="fa fa-check"></i><b>4.2.1</b> Um bestiário[^1] para o teste de hipóteses (Você está fazendo a pergunta certa?)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="perguntas-ecologia.html"><a href="perguntas-ecologia.html#fluxograma-conectando-variáveis-para-melhorar-o-desenho-experimental-e-as-análises-estatísticas"><i class="fa fa-check"></i><b>4.3</b> Fluxograma: Conectando Variáveis para Melhorar o desenho experimental e as análises estatísticas</a></li>
+<li class="chapter" data-level="4.4" data-path="perguntas-ecologia.html"><a href="perguntas-ecologia.html#questões-fundamentais-em-etnobiologia-ecologia-e-conservação"><i class="fa fa-check"></i><b>4.4</b> Questões fundamentais em etnobiologia, ecologia e conservação</a></li>
+<li class="chapter" data-level="4.5" data-path="perguntas-ecologia.html"><a href="perguntas-ecologia.html#considerações-finais"><i class="fa fa-check"></i><b>4.5</b> Considerações Finais</a></li>
+<li class="chapter" data-level="4.6" data-path="perguntas-ecologia.html"><a href="perguntas-ecologia.html#referências"><i class="fa fa-check"></i><b>4.6</b> Referências</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>5</b> Tidyverse</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="tidyverse.html"><a href="tidyverse.html#contextualização"><i class="fa fa-check"></i><b>5.1</b> Contextualização</a></li>
+<li class="chapter" data-level="5.2" data-path="tidyverse.html"><a href="tidyverse.html#tidyverse-1"><i class="fa fa-check"></i><b>5.2</b> <em>tidyverse</em></a></li>
+<li class="chapter" data-level="5.3" data-path="tidyverse.html"><a href="tidyverse.html#here"><i class="fa fa-check"></i><b>5.3</b> here</a></li>
+<li class="chapter" data-level="5.4" data-path="tidyverse.html"><a href="tidyverse.html#readr-readxl-e-writexl"><i class="fa fa-check"></i><b>5.4</b> readr, readxl e writexl</a></li>
+<li class="chapter" data-level="5.5" data-path="tidyverse.html"><a href="tidyverse.html#tibble"><i class="fa fa-check"></i><b>5.5</b> tibble</a></li>
+<li class="chapter" data-level="5.6" data-path="tidyverse.html"><a href="tidyverse.html#magrittr-pipe--"><i class="fa fa-check"></i><b>5.6</b> magrittr (pipe - %&gt;%)</a></li>
+<li class="chapter" data-level="5.7" data-path="tidyverse.html"><a href="tidyverse.html#tidyr"><i class="fa fa-check"></i><b>5.7</b> tidyr</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="tidyverse.html"><a href="tidyverse.html#palmerpenguins"><i class="fa fa-check"></i><b>5.7.1</b> palmerpenguins</a></li>
+<li class="chapter" data-level="5.7.2" data-path="tidyverse.html"><a href="tidyverse.html#glimpse"><i class="fa fa-check"></i><b>5.7.2</b> glimpse()</a></li>
+<li class="chapter" data-level="5.7.3" data-path="tidyverse.html"><a href="tidyverse.html#unite"><i class="fa fa-check"></i><b>5.7.3</b> unite()</a></li>
+<li class="chapter" data-level="5.7.4" data-path="tidyverse.html"><a href="tidyverse.html#separate"><i class="fa fa-check"></i><b>5.7.4</b> separate()</a></li>
+<li class="chapter" data-level="5.7.5" data-path="tidyverse.html"><a href="tidyverse.html#drop_na-e-replace_na"><i class="fa fa-check"></i><b>5.7.5</b> drop_na() e replace_na()</a></li>
+<li class="chapter" data-level="5.7.6" data-path="tidyverse.html"><a href="tidyverse.html#pivotagem---pivot_longer-e-pivot_wider"><i class="fa fa-check"></i><b>5.7.6</b> pivotagem - pivot_longer() e pivot_wider()</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="tidyverse.html"><a href="tidyverse.html#dplyr"><i class="fa fa-check"></i><b>5.8</b> dplyr</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="tidyverse.html"><a href="tidyverse.html#gramática"><i class="fa fa-check"></i><b>5.8.1</b> Gramática</a></li>
+<li class="chapter" data-level="5.8.2" data-path="tidyverse.html"><a href="tidyverse.html#sintaxe"><i class="fa fa-check"></i><b>5.8.2</b> Sintaxe</a></li>
+<li class="chapter" data-level="5.8.3" data-path="tidyverse.html"><a href="tidyverse.html#palmerpenguins-1"><i class="fa fa-check"></i><b>5.8.3</b> palmerpenguins</a></li>
+<li class="chapter" data-level="5.8.4" data-path="tidyverse.html"><a href="tidyverse.html#relocate"><i class="fa fa-check"></i><b>5.8.4</b> relocate()</a></li>
+<li class="chapter" data-level="5.8.5" data-path="tidyverse.html"><a href="tidyverse.html#rename"><i class="fa fa-check"></i><b>5.8.5</b> rename()</a></li>
+<li class="chapter" data-level="5.8.6" data-path="tidyverse.html"><a href="tidyverse.html#select"><i class="fa fa-check"></i><b>5.8.6</b> select()</a></li>
+<li class="chapter" data-level="5.8.7" data-path="tidyverse.html"><a href="tidyverse.html#pull"><i class="fa fa-check"></i><b>5.8.7</b> pull()</a></li>
+<li class="chapter" data-level="5.8.8" data-path="tidyverse.html"><a href="tidyverse.html#mutate"><i class="fa fa-check"></i><b>5.8.8</b> mutate()</a></li>
+<li class="chapter" data-level="5.8.9" data-path="tidyverse.html"><a href="tidyverse.html#arrange"><i class="fa fa-check"></i><b>5.8.9</b> arrange()</a></li>
+<li class="chapter" data-level="5.8.10" data-path="tidyverse.html"><a href="tidyverse.html#filter"><i class="fa fa-check"></i><b>5.8.10</b> filter()</a></li>
+<li class="chapter" data-level="5.8.11" data-path="tidyverse.html"><a href="tidyverse.html#slice"><i class="fa fa-check"></i><b>5.8.11</b> slice()</a></li>
+<li class="chapter" data-level="5.8.12" data-path="tidyverse.html"><a href="tidyverse.html#distinct"><i class="fa fa-check"></i><b>5.8.12</b> distinct()</a></li>
+<li class="chapter" data-level="5.8.13" data-path="tidyverse.html"><a href="tidyverse.html#count"><i class="fa fa-check"></i><b>5.8.13</b> count()</a></li>
+<li class="chapter" data-level="5.8.14" data-path="tidyverse.html"><a href="tidyverse.html#group_by"><i class="fa fa-check"></i><b>5.8.14</b> group_by()</a></li>
+<li class="chapter" data-level="5.8.15" data-path="tidyverse.html"><a href="tidyverse.html#summarise"><i class="fa fa-check"></i><b>5.8.15</b> summarise()</a></li>
+<li class="chapter" data-level="5.8.16" data-path="tidyverse.html"><a href="tidyverse.html#bind_rows-e-bind_cols"><i class="fa fa-check"></i><b>5.8.16</b> bind_rows() e bind_cols()</a></li>
+<li class="chapter" data-level="5.8.17" data-path="tidyverse.html"><a href="tidyverse.html#join"><i class="fa fa-check"></i><b>5.8.17</b> *_join()</a></li>
+<li class="chapter" data-level="5.8.18" data-path="tidyverse.html"><a href="tidyverse.html#operações-de-conjuntos-e-comparação-de-dados"><i class="fa fa-check"></i><b>5.8.18</b> Operações de conjuntos e comparação de dados</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="tidyverse.html"><a href="tidyverse.html#stringr"><i class="fa fa-check"></i><b>5.9</b> stringr</a></li>
+<li class="chapter" data-level="5.10" data-path="tidyverse.html"><a href="tidyverse.html#forcats"><i class="fa fa-check"></i><b>5.10</b> forcats</a></li>
+<li class="chapter" data-level="5.11" data-path="tidyverse.html"><a href="tidyverse.html#lubridate"><i class="fa fa-check"></i><b>5.11</b> lubridate</a></li>
+<li class="chapter" data-level="5.12" data-path="tidyverse.html"><a href="tidyverse.html#purrr"><i class="fa fa-check"></i><b>5.12</b> purrr</a></li>
+<li class="chapter" data-level="5.13" data-path="tidyverse.html"><a href="tidyverse.html#exercícios-1"><i class="fa fa-check"></i><b>5.13</b> Exercícios</a></li>
+<li class="chapter" data-level="5.14" data-path="tidyverse.html"><a href="tidyverse.html#para-se-aprofundar-1"><i class="fa fa-check"></i><b>5.14</b> Para se aprofundar</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="graficos.html"><a href="graficos.html"><i class="fa fa-check"></i><b>6</b> Visualização de dados</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="graficos.html"><a href="graficos.html#introdução-3"><i class="fa fa-check"></i><b>6.1</b> Introdução</a></li>
+<li class="chapter" data-level="6.2" data-path="graficos.html"><a href="graficos.html#principais-pacotes"><i class="fa fa-check"></i><b>6.2</b> Principais pacotes</a></li>
+<li class="chapter" data-level="6.3" data-path="graficos.html"><a href="graficos.html#grámatica-dos-gráficos"><i class="fa fa-check"></i><b>6.3</b> Grámatica dos gráficos</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="graficos.html"><a href="graficos.html#ggplot2"><i class="fa fa-check"></i><b>6.3.1</b> ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="graficos.html"><a href="graficos.html#guia-de-bolso-de-gráficos-no-r"><i class="fa fa-check"></i><b>6.4</b> Guia de bolso de gráficos no R</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="graficos.html"><a href="graficos.html#tipos-de-gráficos"><i class="fa fa-check"></i><b>6.4.1</b> Tipos de gráficos</a></li>
+<li class="chapter" data-level="6.4.2" data-path="graficos.html"><a href="graficos.html#palmerpenguins-2"><i class="fa fa-check"></i><b>6.4.2</b> palmerpenguins</a></li>
+<li class="chapter" data-level="6.4.3" data-path="graficos.html"><a href="graficos.html#hist"><i class="fa fa-check"></i><b>6.4.3</b> Histograma (<em>histogram</em>)</a></li>
+<li class="chapter" data-level="6.4.4" data-path="graficos.html"><a href="graficos.html#dens"><i class="fa fa-check"></i><b>6.4.4</b> Gráfico de densidade (<em>density plot</em>)</a></li>
+<li class="chapter" data-level="6.4.5" data-path="graficos.html"><a href="graficos.html#dot"><i class="fa fa-check"></i><b>6.4.5</b> Diagrama de pontos (<em>dot plot</em>)</a></li>
+<li class="chapter" data-level="6.4.6" data-path="graficos.html"><a href="graficos.html#gráfico-de-setores-pie-chart-e-donut-chart"><i class="fa fa-check"></i><b>6.4.6</b> Gráfico de setores (<em>pie chart</em> e <em>donut chart</em>)</a></li>
+<li class="chapter" data-level="6.4.7" data-path="graficos.html"><a href="graficos.html#bars"><i class="fa fa-check"></i><b>6.4.7</b> Gráfico de barras (<em>bar plot</em>)</a></li>
+<li class="chapter" data-level="6.4.8" data-path="graficos.html"><a href="graficos.html#gráfico-de-caixa-box-plot"><i class="fa fa-check"></i><b>6.4.8</b> Gráfico de caixa (<em>box plot</em>)</a></li>
+<li class="chapter" data-level="6.4.9" data-path="graficos.html"><a href="graficos.html#gráfico-de-violino-violin-plot"><i class="fa fa-check"></i><b>6.4.9</b> Gráfico de violino (<em>violin plot</em>)</a></li>
+<li class="chapter" data-level="6.4.10" data-path="graficos.html"><a href="graficos.html#gráfico-de-dispersão-scatter-plot"><i class="fa fa-check"></i><b>6.4.10</b> Gráfico de dispersão (<em>scatter plot</em>)</a></li>
+<li class="chapter" data-level="6.4.11" data-path="graficos.html"><a href="graficos.html#gráfico-pareado-pairs-plot"><i class="fa fa-check"></i><b>6.4.11</b> Gráfico pareado (<em>pairs plot</em>)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="graficos.html"><a href="graficos.html#finalização-de-gráficos-para-publicação"><i class="fa fa-check"></i><b>6.5</b> Finalização de gráficos para publicação</a></li>
+<li class="chapter" data-level="6.6" data-path="graficos.html"><a href="graficos.html#exercíios"><i class="fa fa-check"></i><b>6.6</b> Exercíios</a></li>
+<li class="chapter" data-level="6.7" data-path="graficos.html"><a href="graficos.html#para-se-aprofundar-2"><i class="fa fa-check"></i><b>6.7</b> Para se aprofundar</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="graficos.html"><a href="graficos.html#books"><i class="fa fa-check"></i><b>6.7.1</b> Books</a></li>
+<li class="chapter" data-level="6.7.2" data-path="graficos.html"><a href="graficos.html#links-1"><i class="fa fa-check"></i><b>6.7.2</b> Links</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="estatística-básica.html"><a href="estatística-básica.html"><i class="fa fa-check"></i><b>7</b> Estatística básica</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="estatística-básica.html"><a href="estatística-básica.html#teste-t-de-student-para-duas-amostras-independentes"><i class="fa fa-check"></i><b>7.1</b> Teste T (de Student) para duas amostras independentes</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise"><i class="fa fa-check"></i><b>7.1.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="7.1.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise"><i class="fa fa-check"></i><b>7.1.2</b> Análise</a></li>
+<li class="chapter" data-level="7.1.3" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-1"><i class="fa fa-check"></i><b>7.1.3</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="estatística-básica.html"><a href="estatística-básica.html#teste-t-para-amostras-pareadas"><i class="fa fa-check"></i><b>7.2</b> Teste T para amostras pareadas</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-1"><i class="fa fa-check"></i><b>7.2.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="7.2.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-2"><i class="fa fa-check"></i><b>7.2.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="estatística-básica.html"><a href="estatística-básica.html#correlação-de-pearson"><i class="fa fa-check"></i><b>7.3</b> Correlação de Pearson</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-2"><i class="fa fa-check"></i><b>7.3.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="7.3.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-3"><i class="fa fa-check"></i><b>7.3.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="estatística-básica.html"><a href="estatística-básica.html#regressão-simples"><i class="fa fa-check"></i><b>7.4</b> Regressão Simples</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-3"><i class="fa fa-check"></i><b>7.4.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="7.4.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-4"><i class="fa fa-check"></i><b>7.4.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="estatística-básica.html"><a href="estatística-básica.html#regressão-múltipla"><i class="fa fa-check"></i><b>7.5</b> Regressão Múltipla</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-4"><i class="fa fa-check"></i><b>7.5.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="7.5.2" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-5"><i class="fa fa-check"></i><b>7.5.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="estatística-básica.html"><a href="estatística-básica.html#análises-de-variância-anova"><i class="fa fa-check"></i><b>7.6</b> Análises de Variância (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="estatística-básica.html"><a href="estatística-básica.html#backgorund-da-análise-5"><i class="fa fa-check"></i><b>7.6.1</b> Backgorund da análise</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="estatística-básica.html"><a href="estatística-básica.html#anova-de-um-fator"><i class="fa fa-check"></i><b>7.7</b> ANOVA de um fator</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-6"><i class="fa fa-check"></i><b>7.7.1</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="estatística-básica.html"><a href="estatística-básica.html#anova-de-dois-fatores-ou-anova-fatorial"><i class="fa fa-check"></i><b>7.8</b> ANOVA de dois fatores ou Anova fatorial</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-7"><i class="fa fa-check"></i><b>7.8.1</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="estatística-básica.html"><a href="estatística-básica.html#anova-em-blocos-aleatorizados"><i class="fa fa-check"></i><b>7.9</b> ANOVA em blocos aleatorizados</a>
+<ul>
+<li class="chapter" data-level="7.9.1" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-8"><i class="fa fa-check"></i><b>7.9.1</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="7.10" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-de-covariância-ancova"><i class="fa fa-check"></i><b>7.10</b> Análise de covariância (ANCOVA)</a>
+<ul>
+<li class="chapter" data-level="7.10.1" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-9"><i class="fa fa-check"></i><b>7.10.1</b> Análise</a></li>
+<li class="chapter" data-level="7.10.2" data-path="estatística-básica.html"><a href="estatística-básica.html#para-se-aprofundar-3"><i class="fa fa-check"></i><b>7.10.2</b> Para se aprofundar</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="análises-univariadas-glm.html"><a href="análises-univariadas-glm.html"><i class="fa fa-check"></i><b>8</b> Análises univariadas - GLM</a></li>
+<li class="chapter" data-level="9" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html"><i class="fa fa-check"></i><b>9</b> Introdução à Análises Multidimensionais</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#backgorund-da-análise-6"><i class="fa fa-check"></i><b>9.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="9.2" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#exemplo-1"><i class="fa fa-check"></i><b>9.2</b> Exemplo 1:</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#explicação-da-análise"><i class="fa fa-check"></i><b>9.2.1</b> Explicação da análise</a></li>
+<li class="chapter" data-level="9.2.2" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#análise-10"><i class="fa fa-check"></i><b>9.2.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#exemplo-2"><i class="fa fa-check"></i><b>9.3</b> Exemplo 2:</a></li>
+<li class="chapter" data-level="9.4" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#backgorund-da-análise-7"><i class="fa fa-check"></i><b>9.4</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="9.5" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#exemplo-1-1"><i class="fa fa-check"></i><b>9.5</b> Exemplo 1:</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#explicação-da-análise-1"><i class="fa fa-check"></i><b>9.5.1</b> Explicação da análise</a></li>
+<li class="chapter" data-level="9.5.2" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#análise-11"><i class="fa fa-check"></i><b>9.5.2</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#backgorund-da-análise-8"><i class="fa fa-check"></i><b>9.6</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="9.7" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#exemplo-1-2"><i class="fa fa-check"></i><b>9.7</b> Exemplo 1:</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#explicação-da-análise-2"><i class="fa fa-check"></i><b>9.7.1</b> Explicação da análise</a></li>
+<li class="chapter" data-level="9.7.2" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#análise-12"><i class="fa fa-check"></i><b>9.7.2</b> Análise</a></li>
+<li class="chapter" data-level="9.7.3" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#para-se-aprofundar-4"><i class="fa fa-check"></i><b>9.7.3</b> Para se aprofundar</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="rarefação.html"><a href="rarefação.html"><i class="fa fa-check"></i><b>10</b> Rarefação</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="rarefação.html"><a href="rarefação.html#background-da-análise"><i class="fa fa-check"></i><b>10.1</b> Background da análise</a></li>
+<li class="chapter" data-level="10.2" data-path="rarefação.html"><a href="rarefação.html#exemplo-prático-1---morcegos"><i class="fa fa-check"></i><b>10.2</b> Exemplo prático 1 - Morcegos</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="rarefação.html"><a href="rarefação.html#explicação"><i class="fa fa-check"></i><b>10.2.1</b> Explicação</a></li>
+<li class="chapter" data-level="10.2.2" data-path="rarefação.html"><a href="rarefação.html#análise-13"><i class="fa fa-check"></i><b>10.2.2</b> Análise</a></li>
+<li class="chapter" data-level="10.2.3" data-path="rarefação.html"><a href="rarefação.html#interpretação-dos-resultados-1"><i class="fa fa-check"></i><b>10.2.3</b> Interpretação dos resultados</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="rarefação.html"><a href="rarefação.html#exemplo-prático-2---rarefação"><i class="fa fa-check"></i><b>10.3</b> Exemplo prático 2 - Rarefação</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="rarefação.html"><a href="rarefação.html#explicação-1"><i class="fa fa-check"></i><b>10.3.1</b> Explicação</a></li>
+<li class="chapter" data-level="10.3.2" data-path="rarefação.html"><a href="rarefação.html#análise-14"><i class="fa fa-check"></i><b>10.3.2</b> Análise</a></li>
+<li class="chapter" data-level="10.3.3" data-path="rarefação.html"><a href="rarefação.html#interpretação-dos-resultados-2"><i class="fa fa-check"></i><b>10.3.3</b> Interpretação dos resultados</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="rarefação.html"><a href="rarefação.html#para-se-aprofundar-5"><i class="fa fa-check"></i><b>10.4</b> Para se aprofundar</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html"><i class="fa fa-check"></i><b>11</b> Estimadores de Riqueza</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#backgorund-da-análise-9"><i class="fa fa-check"></i><b>11.1</b> Backgorund da análise</a></li>
+<li class="chapter" data-level="11.2" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#estimadores-baseados-na-abundância-das-espécies"><i class="fa fa-check"></i><b>11.2</b> Estimadores baseados na abundância das espécies</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#chao-1---chao-1984-1987"><i class="fa fa-check"></i><b>11.2.1</b> CHAO 1 - (Chao 1984, 1987):</a></li>
+<li class="chapter" data-level="11.2.2" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-15"><i class="fa fa-check"></i><b>11.2.2</b> Análise</a></li>
+<li class="chapter" data-level="11.2.3" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#ace---abundance-based-coverage-estimador-chao-lee-1992-chao-et-al.-2000"><i class="fa fa-check"></i><b>11.2.3</b> ACE - <em>Abundance-based Coverage Estimador</em> (Chao &amp; Lee 1992, Chao et al. 2000):</a></li>
+<li class="chapter" data-level="11.2.4" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-16"><i class="fa fa-check"></i><b>11.2.4</b> Análise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#estimadores-baseados-na-incidência-das-espécies"><i class="fa fa-check"></i><b>11.3</b> Estimadores baseados na incidência das espécies</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#chao-2---chao-1987"><i class="fa fa-check"></i><b>11.3.1</b> CHAO 2 - (Chao 1987):</a></li>
+<li class="chapter" data-level="11.3.2" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-17"><i class="fa fa-check"></i><b>11.3.2</b> Análise</a></li>
+<li class="chapter" data-level="11.3.3" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#jackknife-1-burnham-overton-1978-1979"><i class="fa fa-check"></i><b>11.3.3</b> JACKKNIFE 1 (Burnham &amp; Overton 1978, 1979):</a></li>
+<li class="chapter" data-level="11.3.4" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-18"><i class="fa fa-check"></i><b>11.3.4</b> Análise</a></li>
+<li class="chapter" data-level="11.3.5" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#jackknife-2-burnham-overton-1978-1979-palmer-1991"><i class="fa fa-check"></i><b>11.3.5</b> JACKKNIFE 2 (Burnham &amp; Overton 1978, 1979, Palmer 1991):</a></li>
+<li class="chapter" data-level="11.3.6" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-19"><i class="fa fa-check"></i><b>11.3.6</b> Análise</a></li>
+<li class="chapter" data-level="11.3.7" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#bootstrap-smith-van-belle-1984"><i class="fa fa-check"></i><b>11.3.7</b> BOOTSTRAP (Smith &amp; van Belle 1984):</a></li>
+<li class="chapter" data-level="11.3.8" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-20"><i class="fa fa-check"></i><b>11.3.8</b> Análise</a></li>
+<li class="chapter" data-level="11.3.9" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#interpolação-e-extrapolação-baseadas-em-rarefação-usando-amostragens-de-incidência-ou-abundância-chao-jost-2012-colwell-et-al.-2012"><i class="fa fa-check"></i><b>11.3.9</b> Interpolação e Extrapolação baseadas em rarefação usando amostragens de incidência ou abundância (Chao &amp; Jost 2012, Colwell et al. 2012):</a></li>
+<li class="chapter" data-level="11.3.10" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-21"><i class="fa fa-check"></i><b>11.3.10</b> Análise</a></li>
+<li class="chapter" data-level="11.3.11" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#para-se-aprofundar-6"><i class="fa fa-check"></i><b>11.3.11</b> Para se aprofundar</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html"><i class="fa fa-check"></i><b>12</b> Diversidade Taxonômica</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#diversidade-alfa-𝛂"><i class="fa fa-check"></i><b>12.1</b> Diversidade alfa (𝛂)</a></li>
+<li class="chapter" data-level="12.2" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#riqueza-de-espécies-ou-número-de-espécies"><i class="fa fa-check"></i><b>12.2</b> Riqueza de espécies ou número de espécies</a></li>
+<li class="chapter" data-level="12.3" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#diversidade-de-espécies"><i class="fa fa-check"></i><b>12.3</b> Diversidade de espécies</a></li>
+<li class="chapter" data-level="12.4" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#diagramas-de-whittaker-ou-curva-de-dominância"><i class="fa fa-check"></i><b>12.4</b> Diagramas de Whittaker ou Curva de Dominância</a></li>
+<li class="chapter" data-level="12.5" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#números-de-hill"><i class="fa fa-check"></i><b>12.5</b> Números de Hill</a></li>
+<li class="chapter" data-level="12.6" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#diversidade-beta-𝛃"><i class="fa fa-check"></i><b>12.6</b> Diversidade beta (𝛃)</a>
+<ul>
+<li class="chapter" data-level="12.6.1" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#para-se-aprofundar-7"><i class="fa fa-check"></i><b>12.6.1</b> Para se aprofundar</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="diversidade-filogenética.html"><a href="diversidade-filogenética.html"><i class="fa fa-check"></i><b>13</b> Diversidade filogenética</a></li>
+<li class="chapter" data-level="14" data-path="diversidade-funcional.html"><a href="diversidade-funcional.html"><i class="fa fa-check"></i><b>14</b> Diversidade funcional</a></li>
+<li class="chapter" data-level="15" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html"><i class="fa fa-check"></i><b>15</b> Dados geoespaciais no R</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#introdução-4"><i class="fa fa-check"></i><b>15.1</b> Introdução</a></li>
+<li class="chapter" data-level="15.2" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#pré-requisitos-2"><i class="fa fa-check"></i><b>15.2</b> Pré-requisitos</a></li>
+<li class="chapter" data-level="15.3" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#vetor-1"><i class="fa fa-check"></i><b>15.3</b> Vetor</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#pontos"><i class="fa fa-check"></i><b>15.3.1</b> Pontos</a></li>
+<li class="chapter" data-level="15.3.2" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#linhas"><i class="fa fa-check"></i><b>15.3.2</b> Linhas</a></li>
+<li class="chapter" data-level="15.3.3" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#polígonos"><i class="fa fa-check"></i><b>15.3.3</b> Polígonos</a></li>
+<li class="chapter" data-level="15.3.4" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#tabela-de-atributos"><i class="fa fa-check"></i><b>15.3.4</b> Tabela de atributos</a></li>
+<li class="chapter" data-level="15.3.5" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#sf-principal-pacote-no-r-para-dados-vetoriais"><i class="fa fa-check"></i><b>15.3.5</b> <em>sf</em>: principal pacote no R para dados vetoriais</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#raster"><i class="fa fa-check"></i><b>15.4</b> Raster</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#tipos-de-raster"><i class="fa fa-check"></i><b>15.4.1</b> Tipos de raster</a></li>
+<li class="chapter" data-level="15.4.2" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#raster-principal-pacote-no-r-para-dados-raster"><i class="fa fa-check"></i><b>15.4.2</b> <em>raster</em>: principal pacote no R para dados raster</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#sistema-de-referência-de-coordenadas-e-unidades"><i class="fa fa-check"></i><b>15.5</b> Sistema de Referência de Coordenadas e Unidades</a>
+<ul>
+<li class="chapter" data-level="15.5.1" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#sistema-de-coordenadas-geográficas"><i class="fa fa-check"></i><b>15.5.1</b> Sistema de Coordenadas Geográficas</a></li>
+<li class="chapter" data-level="15.5.2" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#sistema-de-coordenadas-projetadas"><i class="fa fa-check"></i><b>15.5.2</b> Sistema de Coordenadas Projetadas</a></li>
+<li class="chapter" data-level="15.5.3" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#datum"><i class="fa fa-check"></i><b>15.5.3</b> Datum</a></li>
+<li class="chapter" data-level="15.5.4" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#sistema-de-referência-de-coordenadas-crs-no-r"><i class="fa fa-check"></i><b>15.5.4</b> Sistema de Referência de Coordenadas (CRS) no R</a></li>
+</ul></li>
+<li class="chapter" data-level="15.6" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#principais-fontes-de-dados-geoespaciais"><i class="fa fa-check"></i><b>15.6</b> Principais fontes de dados geoespaciais</a>
+<ul>
+<li class="chapter" data-level="15.6.1" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#vetor-2"><i class="fa fa-check"></i><b>15.6.1</b> Vetor</a></li>
+<li class="chapter" data-level="15.6.2" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#raster-1"><i class="fa fa-check"></i><b>15.6.2</b> Raster</a></li>
+<li class="chapter" data-level="15.6.3" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#pacotes-do-r"><i class="fa fa-check"></i><b>15.6.3</b> Pacotes do R</a></li>
+</ul></li>
+<li class="chapter" data-level="15.7" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#importar-e-exportar-dados-geoespaciais"><i class="fa fa-check"></i><b>15.7</b> Importar e exportar dados geoespaciais</a>
+<ul>
+<li class="chapter" data-level="15.7.1" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#principais-formatos-de-arquivos-geográficos"><i class="fa fa-check"></i><b>15.7.1</b> Principais formatos de arquivos geográficos</a></li>
+<li class="chapter" data-level="15.7.2" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#importar-dados-1"><i class="fa fa-check"></i><b>15.7.2</b> Importar dados</a></li>
+<li class="chapter" data-level="15.7.3" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#exportar-dados-1"><i class="fa fa-check"></i><b>15.7.3</b> Exportar dados</a></li>
+</ul></li>
+<li class="chapter" data-level="15.8" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#descrição-de-objetos-espaciais"><i class="fa fa-check"></i><b>15.8</b> Descrição de objetos espaciais</a>
+<ul>
+<li class="chapter" data-level="15.8.1" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#vetor-5"><i class="fa fa-check"></i><b>15.8.1</b> Vetor</a></li>
+<li class="chapter" data-level="15.8.2" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#raster-4"><i class="fa fa-check"></i><b>15.8.2</b> Raster</a></li>
+</ul></li>
+<li class="chapter" data-level="15.9" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#reprojeção-de-dados-geoespaciais"><i class="fa fa-check"></i><b>15.9</b> Reprojeção de dados geoespaciais</a>
+<ul>
+<li class="chapter" data-level="15.9.1" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#vetor-6"><i class="fa fa-check"></i><b>15.9.1</b> Vetor</a></li>
+<li class="chapter" data-level="15.9.2" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#raster-5"><i class="fa fa-check"></i><b>15.9.2</b> Raster</a></li>
+</ul></li>
+<li class="chapter" data-level="15.10" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#principais-operações-com-dados-geoespaciais"><i class="fa fa-check"></i><b>15.10</b> Principais operações com dados geoespaciais</a>
+<ul>
+<li class="chapter" data-level="15.10.1" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#operações-de-atributos"><i class="fa fa-check"></i><b>15.10.1</b> Operações de atributos</a></li>
+<li class="chapter" data-level="15.10.2" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#operações-espaciais"><i class="fa fa-check"></i><b>15.10.2</b> Operações espaciais</a></li>
+<li class="chapter" data-level="15.10.3" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#operações-geométricas"><i class="fa fa-check"></i><b>15.10.3</b> Operações geométricas</a></li>
+</ul></li>
+<li class="chapter" data-level="15.11" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#visualização-de-dados-geoespaciais"><i class="fa fa-check"></i><b>15.11</b> Visualização de dados geoespaciais</a>
+<ul>
+<li class="chapter" data-level="15.11.1" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#principais-elementos-de-um-mapa"><i class="fa fa-check"></i><b>15.11.1</b> Principais elementos de um mapa</a></li>
+<li class="chapter" data-level="15.11.2" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#principais-pacotes-para-a-composição-de-mapas"><i class="fa fa-check"></i><b>15.11.2</b> Principais pacotes para a composição de mapas</a></li>
+<li class="chapter" data-level="15.11.3" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#mapas-estáticos"><i class="fa fa-check"></i><b>15.11.3</b> Mapas estáticos</a></li>
+<li class="chapter" data-level="15.11.4" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#mapas-animados"><i class="fa fa-check"></i><b>15.11.4</b> Mapas animados</a></li>
+<li class="chapter" data-level="15.11.5" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#mapas-interativos"><i class="fa fa-check"></i><b>15.11.5</b> Mapas interativos</a></li>
+</ul></li>
+<li class="chapter" data-level="15.12" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#exemplos-de-aplicações-de-análises-geoespaciais-para-dados-ecológicos"><i class="fa fa-check"></i><b>15.12</b> Exemplos de aplicações de análises geoespaciais para dados ecológicos</a>
+<ul>
+<li class="chapter" data-level="15.12.1" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#resumir-informações-de-biodiversidade-para-unidades-espaciais"><i class="fa fa-check"></i><b>15.12.1</b> Resumir informações de biodiversidade para unidades espaciais</a></li>
+<li class="chapter" data-level="15.12.2" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#atribuição-de-dados-climáticos-para-pontos"><i class="fa fa-check"></i><b>15.12.2</b> Atribuição de dados climáticos para pontos</a></li>
+<li class="chapter" data-level="15.12.3" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#predições-espaciais-de-objetos-raster"><i class="fa fa-check"></i><b>15.12.3</b> Predições espaciais de objetos raster</a></li>
+</ul></li>
+<li class="chapter" data-level="15.13" data-path="dados-geoespaciais.html"><a href="dados-geoespaciais.html#para-se-aprofundar-8"><i class="fa fa-check"></i><b>15.13</b> Para se aprofundar</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><a href="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><i class="fa fa-check"></i><b>16</b> Reprodutibilidade em pesquisa e gerenciamento de dados</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><a href="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html#gestão-de-projetos-acadêmicos-no-rstudio"><i class="fa fa-check"></i><b>16.1</b> Gestão de projetos acadêmicos no RStudio</a></li>
+<li class="chapter" data-level="16.2" data-path="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><a href="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html#documentos-dinâmicos-r-markdown"><i class="fa fa-check"></i><b>16.2</b> Documentos dinâmicos (R Markdown)</a></li>
+<li class="chapter" data-level="16.3" data-path="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><a href="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html#controle-de-versão-git-e-github"><i class="fa fa-check"></i><b>16.3</b> Controle de versão, Git e GitHub</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução ao R com aplicações em biodiversidade e conservação</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="graficos" class="section level1" number="6">
+<h1><span class="header-section-number">Capítulo 6</span> Visualização de dados</h1>
+<div id="introdução-3" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Introdução</h2>
+<p>A visualização de dados através de gráficos geralmente é a melhor forma de apresentar e discutir seus dados, fazendo uma uma síntese para melhor entendimento de padrões. Geralmente, os gráficos são necessários em quase todas as análises estatísticas, além de enriquecer a argumentação e discussão de hipóteses levatandas para publicações, trabalhos de consultoria, TCC, dissertação, tese, etc.</p>
+<p>Dessa forma, dedicamos esse capítulo inteiramente a apresentar os principais conceitos, como a gramática de gráficos, um guia de bolso de gráficos apresentando os principais tipos de gráficos baseados nas variáveis representadas, e no último tópico focamos na finalização de gráficos para publicação.</p>
+<p>Existem uma ampla gama de pacotes para fazer gráficos no R, sendo esse um ponto muito forte dessa linguagem: a ampla disponibilidade, e como esses pacotes se ajustam aos mais diferentes tidos de dados, além da praticidade, sendo que a maior parte dos pacotes possui uma sintaxe relativamente simples para a apresentação de gráficos excelentes e de ótima qualidade. Mais adiante no Capítulo <a href="#geo-r"><strong>??</strong></a>, dicutimos como usar o R para a construção de mapas.</p>
+</div>
+<div id="principais-pacotes" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Principais pacotes</h2>
+<p>Fazemos aqui uma listagem dos principais pacotes para fazer gráficos:</p>
+<ul>
+<li><p><a href="http://search.r-project.org/R/library/graphics/html/00Index.html"><em>graphics</em></a>: é o pacote <em>default</em> do R para produzir gráfios simples, porém útil para visualizações rápidas de quase todos as classes de objetos. Possui funções como: <code>plot()</code>, <code>hist()</code>, <code>barplot()</code>, <code>boxplot()</code>, <code>abline()</code>, <code>points()</code>, <code>lines()</code> e <code>polygon()</code>.</p></li>
+<li><p><a href="https://ggplot2.tidyverse.org/"><em>ggplot2</em></a>: pacote integrado ao <em>tidyverse</em> (Capítulo <a href="#tidy"><strong>??</strong></a>), possui uma sintaxe própria baseada na grática de gráficos por camadas (<em>layers</em>), necessitando de funções específicas para objetos de classes diferentes, demandando geralmente mais tempo para realização. Possui funções como <code>ggplot()</code>, <code>aes()</code>, <code>geom_*()</code>, <code>facet_*()</code>, <code>stats_*()</code>, <code>coord_*()</code> e <code>theme_*()</code>, que são conectadas pelo operador <code>+</code>.</p></li>
+<li><p><a href="https://exts.ggplot2.tidyverse.org/"><em>ggplot2 extentions</em></a>: conjunto de pacotes que adicionam diversas expansões ao pacote ggplot2. Exemplos: <a href="https://gganimate.com/"><em>gganimate</em></a>, <a href="https://ggobi.github.io/ggally/"><em>GGally</em></a>, <a href="https://patchwork.data-imaginist.com/"><em>patchwork</em></a> e <a href="https://dreamrs.github.io/esquisse/"><em>esquisse</em></a>.</p></li>
+<li><p><a href="https://docs.ropensci.org/visdat/"><em>visdat </em></a>: Crie visualizações preliminares de dados exploratórios de um conjunto de dados inteiro para identificar problemas ou recursos inesperados usando ‘ggplot2.’ Possui diversas funções específicas: <code>vis_dat()</code> - visão geral dos dados, <code>vis_miss()</code> - visão de dados faltantes (<code>NA</code>), <code>vis_compare()</code> - visualiza a diferença entre dados.</p></li>
+<li><p><a href="https://rpkgs.datanovia.com/ggpubr/"><em>ggpubr</em></a>: pacote que fornece funções simplificadas para criar e personalizar gráficos para publicação baseados no “ggplot2.” Possui funções específicas: <code>gghistogram()</code>, <code>ggdensity()</code>, <code>ggboxplot()</code>, <code>ggviolin()</code>, <code>ggbarplot()</code> e <code>ggscatter()</code>.</p></li>
+<li><p><a href="https://plotly.com/r/">plotly</a>: pacote para criar gráficos interativos da web por meio da biblioteca gráfica de JavaScript de código aberto <a href="https://plotly.com/">plotly.js</a>. Também possui funções específicas: <code>plot_ly()</code>, <code>add_histogram()</code>, <code>add_bars()</code>, <code>add_boxplot()</code>, <code>add_markers()</code>, <code>add_paths()</code>, <code>add_lines()</code> e <code>add_polygons()</code>.</p></li>
+</ul>
+</div>
+<div id="grámatica-dos-gráficos" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Grámatica dos gráficos</h2>
+<pre><code>ggplot(data = &lt;DATA&gt;) + 
+  &lt;GEOM_FUNCTION&gt;(
+     mapping = aes(&lt;MAPPINGS&gt;),
+     stat = &lt;STAT&gt;, 
+     position = &lt;POSITION&gt;
+  ) +
+  &lt;COORDINATE_FUNCTION&gt; +
+  &lt;FACET_FUNCTION&gt; +
+  &lt;SCALE_FUNCTION&gt; +
+  &lt;THEME_FUNCTION&gt;
+  </code></pre>
+<div id="ggplot2" class="section level3" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> ggplot2</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="graficos.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># carregar o pacote</span></span>
+<span id="cb2-2"><a href="graficos.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-3"><a href="graficos.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+</div>
+</div>
+<div id="guia-de-bolso-de-gráficos-no-r" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Guia de bolso de gráficos no R</h2>
+<p>Existem vários tipos de gráficos para diferentes tipos de finalidades, até mesmo mais de um para representar o mesmo tipo de dado. Nesta seção, focaremos nos gráficos mais simples, para representar um ou duas variáveis.</p>
+<p>Dependendo do tipo de variável (categórica ou contínua - veja os tipos no Capítulo <a href="perguntas-ecologia.html#perguntas-ecologia">4</a>) os gráficos mais indicados para representar os dados mudam. Resumindo de forma bastante simplificada, nossos gráficos são representações dos nossos dados tabulares. Dessa forma, os eixos representam as colunas e as feições (pontos, linhas, barras, caixas, etc.) representam as linhas.</p>
+<p>Geralmente, nossos gráficos vão ser a representação de uma ou duas colunas, quando muito três, em gráficos de três dimensões. Para mais colunas, partimos para dados agregados que são vistos nos capítulo de análise multivariada.</p>
+<div id="tipos-de-gráficos" class="section level3" number="6.4.1">
+<h3><span class="header-section-number">6.4.1</span> Tipos de gráficos</h3>
+<p>Nesta seção, listamos os principais gráficos, e uma descrição de quantas colunas e o tipo de variável que eles representam.</p>
+<ul>
+<li><strong>Histograma (<em>histogram</em>)</strong>: distribuição de frequência de uma coluna para dados contínuos</li>
+<li><strong>Gráfico de densidade (<em>density plot</em>)</strong>: distribuição da densidade de uma coluna para dados contínuos</li>
+<li><strong>Diagrama de pontos (<em>dot plot</em>)</strong>: distribuição da quantidade de valores agrupados de uma coluna para dados contínuos</li>
+<li><strong>Gráfico de setores (<em>pie chart</em> e <em>donut chart</em>)</strong>: representação da quantidade de valores de uma coluna para dados categóricos, geralmente em proporção ou porcentagem</li>
+<li><strong>Gráfico de barras (<em>bar plot</em>)</strong>: representação da quantidade de valores de uma ou mais colunas para dados categóricos</li>
+<li><strong>Gráfico de caixa (<em>box plot</em>)</strong>: distribuição de valores contínuos de uma coluna (Y) para dois ou mais fatores categóricos de outra coluna (X) no formato de caixas</li>
+<li><strong>Gráfico de violino (<em>violin plot</em>)</strong>: distribuição de valores contínuos de uma coluna (Y) para dois ou mais fatores categóricos de outra coluna (X) no formato de “violinos” (considerando a variação)</li>
+<li><strong>Gráfico de dispersão (<em>scatter plot</em>)</strong>: relação entre valores de duas colunas para dados contínuos (X e Y)</li>
+<li><strong>Gráfico pareado (<em>pairs plot</em>)</strong>: relação entre valores de duas colunas para dados contínuos (X e Y), para colunas par a par</li>
+</ul>
+</div>
+<div id="palmerpenguins-2" class="section level3" number="6.4.2">
+<h3><span class="header-section-number">6.4.2</span> palmerpenguins</h3>
+<p>Para exemplicar o funcionamento dessas funções, usaremos os dados de medidas de pinguins chamados <a href="https://allisonhorst.github.io/palmerpenguins"><strong>palmerpenguins</strong></a>. Esses dados estão disponíveis no pacote <em>palmerpenguins</em>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="graficos.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># instalar o pacote</span></span>
+<span id="cb3-2"><a href="graficos.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;palmerpenguins&quot;</span>)</span></code></pre></div>
+<p>Esses dados foram coletados e disponibilizados pela <a href="https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php">Dra. Kristen Gorman</a> e pela <a href="https://pal.lternet.edu/">Palmer Station, Antarctica LTER</a>, membro da Long Term Ecological Research Network.</p>
+<p>O pacote <em>palmerpenguins</em> contém dois conjuntos de dados. Um é chamado de <strong>penguins</strong> e é uma versão simplificada dos dados brutos. O segundo conjunto de dados é <strong>penguins_raw</strong> e contém todas as variáveis e nomes originais baixados. Ambos os conjuntos de dados contêm dados para 344 pinguins, de três espécies diferentes, coletados em três ilhas no arquipélago de Palmer, na Antártica.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="graficos.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># carregar o pacote palmerpenguins</span></span>
+<span id="cb4-2"><a href="graficos.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb4-3"><a href="graficos.html#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="graficos.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ajuda dos dados</span></span>
+<span id="cb4-5"><a href="graficos.html#cb4-5" aria-hidden="true" tabindex="-1"></a>?penguins</span>
+<span id="cb4-6"><a href="graficos.html#cb4-6" aria-hidden="true" tabindex="-1"></a>?penguins_raw</span></code></pre></div>
+</div>
+<div id="hist" class="section level3" number="6.4.3">
+<h3><span class="header-section-number">6.4.3</span> Histograma (<em>histogram</em>)</h3>
+<p>Nesta seção iremos apresentar <a href="https://pt.wikipedia.org/wiki/Histograma">histogramas</a> no R utilizando o ggplot2.</p>
+<div id="histograma-simples" class="section level4" number="6.4.3.1">
+<h4><span class="header-section-number">6.4.3.1</span> Histograma (simples)</h4>
+<p>Vamos utilizar o conjunto de dados <em>palmerpenguins</em>, para plotar a distribuição da variável <strong>flipper_length_mm</strong> em um gráfico de histograma. A função <code>geom_hitogram()</code> plota uma variável contínua no eixo x e a frequência de cada categoria no eixo y.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="graficos.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># histograma de uma variavel continua</span></span>
+<span id="cb5-2"><a href="graficos.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="graficos.html#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="número-de-classes" class="section level4" number="6.4.3.2">
+<h4><span class="header-section-number">6.4.3.2</span> Número de classes</h4>
+<p>Vamos utilizar o <strong>argumento</strong> <code>bins</code> para definir em quantas classes a variável <strong>x</strong> deve ser dividida.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="graficos.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># histograma com 10 classes</span></span>
+<span id="cb6-2"><a href="graficos.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="graficos.html#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="graficos.html#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;10 classes&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-5-1.png" width="50%" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="graficos.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># histograma com 30 classes</span></span>
+<span id="cb7-2"><a href="graficos.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="graficos.html#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="graficos.html#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;30 classes&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-5-2.png" width="50%" /></p>
+</div>
+<div id="múltiplas-categorias" class="section level4" number="6.4.3.3">
+<h4><span class="header-section-number">6.4.3.3</span> Múltiplas categorias</h4>
+<p>Se quisermos comparar a distribuição de uma variável contínua entre diferentes categorias, podemos utilizar o argumento <code>fill</code> para colorir o gráfico. No exemplo abaixo, utilizamos cores diferentes para ilustrar a distribuição da variável x entre espécies diferentes (fill = species).</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="graficos.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># histograma com cores para diferentes categorias com sobreposicao</span></span>
+<span id="cb8-2"><a href="graficos.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="graficos.html#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="graficos.html#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Com sobreposiçao&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-6-1.png" width="50%" /></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="graficos.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histograma com cores para diferentes categorias sem sobreposição</span></span>
+<span id="cb9-2"><a href="graficos.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="graficos.html#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="graficos.html#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Sem sobreposiçao&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-6-2.png" width="50%" /></p>
+</div>
+<div id="histograma-bonito" class="section level4" number="6.4.3.4">
+<h4><span class="header-section-number">6.4.3.4</span> Histograma (bonito)</h4>
+<p>No final de cada seção, iremos demonstrar de um gráfico mais elegante.
+Veja a seção XX para mais detalhes de como manipular cada detalhe do gráfico com o pacote <em>ggplot2</em>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="graficos.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram example: flipper length by species</span></span>
+<span id="cb10-2"><a href="graficos.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="graficos.html#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">alpha =</span> .<span class="dv">5</span>, <span class="at">position =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="graficos.html#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;darkorchid&quot;</span>, <span class="st">&quot;cyan4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="graficos.html#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="graficos.html#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Comprimento da nadadeira (mm)&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb10-7"><a href="graficos.html#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Frequência&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="dens" class="section level3" number="6.4.4">
+<h3><span class="header-section-number">6.4.4</span> Gráfico de densidade (<em>density plot</em>)</h3>
+<p>Nesta seção iremos aprender a criar um <a href="https://datavizcatalogue.com/methods/density_plot.html">gráfico de densidade</a> no R utilizando o ggplot2.</p>
+<p>O <strong>gráfico de densidade</strong> é utilizado para visualizar a distribuição de uma variável contínua em intervalos. Esse gráfico é uma variação do Histograma (ver seção <a href="graficos.html#hist">6.4.3</a>) que utiliza <a href="https://en.wikipedia.org/wiki/Kernel_smoother">Kernel Smoother</a>.</p>
+<div id="gráfico-de-densidade-simples" class="section level4" number="6.4.4.1">
+<h4><span class="header-section-number">6.4.4.1</span> Gráfico de densidade (simples)</h4>
+<p>Vamos utilizar o conjunto de dados <em>palmerpenguins</em>, para plotar a distribuição da variável <strong>flipper_length_mm</strong> em um Gráfico de densidade. Utilizaremos a função <code>geom_density()</code> para plotar uma variável no eixo x.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="graficos.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de densidade de uma variavel continua</span></span>
+<span id="cb11-2"><a href="graficos.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="graficos.html#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gráfico-de-densidade-colorido" class="section level4" number="6.4.4.2">
+<h4><span class="header-section-number">6.4.4.2</span> Gráfico de densidade (colorido)</h4>
+<p>Podemos utilizar o argumento <code>fill</code> para definir a cor de preenchimento do gráfico e o argumento <code>alpha</code> para definir a transparência do preenchimento. Utilizamos ainda o argumento <code>color</code> para definir a cor da linha.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="graficos.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de densidade de uma variavel continua</span></span>
+<span id="cb12-2"><a href="graficos.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="graficos.html#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">&quot;tomato&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-9-1.png" width="50%" /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="graficos.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de densidade de uma variavel continua</span></span>
+<span id="cb13-2"><a href="graficos.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="graficos.html#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">alpha =</span> .<span class="dv">5</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-9-2.png" width="50%" /></p>
+</div>
+<div id="múltiplas-categorias-1" class="section level4" number="6.4.4.3">
+<h4><span class="header-section-number">6.4.4.3</span> Múltiplas categorias</h4>
+<p>Em algumas situações, queremos comparar a distribuição de uma variável contínua entre diferentes categorias. Dessa forma, podemos utilizar o argumento <code>fill</code> para colorir o gráfico. No exemplo abaixo, utilizamos cores diferentes para ilustrar a distribuição da variável x entre espécies diferentes (fill = species).</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="graficos.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de densidade com cores para diferentes categorias sem sobreposicao</span></span>
+<span id="cb14-2"><a href="graficos.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="graficos.html#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb14-4"><a href="graficos.html#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Com sobreposiçao&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-10-1.png" width="50%" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="graficos.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de densidade com cores para diferentes categorias com sobreposicao</span></span>
+<span id="cb15-2"><a href="graficos.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="graficos.html#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="graficos.html#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Com sobreposiçao&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-10-2.png" width="50%" /></p>
+</div>
+<div id="gráfico-de-densidade-bonito" class="section level4" number="6.4.4.4">
+<h4><span class="header-section-number">6.4.4.4</span> Gráfico de densidade (bonito)</h4>
+<p>Todo o final de capítulo temos a demonstração de um gráfico mais elegante.
+Veja o capítulo XXX para mais detalhes de como manipular cada detalhe do seu gráfico com o ggplot2, mas ao observar o script abaixo você pode ir aprendendo com cada exemplo.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="graficos.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="graficos.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="graficos.html#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="graficos.html#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;darkorchid&quot;</span>, <span class="st">&quot;cyan4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="graficos.html#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">160</span>, <span class="at">to =</span> <span class="dv">240</span>, <span class="at">by =</span> <span class="dv">10</span>), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">160</span>, <span class="dv">240</span>)) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="graficos.html#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> .<span class="dv">07</span>, <span class="at">by =</span> .<span class="dv">01</span>)) <span class="sc">+</span></span>
+<span id="cb16-7"><a href="graficos.html#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
+<span id="cb16-8"><a href="graficos.html#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Comprimento da nadadeira (mm)&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb16-9"><a href="graficos.html#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Densidade&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="dot" class="section level3" number="6.4.5">
+<h3><span class="header-section-number">6.4.5</span> Diagrama de pontos (<em>dot plot</em>)</h3>
+<p>Neste capítulo você irá aprender a criar <a href="https://en.wikipedia.org/wiki/Dot_plot_(statistics)">Dotplot</a> no R utilizando o ggplot2.</p>
+<div id="dotplot-simples" class="section level4" number="6.4.5.1">
+<h4><span class="header-section-number">6.4.5.1</span> Dotplot (simples)</h4>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="graficos.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="graficos.html#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>()</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ajustes-básicos" class="section level4" number="6.4.5.2">
+<h4><span class="header-section-number">6.4.5.2</span> Ajustes básicos</h4>
+<p><strong>Argumentos</strong></p>
+<ul>
+<li><strong>fill</strong>: para definir a cor de preenchimento dos pontos</li>
+<li><strong>color</strong>: para definir a cor da linha de contorno dos pontos</li>
+<li><strong>alpha</strong>: para definir a transparência dos pontos</li>
+</ul>
+</div>
+<div id="cor-e-preenchimento" class="section level4" number="6.4.5.3">
+<h4><span class="header-section-number">6.4.5.3</span> Cor e preenchimento</h4>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="graficos.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
+<span id="cb18-2"><a href="graficos.html#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">fill =</span> <span class="st">&quot;tomato&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-13-1.png" width="50%" /></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="graficos.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="graficos.html#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;gray&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-13-2.png" width="50%" /></p>
+</div>
+<div id="dotplot-bonito" class="section level4" number="6.4.5.4">
+<h4><span class="header-section-number">6.4.5.4</span> Dotplot (bonito)</h4>
+<p>Todo o final de capítulo temos a demonstração de um gráfico mais elegante.
+Veja o capítulo XXX para mais detalhes de como manipular cada detalhe do seu gráfico com o ggplot2, mas ao observar o script abaixo você pode ir aprendendo com cada exemplo.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="graficos.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
+<span id="cb20-2"><a href="graficos.html#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Tomato&quot;</span>) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="graficos.html#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
+<span id="cb20-4"><a href="graficos.html#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">4</span>,<span class="at">to =</span> <span class="dv">8</span>,<span class="at">by =</span> <span class="dv">1</span>), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">8</span>)) <span class="sc">+</span></span>
+<span id="cb20-5"><a href="graficos.html#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Comprimento da sépala (mm)&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb20-6"><a href="graficos.html#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Frequência&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="gráfico-de-setores-pie-chart-e-donut-chart" class="section level3" number="6.4.6">
+<h3><span class="header-section-number">6.4.6</span> Gráfico de setores (<em>pie chart</em> e <em>donut chart</em>)</h3>
+</div>
+<div id="bars" class="section level3" number="6.4.7">
+<h3><span class="header-section-number">6.4.7</span> Gráfico de barras (<em>bar plot</em>)</h3>
+<p>Neste capítulo você irá aprender a criar <a href="https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_barras">Gráfico de Barra</a> no R utilizando o ggplot2.</p>
+<div id="gráfico-de-barras-simples" class="section level4" number="6.4.7.1">
+<h4><span class="header-section-number">6.4.7.1</span> Gráfico de Barras (simples)</h4>
+<p>O gráfico de barras utiliza retângulos para repsentar uma variável contínua, sendo que o comprimeno dos retângulos é proporcional ao valor que ele está representando. A função <code>geom_bar()</code> plota uma variável contínua em função de uma variável categórica no eixo x.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="graficos.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulando um banco de dados</span></span>
+<span id="cb21-2"><a href="graficos.html#cb21-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">tratamento =</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>),</span>
+<span id="cb21-3"><a href="graficos.html#cb21-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">tamanho =</span> <span class="fu">c</span>(<span class="fl">1.3</span>, <span class="fl">1.9</span>, <span class="fl">3.2</span>))</span>
+<span id="cb21-4"><a href="graficos.html#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="graficos.html#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot</span></span>
+<span id="cb21-6"><a href="graficos.html#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> tamanho, <span class="at">x =</span> tratamento)) <span class="sc">+</span></span>
+<span id="cb21-7"><a href="graficos.html#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ajustes-básicos-1" class="section level4" number="6.4.7.2">
+<h4><span class="header-section-number">6.4.7.2</span> Ajustes básicos</h4>
+<p><strong>Argumentos</strong></p>
+<ul>
+<li><strong>width</strong> para definir a largura das barras.</li>
+<li><strong>fill</strong> para definir a cor de preenchimento das barras.</li>
+<li><strong>color</strong> para definir a cor da linha de contorno das barras.</li>
+</ul>
+<div id="cor-e-preenchimento-1" class="section level5" number="6.4.7.2.1">
+<h5><span class="header-section-number">6.4.7.2.1</span> Cor e preenchimento</h5>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="graficos.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de Barras com preenchimento colorido</span></span>
+<span id="cb22-2"><a href="graficos.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> tamanho, <span class="at">x =</span> tratamento)) <span class="sc">+</span></span>
+<span id="cb22-3"><a href="graficos.html#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;tomato&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-16-1.png" width="50%" /></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="graficos.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de Barras com contorno colorido</span></span>
+<span id="cb23-2"><a href="graficos.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> tamanho, <span class="at">x =</span> tratamento)) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="graficos.html#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">color =</span> <span class="st">&quot;tomato&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-16-2.png" width="50%" /></p>
+</div>
+<div id="largura-das-barras" class="section level5" number="6.4.7.2.2">
+<h5><span class="header-section-number">6.4.7.2.2</span> Largura das barras</h5>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="graficos.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de Barras com largura modificada</span></span>
+<span id="cb24-2"><a href="graficos.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> tamanho, <span class="at">x =</span> tratamento)) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="graficos.html#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">width =</span> .<span class="dv">75</span>) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="graficos.html#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;width = .75&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-17-1.png" width="50%" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="graficos.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de Barras com largura modificada</span></span>
+<span id="cb25-2"><a href="graficos.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> tamanho, <span class="at">x =</span> tratamento)) <span class="sc">+</span></span>
+<span id="cb25-3"><a href="graficos.html#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">width =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb25-4"><a href="graficos.html#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;width = .25&quot;</span>) </span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-17-2.png" width="50%" /></p>
+</div>
+<div id="orientação-das-barras" class="section level5" number="6.4.7.2.3">
+<h5><span class="header-section-number">6.4.7.2.3</span> Orientação das barras</h5>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="graficos.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de Barras Vertical</span></span>
+<span id="cb26-2"><a href="graficos.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> tamanho, <span class="at">x =</span> tratamento)) <span class="sc">+</span></span>
+<span id="cb26-3"><a href="graficos.html#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-18-1.png" width="50%" /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="graficos.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de Barras Horizontal</span></span>
+<span id="cb27-2"><a href="graficos.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> tamanho, <span class="at">x =</span> tratamento)) <span class="sc">+</span></span>
+<span id="cb27-3"><a href="graficos.html#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb27-4"><a href="graficos.html#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-18-2.png" width="50%" /></p>
+</div>
+<div id="colorindo-por-categoria" class="section level5" number="6.4.7.2.4">
+<h5><span class="header-section-number">6.4.7.2.4</span> Colorindo por categoria</h5>
+<p>No exemplo abaixo, utilizamos cores diferentes para ilustrar os tratamentos diferentes através do argumento <code>fill = tratamento</code>.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="graficos.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de Barras com preenchimento colorido</span></span>
+<span id="cb28-2"><a href="graficos.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> tamanho, <span class="at">x =</span> tratamento, <span class="at">fill =</span> tratamento)) <span class="sc">+</span></span>
+<span id="cb28-3"><a href="graficos.html#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gráfico-de-barras-bonito" class="section level5" number="6.4.7.2.5">
+<h5><span class="header-section-number">6.4.7.2.5</span> Gráfico de barras (bonito)</h5>
+<p>Todo o final de capítulo temos a demonstração de um gráfico mais elegante.
+Veja o capítulo XXX para mais detalhes de como manipular cada detalhe do seu gráfico com o ggplot2, mas ao observar o script abaixo você pode ir aprendendo com cada exemplo.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="graficos.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de Barras</span></span>
+<span id="cb29-2"><a href="graficos.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> tamanho, <span class="at">x =</span> tratamento)) <span class="sc">+</span></span>
+<span id="cb29-3"><a href="graficos.html#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="fu">gray</span>(.<span class="dv">3</span>)) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="graficos.html#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">3.5</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">3.5</span>,.<span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb29-5"><a href="graficos.html#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
+<span id="cb29-6"><a href="graficos.html#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Tratamento&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb29-7"><a href="graficos.html#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Comprimento da plântula (cm)&quot;</span>) </span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-20-1.png" width="70%" /></p>
+</div>
+</div>
+</div>
+<div id="gráfico-de-caixa-box-plot" class="section level3" number="6.4.8">
+<h3><span class="header-section-number">6.4.8</span> Gráfico de caixa (<em>box plot</em>)</h3>
+<p>Neste capítulo você irá aprender a criar <a href="https://pt.wikipedia.org/wiki/Diagrama_de_caixa">boxplots</a> no R utilizando o ggplot2.</p>
+<div id="boxplot-simples" class="section level4" number="6.4.8.1">
+<h4><span class="header-section-number">6.4.8.1</span> Boxplot (simples)</h4>
+<p>Utilize o banco de dados <code>iris</code>, para plotar um diagrama de caixa (boxplot). A função <code>geom_boxplot()</code> plota uma variável contínua (Sepal.Length) no eixo y em função de uma variável categórica no eixo x (Species). A definição de qual coluna do bando de dados é a x e qual é a y é feita dentro do comendo <code>aes()</code>.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="graficos.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrgue um banco de dados</span></span>
+<span id="cb30-2"><a href="graficos.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;iris&quot;</span>)</span>
+<span id="cb30-3"><a href="graficos.html#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="graficos.html#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot</span></span>
+<span id="cb30-5"><a href="graficos.html#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Sepal.Length, <span class="at">x =</span> Species)) <span class="sc">+</span></span>
+<span id="cb30-6"><a href="graficos.html#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="destque-para-os-outliers" class="section level4" number="6.4.8.2">
+<h4><span class="header-section-number">6.4.8.2</span> Destque para os outliers</h4>
+<p>Utilize o <strong>argumento</strong> <code>outlier.color</code> para definir a cor dos outliers.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="graficos.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Sepal.Length, <span class="at">x =</span> Species)) <span class="sc">+</span></span>
+<span id="cb31-2"><a href="graficos.html#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Utilize o <strong>argumento</strong> <code>notch = T</code> para produzir diagramas de caixa entalhados (notched).
+Estes diagramas são úteis para inferir de forma aproximada se exite diferença significativa entre as medias dos grupos.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="graficos.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Sepal.Length, <span class="at">x =</span> Species)) <span class="sc">+</span></span>
+<span id="cb32-2"><a href="graficos.html#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">notch =</span> T)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="colorindo-por-categoria-1" class="section level4" number="6.4.8.3">
+<h4><span class="header-section-number">6.4.8.3</span> Colorindo por categoria</h4>
+<p>No exemplo abaixo, utilizamos cores diferentes para ilustrar espécies diferentes através do argumento <code>fill = Species</code>.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="graficos.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histograma com cores para diferentes categorias com sobreposição</span></span>
+<span id="cb33-2"><a href="graficos.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Sepal.Length, <span class="at">x =</span> Species, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="graficos.html#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() </span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gráfico-de-caixas-bonito" class="section level4" number="6.4.8.4">
+<h4><span class="header-section-number">6.4.8.4</span> Gráfico de caixas (bonito)</h4>
+<p>Todo o final de capítulo temos a demonstração de um gráfico mais elegante.
+Veja o capítulo XXX para mais detalhes de como manipular cada detalhe do seu gráfico com o ggplot2, mas ao observar o script abaixo você pode ir aprendendo com cada exemplo.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="graficos.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Sepal.Length, <span class="at">x =</span> Species, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb34-2"><a href="graficos.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">show.legend =</span> F, <span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb34-3"><a href="graficos.html#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">8</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb34-4"><a href="graficos.html#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="graficos.html#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Espécie&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb34-6"><a href="graficos.html#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Comprimento da sépala (mm)&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="gráfico-de-violino-violin-plot" class="section level3" number="6.4.9">
+<h3><span class="header-section-number">6.4.9</span> Gráfico de violino (<em>violin plot</em>)</h3>
+</div>
+<div id="gráfico-de-dispersão-scatter-plot" class="section level3" number="6.4.10">
+<h3><span class="header-section-number">6.4.10</span> Gráfico de dispersão (<em>scatter plot</em>)</h3>
+<p>Neste capítulo você irá aprender a criar <a href="https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_barras">Gráfico de dispersão</a> no R utilizando o ggplot2.</p>
+<div id="gráfico-de-dispersão-simples" class="section level4" number="6.4.10.1">
+<h4><span class="header-section-number">6.4.10.1</span> Gráfico de dispersão (simples)</h4>
+<blockquote>
+<p>O gráfico de dispersão (“scatter plot”) é um tipo de gráfico que utiliza cordenadas cartesianas para representar a relação entre duas (ou mais) variáveis de um banco de dados. Para plotar esse gráfico você deve utilizar a função ‘geom_point().’</p>
+</blockquote>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="graficos.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># carregando banco de dados</span></span>
+<span id="cb35-2"><a href="graficos.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;iris&quot;</span>)</span>
+<span id="cb35-3"><a href="graficos.html#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="graficos.html#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de dispersão</span></span>
+<span id="cb35-5"><a href="graficos.html#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Petal.Length, <span class="at">x =</span> Petal.Width)) <span class="sc">+</span></span>
+<span id="cb35-6"><a href="graficos.html#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ajustes-básicos-2" class="section level4" number="6.4.10.2">
+<h4><span class="header-section-number">6.4.10.2</span> Ajustes básicos</h4>
+<p><strong>Argumentos</strong></p>
+<ul>
+<li><strong>shape</strong> para definir o símbolo dos pontos.<br />
+</li>
+<li><strong>size</strong> para definir o tamanho dos pontos.<br />
+</li>
+<li><strong>fill</strong> para definir a cor de preenchimento dos pontos.<br />
+</li>
+<li><strong>color</strong> para definir a cor da linha de contorno dos pontos.</li>
+</ul>
+</div>
+<div id="tipos-de-símbolos" class="section level4" number="6.4.10.3">
+<h4><span class="header-section-number">6.4.10.3</span> Tipos de símbolos</h4>
+<p>O tipo de símbolo que será plotado é definido pelo argumento “shape =” dentro da função ‘geom_point().’
+As opções disponíveis são:</p>
+<p><img src="img/shapes.png" width="100%" /></p>
+</div>
+<div id="símbolo" class="section level4" number="6.4.10.4">
+<h4><span class="header-section-number">6.4.10.4</span> Símbolo</h4>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="graficos.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de dispersão com shape 1</span></span>
+<span id="cb36-2"><a href="graficos.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Petal.Length, <span class="at">x =</span> Petal.Width)) <span class="sc">+</span></span>
+<span id="cb36-3"><a href="graficos.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-30-1.png" width="50%" /></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="graficos.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de dispersão com shape 1</span></span>
+<span id="cb37-2"><a href="graficos.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Petal.Length, <span class="at">x =</span> Petal.Width)) <span class="sc">+</span></span>
+<span id="cb37-3"><a href="graficos.html#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">17</span>, <span class="at">size =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-30-2.png" width="50%" /></p>
+</div>
+<div id="tamanho" class="section level4" number="6.4.10.5">
+<h4><span class="header-section-number">6.4.10.5</span> Tamanho</h4>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="graficos.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de dispersão com shape 1</span></span>
+<span id="cb38-2"><a href="graficos.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Petal.Length, <span class="at">x =</span> Petal.Width)) <span class="sc">+</span></span>
+<span id="cb38-3"><a href="graficos.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-31-1.png" width="50%" /></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="graficos.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de dispersão com shape 1</span></span>
+<span id="cb39-2"><a href="graficos.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Petal.Length, <span class="at">x =</span> Petal.Width)) <span class="sc">+</span></span>
+<span id="cb39-3"><a href="graficos.html#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-31-2.png" width="50%" /></p>
+</div>
+<div id="cor-e-preenchimento-2" class="section level4" number="6.4.10.6">
+<h4><span class="header-section-number">6.4.10.6</span> Cor e preenchimento</h4>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="graficos.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alterando cor e preenchimento</span></span>
+<span id="cb40-2"><a href="graficos.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Petal.Length, <span class="at">x =</span> Petal.Width)) <span class="sc">+</span></span>
+<span id="cb40-3"><a href="graficos.html#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;red&quot;</span>, <span class="at">shape =</span> <span class="dv">21</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-32-1.png" width="50%" /></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="graficos.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alterando cor e preenchimento</span></span>
+<span id="cb41-2"><a href="graficos.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Petal.Length, <span class="at">x =</span> Petal.Width)) <span class="sc">+</span></span>
+<span id="cb41-3"><a href="graficos.html#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>, <span class="at">shape =</span> <span class="dv">21</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-32-2.png" width="50%" /></p>
+</div>
+<div id="gráfico-de-dispersão-bonito" class="section level4" number="6.4.10.7">
+<h4><span class="header-section-number">6.4.10.7</span> Gráfico de dispersão (bonito)</h4>
+<p>Todo o final de capítulo temos a demonstração de um gráfico mais elegante.
+Veja o capítulo XXX para mais detalhes de como manipular cada detalhe do seu gráfico com o ggplot2, mas ao observar o script abaixo você pode ir aprendendo com cada exemplo.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="graficos.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de Barras</span></span>
+<span id="cb42-2"><a href="graficos.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Petal.Length, <span class="at">x =</span> Sepal.Length ,</span>
+<span id="cb42-3"><a href="graficos.html#cb42-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">shape =</span> Species, <span class="at">color =</span> Species)) <span class="sc">+</span></span>
+<span id="cb42-4"><a href="graficos.html#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> .<span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb42-5"><a href="graficos.html#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">7</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">6</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb42-6"><a href="graficos.html#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
+<span id="cb42-7"><a href="graficos.html#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>) <span class="sc">+</span></span>
+<span id="cb42-8"><a href="graficos.html#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Largura das Pétalas (mm)&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb42-9"><a href="graficos.html#cb42-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Comprimento das Pétalas (cm)&quot;</span>) </span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-33-1.png" width="70%" /></p>
+</div>
+</div>
+<div id="gráfico-pareado-pairs-plot" class="section level3" number="6.4.11">
+<h3><span class="header-section-number">6.4.11</span> Gráfico pareado (<em>pairs plot</em>)</h3>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="graficos.html#cb43-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb43-2"><a href="graficos.html#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, flipper_length_mm, <span class="fu">ends_with</span>(<span class="st">&quot;_mm&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb43-3"><a href="graficos.html#cb43-3" aria-hidden="true" tabindex="-1"></a>  GGally<span class="sc">::</span><span class="fu">ggpairs</span>(<span class="fu">aes</span>(<span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb43-4"><a href="graficos.html#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;cyan4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb43-5"><a href="graficos.html#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;cyan4&quot;</span>))</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+</div>
+</div>
+<div id="finalização-de-gráficos-para-publicação" class="section level2" number="6.5">
+<h2><span class="header-section-number">6.5</span> Finalização de gráficos para publicação</h2>
+</div>
+<div id="exercíios" class="section level2" number="6.6">
+<h2><span class="header-section-number">6.6</span> Exercíios</h2>
+</div>
+<div id="para-se-aprofundar-2" class="section level2" number="6.7">
+<h2><span class="header-section-number">6.7</span> Para se aprofundar</h2>
+<div id="books" class="section level3" number="6.7.1">
+<h3><span class="header-section-number">6.7.1</span> Books</h3>
+<p>Chang W. 2018. R Graphics Cookbook. [<a href="http://www.cookbook-r.com/Graphs/" class="uri">http://www.cookbook-r.com/Graphs/</a>]</p>
+<p>Healy K. 2019. Data Visualization: a practical introduction. Princeton University Press. [<a href="https://socviz.co/" class="uri">https://socviz.co/</a>´]</p>
+<p>Kabacoff R. 2020. Data Visualization with R. [<a href="https://rkabacoff.github.io/datavis/" class="uri">https://rkabacoff.github.io/datavis/</a>]</p>
+<p>Rahlf T. 2019. Data Visualisation with R: 111 Examples. 2ed. Springer. [<a href="http://www.datavisualisation-r.com/" class="uri">http://www.datavisualisation-r.com/</a>]</p>
+<p>Sievert C. 2019. Interactive web-based data visualization with R, plotly, and shiny. Chapman &amp; Hall/CRC. [<a href="https://plotly-r.com/" class="uri">https://plotly-r.com/</a>]</p>
+<p>Wickham H. 2016. ggplot2: elegant graphics for data analysis. Springer. [<a href="https://ggplot2-book.org/" class="uri">https://ggplot2-book.org/</a>]</p>
+<p>Wilke C O. 2019. Fundamentals of Data Visualization. O’Reilly Media. [<a href="https://clauswilke.com/dataviz/" class="uri">https://clauswilke.com/dataviz/</a>]</p>
+<p>Wilkinson L, Wills D, Rope D, Norton A, Dubbs R. 2005. The Grammar of Graphics. Springer.</p>
+</div>
+<div id="links-1" class="section level3" number="6.7.2">
+<h3><span class="header-section-number">6.7.2</span> Links</h3>
+<p><a href="https://www.r-graph-gallery.com/index.html">The R Graph Gallery</a></p>
+<p><a href="https://www.data-to-viz.com/">From Data to Viz</a></p>
+<p><a href="https://datavizproject.com/">Data Viz Project</a></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tidyverse.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="estatística-básica.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/paternogbc/livro_r_ecologia/edit/master/05_graficos.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["livro_r_ecologia.pdf", "livro_r_ecologia.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

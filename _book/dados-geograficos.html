@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 15 Dados geográficos no R | Introdução ao R com aplicações em biodiversidade e conservação</title>
+  <title>Capítulo 15 Dados geoespaciais no R | Introdução ao R com aplicações em biodiversidade e conservação</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 15 Dados geográficos no R | Introdução ao R com aplicações em biodiversidade e conservação" />
+  <meta property="og:title" content="Capítulo 15 Dados geoespaciais no R | Introdução ao R com aplicações em biodiversidade e conservação" />
   <meta property="og:type" content="book" />
   
   
@@ -16,14 +16,14 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 15 Dados geográficos no R | Introdução ao R com aplicações em biodiversidade e conservação" />
+  <meta name="twitter:title" content="Capítulo 15 Dados geoespaciais no R | Introdução ao R com aplicações em biodiversidade e conservação" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
 
 
 
-<meta name="date" content="2021-03-04" />
+<meta name="date" content="2021-03-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -66,6 +66,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -143,18 +144,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Pré-requisitos</a></li>
-<li class="chapter" data-level="2" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html"><i class="fa fa-check"></i><b>2</b> Pré-requisitos</a></li>
-<li class="chapter" data-level="3" data-path="introdução.html"><a href="introdução.html"><i class="fa fa-check"></i><b>3</b> Introdução</a>
+<li class="chapter" data-level="2" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html"><i class="fa fa-check"></i><b>2</b> Pré-requisitos</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="introdução.html"><a href="introdução.html#histórico-deste-livro"><i class="fa fa-check"></i><b>3.1</b> Histórico deste livro</a></li>
-<li class="chapter" data-level="3.2" data-path="introdução.html"><a href="introdução.html#objetivo-deste-livro"><i class="fa fa-check"></i><b>3.2</b> Objetivo deste livro</a></li>
-<li class="chapter" data-level="3.3" data-path="introdução.html"><a href="introdução.html#o-que-você-não-encontrará-neste-livro"><i class="fa fa-check"></i><b>3.3</b> O que você não encontrará neste livro</a></li>
-<li class="chapter" data-level="3.4" data-path="introdução.html"><a href="introdução.html#por-que-usar-o-r"><i class="fa fa-check"></i><b>3.4</b> Por que usar o R?</a></li>
-<li class="chapter" data-level="3.5" data-path="introdução.html"><a href="introdução.html#como-usar-este-livro"><i class="fa fa-check"></i><b>3.5</b> Como usar este livro</a></li>
+<li class="chapter" data-level="2.1" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#introdução"><i class="fa fa-check"></i><b>2.1</b> Introdução</a></li>
+<li class="chapter" data-level="2.2" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#r-e-rstudio"><i class="fa fa-check"></i><b>2.2</b> R e RStudio</a></li>
+<li class="chapter" data-level="2.3" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#funcionamento-da-linguagem-r"><i class="fa fa-check"></i><b>2.3</b> Funcionamento da linguagem R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#console"><i class="fa fa-check"></i><b>2.3.1</b> Console</a></li>
+<li class="chapter" data-level="2.3.2" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#scripts"><i class="fa fa-check"></i><b>2.3.2</b> Scripts</a></li>
+<li class="chapter" data-level="2.3.3" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#operadores"><i class="fa fa-check"></i><b>2.3.3</b> Operadores</a></li>
+<li class="chapter" data-level="2.3.4" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#objetos"><i class="fa fa-check"></i><b>2.3.4</b> Objetos</a></li>
+<li class="chapter" data-level="2.3.5" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#funções"><i class="fa fa-check"></i><b>2.3.5</b> Funções</a></li>
+<li class="chapter" data-level="2.3.6" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#pacotes"><i class="fa fa-check"></i><b>2.3.6</b> Pacotes</a></li>
+<li class="chapter" data-level="2.3.7" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#ajuda-help"><i class="fa fa-check"></i><b>2.3.7</b> Ajuda (<em>Help</em>)</a></li>
+<li class="chapter" data-level="2.3.8" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#ambiente-environment"><i class="fa fa-check"></i><b>2.3.8</b> Ambiente (<em>Environment</em>)</a></li>
+<li class="chapter" data-level="2.3.9" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#citações"><i class="fa fa-check"></i><b>2.3.9</b> Citações</a></li>
+<li class="chapter" data-level="2.3.10" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#principais-erros-de-iniciantes"><i class="fa fa-check"></i><b>2.3.10</b> Principais erros de iniciantes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#estrutura-e-manipulação-de-objetos"><i class="fa fa-check"></i><b>2.4</b> Estrutura e manipulação de objetos</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#atributo-dos-objetos"><i class="fa fa-check"></i><b>2.4.1</b> Atributo dos objetos</a></li>
+<li class="chapter" data-level="2.4.2" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#manipulação-de-objetos-unidimensionais"><i class="fa fa-check"></i><b>2.4.2</b> Manipulação de objetos unidimensionais</a></li>
+<li class="chapter" data-level="2.4.3" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#manipulação-de-objetos-multidimensionais"><i class="fa fa-check"></i><b>2.4.3</b> Manipulação de objetos multidimensionais</a></li>
+<li class="chapter" data-level="2.4.4" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#valores-faltantes-e-especiais"><i class="fa fa-check"></i><b>2.4.4</b> Valores faltantes e especiais</a></li>
+<li class="chapter" data-level="2.4.5" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#diretório-de-trabalho"><i class="fa fa-check"></i><b>2.4.5</b> Diretório de trabalho</a></li>
+<li class="chapter" data-level="2.4.6" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#importar-dados"><i class="fa fa-check"></i><b>2.4.6</b> Importar dados</a></li>
+<li class="chapter" data-level="2.4.7" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#conferência-de-dados-importados"><i class="fa fa-check"></i><b>2.4.7</b> Conferência de dados importados</a></li>
+<li class="chapter" data-level="2.4.8" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#exportar-dados"><i class="fa fa-check"></i><b>2.4.8</b> Exportar dados</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#exercícios"><i class="fa fa-check"></i><b>2.5</b> Exercícios</a></li>
+<li class="chapter" data-level="2.6" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#para-se-aprofundar"><i class="fa fa-check"></i><b>2.6</b> Para se aprofundar</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#livros"><i class="fa fa-check"></i><b>2.6.1</b> Livros</a></li>
+<li class="chapter" data-level="2.6.2" data-path="pré-requisitos-1.html"><a href="pré-requisitos-1.html#links"><i class="fa fa-check"></i><b>2.6.2</b> Links</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introdução-1.html"><a href="introdução-1.html"><i class="fa fa-check"></i><b>3</b> Introdução</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introdução-1.html"><a href="introdução-1.html#histórico-deste-livro"><i class="fa fa-check"></i><b>3.1</b> Histórico deste livro</a></li>
+<li class="chapter" data-level="3.2" data-path="introdução-1.html"><a href="introdução-1.html#objetivo-deste-livro"><i class="fa fa-check"></i><b>3.2</b> Objetivo deste livro</a></li>
+<li class="chapter" data-level="3.3" data-path="introdução-1.html"><a href="introdução-1.html#o-que-você-não-encontrará-neste-livro"><i class="fa fa-check"></i><b>3.3</b> O que você não encontrará neste livro</a></li>
+<li class="chapter" data-level="3.4" data-path="introdução-1.html"><a href="introdução-1.html#por-que-usar-o-r"><i class="fa fa-check"></i><b>3.4</b> Por que usar o R?</a></li>
+<li class="chapter" data-level="3.5" data-path="introdução-1.html"><a href="introdução-1.html#como-usar-este-livro"><i class="fa fa-check"></i><b>3.5</b> Como usar este livro</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><i class="fa fa-check"></i><b>4</b> Voltando ao básico: como dominar a arte de fazer perguntas cientificamente relevantes</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#introdução-1"><i class="fa fa-check"></i><b>4.1</b> Introdução</a></li>
+<li class="chapter" data-level="4.1" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#introdução-2"><i class="fa fa-check"></i><b>4.1</b> Introdução</a></li>
 <li class="chapter" data-level="4.2" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#perguntas-devem-preceder-as-análises-estatísticas"><i class="fa fa-check"></i><b>4.2</b> Perguntas devem preceder as análises estatísticas</a>
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#um-bestiário1-para-o-teste-de-hipóteses-você-está-fazendo-a-pergunta-certa"><i class="fa fa-check"></i><b>4.2.1</b> Um bestiário[^1] para o teste de hipóteses (Você está fazendo a pergunta certa?)</a></li>
@@ -163,68 +198,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#questões-fundamentais-em-etnobiologia-ecologia-e-conservação"><i class="fa fa-check"></i><b>4.4</b> Questões fundamentais em etnobiologia, ecologia e conservação</a></li>
 <li class="chapter" data-level="4.5" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#considerações-finais"><i class="fa fa-check"></i><b>4.5</b> Considerações Finais</a></li>
 <li class="chapter" data-level="4.6" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#referências"><i class="fa fa-check"></i><b>4.6</b> Referências</a></li>
-<li class="chapter" data-level="4.7" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#principais-erros-de-iniciantes-e-a-melhor-forma-de-pedir-ajuda"><i class="fa fa-check"></i><b>4.7</b> Principais erros de iniciantes e a melhor forma de pedir ajuda</a>
-<ul>
-<li class="chapter" data-level="4.7.1" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#procurando-e-entendendo-erros"><i class="fa fa-check"></i><b>4.7.1</b> Procurando e entendendo erros</a></li>
-<li class="chapter" data-level="4.7.2" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#tentando-resolver-seus-próprios-erros"><i class="fa fa-check"></i><b>4.7.2</b> Tentando resolver seus próprios erros</a></li>
-<li class="chapter" data-level="4.7.3" data-path="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html"><a href="voltando-ao-básico-como-dominar-a-arte-de-fazer-perguntas-cientificamente-relevantes.html#idealmente-como-pedir-ajuda"><i class="fa fa-check"></i><b>4.7.3</b> Idealmente, como pedir ajuda?</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="intro-r.html"><a href="intro-r.html"><i class="fa fa-check"></i><b>5</b> Introdução à linguagem R</a>
+<li class="chapter" data-level="5" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>5</b> Tidyverse</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="intro-r.html"><a href="intro-r.html#introdução-2"><i class="fa fa-check"></i><b>5.1</b> Introdução</a></li>
-<li class="chapter" data-level="5.2" data-path="intro-r.html"><a href="intro-r.html#r-e-rstudio"><i class="fa fa-check"></i><b>5.2</b> R e RStudio</a></li>
-<li class="chapter" data-level="5.3" data-path="intro-r.html"><a href="intro-r.html#funcionamento-da-linguagem-r"><i class="fa fa-check"></i><b>5.3</b> Funcionamento da linguagem R</a>
+<li class="chapter" data-level="5.1" data-path="tidyverse.html"><a href="tidyverse.html#contextualização"><i class="fa fa-check"></i><b>5.1</b> Contextualização</a></li>
+<li class="chapter" data-level="5.2" data-path="tidyverse.html"><a href="tidyverse.html#tidyverse-1"><i class="fa fa-check"></i><b>5.2</b> <em>tidyverse</em></a></li>
+<li class="chapter" data-level="5.3" data-path="tidyverse.html"><a href="tidyverse.html#here"><i class="fa fa-check"></i><b>5.3</b> here</a></li>
+<li class="chapter" data-level="5.4" data-path="tidyverse.html"><a href="tidyverse.html#readr-readxl-e-writexl"><i class="fa fa-check"></i><b>5.4</b> readr, readxl e writexl</a></li>
+<li class="chapter" data-level="5.5" data-path="tidyverse.html"><a href="tidyverse.html#tibble"><i class="fa fa-check"></i><b>5.5</b> tibble</a></li>
+<li class="chapter" data-level="5.6" data-path="tidyverse.html"><a href="tidyverse.html#magrittr-pipe--"><i class="fa fa-check"></i><b>5.6</b> magrittr (pipe - %&gt;%)</a></li>
+<li class="chapter" data-level="5.7" data-path="tidyverse.html"><a href="tidyverse.html#tidyr"><i class="fa fa-check"></i><b>5.7</b> tidyr</a>
 <ul>
-<li class="chapter" data-level="5.3.1" data-path="intro-r.html"><a href="intro-r.html#console"><i class="fa fa-check"></i><b>5.3.1</b> Console</a></li>
-<li class="chapter" data-level="5.3.2" data-path="intro-r.html"><a href="intro-r.html#scripts"><i class="fa fa-check"></i><b>5.3.2</b> Scripts</a></li>
-<li class="chapter" data-level="5.3.3" data-path="intro-r.html"><a href="intro-r.html#operadores"><i class="fa fa-check"></i><b>5.3.3</b> Operadores</a></li>
-<li class="chapter" data-level="5.3.4" data-path="intro-r.html"><a href="intro-r.html#objetos"><i class="fa fa-check"></i><b>5.3.4</b> Objetos</a></li>
-<li class="chapter" data-level="5.3.5" data-path="intro-r.html"><a href="intro-r.html#funções"><i class="fa fa-check"></i><b>5.3.5</b> Funções</a></li>
-<li class="chapter" data-level="5.3.6" data-path="intro-r.html"><a href="intro-r.html#pacotes"><i class="fa fa-check"></i><b>5.3.6</b> Pacotes</a></li>
-<li class="chapter" data-level="5.3.7" data-path="intro-r.html"><a href="intro-r.html#ajuda-help"><i class="fa fa-check"></i><b>5.3.7</b> Ajuda (<em>Help</em>)</a></li>
-<li class="chapter" data-level="5.3.8" data-path="intro-r.html"><a href="intro-r.html#ambiente-environment"><i class="fa fa-check"></i><b>5.3.8</b> Ambiente (<em>Environment</em>)</a></li>
-<li class="chapter" data-level="5.3.9" data-path="intro-r.html"><a href="intro-r.html#citações"><i class="fa fa-check"></i><b>5.3.9</b> Citações</a></li>
-<li class="chapter" data-level="5.3.10" data-path="intro-r.html"><a href="intro-r.html#principais-erros-de-iniciantes"><i class="fa fa-check"></i><b>5.3.10</b> Principais erros de iniciantes</a></li>
+<li class="chapter" data-level="5.7.1" data-path="tidyverse.html"><a href="tidyverse.html#palmerpenguins"><i class="fa fa-check"></i><b>5.7.1</b> palmerpenguins</a></li>
+<li class="chapter" data-level="5.7.2" data-path="tidyverse.html"><a href="tidyverse.html#glimpse"><i class="fa fa-check"></i><b>5.7.2</b> glimpse()</a></li>
+<li class="chapter" data-level="5.7.3" data-path="tidyverse.html"><a href="tidyverse.html#unite"><i class="fa fa-check"></i><b>5.7.3</b> unite()</a></li>
+<li class="chapter" data-level="5.7.4" data-path="tidyverse.html"><a href="tidyverse.html#separate"><i class="fa fa-check"></i><b>5.7.4</b> separate()</a></li>
+<li class="chapter" data-level="5.7.5" data-path="tidyverse.html"><a href="tidyverse.html#drop_na-e-replace_na"><i class="fa fa-check"></i><b>5.7.5</b> drop_na() e replace_na()</a></li>
+<li class="chapter" data-level="5.7.6" data-path="tidyverse.html"><a href="tidyverse.html#pivotagem---pivot_longer-e-pivot_wider"><i class="fa fa-check"></i><b>5.7.6</b> pivotagem - pivot_longer() e pivot_wider()</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="intro-r.html"><a href="intro-r.html#estrutura-e-manipulação-de-objetos"><i class="fa fa-check"></i><b>5.4</b> Estrutura e manipulação de objetos</a>
+<li class="chapter" data-level="5.8" data-path="tidyverse.html"><a href="tidyverse.html#dplyr"><i class="fa fa-check"></i><b>5.8</b> dplyr</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="intro-r.html"><a href="intro-r.html#atributo-dos-objetos"><i class="fa fa-check"></i><b>5.4.1</b> Atributo dos objetos</a></li>
-<li class="chapter" data-level="5.4.2" data-path="intro-r.html"><a href="intro-r.html#estrutura-dos-objetos"><i class="fa fa-check"></i><b>5.4.2</b> Estrutura dos objetos</a></li>
-<li class="chapter" data-level="5.4.3" data-path="intro-r.html"><a href="intro-r.html#manipulação-de-objetos-unidimensionais"><i class="fa fa-check"></i><b>5.4.3</b> Manipulação de objetos unidimensionais</a></li>
-<li class="chapter" data-level="5.4.4" data-path="intro-r.html"><a href="intro-r.html#manipulação-de-objetos-multidimensionais"><i class="fa fa-check"></i><b>5.4.4</b> Manipulação de objetos multidimensionais</a></li>
-<li class="chapter" data-level="5.4.5" data-path="intro-r.html"><a href="intro-r.html#valores-faltantes-e-especiais"><i class="fa fa-check"></i><b>5.4.5</b> Valores faltantes e especiais</a></li>
-<li class="chapter" data-level="5.4.6" data-path="intro-r.html"><a href="intro-r.html#diretório-de-trabalho"><i class="fa fa-check"></i><b>5.4.6</b> Diretório de trabalho</a></li>
-<li class="chapter" data-level="5.4.7" data-path="intro-r.html"><a href="intro-r.html#importar-dados"><i class="fa fa-check"></i><b>5.4.7</b> Importar dados</a></li>
-<li class="chapter" data-level="5.4.8" data-path="intro-r.html"><a href="intro-r.html#conferência-de-dados-importados"><i class="fa fa-check"></i><b>5.4.8</b> Conferência de dados importados</a></li>
-<li class="chapter" data-level="5.4.9" data-path="intro-r.html"><a href="intro-r.html#exportar-dados"><i class="fa fa-check"></i><b>5.4.9</b> Exportar dados</a></li>
+<li class="chapter" data-level="5.8.1" data-path="tidyverse.html"><a href="tidyverse.html#gramática"><i class="fa fa-check"></i><b>5.8.1</b> Gramática</a></li>
+<li class="chapter" data-level="5.8.2" data-path="tidyverse.html"><a href="tidyverse.html#sintaxe"><i class="fa fa-check"></i><b>5.8.2</b> Sintaxe</a></li>
+<li class="chapter" data-level="5.8.3" data-path="tidyverse.html"><a href="tidyverse.html#palmerpenguins-1"><i class="fa fa-check"></i><b>5.8.3</b> palmerpenguins</a></li>
+<li class="chapter" data-level="5.8.4" data-path="tidyverse.html"><a href="tidyverse.html#relocate"><i class="fa fa-check"></i><b>5.8.4</b> relocate()</a></li>
+<li class="chapter" data-level="5.8.5" data-path="tidyverse.html"><a href="tidyverse.html#rename"><i class="fa fa-check"></i><b>5.8.5</b> rename()</a></li>
+<li class="chapter" data-level="5.8.6" data-path="tidyverse.html"><a href="tidyverse.html#select"><i class="fa fa-check"></i><b>5.8.6</b> select()</a></li>
+<li class="chapter" data-level="5.8.7" data-path="tidyverse.html"><a href="tidyverse.html#pull"><i class="fa fa-check"></i><b>5.8.7</b> pull()</a></li>
+<li class="chapter" data-level="5.8.8" data-path="tidyverse.html"><a href="tidyverse.html#mutate"><i class="fa fa-check"></i><b>5.8.8</b> mutate()</a></li>
+<li class="chapter" data-level="5.8.9" data-path="tidyverse.html"><a href="tidyverse.html#arrange"><i class="fa fa-check"></i><b>5.8.9</b> arrange()</a></li>
+<li class="chapter" data-level="5.8.10" data-path="tidyverse.html"><a href="tidyverse.html#filter"><i class="fa fa-check"></i><b>5.8.10</b> filter()</a></li>
+<li class="chapter" data-level="5.8.11" data-path="tidyverse.html"><a href="tidyverse.html#slice"><i class="fa fa-check"></i><b>5.8.11</b> slice()</a></li>
+<li class="chapter" data-level="5.8.12" data-path="tidyverse.html"><a href="tidyverse.html#distinct"><i class="fa fa-check"></i><b>5.8.12</b> distinct()</a></li>
+<li class="chapter" data-level="5.8.13" data-path="tidyverse.html"><a href="tidyverse.html#count"><i class="fa fa-check"></i><b>5.8.13</b> count()</a></li>
+<li class="chapter" data-level="5.8.14" data-path="tidyverse.html"><a href="tidyverse.html#group_by"><i class="fa fa-check"></i><b>5.8.14</b> group_by()</a></li>
+<li class="chapter" data-level="5.8.15" data-path="tidyverse.html"><a href="tidyverse.html#summarise"><i class="fa fa-check"></i><b>5.8.15</b> summarise()</a></li>
+<li class="chapter" data-level="5.8.16" data-path="tidyverse.html"><a href="tidyverse.html#bind_rows-e-bind_cols"><i class="fa fa-check"></i><b>5.8.16</b> bind_rows() e bind_cols()</a></li>
+<li class="chapter" data-level="5.8.17" data-path="tidyverse.html"><a href="tidyverse.html#join"><i class="fa fa-check"></i><b>5.8.17</b> *_join()</a></li>
+<li class="chapter" data-level="5.8.18" data-path="tidyverse.html"><a href="tidyverse.html#operações-de-conjuntos-e-comparação-de-dados"><i class="fa fa-check"></i><b>5.8.18</b> Operações de conjuntos e comparação de dados</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="intro-r.html"><a href="intro-r.html#tidyverse"><i class="fa fa-check"></i><b>5.5</b> Tidyverse</a>
-<ul>
-<li class="chapter" data-level="5.5.1" data-path="intro-r.html"><a href="intro-r.html#contextualização"><i class="fa fa-check"></i><b>5.5.1</b> Contextualização</a></li>
-<li class="chapter" data-level="5.5.2" data-path="intro-r.html"><a href="intro-r.html#tidyverse-1"><i class="fa fa-check"></i><b>5.5.2</b> <em>tidyverse</em></a></li>
-<li class="chapter" data-level="5.5.3" data-path="intro-r.html"><a href="intro-r.html#here"><i class="fa fa-check"></i><b>5.5.3</b> here</a></li>
-<li class="chapter" data-level="5.5.4" data-path="intro-r.html"><a href="intro-r.html#readr-readxl-e-writexl"><i class="fa fa-check"></i><b>5.5.4</b> readr, readxl e writexl</a></li>
-<li class="chapter" data-level="5.5.5" data-path="intro-r.html"><a href="intro-r.html#tibble"><i class="fa fa-check"></i><b>5.5.5</b> tibble</a></li>
-<li class="chapter" data-level="5.5.6" data-path="intro-r.html"><a href="intro-r.html#magrittr-pipe--"><i class="fa fa-check"></i><b>5.5.6</b> magrittr (pipe - %&gt;%)</a></li>
-<li class="chapter" data-level="5.5.7" data-path="intro-r.html"><a href="intro-r.html#tidyr"><i class="fa fa-check"></i><b>5.5.7</b> tidyr</a></li>
-<li class="chapter" data-level="5.5.8" data-path="intro-r.html"><a href="intro-r.html#dplyr"><i class="fa fa-check"></i><b>5.5.8</b> dplyr</a></li>
-<li class="chapter" data-level="5.5.9" data-path="intro-r.html"><a href="intro-r.html#stringr"><i class="fa fa-check"></i><b>5.5.9</b> stringr</a></li>
-<li class="chapter" data-level="5.5.10" data-path="intro-r.html"><a href="intro-r.html#forcats"><i class="fa fa-check"></i><b>5.5.10</b> forcats</a></li>
-<li class="chapter" data-level="5.5.11" data-path="intro-r.html"><a href="intro-r.html#lubridate"><i class="fa fa-check"></i><b>5.5.11</b> lubridate</a></li>
-<li class="chapter" data-level="5.5.12" data-path="intro-r.html"><a href="intro-r.html#purrr"><i class="fa fa-check"></i><b>5.5.12</b> purrr</a></li>
-</ul></li>
-<li class="chapter" data-level="5.6" data-path="intro-r.html"><a href="intro-r.html#exercícios"><i class="fa fa-check"></i><b>5.6</b> Exercícios</a>
-<ul>
-<li class="chapter" data-level="5.6.1" data-path="intro-r.html"><a href="intro-r.html#base-r"><i class="fa fa-check"></i><b>5.6.1</b> Base R</a></li>
-<li class="chapter" data-level="5.6.2" data-path="intro-r.html"><a href="intro-r.html#tidyverse-2"><i class="fa fa-check"></i><b>5.6.2</b> <em>tidyverse</em></a></li>
-</ul></li>
-<li class="chapter" data-level="5.7" data-path="intro-r.html"><a href="intro-r.html#para-se-aprofundar"><i class="fa fa-check"></i><b>5.7</b> Para se aprofundar</a>
-<ul>
-<li class="chapter" data-level="5.7.1" data-path="intro-r.html"><a href="intro-r.html#livros"><i class="fa fa-check"></i><b>5.7.1</b> Livros</a></li>
-<li class="chapter" data-level="5.7.2" data-path="intro-r.html"><a href="intro-r.html#apostilas"><i class="fa fa-check"></i><b>5.7.2</b> Apostilas</a></li>
-<li class="chapter" data-level="5.7.3" data-path="intro-r.html"><a href="intro-r.html#links"><i class="fa fa-check"></i><b>5.7.3</b> Links</a></li>
-</ul></li>
+<li class="chapter" data-level="5.9" data-path="tidyverse.html"><a href="tidyverse.html#stringr"><i class="fa fa-check"></i><b>5.9</b> stringr</a></li>
+<li class="chapter" data-level="5.10" data-path="tidyverse.html"><a href="tidyverse.html#forcats"><i class="fa fa-check"></i><b>5.10</b> forcats</a></li>
+<li class="chapter" data-level="5.11" data-path="tidyverse.html"><a href="tidyverse.html#lubridate"><i class="fa fa-check"></i><b>5.11</b> lubridate</a></li>
+<li class="chapter" data-level="5.12" data-path="tidyverse.html"><a href="tidyverse.html#purrr"><i class="fa fa-check"></i><b>5.12</b> purrr</a></li>
+<li class="chapter" data-level="5.13" data-path="tidyverse.html"><a href="tidyverse.html#exercícios-1"><i class="fa fa-check"></i><b>5.13</b> Exercícios</a></li>
+<li class="chapter" data-level="5.14" data-path="tidyverse.html"><a href="tidyverse.html#para-se-aprofundar-1"><i class="fa fa-check"></i><b>5.14</b> Para se aprofundar</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="gráficos.html"><a href="gráficos.html"><i class="fa fa-check"></i><b>6</b> Gráficos</a></li>
 <li class="chapter" data-level="7" data-path="estatística-básica.html"><a href="estatística-básica.html"><i class="fa fa-check"></i><b>7</b> Estatística básica</a>
@@ -274,7 +292,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.10" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-de-covariância-ancova"><i class="fa fa-check"></i><b>7.10</b> Análise de covariância (ANCOVA)</a>
 <ul>
 <li class="chapter" data-level="7.10.1" data-path="estatística-básica.html"><a href="estatística-básica.html#análise-9"><i class="fa fa-check"></i><b>7.10.1</b> Análise</a></li>
-<li class="chapter" data-level="7.10.2" data-path="estatística-básica.html"><a href="estatística-básica.html#para-se-aprofundar-1"><i class="fa fa-check"></i><b>7.10.2</b> Para se aprofundar</a></li>
+<li class="chapter" data-level="7.10.2" data-path="estatística-básica.html"><a href="estatística-básica.html#para-se-aprofundar-2"><i class="fa fa-check"></i><b>7.10.2</b> Para se aprofundar</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="análises-univariadas-glm.html"><a href="análises-univariadas-glm.html"><i class="fa fa-check"></i><b>8</b> Análises univariadas - GLM</a></li>
@@ -298,7 +316,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="9.7.1" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#explicação-da-análise-2"><i class="fa fa-check"></i><b>9.7.1</b> Explicação da análise</a></li>
 <li class="chapter" data-level="9.7.2" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#análise-12"><i class="fa fa-check"></i><b>9.7.2</b> Análise</a></li>
-<li class="chapter" data-level="9.7.3" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#para-se-aprofundar-2"><i class="fa fa-check"></i><b>9.7.3</b> Para se aprofundar</a></li>
+<li class="chapter" data-level="9.7.3" data-path="introdução-à-análises-multidimensionais.html"><a href="introdução-à-análises-multidimensionais.html#para-se-aprofundar-3"><i class="fa fa-check"></i><b>9.7.3</b> Para se aprofundar</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="rarefação.html"><a href="rarefação.html"><i class="fa fa-check"></i><b>10</b> Rarefação</a>
@@ -316,7 +334,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.3.2" data-path="rarefação.html"><a href="rarefação.html#análise-14"><i class="fa fa-check"></i><b>10.3.2</b> Análise</a></li>
 <li class="chapter" data-level="10.3.3" data-path="rarefação.html"><a href="rarefação.html#interpretação-dos-resultados-2"><i class="fa fa-check"></i><b>10.3.3</b> Interpretação dos resultados</a></li>
 </ul></li>
-<li class="chapter" data-level="10.4" data-path="rarefação.html"><a href="rarefação.html#para-se-aprofundar-3"><i class="fa fa-check"></i><b>10.4</b> Para se aprofundar</a></li>
+<li class="chapter" data-level="10.4" data-path="rarefação.html"><a href="rarefação.html#para-se-aprofundar-4"><i class="fa fa-check"></i><b>10.4</b> Para se aprofundar</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html"><i class="fa fa-check"></i><b>11</b> Estimadores de Riqueza</a>
 <ul>
@@ -340,7 +358,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.3.8" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-20"><i class="fa fa-check"></i><b>11.3.8</b> Análise</a></li>
 <li class="chapter" data-level="11.3.9" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#interpolação-e-extrapolação-baseadas-em-rarefação-usando-amostragens-de-incidência-ou-abundância-chao-jost-2012-colwell-et-al.-2012"><i class="fa fa-check"></i><b>11.3.9</b> Interpolação e Extrapolação baseadas em rarefação usando amostragens de incidência ou abundância (Chao &amp; Jost 2012, Colwell et al. 2012):</a></li>
 <li class="chapter" data-level="11.3.10" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#análise-21"><i class="fa fa-check"></i><b>11.3.10</b> Análise</a></li>
-<li class="chapter" data-level="11.3.11" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#para-se-aprofundar-4"><i class="fa fa-check"></i><b>11.3.11</b> Para se aprofundar</a></li>
+<li class="chapter" data-level="11.3.11" data-path="estimadores-de-riqueza.html"><a href="estimadores-de-riqueza.html#para-se-aprofundar-5"><i class="fa fa-check"></i><b>11.3.11</b> Para se aprofundar</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html"><i class="fa fa-check"></i><b>12</b> Diversidade Taxonômica</a>
@@ -352,12 +370,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.5" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#números-de-hill"><i class="fa fa-check"></i><b>12.5</b> Números de Hill</a></li>
 <li class="chapter" data-level="12.6" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#diversidade-beta-𝛃"><i class="fa fa-check"></i><b>12.6</b> Diversidade beta (𝛃)</a>
 <ul>
-<li class="chapter" data-level="12.6.1" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#para-se-aprofundar-5"><i class="fa fa-check"></i><b>12.6.1</b> Para se aprofundar</a></li>
+<li class="chapter" data-level="12.6.1" data-path="diversidade-taxonômica.html"><a href="diversidade-taxonômica.html#para-se-aprofundar-6"><i class="fa fa-check"></i><b>12.6.1</b> Para se aprofundar</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="diversidade-filogenética.html"><a href="diversidade-filogenética.html"><i class="fa fa-check"></i><b>13</b> Diversidade filogenética</a></li>
 <li class="chapter" data-level="14" data-path="diversidade-funcional.html"><a href="diversidade-funcional.html"><i class="fa fa-check"></i><b>14</b> Diversidade funcional</a></li>
-<li class="chapter" data-level="15" data-path="dados-geograficos.html"><a href="dados-geograficos.html"><i class="fa fa-check"></i><b>15</b> Dados geográficos no R</a>
+<li class="chapter" data-level="15" data-path="dados-geograficos.html"><a href="dados-geograficos.html"><i class="fa fa-check"></i><b>15</b> Dados geoespaciais no R</a>
 <ul>
 <li class="chapter" data-level="15.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#introdução-3"><i class="fa fa-check"></i><b>15.1</b> Introdução</a></li>
 <li class="chapter" data-level="15.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#pré-requisitos-2"><i class="fa fa-check"></i><b>15.2</b> Pré-requisitos</a></li>
@@ -409,7 +427,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.10.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#operações-espaciais"><i class="fa fa-check"></i><b>15.10.2</b> Operações espaciais</a></li>
 <li class="chapter" data-level="15.10.3" data-path="dados-geograficos.html"><a href="dados-geograficos.html#operações-geométricas"><i class="fa fa-check"></i><b>15.10.3</b> Operações geométricas</a></li>
 </ul></li>
-<li class="chapter" data-level="15.11" data-path="dados-geograficos.html"><a href="dados-geograficos.html#visualização-de-dados-geográficos---mapas"><i class="fa fa-check"></i><b>15.11</b> Visualização de dados geográficos - Mapas</a>
+<li class="chapter" data-level="15.11" data-path="dados-geograficos.html"><a href="dados-geograficos.html#visualização-de-dados-geográficos"><i class="fa fa-check"></i><b>15.11</b> Visualização de dados geográficos</a>
 <ul>
 <li class="chapter" data-level="15.11.1" data-path="dados-geograficos.html"><a href="dados-geograficos.html#principais-elementos-de-um-mapa"><i class="fa fa-check"></i><b>15.11.1</b> Principais elementos de um mapa</a></li>
 <li class="chapter" data-level="15.11.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#principais-pacotes-para-a-composição-de-mapas"><i class="fa fa-check"></i><b>15.11.2</b> Principais pacotes para a composição de mapas</a></li>
@@ -423,7 +441,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.12.2" data-path="dados-geograficos.html"><a href="dados-geograficos.html#atribuição-de-dados-climáticos-para-pontos"><i class="fa fa-check"></i><b>15.12.2</b> Atribuição de dados climáticos para pontos</a></li>
 <li class="chapter" data-level="15.12.3" data-path="dados-geograficos.html"><a href="dados-geograficos.html#predições-espaciais-de-objetos-raster"><i class="fa fa-check"></i><b>15.12.3</b> Predições espaciais de objetos raster</a></li>
 </ul></li>
-<li class="chapter" data-level="15.13" data-path="dados-geograficos.html"><a href="dados-geograficos.html#para-se-aprofundar-6"><i class="fa fa-check"></i><b>15.13</b> Para se aprofundar</a></li>
+<li class="chapter" data-level="15.13" data-path="dados-geograficos.html"><a href="dados-geograficos.html#para-se-aprofundar-7"><i class="fa fa-check"></i><b>15.13</b> Para se aprofundar</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><a href="reprodutibilidade-em-pesquisa-e-gerenciamento-de-dados.html"><i class="fa fa-check"></i><b>16</b> Reprodutibilidade em pesquisa e gerenciamento de dados</a>
 <ul>
@@ -453,7 +471,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="dados-geograficos" class="section level1" number="15">
-<h1><span class="header-section-number">Capítulo 15</span> Dados geográficos no R</h1>
+<h1><span class="header-section-number">Capítulo 15</span> Dados geoespaciais no R</h1>
 <div id="introdução-3" class="section level2" number="15.1">
 <h2><span class="header-section-number">15.1</span> Introdução</h2>
 <p>Nesta seção, vamos fazer uma breve introdução aos principais conceitos sobre o funcionamento de dados geográficos no R: formatos de dados vetoriais e pacotes; formatos de dados raster e pacotes; Sistemas de Referências de Coordenadas e unidades; fontes de dados geográficos e pacotes; importar e exportar dados geográficos; descrição de objetos espaciais; reprojeção de dados geográficos; e principais operações com dados geográficos. Num segundo momento, iremos criar mapas com seus principais elementos. Por fim, apresentaremos exemplos de aplicações de análises espaciais para dados ecológicos, focadas em resumir informações sobre a biodiverisdade, preparar de dados para compor variáveis preditoras, e como fazer predições espaciais contínuas de distribuição de uma espécie e riqueza de espécies.</p>
@@ -3534,8 +3552,8 @@ Figura 15.67: Vetorização do raster de cobertura da terra para Rio Claro/SP, n
 </div>
 </div>
 </div>
-<div id="visualização-de-dados-geográficos---mapas" class="section level2" number="15.11">
-<h2><span class="header-section-number">15.11</span> Visualização de dados geográficos - Mapas</h2>
+<div id="visualização-de-dados-geográficos" class="section level2" number="15.11">
+<h2><span class="header-section-number">15.11</span> Visualização de dados geográficos</h2>
 <p>Um dos pontos finais de toda a análise envolvendo a manipulação de dados geográficos será a apresentação de um <strong>mapa com as informações de interesse espacializadas</strong>. Mas antes, é necessário ter conhecimento de alguns dos <strong>elementos principais</strong> para a composição de um mapa relativamente bem informativo. Além disso, o R nos permite criar <strong>tipos diferentes de mapas</strong>: estáticos, animados e interativos. Os mais comuns são os estáticos, mas podemos por vezes melhorar a apresentação dos dados geográficos criando mapas animados e/ou interativos, com o auxílio de páginas web. Por fim, veremos as melhores formas de <strong>exportar mapas</strong> para diferentes formatos.</p>
 <div id="principais-elementos-de-um-mapa" class="section level3" number="15.11.1">
 <h3><span class="header-section-number">15.11.1</span> Principais elementos de um mapa</h3>
@@ -4393,7 +4411,7 @@ Figura 15.89: Mapa da predição de riqueza utilizando o modelo Poisson e Binomi
 </div>
 </div>
 </div>
-<div id="para-se-aprofundar-6" class="section level2" number="15.13">
+<div id="para-se-aprofundar-7" class="section level2" number="15.13">
 <h2><span class="header-section-number">15.13</span> Para se aprofundar</h2>
 <p>Listamos aqui as principais referências sobre manipulação, visualização de dados geográficos e análises espaciais no R.</p>
 <p>Lovelace, Nowosad &amp; Muenchow (2019) <a href="https://geocompr.robinlovelace.net/">Geocomputation with R</a>. Chapman &amp; Hall/CRC Biostatistics Series</p>

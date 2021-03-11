@@ -1,8 +1,8 @@
-# Dados geográficos no R {#dados-geograficos}
+# Dados geoespaciais no R {#dados-geoespaciais}
 
 ## Introdução
 
-Nesta seção, vamos fazer uma breve introdução aos principais conceitos sobre o funcionamento de dados geográficos no R: formatos de dados vetoriais e pacotes; formatos de dados raster e pacotes; Sistemas de Referências de Coordenadas e unidades; fontes de dados geográficos e pacotes; importar e exportar dados geográficos; descrição de objetos espaciais; reprojeção de dados geográficos; e principais operações com dados geográficos. Num segundo momento, iremos criar mapas com seus principais elementos. Por fim, apresentaremos exemplos de aplicações de análises espaciais para dados ecológicos, focadas em resumir informações sobre a biodiverisdade, preparar de dados para compor variáveis preditoras, e como fazer predições espaciais contínuas de distribuição de uma espécie e riqueza de espécies.
+Nesta seção, vamos fazer uma breve introdução aos principais conceitos sobre o funcionamento de dados geoespaciais no R: formatos de dados vetoriais e pacotes; formatos de dados raster e pacotes; Sistemas de Referências de Coordenadas e unidades; fontes de dados geoespaciais e pacotes; importar e exportar dados geoespaciais; descrição de objetos espaciais; reprojeção de dados geoespaciais; e principais operações com dados geoespaciais. Num segundo momento, iremos criar mapas com seus principais elementos. Por fim, apresentaremos exemplos de aplicações de análises espaciais para dados ecológicos, focadas em resumir informações sobre a biodiverisdade, preparar de dados para compor variáveis preditoras, e como fazer predições espaciais contínuas de distribuição de uma espécie e riqueza de espécies.
 
 Esse capítulo segue parte da estrutura organizada por @lovelace-etal-2019, principalmente os capítulos 2 a 8, sendo adaptado para atender aos principais requisitos que julgamos necessários a estudos ecológicos. Entretanto, não foi possível cobrir todos os assuntos sobre geoprocessamento, sendo um assunto muito extenso, que requer a leitura de livros especializados na área como Wegmann et al. (2016), Wegmann et al. (2020) e Fletcher & Fortin (2018). Outros livros sobre a análise geoespacial no R podem ser consultados no capítulo [11 - Geospatial](https://www.bigbookofr.com/geospatial.html) do [Big Book of R](https://www.bigbookofr.com/index.html).
 
@@ -196,7 +196,7 @@ par(old_par)
 
 ### Tabela de atributos
 
-Para os dados vetoriais é necessário ainda destacar um elemento fundamental: a **tabela de atributos**. A tabela de atributos é uma tabela que inclui dados **geográficos** e **dados alfanuméricos**. Os **dados geográficos** são representados por cada feição geolocalizada espacialmente (ponto, linha ou polígono), e os **dados alfanuméricos** são todos os demais dados associados a cada uma dessas feições, representado na forma de colunas (Figuras \@ref(fig:fig-vetor-pontos), \@ref(fig:fig-vetor-linhas), \@ref(fig:fig-vetor-poligonos) e \@ref(fig:fig-vetor-poligonos-regulares)).
+Para os dados vetoriais é necessário ainda destacar um elemento fundamental: a **tabela de atributos**. A tabela de atributos é uma tabela que inclui dados **geográficos** e **dados alfanuméricos**. Os **dados geoespaciais** são representados por cada feição geolocalizada espacialmente (ponto, linha ou polígono), e os **dados alfanuméricos** são todos os demais dados associados a cada uma dessas feições, representado na forma de colunas (Figuras \@ref(fig:fig-vetor-pontos), \@ref(fig:fig-vetor-linhas), \@ref(fig:fig-vetor-poligonos) e \@ref(fig:fig-vetor-poligonos-regulares)).
 
 Dessa forma, a **tabela de atributos** reúne informações sobre cada feição e pode ser utilizada para realizar de filtros ou agregações dos dados de cada feição. É nessa tabela que podemos ainda concatenar novas informações (colunas) de operações com as feições (linhas da tabela de atributos) como cálculo de comprimento, perímetro, área ou ainda outras operações com as colunas. Também podemos associar outros dados não espaciais aos dados da tabela de atributos com a junção por uma coluna identificadora.
 
@@ -215,7 +215,7 @@ O pacote *sf* facilitou muito a forma de trabalhar com vetores no R, sendo que a
 Os tipos de geometrias apresentadas são representadas por diferentes classes: `POINT`, `LINESTRING` e `POLYGON` para apenas uma feição de cada tipo de geometria; `MULTIPOINT`, `MULTILINESTRING` e `MULTIPOLYGON` para várias feições de cada tipo de geometria e; `GEOMETRYCOLLECTION` para várias feições e tipos de geometrias (Figura \@ref(fig:fig-vetor-sf-classes)).
 
 ```{r fig-vetor-sf-classes, fig.align='center', fig.cap="Tipos de classes suportadas pelo pacote *sf*. Fonte: Lovelace, Nowosad & Muenchow (2019).", out.width="50%", echo=FALSE}
-include_graphics("img/cap14_sf_classes.png")
+include_graphics("img/cap14_fig06.png")
 ```
 
 O pacote *sf* define um sistema de três classes hierárquicas (Tabela \@ref(tab:tab-vetor-sf-estruturas)):
@@ -405,7 +405,7 @@ plot(raster_stack, col = viridis::viridis(n = 25))
 
 ## Sistema de Referência de Coordenadas e Unidades
 
-Os dados geográficos (vetor e raster) possuem ainda um outro componente fundamental, que é o **Sistema de Referência de Coordenadas**, ou do inglês *Coordinate Reference System (CRS)*. Esse componente define como os elementos espaciais (vetor e raster) representam uma feição na superfície da Terra. Esse componente é composto por dois principais conceitos: primeiro, que **tipo de unidades** estão sendo utilizadas para a representação geográfica, podendo assumir dois tipos - **ângulos ou metros**, que definem o **Sistema de Coordenadas Geográficas** e o **Sistema de Coordenadas Projetadas**, respectivamente. 
+Os dados geoespaciais (vetor e raster) possuem ainda um outro componente fundamental, que é o **Sistema de Referência de Coordenadas**, ou do inglês *Coordinate Reference System (CRS)*. Esse componente define como os elementos espaciais (vetor e raster) representam uma feição na superfície da Terra. Esse componente é composto por dois principais conceitos: primeiro, que **tipo de unidades** estão sendo utilizadas para a representação geográfica, podendo assumir dois tipos - **ângulos ou metros**, que definem o **Sistema de Coordenadas Geográficas** e o **Sistema de Coordenadas Projetadas**, respectivamente. 
 
 O segundo componente é o **datum**, que é a relação do sistema de coordenadas com a superfície da Terra. Esse último componente faz parte de uma área da **Cartografia** denominada **Geodésia** que estuda a forma e dimensões da Terra, campo gravitacional, e a localização de pontos fixos e sistemas de coordenadas. O livro de Lapaine et al. (2017) é um excelente material para se aprofundar nesse assunto.
 
@@ -445,13 +445,13 @@ kable(head(rgdal::make_EPSG()),
       caption = "Listagem inicial das projeções disponíveis no R, com informações dos códigos `epsg` e `proj4string`")
 ```
 
-## Principais fontes de dados geográficos
+## Principais fontes de dados geoespaciais
 
-Existe diversas fontes de dados geográficos em diferentes bases de dados disponíveis gratuitamente. Geralmente essas bases de dados são disponibilizadas separadamente em apenas dados vetoriais e dados raster. Para **dados vetoriais**, grande parte dos dados disponibilizados são utilizados em mapas como limites políticos, limites de biomas ou distribuição de espécies para **polígonos**; estradas e rios para **dados lineares**, ou ainda pontos de ocorrência de espécies ou comunidades, ou medidas tomadas em campo sobre condições naturais como clima ou relevo, como **pontos**. Entretanto, é sempre recomendado o uso de **bases oficiais**, principalmente em relação a dados vetoriais de **limites políticos**. Para tanto, é fundamental buscar as **bases oficiais de cada país**, entrentanto, há bases que podem ser utilizadas globalmente, como veremos.
+Existe diversas fontes de dados geoespaciais em diferentes bases de dados disponíveis gratuitamente. Geralmente essas bases de dados são disponibilizadas separadamente em apenas dados vetoriais e dados raster. Para **dados vetoriais**, grande parte dos dados disponibilizados são utilizados em mapas como limites políticos, limites de biomas ou distribuição de espécies para **polígonos**; estradas e rios para **dados lineares**, ou ainda pontos de ocorrência de espécies ou comunidades, ou medidas tomadas em campo sobre condições naturais como clima ou relevo, como **pontos**. Entretanto, é sempre recomendado o uso de **bases oficiais**, principalmente em relação a dados vetoriais de **limites políticos**. Para tanto, é fundamental buscar as **bases oficiais de cada país**, entrentanto, há bases que podem ser utilizadas globalmente, como veremos.
 
 Sobre as **bases de dados raster**, há uma infinidade de dados para diferentes objetivos, mas grande parte deles são relativos à condições ambientais, representando uma variável de interesse de forma contínua no espaço, como temperatura, precipitação, elevação, etc.
 
-Há uma compilação de dados geográficos vetoriais e raster feita por Marcus Vinícius Alves de Carvalho e Angelica Carvalho Di Maio, chamada [GeoLISTA](http://www.clickgeo.com.br/wp-content/uploads/2018/05/GeoLISTA.pdf). Entretanto, como as bases de dados tendem à ser muito dinâmicas, é possível que muitas bases tenham surgido e desaparecido desde a listagem realizada.
+Há uma compilação de dados geoespaciais vetoriais e raster feita por Marcus Vinícius Alves de Carvalho e Angelica Carvalho Di Maio, chamada [GeoLISTA](http://www.clickgeo.com.br/wp-content/uploads/2018/05/GeoLISTA.pdf). Entretanto, como as bases de dados tendem à ser muito dinâmicas, é possível que muitas bases tenham surgido e desaparecido desde a listagem realizada.
 
 Além das bases de dados, há pacotes específicos no R que fazem o download de dados vetoriais e rasters, facilitando a aquisição e reprodutibilidade. Para conferir uma listagem completa de pacotes para diversas análises espaciais, veja [CRAN Task View: Analysis of Spatial Data](https://cran.r-project.org/web/views/Spatial.html).
 
@@ -559,7 +559,7 @@ knitr::kable(tibble(
 
 ### Pacotes do R
 
-Dentre os pacotes no R para download de dados geográficos, destacamos os seguintes na Tabela \@ref(tab:tab-packages-bases):
+Dentre os pacotes no R para download de dados geoespaciais, destacamos os seguintes na Tabela \@ref(tab:tab-packages-bases):
 
 ```{r tab-packages-bases, echo=FALSE}
 knitr::kable(tibble(
@@ -606,9 +606,9 @@ caption = "Principais pacotes no R para download de dados vetoriais e raster.",
 booktabs = TRUE)
 ```
 
-## Importar e exportar dados geográficos
+## Importar e exportar dados geoespaciais
 
-Agora que sabemos o que são dados geográficos e em quais bases de dados podemos buscar e baixar esses dados, veremos seus principais formatos e como importá-los e exportá-los do R.
+Agora que sabemos o que são dados geoespaciais e em quais bases de dados podemos buscar e baixar esses dados, veremos seus principais formatos e como importá-los e exportá-los do R.
 
 ### Principais formatos de arquivos geográficos
 
@@ -632,7 +632,7 @@ O formato mais comum para arquivos vetoriais é o [**ESRI Shapefile**](https://d
 
 ### Importar dados
 
-As principais funções para importar dados no R são: 1) para vetores a função `sf::st_read()`, e 2) para raster a função `raster::raster()`, e suas variações `raster::brick()` e `raster::stack()` para múltiplas camadas. Essas funções atribuem objetos ao seu espaço de trabalho, armazenando-os na memória RAM disponível em seu hardware, sendo essa a maior limitação para trabalhar com dados geográficos no R. Por exemplo, se um arquivo raster possui mais de 8 Gb de tamamho, e seu computador possui extamente 8 Gb de RAM, é muito provável que ele não seja importado ou mesmo criado como um objeto dentro do ambiente R. Existem soluções para esses problemas, mas não as abordaremos nesse capítulo.
+As principais funções para importar dados no R são: 1) para vetores a função `sf::st_read()`, e 2) para raster a função `raster::raster()`, e suas variações `raster::brick()` e `raster::stack()` para múltiplas camadas. Essas funções atribuem objetos ao seu espaço de trabalho, armazenando-os na memória RAM disponível em seu hardware, sendo essa a maior limitação para trabalhar com dados geoespaciais no R. Por exemplo, se um arquivo raster possui mais de 8 Gb de tamamho, e seu computador possui extamente 8 Gb de RAM, é muito provável que ele não seja importado ou mesmo criado como um objeto dentro do ambiente R. Existem soluções para esses problemas, mas não as abordaremos nesse capítulo.
 
 #### Vetor
 
@@ -907,7 +907,7 @@ plot(st[[c(1, 4)]], col = viridis::viridis(10))
 
 ### Exportar dados
 
-Saber a melhor forma de exportar dados geográficos de objetos recém-criados no R é fundamental, principalmente porque essa ação irá depender do tipo de dado (vetor ou raster), classe do objeto (por exemplo, `MULTIPOINT` ou `RasterLayer`) e tipo e quantidade de informações armazenadas (por exemplo, tamanho do objeto, intervalo de valores, etc.).
+Saber a melhor forma de exportar dados geoespaciais de objetos recém-criados no R é fundamental, principalmente porque essa ação irá depender do tipo de dado (vetor ou raster), classe do objeto (por exemplo, `MULTIPOINT` ou `RasterLayer`) e tipo e quantidade de informações armazenadas (por exemplo, tamanho do objeto, intervalo de valores, etc.).
 
 #### Vetor
 
@@ -1067,7 +1067,7 @@ values(ra) %>% head
 ra[] %>% head
 ```
 
-## Reprojeção de dados geográficos
+## Reprojeção de dados geoespaciais
 
 Em algumas situações é necessário alterar o CRS de um objeto espacial para um novo CRS. A reprojeção é justamente a transformação de coordenadas de um CRS para outro: **geográficos** ('lon/lat', com unidades em graus de longitude e latitude) e **projetados** (normalmente com unidades de metros a partir de um datum).
 
@@ -1257,13 +1257,13 @@ plot(bio01_moll, col = viridis::viridis(10))
 plot(co110_sf_moll[1], col = NA, add = TRUE)
 ```
 
-## Principais operações com dados geográficos
+## Principais operações com dados geoespaciais
 
-Nesta seção veremos as principais funções para realizar operações com dados geográficos. Essas operações são separadas conforme Lovelace, Nowosad & Muenchow (2019) em: **Operações de atributos**, **Operações espaciais**, e **Operações geométricas**.
+Nesta seção veremos as principais funções para realizar operações com dados geoespaciais. Essas operações são separadas conforme Lovelace, Nowosad & Muenchow (2019) em: **Operações de atributos**, **Operações espaciais**, e **Operações geométricas**.
 
 ### Operações de atributos
 
-São modificação de objetos espaciais baseado em **informações não espaciais** associadas a dados geográficos, como a **tabela de atributos** ou **valores das células e nome das camadas** dos rasters.
+São modificação de objetos espaciais baseado em **informações não espaciais** associadas a dados geoespaciais, como a **tabela de atributos** ou **valores das células e nome das camadas** dos rasters.
 
 #### Vetor
 
@@ -1592,7 +1592,7 @@ plot(rc_nas_floresta_ext$geometry, col = "steelblue", pch = 20, cex = 1, add = T
 
 ##### Junção espacial
 
-Outra operação muito usada dentro de análises geográficas é a junção espacial ou do inglês *spatial join*. A ideia base é muito semelhante com a junção baseada em atributos, mas aqui iremos **atribuir o valor da tabela de atributos das feições de um objeto espacial y às feições que fazem intersecção com um objeto espacial x**, de modo que esses valores sejam armazenados na tabela de atributos do primeiro objeto espacial.
+Outra operação muito usada dentro de análises geoespaciais é a junção espacial ou do inglês *spatial join*. A ideia base é muito semelhante com a junção baseada em atributos, mas aqui iremos **atribuir o valor da tabela de atributos das feições de um objeto espacial y às feições que fazem intersecção com um objeto espacial x**, de modo que esses valores sejam armazenados na tabela de atributos do primeiro objeto espacial.
 
 Para exemplificar, vamos atribuir os valores dos polígonos de cobertura da terra aos pontos de nascentes para Rio Claro/SP, fazendo um agrupamento pela tabela de atributos para permitir criar o mapa da Figura \@ref(fig:fig-vetor-juncao-espacial).
 
@@ -1832,7 +1832,7 @@ plot(rc_2019_sirgas2000_utm23s_pontos_aleatorios, pch = 20, add = TRUE)
 
 ##### Buffer
 
-Buffers são **polígonos que representam a área dentro de uma determinada distância** de um elemento geométrico, independentemente de ser um ponto, linha ou polígono. O buffer é comumente utilizado para **análise de dados geográficos**, geralmente sendo entendio como uma unidade amostral, **delimitando uma porção no entorno de algum elemento ou evento**, como as condições climáticas ou da estrutura da paisagem para uma amostragem, ou as características de cobertura da terra ao longo de um corpo d'água, e.g. a Área de Preservação Permanente (APP).
+Buffers são **polígonos que representam a área dentro de uma determinada distância** de um elemento geométrico, independentemente de ser um ponto, linha ou polígono. O buffer é comumente utilizado para **análise de dados geoespaciais**, geralmente sendo entendio como uma unidade amostral, **delimitando uma porção no entorno de algum elemento ou evento**, como as condições climáticas ou da estrutura da paisagem para uma amostragem, ou as características de cobertura da terra ao longo de um corpo d'água, e.g. a Área de Preservação Permanente (APP).
 
 A função utilizada para criar buffers é a `sf::st_buffer()`, que requer pelo menos dois argumentos: **x** uma geometria de entrada e o **dist** uma distância para o buffer, fornecido nas unidades do CRS da geometria de entrada. Em nosso exemplo, vamos criar buffers de 1000 metros para os 30 pontos aleatórios criados anteriormente para o município de Rio Claro/SP (Figura \@ref(fig:fig-vetor-buffer)).   
 
@@ -2112,7 +2112,7 @@ plot(rc_2019$geom, col = NA, border = "red", lwd = 2, add = TRUE)
 
 ##### Extração
 
-A interação entre raster-vetor de **extração** é o processo que identifica e retorna valores associados de pixels de um raster com base em um objeto vetorial. É uma operação extramamente comum em análises geográficas, principalmente para associar valores de raster ambientais (contínuos ou categóricos) a pontos de ocorrência ou amostragem. Os valores retornados irão depender do tipo vetor (pontos, linhas ou polígonos) e de argumentos da função `raster::extract()` que alteram o funcionamento da extração.
+A interação entre raster-vetor de **extração** é o processo que identifica e retorna valores associados de pixels de um raster com base em um objeto vetorial. É uma operação extramamente comum em análises geoespaciais, principalmente para associar valores de raster ambientais (contínuos ou categóricos) a pontos de ocorrência ou amostragem. Os valores retornados irão depender do tipo vetor (pontos, linhas ou polígonos) e de argumentos da função `raster::extract()` que alteram o funcionamento da extração.
 
 Em nosso exemplo, vamos extrair os valores do raster de elevação para as nascentes do município de Rio Claro/SP (Figura \@ref(fig:fig-raster-extracao)).
 
@@ -2244,9 +2244,9 @@ plot(rc_cob_rasterizacao_poligonos_dissolvidos$geometry, col = NA, border = "gra
 par(mfrow = c(1, 1))
 ```
 
-## Visualização de dados geográficos
+## Visualização de dados geoespaciais
 
-Um dos pontos finais de toda a análise envolvendo a manipulação de dados geográficos será a apresentação de um **mapa com as informações de interesse espacializadas**. Mas antes, é necessário ter conhecimento de alguns dos **elementos principais** para a composição de um mapa relativamente bem informativo. Além disso, o R nos permite criar **tipos diferentes de mapas**: estáticos, animados e interativos. Os mais comuns são os estáticos, mas podemos por vezes melhorar a apresentação dos dados geográficos criando mapas animados e/ou interativos, com o auxílio de páginas web. Por fim, veremos as melhores formas de **exportar mapas** para diferentes formatos.
+Um dos pontos finais de toda a análise envolvendo a manipulação de dados geoespaciais será a apresentação de um **mapa com as informações de interesse espacializadas**. Mas antes, é necessário ter conhecimento de alguns dos **elementos principais** para a composição de um mapa relativamente bem informativo. Além disso, o R nos permite criar **tipos diferentes de mapas**: estáticos, animados e interativos. Os mais comuns são os estáticos, mas podemos por vezes melhorar a apresentação dos dados geoespaciais criando mapas animados e/ou interativos, com o auxílio de páginas web. Por fim, veremos as melhores formas de **exportar mapas** para diferentes formatos.
 
 ### Principais elementos de um mapa
 
@@ -2322,7 +2322,7 @@ kable(tibble::tibble(
                 "Métodos de visualização para dados raster",
                 "Crie cartogramas com R",
                 "Transforme polígonos geoespaciais em grades regulares ou hexagonais",
-                "'ggplot2' Utilitários de facetação para dados geográficos",
+                "'ggplot2' Utilitários de facetação para dados geoespaciais",
                 "Plot 2D and 3D Views of the Earth, Including Major Coastline",
                 "Line Maps")),
   caption = "Principais pacotes para composição de mapas no R.")
@@ -2591,12 +2591,12 @@ tmap::tmap_animation(tm = map_brasil_tmap_ani, filename = here::here("dados", "m
 ```
 
 ```{r fig-vetor-brasil-tmap-animated, fig.align='center', fig.cap="Mapa vetorial animado mostrando os estados brasileiros ao longo do tempo com o pacote *tmap*.", out.width="100%", echo=FALSE, warning=FALSE}
-knitr::include_graphics("img/cap14_mapa_animado.gif")
+knitr::include_graphics("img/cap14_fig78.gif")
 ```
 
 ### Mapas interativos
 
-**Mapas interativos** podem assumir muitas formas, sendo que a mais comum e útil é a **capacidade de deslocar e ampliar** qualquer parte de um conjunto de dados geográficos sobreposto em um "mapa da web". Diversos pacotes nos permitem criar esse tipo de mapa, sendo os mais comuns o *tmap*, *mapview* e *leaflet*. É importante destacar ainda que esses mapas irão ser compostos numa janela especial de "Viewer".
+**Mapas interativos** podem assumir muitas formas, sendo que a mais comum e útil é a **capacidade de deslocar e ampliar** qualquer parte de um conjunto de dados geoespaciais sobreposto em um "mapa da web". Diversos pacotes nos permitem criar esse tipo de mapa, sendo os mais comuns o *tmap*, *mapview* e *leaflet*. É importante destacar ainda que esses mapas irão ser compostos numa janela especial de "Viewer".
 
 #### Pacote tmap
 
@@ -2610,7 +2610,7 @@ map_elev_rc_tmap_int
 ```
 
 ```{r fig-raster-mapa-tmap-int, fig.align='center', fig.cap="Mapa vetorial interativo com o pacote *tmap*.", out.width="100%", echo=FALSE}
-knitr::include_url("img/cap14_mapa_tmap.html")
+knitr::include_url("img/cap14_fig79.html")
 ```
 
 Para exportar mapas interativos criados com o pacote *tmap*, podemos utilizar novamente a função `tmap::tmap_save()`, indicando a extensão como `.html`.
@@ -2631,7 +2631,7 @@ map_elev_rc_mapview_int
 ```
 
 ```{r fig-raster-mapa-mapview-int, fig.align='center', fig.cap="Mapa vetorial interativo com o pacote *mapview*.", out.width="100%", echo=FALSE}
-knitr::include_url("img/cap14_mapa_mapview.html")
+knitr::include_url("img/cap14_fig80.html")
 ```
 
 Para exportar mapas interativos criados com o pacote *mapview*, podemos utilizar a função `mapivew::mapshot()`, indicando a extensão como `.html`.
@@ -2671,9 +2671,9 @@ mapview::mapshot(x = map_elev_rc_leaflet_int,
                  url = here::here("dados", "mapas", "elev_rc_leaflet_int.html"))
 ```
 
-## Exemplos de aplicações de análises geográficas para dados ecológicos
+## Exemplos de aplicações de análises geoespaciais para dados ecológicos
 
-Agora que vimos os conceitos e aplicações básicas de manejo e visualização de dados geográficos, podemos avançar para realizar **três exemplos de aplicações para dados ecológicos**. Para isso, usaremos novamente os dados de **comunidades de anfíbios da Mata Atlântica** (Atlantic Amphibians, Vancine et al. 2018). Primeiramente, veremos como **resumir informações de biodiversidade** (número de ocorrências e riqueza) para hexágonos. Num segundo momento, veremos como **associar dados ambientais para coordenadas** de espécies ou comunidades. Por fim, iremos **realizar predições espaciais contínuas** de adequabilidade de habitat e número de espécies.
+Agora que vimos os conceitos e aplicações básicas de manejo e visualização de dados geoespaciais, podemos avançar para realizar **três exemplos de aplicações para dados ecológicos**. Para isso, usaremos novamente os dados de **comunidades de anfíbios da Mata Atlântica** (Atlantic Amphibians, Vancine et al. 2018). Primeiramente, veremos como **resumir informações de biodiversidade** (número de ocorrências e riqueza) para hexágonos. Num segundo momento, veremos como **associar dados ambientais para coordenadas** de espécies ou comunidades. Por fim, iremos **realizar predições espaciais contínuas** de adequabilidade de habitat e número de espécies.
 
 ### Resumir informações de biodiversidade para unidades espaciais
 
@@ -3067,7 +3067,7 @@ tmap_arrange(mapa_pred_riq_pois, mapa_pred_riq_nb)
 
 ## Para se aprofundar
 
-Listamos aqui as principais referências sobre manipulação, visualização de dados geográficos e análises espaciais no R.
+Listamos aqui as principais referências sobre manipulação, visualização de dados geoespaciais e análises geoespaciais no R.
 
 Lovelace, Nowosad & Muenchow (2019) [Geocomputation with R](https://geocompr.robinlovelace.net/). Chapman & Hall/CRC Biostatistics Series
 
@@ -3089,10 +3089,10 @@ Dorman (2021) [Using R for Spatial Data Analysis](https://michaeldorman.github.i
 
 Rowe, Arribas-Bel (2021) [Spatial Modelling for Data Scientists](https://gdsl-ul.github.io/san/)
 
-Wegmann, Leutner & Dech (2016) Remote Sensing and GIS for Ecologists: Using Open Source Software
+Wegmann, Leutner & Dech (2016) Remote Sensing and GIS for Ecologists: Using Open Source Software. Pelagic Publishing Ltd.
 
-Wegmann, Schwalb-Willmann & Dech (2020) An Introduction to Spatial Data Analysis Remote Sensing and GIS with Open Source Software.
+Wegmann, Schwalb-Willmann & Dech (2020) An Introduction to Spatial Data Analysis Remote Sensing and GIS with Open Source Software. Pelagic Publishing Ltd.
 
-Fletcher & Fortin (2018) Spatial ecology and conservation modeling: Applications with r. Springer International Publishing.
+Fletcher & Fortin (2018) Spatial ecology and conservation modeling: Applications with R. Springer International Publishing.
 
 Lapaine, Miljenko, Usery, E. Lynn (2017) Choosing a Map Projection. Spring.
