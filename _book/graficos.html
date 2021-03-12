@@ -249,12 +249,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4.3" data-path="graficos.html"><a href="graficos.html#hist"><i class="fa fa-check"></i><b>6.4.3</b> Histograma (<em>histogram</em>)</a></li>
 <li class="chapter" data-level="6.4.4" data-path="graficos.html"><a href="graficos.html#dens"><i class="fa fa-check"></i><b>6.4.4</b> Gráfico de densidade (<em>density plot</em>)</a></li>
 <li class="chapter" data-level="6.4.5" data-path="graficos.html"><a href="graficos.html#dot"><i class="fa fa-check"></i><b>6.4.5</b> Diagrama de pontos (<em>dot plot</em>)</a></li>
-<li class="chapter" data-level="6.4.6" data-path="graficos.html"><a href="graficos.html#gráfico-de-setores-pie-chart-e-donut-chart"><i class="fa fa-check"></i><b>6.4.6</b> Gráfico de setores (<em>pie chart</em> e <em>donut chart</em>)</a></li>
-<li class="chapter" data-level="6.4.7" data-path="graficos.html"><a href="graficos.html#bars"><i class="fa fa-check"></i><b>6.4.7</b> Gráfico de barras (<em>bar plot</em>)</a></li>
+<li class="chapter" data-level="6.4.6" data-path="graficos.html"><a href="graficos.html#bars"><i class="fa fa-check"></i><b>6.4.6</b> Gráfico de barras (<em>bar plot</em>)</a></li>
+<li class="chapter" data-level="6.4.7" data-path="graficos.html"><a href="graficos.html#gráfico-de-setores-pie-chart-e-donut-chart"><i class="fa fa-check"></i><b>6.4.7</b> Gráfico de setores (<em>pie chart</em> e <em>donut chart</em>)</a></li>
 <li class="chapter" data-level="6.4.8" data-path="graficos.html"><a href="graficos.html#gráfico-de-caixa-box-plot"><i class="fa fa-check"></i><b>6.4.8</b> Gráfico de caixa (<em>box plot</em>)</a></li>
-<li class="chapter" data-level="6.4.9" data-path="graficos.html"><a href="graficos.html#gráfico-de-violino-violin-plot"><i class="fa fa-check"></i><b>6.4.9</b> Gráfico de violino (<em>violin plot</em>)</a></li>
-<li class="chapter" data-level="6.4.10" data-path="graficos.html"><a href="graficos.html#gráfico-de-dispersão-scatter-plot"><i class="fa fa-check"></i><b>6.4.10</b> Gráfico de dispersão (<em>scatter plot</em>)</a></li>
-<li class="chapter" data-level="6.4.11" data-path="graficos.html"><a href="graficos.html#gráfico-pareado-pairs-plot"><i class="fa fa-check"></i><b>6.4.11</b> Gráfico pareado (<em>pairs plot</em>)</a></li>
+<li class="chapter" data-level="6.4.9" data-path="graficos.html"><a href="graficos.html#gráfico-de-dispersão-scatter-plot"><i class="fa fa-check"></i><b>6.4.9</b> Gráfico de dispersão (<em>scatter plot</em>)</a></li>
+<li class="chapter" data-level="6.4.10" data-path="graficos.html"><a href="graficos.html#gráfico-pareado-pairs-plot"><i class="fa fa-check"></i><b>6.4.10</b> Gráfico pareado (<em>pairs plot</em>)</a></li>
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="graficos.html"><a href="graficos.html#finalização-de-gráficos-para-publicação"><i class="fa fa-check"></i><b>6.5</b> Finalização de gráficos para publicação</a></li>
 <li class="chapter" data-level="6.6" data-path="graficos.html"><a href="graficos.html#exercíios"><i class="fa fa-check"></i><b>6.6</b> Exercíios</a></li>
@@ -512,16 +511,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="grámatica-dos-gráficos" class="section level2" number="6.3">
 <h2><span class="header-section-number">6.3</span> Grámatica dos gráficos</h2>
 <pre><code>ggplot(data = &lt;DATA&gt;) + 
-  &lt;GEOM_FUNCTION&gt;(
-     mapping = aes(&lt;MAPPINGS&gt;),
-     stat = &lt;STAT&gt;, 
-     position = &lt;POSITION&gt;
-  ) +
-  &lt;COORDINATE_FUNCTION&gt; +
-  &lt;FACET_FUNCTION&gt; +
-  &lt;SCALE_FUNCTION&gt; +
-  &lt;THEME_FUNCTION&gt;
-  </code></pre>
+&lt;GEOM_FUNCTION&gt;(
+       mapping = aes(&lt;MAPPINGS&gt;),
+       stat = &lt;STAT&gt;, 
+       position = &lt;POSITION&gt;
+) +
+&lt;COORDINATE_FUNCTION&gt; +
+&lt;FACET_FUNCTION&gt; +
+&lt;SCALE_FUNCTION&gt; +
+&lt;THEME_FUNCTION&gt;</code></pre>
 <div id="ggplot2" class="section level3" number="6.3.1">
 <h3><span class="header-section-number">6.3.1</span> ggplot2</h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="graficos.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># carregar o pacote</span></span>
@@ -543,8 +541,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>Diagrama de pontos (<em>dot plot</em>)</strong>: distribuição da quantidade de valores agrupados de uma coluna para dados contínuos</li>
 <li><strong>Gráfico de setores (<em>pie chart</em> e <em>donut chart</em>)</strong>: representação da quantidade de valores de uma coluna para dados categóricos, geralmente em proporção ou porcentagem</li>
 <li><strong>Gráfico de barras (<em>bar plot</em>)</strong>: representação da quantidade de valores de uma ou mais colunas para dados categóricos</li>
-<li><strong>Gráfico de caixa (<em>box plot</em>)</strong>: distribuição de valores contínuos de uma coluna (Y) para dois ou mais fatores categóricos de outra coluna (X) no formato de caixas</li>
-<li><strong>Gráfico de violino (<em>violin plot</em>)</strong>: distribuição de valores contínuos de uma coluna (Y) para dois ou mais fatores categóricos de outra coluna (X) no formato de “violinos” (considerando a variação)</li>
+<li><strong>Gráfico de caixa (<em>box plot</em> e <em>violin plot</em>)</strong>: distribuição de valores contínuos de uma coluna (Y) para dois ou mais fatores categóricos de outra coluna (X) no formato de caixas e também no formato de “violinos” (considerando a variação)</li>
 <li><strong>Gráfico de dispersão (<em>scatter plot</em>)</strong>: relação entre valores de duas colunas para dados contínuos (X e Y)</li>
 <li><strong>Gráfico pareado (<em>pairs plot</em>)</strong>: relação entre valores de duas colunas para dados contínuos (X e Y), para colunas par a par</li>
 </ul>
@@ -611,8 +608,7 @@ Veja a seção XX para mais detalhes de como manipular cada detalhe do gráfico 
 <span id="cb10-3"><a href="graficos.html#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">alpha =</span> .<span class="dv">5</span>, <span class="at">position =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
 <span id="cb10-4"><a href="graficos.html#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;darkorchid&quot;</span>, <span class="st">&quot;cyan4&quot;</span>)) <span class="sc">+</span></span>
 <span id="cb10-5"><a href="graficos.html#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
-<span id="cb10-6"><a href="graficos.html#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Comprimento da nadadeira (mm)&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb10-7"><a href="graficos.html#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Frequência&quot;</span>)</span></code></pre></div>
+<span id="cb10-6"><a href="graficos.html#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Comprimento da nadadeira (mm)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequência&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Espécies&quot;</span>)</span></code></pre></div>
 <p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -656,25 +652,22 @@ Veja a seção XX para mais detalhes de como manipular cada detalhe do gráfico 
 </div>
 <div id="gráfico-de-densidade-bonito" class="section level4" number="6.4.4.4">
 <h4><span class="header-section-number">6.4.4.4</span> Gráfico de densidade (bonito)</h4>
-<p>Todo o final de capítulo temos a demonstração de um gráfico mais elegante.
-Veja o capítulo XXX para mais detalhes de como manipular cada detalhe do seu gráfico com o ggplot2, mas ao observar o script abaixo você pode ir aprendendo com cada exemplo.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="graficos.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
 <span id="cb16-2"><a href="graficos.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
 <span id="cb16-3"><a href="graficos.html#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
 <span id="cb16-4"><a href="graficos.html#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;darkorchid&quot;</span>, <span class="st">&quot;cyan4&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb16-5"><a href="graficos.html#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">160</span>, <span class="at">to =</span> <span class="dv">240</span>, <span class="at">by =</span> <span class="dv">10</span>), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">160</span>, <span class="dv">240</span>)) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="graficos.html#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">160</span>, <span class="at">to =</span> <span class="dv">240</span>, <span class="at">by =</span> <span class="dv">10</span>), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">160</span>, <span class="dv">240</span>)) <span class="sc">+</span></span>
 <span id="cb16-6"><a href="graficos.html#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> .<span class="dv">07</span>, <span class="at">by =</span> .<span class="dv">01</span>)) <span class="sc">+</span></span>
 <span id="cb16-7"><a href="graficos.html#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
-<span id="cb16-8"><a href="graficos.html#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Comprimento da nadadeira (mm)&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb16-9"><a href="graficos.html#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Densidade&quot;</span>)</span></code></pre></div>
+<span id="cb16-8"><a href="graficos.html#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Comprimento da nadadeira (mm)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequência&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Espécies&quot;</span>)</span></code></pre></div>
 <p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="dot" class="section level3" number="6.4.5">
 <h3><span class="header-section-number">6.4.5</span> Diagrama de pontos (<em>dot plot</em>)</h3>
-<p>Neste capítulo você irá aprender a criar <a href="https://en.wikipedia.org/wiki/Dot_plot_(statistics)">Dotplot</a> no R utilizando o ggplot2.</p>
-<div id="dotplot-simples" class="section level4" number="6.4.5.1">
-<h4><span class="header-section-number">6.4.5.1</span> Dotplot (simples)</h4>
+<p>Nesta seção iremos aprender a criar um <a href="https://en.wikipedia.org/wiki/Dot_plot_(statistics)">Dot plot</a> no R utilizando o ggplot2.</p>
+<div id="diagrama-de-pontos-simples" class="section level4" number="6.4.5.1">
+<h4><span class="header-section-number">6.4.5.1</span> Diagrama de pontos (simples)</h4>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="graficos.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
 <span id="cb17-2"><a href="graficos.html#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>()</span></code></pre></div>
 <p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -699,244 +692,333 @@ Veja o capítulo XXX para mais detalhes de como manipular cada detalhe do seu gr
 </div>
 <div id="dotplot-bonito" class="section level4" number="6.4.5.4">
 <h4><span class="header-section-number">6.4.5.4</span> Dotplot (bonito)</h4>
-<p>Todo o final de capítulo temos a demonstração de um gráfico mais elegante.
-Veja o capítulo XXX para mais detalhes de como manipular cada detalhe do seu gráfico com o ggplot2, mas ao observar o script abaixo você pode ir aprendendo com cada exemplo.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="graficos.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
-<span id="cb20-2"><a href="graficos.html#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Tomato&quot;</span>) <span class="sc">+</span></span>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="graficos.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb20-2"><a href="graficos.html#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">alpha =</span> .<span class="dv">7</span>) <span class="sc">+</span></span>
 <span id="cb20-3"><a href="graficos.html#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
-<span id="cb20-4"><a href="graficos.html#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">4</span>,<span class="at">to =</span> <span class="dv">8</span>,<span class="at">by =</span> <span class="dv">1</span>), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">8</span>)) <span class="sc">+</span></span>
-<span id="cb20-5"><a href="graficos.html#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Comprimento da sépala (mm)&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb20-6"><a href="graficos.html#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Frequência&quot;</span>)</span></code></pre></div>
+<span id="cb20-4"><a href="graficos.html#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;darkorchid&quot;</span>, <span class="st">&quot;cyan4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb20-5"><a href="graficos.html#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">170</span>, <span class="at">to =</span> <span class="dv">240</span>, <span class="at">by =</span> <span class="dv">10</span>), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">170</span>, <span class="dv">240</span>)) <span class="sc">+</span></span>
+<span id="cb20-6"><a href="graficos.html#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="fl">1.2</span>, <span class="at">by =</span> .<span class="dv">1</span>), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.2</span>)) <span class="sc">+</span></span>
+<span id="cb20-7"><a href="graficos.html#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Comprimento da nadadeira (mm)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequência&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Espécies&quot;</span>)</span></code></pre></div>
 <p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="gráfico-de-setores-pie-chart-e-donut-chart" class="section level3" number="6.4.6">
-<h3><span class="header-section-number">6.4.6</span> Gráfico de setores (<em>pie chart</em> e <em>donut chart</em>)</h3>
-</div>
-<div id="bars" class="section level3" number="6.4.7">
-<h3><span class="header-section-number">6.4.7</span> Gráfico de barras (<em>bar plot</em>)</h3>
-<p>Neste capítulo você irá aprender a criar <a href="https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_barras">Gráfico de Barra</a> no R utilizando o ggplot2.</p>
-<div id="gráfico-de-barras-simples" class="section level4" number="6.4.7.1">
-<h4><span class="header-section-number">6.4.7.1</span> Gráfico de Barras (simples)</h4>
-<p>O gráfico de barras utiliza retângulos para repsentar uma variável contínua, sendo que o comprimeno dos retângulos é proporcional ao valor que ele está representando. A função <code>geom_bar()</code> plota uma variável contínua em função de uma variável categórica no eixo x.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="graficos.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulando um banco de dados</span></span>
-<span id="cb21-2"><a href="graficos.html#cb21-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">tratamento =</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>),</span>
-<span id="cb21-3"><a href="graficos.html#cb21-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">tamanho =</span> <span class="fu">c</span>(<span class="fl">1.3</span>, <span class="fl">1.9</span>, <span class="fl">3.2</span>))</span>
+<div id="bars" class="section level3" number="6.4.6">
+<h3><span class="header-section-number">6.4.6</span> Gráfico de barras (<em>bar plot</em>)</h3>
+<p>Nesta seção iremos aprender a criar <a href="https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_barras">Gráfico de Barra</a> no R utilizando o ggplot2.</p>
+<div id="gráfico-de-barras-simples" class="section level4" number="6.4.6.1">
+<h4><span class="header-section-number">6.4.6.1</span> Gráfico de Barras (simples)</h4>
+<p>O gráfico de barras utiliza retângulos para representar uma variável contínua ou a contagem de uma variável categórica, sendo que o comprimeno dos retângulos é proporcional ao valor que ele está representando.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="graficos.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># resumindo o conjunto de dados</span></span>
+<span id="cb21-2"><a href="graficos.html#cb21-2" aria-hidden="true" tabindex="-1"></a>penguins_count <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="graficos.html#cb21-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(species)</span>
 <span id="cb21-4"><a href="graficos.html#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="graficos.html#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot</span></span>
-<span id="cb21-6"><a href="graficos.html#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> tamanho, <span class="at">x =</span> tratamento)) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="graficos.html#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de barras</span></span>
+<span id="cb21-6"><a href="graficos.html#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins_count, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> n)) <span class="sc">+</span> </span>
 <span id="cb21-7"><a href="graficos.html#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
 <p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="ajustes-básicos-1" class="section level4" number="6.4.7.2">
-<h4><span class="header-section-number">6.4.7.2</span> Ajustes básicos</h4>
+<div id="ajustes-básicos-1" class="section level4" number="6.4.6.2">
+<h4><span class="header-section-number">6.4.6.2</span> Ajustes básicos</h4>
 <p><strong>Argumentos</strong></p>
 <ul>
-<li><strong>width</strong> para definir a largura das barras.</li>
-<li><strong>fill</strong> para definir a cor de preenchimento das barras.</li>
-<li><strong>color</strong> para definir a cor da linha de contorno das barras.</li>
+<li><strong>width</strong>: para definir a largura das barras</li>
+<li><strong>fill</strong>: para definir a cor de preenchimento das barras</li>
+<li><strong>color</strong>: para definir a cor da linha de contorno das barras</li>
 </ul>
-<div id="cor-e-preenchimento-1" class="section level5" number="6.4.7.2.1">
-<h5><span class="header-section-number">6.4.7.2.1</span> Cor e preenchimento</h5>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="graficos.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de Barras com preenchimento colorido</span></span>
-<span id="cb22-2"><a href="graficos.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> tamanho, <span class="at">x =</span> tratamento)) <span class="sc">+</span></span>
-<span id="cb22-3"><a href="graficos.html#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;tomato&quot;</span>)</span></code></pre></div>
+<div id="cor-e-preenchimento-1" class="section level5" number="6.4.6.2.1">
+<h5><span class="header-section-number">6.4.6.2.1</span> Cor e preenchimento</h5>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="graficos.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de barras com preenchimento colorido</span></span>
+<span id="cb22-2"><a href="graficos.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins_count, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> n)) <span class="sc">+</span> </span>
+<span id="cb22-3"><a href="graficos.html#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>)</span></code></pre></div>
 <p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-16-1.png" width="50%" /></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="graficos.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de Barras com contorno colorido</span></span>
-<span id="cb23-2"><a href="graficos.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> tamanho, <span class="at">x =</span> tratamento)) <span class="sc">+</span></span>
-<span id="cb23-3"><a href="graficos.html#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">color =</span> <span class="st">&quot;tomato&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="graficos.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de barras com contorno colorido</span></span>
+<span id="cb23-2"><a href="graficos.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins_count, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> n)) <span class="sc">+</span> </span>
+<span id="cb23-3"><a href="graficos.html#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>)</span></code></pre></div>
 <p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-16-2.png" width="50%" /></p>
 </div>
-<div id="largura-das-barras" class="section level5" number="6.4.7.2.2">
-<h5><span class="header-section-number">6.4.7.2.2</span> Largura das barras</h5>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="graficos.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de Barras com largura modificada</span></span>
-<span id="cb24-2"><a href="graficos.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> tamanho, <span class="at">x =</span> tratamento)) <span class="sc">+</span></span>
+<div id="largura-das-barras" class="section level5" number="6.4.6.2.2">
+<h5><span class="header-section-number">6.4.6.2.2</span> Largura das barras</h5>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="graficos.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de barras com largura modificada</span></span>
+<span id="cb24-2"><a href="graficos.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins_count, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> n)) <span class="sc">+</span></span>
 <span id="cb24-3"><a href="graficos.html#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">width =</span> .<span class="dv">75</span>) <span class="sc">+</span></span>
 <span id="cb24-4"><a href="graficos.html#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;width = .75&quot;</span>)</span></code></pre></div>
 <p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-17-1.png" width="50%" /></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="graficos.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de Barras com largura modificada</span></span>
-<span id="cb25-2"><a href="graficos.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> tamanho, <span class="at">x =</span> tratamento)) <span class="sc">+</span></span>
-<span id="cb25-3"><a href="graficos.html#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">width =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="graficos.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de barras com largura modificada</span></span>
+<span id="cb25-2"><a href="graficos.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins_count, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb25-3"><a href="graficos.html#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">width =</span> .<span class="dv">25</span>) <span class="sc">+</span></span>
 <span id="cb25-4"><a href="graficos.html#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;width = .25&quot;</span>) </span></code></pre></div>
 <p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-17-2.png" width="50%" /></p>
 </div>
-<div id="orientação-das-barras" class="section level5" number="6.4.7.2.3">
-<h5><span class="header-section-number">6.4.7.2.3</span> Orientação das barras</h5>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="graficos.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de Barras Vertical</span></span>
-<span id="cb26-2"><a href="graficos.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> tamanho, <span class="at">x =</span> tratamento)) <span class="sc">+</span></span>
+<div id="orientação-das-barras" class="section level5" number="6.4.6.2.3">
+<h5><span class="header-section-number">6.4.6.2.3</span> Orientação das barras</h5>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="graficos.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de barras vertical</span></span>
+<span id="cb26-2"><a href="graficos.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins_count, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> n)) <span class="sc">+</span></span>
 <span id="cb26-3"><a href="graficos.html#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
 <p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-18-1.png" width="50%" /></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="graficos.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de Barras Horizontal</span></span>
-<span id="cb27-2"><a href="graficos.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> tamanho, <span class="at">x =</span> tratamento)) <span class="sc">+</span></span>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="graficos.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de barras horizontal</span></span>
+<span id="cb27-2"><a href="graficos.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins_count, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> n)) <span class="sc">+</span></span>
 <span id="cb27-3"><a href="graficos.html#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb27-4"><a href="graficos.html#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
 <p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-18-2.png" width="50%" /></p>
 </div>
-<div id="colorindo-por-categoria" class="section level5" number="6.4.7.2.4">
-<h5><span class="header-section-number">6.4.7.2.4</span> Colorindo por categoria</h5>
-<p>No exemplo abaixo, utilizamos cores diferentes para ilustrar os tratamentos diferentes através do argumento <code>fill = tratamento</code>.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="graficos.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de Barras com preenchimento colorido</span></span>
-<span id="cb28-2"><a href="graficos.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> tamanho, <span class="at">x =</span> tratamento, <span class="at">fill =</span> tratamento)) <span class="sc">+</span></span>
+<div id="colorindo-por-categoria" class="section level5" number="6.4.6.2.4">
+<h5><span class="header-section-number">6.4.6.2.4</span> Colorindo por categoria</h5>
+<p>No exemplo abaixo, utilizamos cores diferentes para ilustrar os tratamentos diferentes através do argumento <strong>fill = species</strong>.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="graficos.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de barras com preenchimento colorido</span></span>
+<span id="cb28-2"><a href="graficos.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins_count, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> n, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
 <span id="cb28-3"><a href="graficos.html#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
 <p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="gráfico-de-barras-bonito" class="section level5" number="6.4.7.2.5">
-<h5><span class="header-section-number">6.4.7.2.5</span> Gráfico de barras (bonito)</h5>
-<p>Todo o final de capítulo temos a demonstração de um gráfico mais elegante.
-Veja o capítulo XXX para mais detalhes de como manipular cada detalhe do seu gráfico com o ggplot2, mas ao observar o script abaixo você pode ir aprendendo com cada exemplo.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="graficos.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de Barras</span></span>
-<span id="cb29-2"><a href="graficos.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> tamanho, <span class="at">x =</span> tratamento)) <span class="sc">+</span></span>
-<span id="cb29-3"><a href="graficos.html#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="fu">gray</span>(.<span class="dv">3</span>)) <span class="sc">+</span></span>
-<span id="cb29-4"><a href="graficos.html#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">3.5</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">3.5</span>,.<span class="dv">5</span>)) <span class="sc">+</span></span>
+<div id="gráfico-de-barras-bonito" class="section level5" number="6.4.6.2.5">
+<h5><span class="header-section-number">6.4.6.2.5</span> Gráfico de barras (bonito)</h5>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="graficos.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de barras</span></span>
+<span id="cb29-2"><a href="graficos.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins_count, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> n, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb29-3"><a href="graficos.html#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="graficos.html#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> n), <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
 <span id="cb29-5"><a href="graficos.html#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
-<span id="cb29-6"><a href="graficos.html#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Tratamento&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb29-7"><a href="graficos.html#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Comprimento da plântula (cm)&quot;</span>) </span></code></pre></div>
+<span id="cb29-6"><a href="graficos.html#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;cyan4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb29-7"><a href="graficos.html#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Espécies&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequência&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Espécies&quot;</span>)</span></code></pre></div>
 <p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-20-1.png" width="70%" /></p>
 </div>
 </div>
 </div>
+<div id="gráfico-de-setores-pie-chart-e-donut-chart" class="section level3" number="6.4.7">
+<h3><span class="header-section-number">6.4.7</span> Gráfico de setores (<em>pie chart</em> e <em>donut chart</em>)</h3>
+<p>Nesta seção iremos aprender a criar <a href="https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_setores">Gráfico de Setores</a> no R utilizando o ggplot2.</p>
+<div id="gráfico-de-setores-pie" class="section level4" number="6.4.7.1">
+<h4><span class="header-section-number">6.4.7.1</span> Gráfico de setores (<em>pie</em>)</h4>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="graficos.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># resumindo o conjunto de dados</span></span>
+<span id="cb30-2"><a href="graficos.html#cb30-2" aria-hidden="true" tabindex="-1"></a>penguins_prop <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="graficos.html#cb30-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(species) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-4"><a href="graficos.html#cb30-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">prop =</span> <span class="fu">round</span>(n<span class="sc">/</span><span class="fu">sum</span>(n), <span class="dv">4</span>)<span class="sc">*</span><span class="dv">100</span>)</span>
+<span id="cb30-5"><a href="graficos.html#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="graficos.html#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de setores - pie</span></span>
+<span id="cb30-7"><a href="graficos.html#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins_prop, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> prop, <span class="at">fill =</span> species)) <span class="sc">+</span> </span>
+<span id="cb30-8"><a href="graficos.html#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb30-9"><a href="graficos.html#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="st">&quot;y&quot;</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb30-10"><a href="graficos.html#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(prop, <span class="st">&quot;%&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, </span>
+<span id="cb30-11"><a href="graficos.html#cb30-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>), <span class="at">size =</span> <span class="dv">8</span>) <span class="sc">+</span></span>
+<span id="cb30-12"><a href="graficos.html#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;cyan4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb30-13"><a href="graficos.html#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb30-14"><a href="graficos.html#cb30-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Espécies&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+</div>
+<div id="gráfico-de-setores-donut" class="section level4" number="6.4.7.2">
+<h4><span class="header-section-number">6.4.7.2</span> Gráfico de setores (<em>donut</em>)</h4>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="graficos.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de setores - donut</span></span>
+<span id="cb31-2"><a href="graficos.html#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins_prop, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">y =</span> prop, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb31-3"><a href="graficos.html#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb31-4"><a href="graficos.html#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">&quot;y&quot;</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb31-5"><a href="graficos.html#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(prop, <span class="st">&quot;%&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb31-6"><a href="graficos.html#cb31-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> .<span class="dv">5</span>), <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb31-7"><a href="graficos.html#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;cyan4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb31-8"><a href="graficos.html#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb31-9"><a href="graficos.html#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb31-10"><a href="graficos.html#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(.<span class="dv">5</span>, .<span class="dv">5</span>),</span>
+<span id="cb31-11"><a href="graficos.html#cb31-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>),</span>
+<span id="cb31-12"><a href="graficos.html#cb31-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>)) <span class="sc">+</span></span>
+<span id="cb31-13"><a href="graficos.html#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Espécies&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+</div>
+</div>
 <div id="gráfico-de-caixa-box-plot" class="section level3" number="6.4.8">
 <h3><span class="header-section-number">6.4.8</span> Gráfico de caixa (<em>box plot</em>)</h3>
-<p>Neste capítulo você irá aprender a criar <a href="https://pt.wikipedia.org/wiki/Diagrama_de_caixa">boxplots</a> no R utilizando o ggplot2.</p>
+<p>Nesta seção iremos aprender a criar <a href="https://pt.wikipedia.org/wiki/Diagrama_de_caixa">box plots</a> no R utilizando o ggplot2.</p>
 <div id="boxplot-simples" class="section level4" number="6.4.8.1">
 <h4><span class="header-section-number">6.4.8.1</span> Boxplot (simples)</h4>
-<p>Utilize o banco de dados <code>iris</code>, para plotar um diagrama de caixa (boxplot). A função <code>geom_boxplot()</code> plota uma variável contínua (Sepal.Length) no eixo y em função de uma variável categórica no eixo x (Species). A definição de qual coluna do bando de dados é a x e qual é a y é feita dentro do comendo <code>aes()</code>.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="graficos.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrgue um banco de dados</span></span>
-<span id="cb30-2"><a href="graficos.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;iris&quot;</span>)</span>
-<span id="cb30-3"><a href="graficos.html#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-4"><a href="graficos.html#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot</span></span>
-<span id="cb30-5"><a href="graficos.html#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Sepal.Length, <span class="at">x =</span> Species)) <span class="sc">+</span></span>
-<span id="cb30-6"><a href="graficos.html#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
-<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Vamos plotar uma variável contínua (flipper_length_mm) no eixo y em função de uma variável categórica no eixo x (species). A definição de qual coluna do bando de dados é a x e qual é a y é feita dentro do comendo <code>aes()</code>.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="graficos.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># box plot</span></span>
+<span id="cb32-2"><a href="graficos.html#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">y =</span> flipper_length_mm, <span class="at">x =</span> species)) <span class="sc">+</span></span>
+<span id="cb32-3"><a href="graficos.html#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="destque-para-os-outliers" class="section level4" number="6.4.8.2">
 <h4><span class="header-section-number">6.4.8.2</span> Destque para os outliers</h4>
-<p>Utilize o <strong>argumento</strong> <code>outlier.color</code> para definir a cor dos outliers.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="graficos.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Sepal.Length, <span class="at">x =</span> Species)) <span class="sc">+</span></span>
-<span id="cb31-2"><a href="graficos.html#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Utilize o <strong>argumento</strong> <code>notch = T</code> para produzir diagramas de caixa entalhados (notched).
-Estes diagramas são úteis para inferir de forma aproximada se exite diferença significativa entre as medias dos grupos.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="graficos.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Sepal.Length, <span class="at">x =</span> Species)) <span class="sc">+</span></span>
-<span id="cb32-2"><a href="graficos.html#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">notch =</span> T)</span></code></pre></div>
+<p>Utilizamos o argumento <strong>outlier.color</strong> para definir a cor dos outliers.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="graficos.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">y =</span> flipper_length_mm, <span class="at">x =</span> species)) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="graficos.html#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Utilizamos o argumento <strong>notch = TRUE</strong> para produzir diagramas de caixa entalhados (notched). Estes diagramas são úteis para inferir de forma aproximada se exite diferença significativa entre as medias dos grupos.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="graficos.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">y =</span> flipper_length_mm, <span class="at">x =</span> species)) <span class="sc">+</span></span>
+<span id="cb34-2"><a href="graficos.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">notch =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="colorindo-por-categoria-1" class="section level4" number="6.4.8.3">
 <h4><span class="header-section-number">6.4.8.3</span> Colorindo por categoria</h4>
-<p>No exemplo abaixo, utilizamos cores diferentes para ilustrar espécies diferentes através do argumento <code>fill = Species</code>.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="graficos.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histograma com cores para diferentes categorias com sobreposição</span></span>
-<span id="cb33-2"><a href="graficos.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Sepal.Length, <span class="at">x =</span> Species, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
-<span id="cb33-3"><a href="graficos.html#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() </span></code></pre></div>
-<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="gráfico-de-caixas-bonito" class="section level4" number="6.4.8.4">
-<h4><span class="header-section-number">6.4.8.4</span> Gráfico de caixas (bonito)</h4>
-<p>Todo o final de capítulo temos a demonstração de um gráfico mais elegante.
-Veja o capítulo XXX para mais detalhes de como manipular cada detalhe do seu gráfico com o ggplot2, mas ao observar o script abaixo você pode ir aprendendo com cada exemplo.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="graficos.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Sepal.Length, <span class="at">x =</span> Species, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
-<span id="cb34-2"><a href="graficos.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">show.legend =</span> F, <span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb34-3"><a href="graficos.html#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">8</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb34-4"><a href="graficos.html#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
-<span id="cb34-5"><a href="graficos.html#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Espécie&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb34-6"><a href="graficos.html#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Comprimento da sépala (mm)&quot;</span>)</span></code></pre></div>
+<p>No exemplo abaixo, utilizamos cores diferentes para ilustrar espécies diferentes através do argumento <strong>fill = species</strong>.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="graficos.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># boxplot com cores para diferentes especies</span></span>
+<span id="cb35-2"><a href="graficos.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">y =</span> flipper_length_mm, <span class="at">x =</span> species, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb35-3"><a href="graficos.html#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
+<div id="jitter" class="section level4" number="6.4.8.4">
+<h4><span class="header-section-number">6.4.8.4</span> Jitter</h4>
+<p>Podemos ainda acrescentar pontos para mostrar a distribuição dos dados.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="graficos.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># boxplot com jitters</span></span>
+<span id="cb36-2"><a href="graficos.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">y =</span> flipper_length_mm, <span class="at">x =</span> species, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb36-3"><a href="graficos.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb36-4"><a href="graficos.html#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">size =</span> .<span class="dv">6</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 </div>
-<div id="gráfico-de-violino-violin-plot" class="section level3" number="6.4.9">
-<h3><span class="header-section-number">6.4.9</span> Gráfico de violino (<em>violin plot</em>)</h3>
+<div id="gráfico-de-violino-violin-plot" class="section level4" number="6.4.8.5">
+<h4><span class="header-section-number">6.4.8.5</span> Gráfico de violino (<em>violin plot</em>)</h4>
+<p>Além das caixas, podemos utilizar o formato de “violino” para representar a variação ao longo dos dados.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="graficos.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># violino com jitters</span></span>
+<span id="cb37-2"><a href="graficos.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">y =</span> flipper_length_mm, <span class="at">x =</span> species, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb37-3"><a href="graficos.html#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb37-4"><a href="graficos.html#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">size =</span> .<span class="dv">6</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 </div>
-<div id="gráfico-de-dispersão-scatter-plot" class="section level3" number="6.4.10">
-<h3><span class="header-section-number">6.4.10</span> Gráfico de dispersão (<em>scatter plot</em>)</h3>
-<p>Neste capítulo você irá aprender a criar <a href="https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_barras">Gráfico de dispersão</a> no R utilizando o ggplot2.</p>
-<div id="gráfico-de-dispersão-simples" class="section level4" number="6.4.10.1">
-<h4><span class="header-section-number">6.4.10.1</span> Gráfico de dispersão (simples)</h4>
-<blockquote>
-<p>O gráfico de dispersão (“scatter plot”) é um tipo de gráfico que utiliza cordenadas cartesianas para representar a relação entre duas (ou mais) variáveis de um banco de dados. Para plotar esse gráfico você deve utilizar a função ‘geom_point().’</p>
-</blockquote>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="graficos.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># carregando banco de dados</span></span>
-<span id="cb35-2"><a href="graficos.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;iris&quot;</span>)</span>
-<span id="cb35-3"><a href="graficos.html#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-4"><a href="graficos.html#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de dispersão</span></span>
-<span id="cb35-5"><a href="graficos.html#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Petal.Length, <span class="at">x =</span> Petal.Width)) <span class="sc">+</span></span>
-<span id="cb35-6"><a href="graficos.html#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="gráfico-de-caixas-bonito" class="section level4" number="6.4.8.6">
+<h4><span class="header-section-number">6.4.8.6</span> Gráfico de caixas (bonito)</h4>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="graficos.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> flipper_length_mm, <span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb38-2"><a href="graficos.html#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">3</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb38-3"><a href="graficos.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> .<span class="dv">5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb38-4"><a href="graficos.html#cb38-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">seed =</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb38-5"><a href="graficos.html#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;cyan4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb38-6"><a href="graficos.html#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
+<span id="cb38-7"><a href="graficos.html#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Species&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Flipper length (mm)&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="ajustes-básicos-2" class="section level4" number="6.4.10.2">
-<h4><span class="header-section-number">6.4.10.2</span> Ajustes básicos</h4>
+<div id="gráfico-de-violino-bonito" class="section level4" number="6.4.8.7">
+<h4><span class="header-section-number">6.4.8.7</span> Gráfico de violino (bonito)</h4>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="graficos.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> flipper_length_mm, <span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb39-2"><a href="graficos.html#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">width =</span> .<span class="dv">3</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb39-3"><a href="graficos.html#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> .<span class="dv">5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb39-4"><a href="graficos.html#cb39-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">seed =</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb39-5"><a href="graficos.html#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;cyan4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb39-6"><a href="graficos.html#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
+<span id="cb39-7"><a href="graficos.html#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Species&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Flipper length (mm)&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="gráfico-de-dispersão-scatter-plot" class="section level3" number="6.4.9">
+<h3><span class="header-section-number">6.4.9</span> Gráfico de dispersão (<em>scatter plot</em>)</h3>
+<p>Nesta seção iremos aprender a criar <a href="https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_barras">Gráfico de dispersão</a> no R utilizando o ggplot2.</p>
+<div id="gráfico-de-dispersão-simples" class="section level4" number="6.4.9.1">
+<h4><span class="header-section-number">6.4.9.1</span> Gráfico de dispersão (simples)</h4>
+<p>O gráfico de dispersão (“scatter plot”) é um tipo de gráfico que utiliza coordenadas cartesianas para representar a relação entre duas (ou mais) variáveis contínuas de um conjunto de dados.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="graficos.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de dispersão</span></span>
+<span id="cb40-2"><a href="graficos.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm)) <span class="sc">+</span></span>
+<span id="cb40-3"><a href="graficos.html#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ajustes-básicos-2" class="section level4" number="6.4.9.2">
+<h4><span class="header-section-number">6.4.9.2</span> Ajustes básicos</h4>
 <p><strong>Argumentos</strong></p>
 <ul>
-<li><strong>shape</strong> para definir o símbolo dos pontos.<br />
+<li><strong>shape</strong>: para definir o símbolo dos pontos</li>
+<li><strong>size</strong>: para definir o tamanho dos pontos<br />
 </li>
-<li><strong>size</strong> para definir o tamanho dos pontos.<br />
-</li>
-<li><strong>fill</strong> para definir a cor de preenchimento dos pontos.<br />
-</li>
-<li><strong>color</strong> para definir a cor da linha de contorno dos pontos.</li>
+<li><strong>fill</strong>: para definir a cor de preenchimento dos pontos</li>
+<li><strong>color</strong>: para definir a cor da linha de contorno dos pontos</li>
 </ul>
 </div>
-<div id="tipos-de-símbolos" class="section level4" number="6.4.10.3">
-<h4><span class="header-section-number">6.4.10.3</span> Tipos de símbolos</h4>
-<p>O tipo de símbolo que será plotado é definido pelo argumento “shape =” dentro da função ‘geom_point().’
-As opções disponíveis são:</p>
-<p><img src="img/shapes.png" width="100%" /></p>
+<div id="tipos-de-símbolos" class="section level4" number="6.4.9.3">
+<h4><span class="header-section-number">6.4.9.3</span> Tipos de símbolos</h4>
+<p>O tipo de símbolo que será plotado é definido pelo argumento <strong>shape</strong>. Existem diversas oções (<a href="graficos.html#fig:fig-point-shape">6.1</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-point-shape"></span>
+<img src="img/cap05_fig01.png" alt="Tipos de símbolos disponíveis." width="50%" />
+<p class="caption">
+Figura 6.1: Tipos de símbolos disponíveis.
+</p>
 </div>
-<div id="símbolo" class="section level4" number="6.4.10.4">
-<h4><span class="header-section-number">6.4.10.4</span> Símbolo</h4>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="graficos.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de dispersão com shape 1</span></span>
-<span id="cb36-2"><a href="graficos.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Petal.Length, <span class="at">x =</span> Petal.Width)) <span class="sc">+</span></span>
-<span id="cb36-3"><a href="graficos.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-30-1.png" width="50%" /></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="graficos.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de dispersão com shape 1</span></span>
-<span id="cb37-2"><a href="graficos.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Petal.Length, <span class="at">x =</span> Petal.Width)) <span class="sc">+</span></span>
-<span id="cb37-3"><a href="graficos.html#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">17</span>, <span class="at">size =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-30-2.png" width="50%" /></p>
 </div>
-<div id="tamanho" class="section level4" number="6.4.10.5">
-<h4><span class="header-section-number">6.4.10.5</span> Tamanho</h4>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="graficos.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de dispersão com shape 1</span></span>
-<span id="cb38-2"><a href="graficos.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Petal.Length, <span class="at">x =</span> Petal.Width)) <span class="sc">+</span></span>
-<span id="cb38-3"><a href="graficos.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-31-1.png" width="50%" /></p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="graficos.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de dispersão com shape 1</span></span>
-<span id="cb39-2"><a href="graficos.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Petal.Length, <span class="at">x =</span> Petal.Width)) <span class="sc">+</span></span>
-<span id="cb39-3"><a href="graficos.html#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>)</span></code></pre></div>
-<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-31-2.png" width="50%" /></p>
-</div>
-<div id="cor-e-preenchimento-2" class="section level4" number="6.4.10.6">
-<h4><span class="header-section-number">6.4.10.6</span> Cor e preenchimento</h4>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="graficos.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alterando cor e preenchimento</span></span>
-<span id="cb40-2"><a href="graficos.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Petal.Length, <span class="at">x =</span> Petal.Width)) <span class="sc">+</span></span>
-<span id="cb40-3"><a href="graficos.html#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;red&quot;</span>, <span class="at">shape =</span> <span class="dv">21</span>)</span></code></pre></div>
+<div id="símbolo" class="section level4" number="6.4.9.4">
+<h4><span class="header-section-number">6.4.9.4</span> Símbolo</h4>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="graficos.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de dispersao com shape 1</span></span>
+<span id="cb41-2"><a href="graficos.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm)) <span class="sc">+</span></span>
+<span id="cb41-3"><a href="graficos.html#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-32-1.png" width="50%" /></p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="graficos.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alterando cor e preenchimento</span></span>
-<span id="cb41-2"><a href="graficos.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Petal.Length, <span class="at">x =</span> Petal.Width)) <span class="sc">+</span></span>
-<span id="cb41-3"><a href="graficos.html#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>, <span class="at">shape =</span> <span class="dv">21</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="graficos.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de dispersao com shape 17</span></span>
+<span id="cb42-2"><a href="graficos.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm)) <span class="sc">+</span></span>
+<span id="cb42-3"><a href="graficos.html#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">17</span>, <span class="at">size =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-32-2.png" width="50%" /></p>
 </div>
-<div id="gráfico-de-dispersão-bonito" class="section level4" number="6.4.10.7">
-<h4><span class="header-section-number">6.4.10.7</span> Gráfico de dispersão (bonito)</h4>
-<p>Todo o final de capítulo temos a demonstração de um gráfico mais elegante.
-Veja o capítulo XXX para mais detalhes de como manipular cada detalhe do seu gráfico com o ggplot2, mas ao observar o script abaixo você pode ir aprendendo com cada exemplo.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="graficos.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico de Barras</span></span>
-<span id="cb42-2"><a href="graficos.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">y =</span> Petal.Length, <span class="at">x =</span> Sepal.Length ,</span>
-<span id="cb42-3"><a href="graficos.html#cb42-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">shape =</span> Species, <span class="at">color =</span> Species)) <span class="sc">+</span></span>
-<span id="cb42-4"><a href="graficos.html#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> .<span class="dv">7</span>) <span class="sc">+</span></span>
-<span id="cb42-5"><a href="graficos.html#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">7</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">6</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb42-6"><a href="graficos.html#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
-<span id="cb42-7"><a href="graficos.html#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>) <span class="sc">+</span></span>
-<span id="cb42-8"><a href="graficos.html#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Largura das Pétalas (mm)&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb42-9"><a href="graficos.html#cb42-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Comprimento das Pétalas (cm)&quot;</span>) </span></code></pre></div>
-<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-33-1.png" width="70%" /></p>
+<div id="tamanho" class="section level4" number="6.4.9.5">
+<h4><span class="header-section-number">6.4.9.5</span> Tamanho</h4>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="graficos.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de dispersao com size 1</span></span>
+<span id="cb43-2"><a href="graficos.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm)) <span class="sc">+</span></span>
+<span id="cb43-3"><a href="graficos.html#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-33-1.png" width="50%" /></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="graficos.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de dispersao com size 5</span></span>
+<span id="cb44-2"><a href="graficos.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm)) <span class="sc">+</span></span>
+<span id="cb44-3"><a href="graficos.html#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-33-2.png" width="50%" /></p>
+</div>
+<div id="cor-e-preenchimento-2" class="section level4" number="6.4.9.6">
+<h4><span class="header-section-number">6.4.9.6</span> Cor e preenchimento</h4>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="graficos.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># alterando cor e preenchimento</span></span>
+<span id="cb45-2"><a href="graficos.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm)) <span class="sc">+</span></span>
+<span id="cb45-3"><a href="graficos.html#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;red&quot;</span>, <span class="at">shape =</span> <span class="dv">21</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-34-1.png" width="50%" /></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="graficos.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># alterando cor e preenchimento</span></span>
+<span id="cb46-2"><a href="graficos.html#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm)) <span class="sc">+</span></span>
+<span id="cb46-3"><a href="graficos.html#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>, <span class="at">shape =</span> <span class="dv">21</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-34-2.png" width="50%" /></p>
+</div>
+<div id="gráfico-de-dispersão-bonito" class="section level4" number="6.4.9.7">
+<h4><span class="header-section-number">6.4.9.7</span> Gráfico de dispersão (bonito)</h4>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="graficos.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de dispersao</span></span>
+<span id="cb47-2"><a href="graficos.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm)) <span class="sc">+</span></span>
+<span id="cb47-3"><a href="graficos.html#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb47-4"><a href="graficos.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;gray50&quot;</span>) <span class="sc">+</span></span>
+<span id="cb47-5"><a href="graficos.html#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
+<span id="cb47-6"><a href="graficos.html#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Comprimento do bico (mm)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Profundidade do bico (mm)&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-35-1.png" width="70%" /></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="graficos.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de dispersao</span></span>
+<span id="cb48-2"><a href="graficos.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> species, <span class="at">shape =</span> species)) <span class="sc">+</span></span>
+<span id="cb48-3"><a href="graficos.html#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb48-4"><a href="graficos.html#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb48-5"><a href="graficos.html#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;cyan4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb48-6"><a href="graficos.html#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
+<span id="cb48-7"><a href="graficos.html#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Comprimento do bico (mm)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Profundidade do bico (mm)&quot;</span>, </span>
+<span id="cb48-8"><a href="graficos.html#cb48-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Espécies&quot;</span>, <span class="at">shape =</span> <span class="st">&quot;Espécies&quot;</span>)</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-36-1.png" width="70%" /></p>
+<p>Além disso, podemos relacionar dados não tão usuais… Recomendamos muito a leitura desse artigo (Matejka &amp; Fitzmaurice 2017) sobre as armadilhas que dados podem passar, quando não analisar sua relação visualmente através de um gráfico.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="graficos.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># package</span></span>
+<span id="cb49-2"><a href="graficos.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datasauRus)</span>
+<span id="cb49-3"><a href="graficos.html#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="graficos.html#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co"># data + plot</span></span>
+<span id="cb49-5"><a href="graficos.html#cb49-5" aria-hidden="true" tabindex="-1"></a>datasaurus_dozen <span class="sc">%&gt;%</span> </span>
+<span id="cb49-6"><a href="graficos.html#cb49-6" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(dataset <span class="sc">==</span> <span class="st">&quot;dino&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb49-7"><a href="graficos.html#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb49-8"><a href="graficos.html#cb49-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y) <span class="sc">+</span></span>
+<span id="cb49-9"><a href="graficos.html#cb49-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;black&quot;</span>, </span>
+<span id="cb49-10"><a href="graficos.html#cb49-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">size =</span> <span class="dv">5</span>, <span class="at">alpha =</span> .<span class="dv">75</span>, <span class="at">pch =</span> <span class="dv">21</span>) <span class="sc">+</span></span>
+<span id="cb49-11"><a href="graficos.html#cb49-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb49-12"><a href="graficos.html#cb49-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">24</span>),</span>
+<span id="cb49-13"><a href="graficos.html#cb49-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>),</span>
+<span id="cb49-14"><a href="graficos.html#cb49-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
 </div>
 </div>
-<div id="gráfico-pareado-pairs-plot" class="section level3" number="6.4.11">
-<h3><span class="header-section-number">6.4.11</span> Gráfico pareado (<em>pairs plot</em>)</h3>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="graficos.html#cb43-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
-<span id="cb43-2"><a href="graficos.html#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, flipper_length_mm, <span class="fu">ends_with</span>(<span class="st">&quot;_mm&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb43-3"><a href="graficos.html#cb43-3" aria-hidden="true" tabindex="-1"></a>  GGally<span class="sc">::</span><span class="fu">ggpairs</span>(<span class="fu">aes</span>(<span class="at">color =</span> species)) <span class="sc">+</span></span>
-<span id="cb43-4"><a href="graficos.html#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;cyan4&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb43-5"><a href="graficos.html#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;cyan4&quot;</span>))</span></code></pre></div>
-<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<div id="gráfico-pareado-pairs-plot" class="section level3" number="6.4.10">
+<h3><span class="header-section-number">6.4.10</span> Gráfico pareado (<em>pairs plot</em>)</h3>
+<p>Muitas vezes precisamos plotar a relação de mais de uma variável, e muitas vezes essas variáveis são mais de um tipo. O gráfico mais indicado nesse casos é o gráfico pareado (Emerson et al. 2013 - <a href="https://doi.org/10.1080/10618600.2012.694762" class="uri">https://doi.org/10.1080/10618600.2012.694762</a>) que nos auxiliam à ter uma visão geral do conjunto de dados.</p>
+<div id="gráfico-pareado-com-variáveis-contínuas" class="section level4" number="6.4.10.1">
+<h4><span class="header-section-number">6.4.10.1</span> Gráfico pareado com variáveis contínuas</h4>
+<p>O gráfico pareado mais comum é o que relaciona apenas variáveis contínuas.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="graficos.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico pareado com variáveis contínuas</span></span>
+<span id="cb50-2"><a href="graficos.html#cb50-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb50-3"><a href="graficos.html#cb50-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(body_mass_g, <span class="fu">ends_with</span>(<span class="st">&quot;_mm&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb50-4"><a href="graficos.html#cb50-4" aria-hidden="true" tabindex="-1"></a>  GGally<span class="sc">::</span><span class="fu">ggpairs</span>(<span class="fu">aes</span>(<span class="at">color =</span> penguins<span class="sc">$</span>species)) <span class="sc">+</span></span>
+<span id="cb50-5"><a href="graficos.html#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;cyan4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb50-6"><a href="graficos.html#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;cyan4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb50-7"><a href="graficos.html#cb50-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+</div>
+<div id="gráfico-pareado-com-vários-tipos-de-variáveis" class="section level4" number="6.4.10.2">
+<h4><span class="header-section-number">6.4.10.2</span> Gráfico pareado com vários tipos de variáveis</h4>
+<p>Mas também podemos usar variáveis categóricas para ter uma visão geral dos dados.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="graficos.html#cb51-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb51-2"><a href="graficos.html#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, sex, body_mass_g, <span class="fu">ends_with</span>(<span class="st">&quot;_mm&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb51-3"><a href="graficos.html#cb51-3" aria-hidden="true" tabindex="-1"></a>  GGally<span class="sc">::</span><span class="fu">ggpairs</span>(<span class="fu">aes</span>(<span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb51-4"><a href="graficos.html#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;cyan4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb51-5"><a href="graficos.html#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;cyan4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb51-6"><a href="graficos.html#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="livro_r_ecologia_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+</div>
 </div>
 </div>
 <div id="finalização-de-gráficos-para-publicação" class="section level2" number="6.5">

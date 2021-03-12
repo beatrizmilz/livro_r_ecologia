@@ -28,16 +28,16 @@ Fazemos aqui uma listagem dos principais pacotes para fazer gráficos:
 
 
     ggplot(data = <DATA>) + 
-      <GEOM_FUNCTION>(
-         mapping = aes(<MAPPINGS>),
-         stat = <STAT>, 
-         position = <POSITION>
-      ) +
-      <COORDINATE_FUNCTION> +
-      <FACET_FUNCTION> +
-      <SCALE_FUNCTION> +
-      <THEME_FUNCTION>
-      
+    <GEOM_FUNCTION>(
+           mapping = aes(<MAPPINGS>),
+           stat = <STAT>, 
+           position = <POSITION>
+    ) +
+    <COORDINATE_FUNCTION> +
+    <FACET_FUNCTION> +
+    <SCALE_FUNCTION> +
+    <THEME_FUNCTION>
+
 ### ggplot2
 
 ```{r}
@@ -45,7 +45,7 @@ Fazemos aqui uma listagem dos principais pacotes para fazer gráficos:
 library(ggplot2)
 library(tidyverse)
 ```
-      
+
 ## Guia de bolso de gráficos no R
 
 Existem vários tipos de gráficos para diferentes tipos de finalidades, até mesmo mais de um para representar o mesmo tipo de dado. Nesta seção, focaremos nos gráficos mais simples, para representar um ou duas variáveis.
@@ -63,8 +63,7 @@ Nesta seção, listamos os principais gráficos, e uma descrição de quantas co
 - **Diagrama de pontos (*dot plot*)**: distribuição da quantidade de valores agrupados de uma coluna para dados contínuos
 - **Gráfico de setores (*pie chart* e *donut chart*)**: representação da quantidade de valores de uma coluna para dados categóricos, geralmente em proporção ou porcentagem
 - **Gráfico de barras (*bar plot*)**: representação da quantidade de valores de uma ou mais colunas para dados categóricos
-- **Gráfico de caixa (*box plot*)**: distribuição de valores contínuos de uma coluna (Y) para dois ou mais fatores categóricos de outra coluna (X) no formato de caixas
-- **Gráfico de violino (*violin plot*)**: distribuição de valores contínuos de uma coluna (Y) para dois ou mais fatores categóricos de outra coluna (X) no formato de "violinos" (considerando a variação)
+- **Gráfico de caixa (*box plot* e *violin plot*)**: distribuição de valores contínuos de uma coluna (Y) para dois ou mais fatores categóricos de outra coluna (X) no formato de caixas e também no formato de "violinos" (considerando a variação)
 - **Gráfico de dispersão (*scatter plot*)**: relação entre valores de duas colunas para dados contínuos (X e Y)
 - **Gráfico pareado (*pairs plot*)**: relação entre valores de duas colunas para dados contínuos (X e Y), para colunas par a par
 
@@ -98,7 +97,7 @@ Nesta seção iremos apresentar [histogramas](https://pt.wikipedia.org/wiki/Hist
 
 Vamos utilizar o conjunto de dados *palmerpenguins*, para plotar a distribuição da variável **flipper_length_mm** em um gráfico de histograma. A função `geom_hitogram()` plota uma variável contínua no eixo x e a frequência de cada categoria no eixo y. 
 
-```{r message=FALSE, warning=FALSE, , fig.align='center'}
+```{r message=FALSE, warning=FALSE, fig.align='center'}
 # histograma de uma variavel continua
 ggplot(data = penguins, aes(x = flipper_length_mm)) +
   geom_histogram()
@@ -106,7 +105,7 @@ ggplot(data = penguins, aes(x = flipper_length_mm)) +
 
 #### Número de classes
 
-Vamos utilizar o __argumento__ `bins` para definir em quantas classes a variável __x__ deve ser dividida.
+Vamos utilizar o **argumento** `bins` para definir em quantas classes a variável **x** deve ser dividida.
 
 ```{r message=FALSE, warning=FALSE, out.width="50%" }
 # histograma com 10 classes
@@ -141,27 +140,26 @@ ggplot(data = penguins, aes(x = flipper_length_mm, fill = species)) +
 No final de cada seção, iremos demonstrar de um gráfico mais elegante. 
 Veja a seção XX para mais detalhes de como manipular cada detalhe do gráfico com o pacote *ggplot2*.
 
-```{r message=FALSE, warning=FALSE, , fig.align='center'}
+```{r message=FALSE, warning=FALSE, fig.align='center'}
 # Histogram example: flipper length by species
 ggplot(data = penguins, aes(x = flipper_length_mm, fill = species)) +
   geom_histogram(alpha = .5, position = "identity") +
   scale_fill_manual(values = c("darkorange", "darkorchid", "cyan4")) +
   theme_classic(base_size = 18) +
-  xlab("Comprimento da nadadeira (mm)") + 
-  ylab("Frequência")
+  labs(x = "Comprimento da nadadeira (mm)", y = "Frequência", fill = "Espécies")
 ```
 
 ### Gráfico de densidade (*density plot*) {#dens}
 
 Nesta seção iremos aprender a criar um [gráfico de densidade](https://datavizcatalogue.com/methods/density_plot.html) no R utilizando o ggplot2.
 
-O __gráfico de densidade__ é utilizado para visualizar a distribuição de uma variável contínua em intervalos. Esse gráfico é uma variação do Histograma (ver seção \@ref(hist)) que utiliza [Kernel Smoother](https://en.wikipedia.org/wiki/Kernel_smoother).   
+O **gráfico de densidade** é utilizado para visualizar a distribuição de uma variável contínua em intervalos. Esse gráfico é uma variação do Histograma (ver seção \@ref(hist)) que utiliza [Kernel Smoother](https://en.wikipedia.org/wiki/Kernel_smoother).   
 
 #### Gráfico de densidade (simples)
 
 Vamos utilizar o conjunto de dados *palmerpenguins*, para plotar a distribuição da variável **flipper_length_mm** em um Gráfico de densidade. Utilizaremos a função `geom_density()` para plotar uma variável no eixo x.
 
-```{r message=FALSE, warning=FALSE, , fig.align='center'}
+```{r message=FALSE, warning=FALSE, fig.align='center'}
 # Gráfico de densidade de uma variavel continua
 ggplot(data = penguins, aes(x = flipper_length_mm)) +
   geom_density()
@@ -199,7 +197,7 @@ ggplot(data = penguins, aes(x = flipper_length_mm, fill = species)) +
 
 #### Gráfico de densidade (bonito)
 
-```{r message=FALSE, warning=FALSE, , fig.align='center'}
+```{r message=FALSE, warning=FALSE, fig.align='center'}
 ggplot(data = penguins, aes(x = flipper_length_mm, fill = species)) +
   geom_density(alpha = .5) +
   theme_classic(base_size = 18) +
@@ -207,15 +205,14 @@ ggplot(data = penguins, aes(x = flipper_length_mm, fill = species)) +
   scale_x_continuous(breaks = seq(from = 160, to = 240, by = 10), limits = c(160, 240)) +
   scale_y_continuous(breaks = seq(from = 0, to = .07, by = .01)) +
   theme_classic(base_size = 18) +
-  xlab("Comprimento da nadadeira (mm)") + 
-  ylab("Densidade")
+  labs(x = "Comprimento da nadadeira (mm)", y = "Frequência", fill = "Espécies")
 ```
 
 ### Diagrama de pontos (*dot plot*) {#dot}
 
 Nesta seção iremos aprender a criar um [Dot plot](https://en.wikipedia.org/wiki/Dot_plot_(statistics)) no R utilizando o ggplot2.
 
-#### Dotplot (simples)
+#### Diagrama de pontos (simples)
 
 ```{r message=FALSE, warning=FALSE, fig.align='center'}
 ggplot(data = penguins, aes(x = flipper_length_mm)) +
@@ -224,7 +221,7 @@ ggplot(data = penguins, aes(x = flipper_length_mm)) +
 
 #### Ajustes básicos
 
-__Argumentos__   
+**Argumentos**   
 
 - **fill**: para definir a cor de preenchimento dos pontos
 - **color**: para definir a cor da linha de contorno dos pontos 
@@ -241,274 +238,374 @@ ggplot(data = penguins, aes(x = flipper_length_mm)) +
 
 #### Dotplot (bonito)
 
-```{r message=FALSE, warning=FALSE, , fig.align='center'}
-ggplot(data = penguins, aes(x = flipper_length_mm)) +
-  geom_dotplot(color = "white", fill = "Tomato") +
+```{r message=FALSE, warning=FALSE, fig.align='center'}
+ggplot(data = penguins, aes(x = flipper_length_mm, fill = species)) +
+  geom_dotplot(color = "white", alpha = .7) +
   theme_classic(base_size = 18) +
-  scale_y_continuous(breaks = seq(from = 0, to = 1.2, by = .1)) +
-  xlab("Comprimento da nadadeira (mm)") + 
-  ylab("Frequência")
+  scale_fill_manual(values = c("darkorange", "darkorchid", "cyan4")) +
+  scale_x_continuous(breaks = seq(from = 170, to = 240, by = 10), limits = c(170, 240)) +
+  scale_y_continuous(breaks = seq(from = 0, to = 1.2, by = .1), limits = c(0, 1.2)) +
+  labs(x = "Comprimento da nadadeira (mm)", y = "Frequência", fill = "Espécies")
 ```
-
-### Gráfico de setores (*pie chart* e *donut chart*)
 
 ### Gráfico de barras (*bar plot*) {#bars}
 
-Nesta seção você irá aprender a criar [Gráfico de Barra](https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_barras) no R utilizando o ggplot2.
+Nesta seção iremos aprender a criar [Gráfico de Barra](https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_barras) no R utilizando o ggplot2.
 
 #### Gráfico de Barras (simples)
 
-O gráfico de barras utiliza retângulos para repsentar uma variável contínua, sendo que o comprimeno dos retângulos é proporcional ao valor que ele está representando. A função `geom_bar()` plota uma variável contínua em função de uma variável categórica no eixo x. 
+O gráfico de barras utiliza retângulos para representar uma variável contínua ou a contagem de uma variável categórica, sendo que o comprimeno dos retângulos é proporcional ao valor que ele está representando.
 
-```{r message=FALSE, warning=FALSE, , fig.align='center'}
-# Simulando um banco de dados
-df <- data.frame(tratamento = c("a", "b", "c"),
-                 tamanho = c(1.3, 1.9, 3.2))
+```{r message=FALSE, warning=FALSE, fig.align='center'}
+# resumindo o conjunto de dados
+penguins_count <- penguins %>%
+  dplyr::count(species)
 
-# Boxplot
-ggplot(df, aes(y = tamanho, x = tratamento)) +
+# grafico de barras
+ggplot(data = penguins_count, aes(x = species, y = n)) + 
   geom_bar(stat = "identity")
 ```
 
 #### Ajustes básicos
 
-__Argumentos__   
+**Argumentos**   
 
-- **width** para definir a largura das barras.
-- **fill** para definir a cor de preenchimento das barras.
-- **color** para definir a cor da linha de contorno das barras.
+- **width**: para definir a largura das barras
+- **fill**: para definir a cor de preenchimento das barras
+- **color**: para definir a cor da linha de contorno das barras
 
 ##### Cor e preenchimento
 
 ```{r message=FALSE, warning=FALSE, out.width="50%"}
-#Gráfico de Barras com preenchimento colorido
-ggplot(df, aes(y = tamanho, x = tratamento)) +
-  geom_bar(stat = "identity", fill = "tomato")
-#Gráfico de Barras com contorno colorido
-ggplot(df, aes(y = tamanho, x = tratamento)) +
-  geom_bar(stat = "identity", color = "tomato")
+# grafico de barras com preenchimento colorido
+ggplot(data = penguins_count, aes(x = species, y = n)) + 
+  geom_bar(stat = "identity", fill = "steelblue")
 
+# grafico de barras com contorno colorido
+ggplot(data = penguins_count, aes(x = species, y = n)) + 
+  geom_bar(stat = "identity", color = "steelblue")
 ```
 
 ##### Largura das barras
 
 ```{r message=FALSE, warning=FALSE, out.width="50%"}
-#Gráfico de Barras com largura modificada
-ggplot(df, aes(y = tamanho, x = tratamento)) +
+# grafico de barras com largura modificada
+ggplot(data = penguins_count, aes(x = species, y = n)) +
   geom_bar(stat = "identity", width = .75) +
   ggtitle("width = .75")
-#Gráfico de Barras com largura modificada
-ggplot(df, aes(y = tamanho, x = tratamento)) +
-  geom_bar(stat = "identity", width = 0.25) +
+
+# grafico de barras com largura modificada
+ggplot(data = penguins_count, aes(x = species, y = n)) +
+  geom_bar(stat = "identity", width = .25) +
   ggtitle("width = .25") 
 ```
 
 ##### Orientação das barras
 
 ```{r message=FALSE, warning=FALSE, out.width="50%"}
-#Gráfico de Barras Vertical
-ggplot(df, aes(y = tamanho, x = tratamento)) +
+# grafico de barras vertical
+ggplot(data = penguins_count, aes(x = species, y = n)) +
   geom_bar(stat = "identity")
 
-#Gráfico de Barras Horizontal
-ggplot(df, aes(y = tamanho, x = tratamento)) +
+# grafico de barras horizontal
+ggplot(data = penguins_count, aes(x = species, y = n)) +
   geom_bar(stat = "identity") + 
   coord_flip()
 ```
 
 ##### Colorindo por categoria
 
-No exemplo abaixo, utilizamos cores diferentes para ilustrar os tratamentos diferentes através do argumento `fill = tratamento`.
+No exemplo abaixo, utilizamos cores diferentes para ilustrar os tratamentos diferentes através do argumento **fill = species**.
 
-```{r message=FALSE, warning=FALSE, , fig.align='center'}
-#Gráfico de Barras com preenchimento colorido
-ggplot(df, aes(y = tamanho, x = tratamento, fill = tratamento)) +
+```{r message=FALSE, warning=FALSE, fig.align='center'}
+# grafico de barras com preenchimento colorido
+ggplot(data = penguins_count, aes(x = species, y = n, fill = species)) +
   geom_bar(stat = "identity")
 ```
 
 ##### Gráfico de barras (bonito)
 
-Todo o final de capítulo temos a demonstração de um gráfico mais elegante. 
-Veja o capítulo XXX para mais detalhes de como manipular cada detalhe do seu gráfico com o ggplot2, mas ao observar o script abaixo você pode ir aprendendo com cada exemplo.
-
 ```{r message=FALSE, warning=FALSE, out.width="70%"}
-#Gráfico de Barras
-ggplot(df, aes(y = tamanho, x = tratamento)) +
-  geom_bar(stat = "identity", fill = gray(.3)) +
-  scale_y_continuous(limits = c(0,3.5), breaks = seq(0,3.5,.5)) +
+# grafico de barras
+ggplot(data = penguins_count, aes(x = species, y = n, fill = species)) +
+  geom_bar(stat = "identity") +
+  geom_label(aes(label = n), fill = "white") +
   theme_classic(base_size = 18) +
-  xlab("Tratamento") + 
-  ylab("Comprimento da plântula (cm)") 
+  scale_fill_manual(values = c("darkorange", "purple", "cyan4")) +
+  labs(x = "Espécies", y = "Frequência", fill = "Espécies")
 ```
 
+### Gráfico de setores (*pie chart* e *donut chart*)
+
+Nesta seção iremos aprender a criar [Gráfico de Setores](https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_setores) no R utilizando o ggplot2.
+
+#### Gráfico de setores (*pie*)
+
+```{r}
+# resumindo o conjunto de dados
+penguins_prop <- penguins %>%
+  dplyr::count(species) %>% 
+  dplyr::mutate(prop = round(n/sum(n), 4)*100)
+
+# grafico de setores - pie
+ggplot(data = penguins_prop, aes(x = "", y = prop, fill = species)) + 
+  geom_bar(stat = "identity", color = "white") +
+  coord_polar("y", start = 0) +
+  geom_text(aes(label = paste0(prop, "%")), color = "white", 
+            position = position_stack(vjust = 0.5), size = 8) +
+  scale_fill_manual(values = c("darkorange", "purple", "cyan4")) +
+  theme_void() +
+  labs(fill = "Espécies")
+```
+
+#### Gráfico de setores (*donut*)
+
+```{r}
+# grafico de setores - donut
+ggplot(data = penguins_prop, aes(x = 2, y = prop, fill = species)) +
+  geom_bar(stat = "identity") +
+  coord_polar(theta = "y", start = 0) +
+  geom_text(aes(label = paste0(prop, "%")), color = "white",
+            position = position_stack(vjust = .5), size = 5) +
+  scale_fill_manual(values = c("darkorange", "purple", "cyan4")) +
+  xlim(0, 2.5) +
+  theme_void() +
+  theme(legend.position = c(.5, .5),
+        legend.title = element_text(size = 20),
+        legend.text = element_text(size = 15)) +
+  labs(fill = "Espécies")
+```
 
 ### Gráfico de caixa (*box plot*)
 
-```{r echo=F}
-library(ggplot2)
-```
-
-Nesta seção você irá aprender a criar [boxplots](https://pt.wikipedia.org/wiki/Diagrama_de_caixa) no R utilizando o ggplot2.
+Nesta seção iremos aprender a criar [box plots](https://pt.wikipedia.org/wiki/Diagrama_de_caixa) no R utilizando o ggplot2.
 
 #### Boxplot (simples)
 
-Utilize o banco de dados `iris`, para plotar um diagrama de caixa (boxplot). A função `geom_boxplot()` plota uma variável contínua (Sepal.Length) no eixo y em função de uma variável categórica no eixo x (Species). A definição de qual coluna do bando de dados é a x e qual é a y é feita dentro do comendo `aes()`. 
+Vamos plotar uma variável contínua (flipper_length_mm) no eixo y em função de uma variável categórica no eixo x (species). A definição de qual coluna do bando de dados é a x e qual é a y é feita dentro do comendo `aes()`. 
 
-```{r message=FALSE, warning=FALSE, , fig.align='center'}
-# Carrgue um banco de dados
-data("iris")
-
-# Boxplot
-ggplot(iris, aes(y = Sepal.Length, x = Species)) +
+```{r message=FALSE, warning=FALSE, fig.align='center'}
+# box plot
+ggplot(penguins, aes(y = flipper_length_mm, x = species)) +
   geom_boxplot()
 ```
 
 #### Destque para os outliers
 
-Utilize o __argumento__ `outlier.color` para definir a cor dos outliers.
+Utilizamos o argumento **outlier.color** para definir a cor dos outliers.
 
-```{r message=FALSE, warning=FALSE, , fig.align='center'}
-ggplot(iris, aes(y = Sepal.Length, x = Species)) +
+```{r message=FALSE, warning=FALSE, fig.align='center'}
+ggplot(penguins, aes(y = flipper_length_mm, x = species)) +
   geom_boxplot(outlier.color = "red")
 ```
 
-Utilize o __argumento__ `notch = T` para produzir diagramas de caixa entalhados (notched). 
-Estes diagramas são úteis para inferir de forma aproximada se exite diferença significativa entre as medias dos grupos. 
+Utilizamos o argumento **notch = TRUE** para produzir diagramas de caixa entalhados (notched). Estes diagramas são úteis para inferir de forma aproximada se exite diferença significativa entre as medias dos grupos. 
 
-```{r message=FALSE, warning=FALSE, , fig.align='center'}
-ggplot(iris, aes(y = Sepal.Length, x = Species)) +
-  geom_boxplot(notch = T)
+```{r message=FALSE, warning=FALSE, fig.align='center'}
+ggplot(penguins, aes(y = flipper_length_mm, x = species)) +
+  geom_boxplot(notch = TRUE)
 ```
 
 #### Colorindo por categoria
 
-No exemplo abaixo, utilizamos cores diferentes para ilustrar espécies diferentes através do argumento `fill = Species`.
+No exemplo abaixo, utilizamos cores diferentes para ilustrar espécies diferentes através do argumento **fill = species**.
 
-```{r message=FALSE, warning=FALSE, , fig.align='center'}
-# Histograma com cores para diferentes categorias com sobreposição
-ggplot(iris, aes(y = Sepal.Length, x = Species, fill = Species)) +
-  geom_boxplot() 
+```{r message=FALSE, warning=FALSE, fig.align='center'}
+# boxplot com cores para diferentes especies
+ggplot(penguins, aes(y = flipper_length_mm, x = species, fill = species)) +
+  geom_boxplot()
+```
+
+#### Jitter
+
+Podemos ainda acrescentar pontos para mostrar a distribuição dos dados.
+
+```{r}
+# boxplot com jitters
+ggplot(penguins, aes(y = flipper_length_mm, x = species, fill = species)) +
+  geom_boxplot() +
+  geom_jitter(size = .6)
+```
+
+#### Gráfico de violino (*violin plot*)
+
+Além das caixas, podemos utilizar o formato de "violino" para representar a variação ao longo dos dados.
+
+```{r}
+# violino com jitters
+ggplot(penguins, aes(y = flipper_length_mm, x = species, fill = species)) +
+  geom_violin() +
+  geom_jitter(size = .6)
 ```
 
 #### Gráfico de caixas (bonito)
 
-Todo o final de capítulo temos a demonstração de um gráfico mais elegante. 
-Veja o capítulo XXX para mais detalhes de como manipular cada detalhe do seu gráfico com o ggplot2, mas ao observar o script abaixo você pode ir aprendendo com cada exemplo.
-
-```{r message=FALSE, warning=FALSE, , fig.align='center'}
-ggplot(iris, aes(y = Sepal.Length, x = Species, fill = Species)) +
-  geom_boxplot(show.legend = F, alpha = .5) +
-  scale_y_continuous(limits = c(4,8), breaks = seq(4,8,1)) +
+```{r message=FALSE, warning=FALSE, fig.align='center'}
+ggplot(data = penguins, aes(x = species, y = flipper_length_mm, color = species)) +
+  geom_boxplot(width = .3, show.legend = FALSE) +
+  geom_jitter(alpha = .5, show.legend = FALSE, 
+              position = position_jitter(width = .2, seed = 0)) +
+  scale_color_manual(values = c("darkorange", "purple", "cyan4")) +
   theme_classic(base_size = 18) +
-  xlab("Espécie") + 
-  ylab("Comprimento da nadadeira (mm)")
+  labs(x = "Species", y = "Flipper length (mm)")
 ```
 
-### Gráfico de violino (*violin plot*)
+#### Gráfico de violino (bonito)
+
+```{r message=FALSE, warning=FALSE, fig.align='center'}
+ggplot(data = penguins, aes(x = species, y = flipper_length_mm, color = species)) +
+  geom_violin(width = .3, show.legend = FALSE) +
+  geom_jitter(alpha = .5, show.legend = FALSE, 
+              position = position_jitter(width = .2, seed = 0)) +
+  scale_color_manual(values = c("darkorange", "purple", "cyan4")) +
+  theme_classic(base_size = 18) +
+  labs(x = "Species", y = "Flipper length (mm)")
+```
 
 ### Gráfico de dispersão (*scatter plot*)
 
-```{r echo=F}
-library(ggplot2)
-```
-
-Nesta seção você irá aprender a criar [Gráfico de dispersão](https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_barras) no R utilizando o ggplot2.
+Nesta seção iremos aprender a criar [Gráfico de dispersão](https://pt.wikipedia.org/wiki/Gr%C3%A1fico_de_barras) no R utilizando o ggplot2.
 
 #### Gráfico de dispersão (simples)
 
-> O gráfico de dispersão ("scatter plot") é um tipo de gráfico que utiliza cordenadas cartesianas para representar a relação entre duas (ou mais) variáveis de um banco de dados. Para plotar esse gráfico você deve utilizar a função 'geom_point()'.
+O gráfico de dispersão ("scatter plot") é um tipo de gráfico que utiliza coordenadas cartesianas para representar a relação entre duas (ou mais) variáveis contínuas de um conjunto de dados.
 
-```{r message=FALSE, warning=FALSE, , fig.align='center'}
-# carregando banco de dados
-data("iris")
-
-# Gráfico de dispersão
-ggplot(iris, aes(y = Petal.Length, x = Petal.Width)) +
+```{r message=FALSE, warning=FALSE, fig.align='center'}
+# grafico de dispersão
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
   geom_point()
 ```
 
 #### Ajustes básicos
 
-__Argumentos__   
+**Argumentos**   
 
-- **shape** para definir o símbolo dos pontos.  
-- **size** para definir o tamanho dos pontos.  
-- **fill** para definir a cor de preenchimento dos pontos.  
-- **color** para definir a cor da linha de contorno dos pontos.  
+- **shape**: para definir o símbolo dos pontos
+- **size**: para definir o tamanho dos pontos  
+- **fill**: para definir a cor de preenchimento dos pontos
+- **color**: para definir a cor da linha de contorno dos pontos
 
 #### Tipos de símbolos
 
-O tipo de símbolo que será plotado é definido pelo argumento "shape =" dentro da função 'geom_point()'.
-As opções disponíveis são:
+O tipo de símbolo que será plotado é definido pelo argumento **shape**. Existem diversas oções (\@ref(fig:fig-point-shape)).
 
-```{r out.width ="100%", echo=F}
-knitr::include_graphics("img/shapes.png")
+```{r fig-point-shape, out.width ="50%", fig.align="center", echo=FALSE, fig.cap="Tipos de símbolos disponíveis."}
+knitr::include_graphics("img/cap05_fig01.png")
 ```
 
 #### Símbolo
 
 ```{r message=FALSE, warning=FALSE, out.width="50%"}
-#Gráfico de dispersão com shape 1
-ggplot(iris, aes(y = Petal.Length, x = Petal.Width)) +
+# grafico de dispersao com shape 1
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
   geom_point(shape = 1, size = 3)
-#Gráfico de dispersão com shape 1
-ggplot(iris, aes(y = Petal.Length, x = Petal.Width)) +
+
+# grafico de dispersao com shape 17
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
   geom_point(shape = 17, size = 3)
 ```
 
 #### Tamanho
 
 ```{r message=FALSE, warning=FALSE, out.width="50%"}
-#Gráfico de dispersão com shape 1
-ggplot(iris, aes(y = Petal.Length, x = Petal.Width)) +
+# grafico de dispersao com size 1
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
   geom_point(size = 1)
-#Gráfico de dispersão com shape 1
-ggplot(iris, aes(y = Petal.Length, x = Petal.Width)) +
+
+# grafico de dispersao com size 5
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
   geom_point(size = 5)
 ```
 
 #### Cor e preenchimento
 
 ```{r message=FALSE, warning=FALSE, out.width="50%"}
-# Alterando cor e preenchimento
-ggplot(iris, aes(y = Petal.Length, x = Petal.Width)) +
+# alterando cor e preenchimento
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
   geom_point(color = "blue", fill = "red", shape = 21)
-# Alterando cor e preenchimento
-ggplot(iris, aes(y = Petal.Length, x = Petal.Width)) +
+
+# alterando cor e preenchimento
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
   geom_point(color = "red", fill = "black", shape = 21)
 ```
 
 #### Gráfico de dispersão (bonito)
 
-Todo o final de capítulo temos a demonstração de um gráfico mais elegante. 
-Veja o capítulo XXX para mais detalhes de como manipular cada detalhe do seu gráfico com o ggplot2, mas ao observar o script abaixo você pode ir aprendendo com cada exemplo.
+```{r message=FALSE, warning=FALSE, out.width="70%"}
+# grafico de dispersao
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "gray50") +
+  theme_classic(base_size = 18) +
+  labs(x = "Comprimento do bico (mm)", y = "Profundidade do bico (mm)")
+```
 
 ```{r message=FALSE, warning=FALSE, out.width="70%"}
-#Gráfico de Barras
-ggplot(iris, aes(y = Petal.Length, x = Sepal.Length ,
-                 shape = Species, color = Species)) +
-  geom_point(size = 3, alpha = .7) +
-  scale_y_continuous(limits = c(0,7), breaks = seq(0,6,1)) +
+# grafico de dispersao
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species, shape = species)) +
+  geom_point(size = 3, alpha = 0.8) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_color_manual(values = c("darkorange", "purple", "cyan4")) +
   theme_classic(base_size = 18) +
-  theme(legend.position = "top") +
-  xlab("Largura das Pétalas (mm)") + 
-  ylab("Comprimento das Pétalas (cm)") 
+  labs(x = "Comprimento do bico (mm)", y = "Profundidade do bico (mm)", 
+       color = "Espécies", shape = "Espécies")
+```
+
+Além disso, podemos relacionar dados não tão usuais... Recomendamos muito a leitura desse artigo (Matejka & Fitzmaurice 2017) sobre as armadilhas que dados podem passar, quando não analisar sua relação visualmente através de um gráfico.
+
+```{r}
+# package
+library(datasauRus)
+
+# data + plot
+datasaurus_dozen %>% 
+    dplyr::filter(dataset == "dino") %>% 
+    ggplot() +
+    aes(x = x, y = y) +
+    geom_point(colour = "black", fill = "black", 
+               size = 5, alpha = .75, pch = 21) +
+    theme_classic() +
+    theme(axis.title = element_text(size = 24),
+        axis.text.x = element_text(size = 20),
+        axis.text.y = element_text(size = 20))
 ```
 
 ### Gráfico pareado (*pairs plot*)
 
+Muitas vezes precisamos plotar a relação de mais de uma variável, e muitas vezes essas variáveis são mais de um tipo. O gráfico mais indicado nesse casos é o gráfico pareado (Emerson et al. 2013 - https://doi.org/10.1080/10618600.2012.694762) que nos auxiliam à ter uma visão geral do conjunto de dados.
+
+#### Gráfico pareado com variáveis contínuas
+
+O gráfico pareado mais comum é o que relaciona apenas variáveis contínuas.
+
 ```{r}
+# grafico pareado com variáveis contínuas
 penguins %>%
-  select(species, flipper_length_mm, ends_with("_mm")) %>%
-  GGally::ggpairs(aes(color = species)) +
-  scale_colour_manual(values = c("darkorange","purple","cyan4")) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"))
+  dplyr::select(body_mass_g, ends_with("_mm")) %>%
+  GGally::ggpairs(aes(color = penguins$species)) +
+  scale_colour_manual(values = c("darkorange", "purple", "cyan4")) +
+  scale_fill_manual(values = c("darkorange", "purple", "cyan4")) +
+  theme_bw()
 ```
 
+#### Gráfico pareado com vários tipos de variáveis
+
+Mas também podemos usar variáveis categóricas para ter uma visão geral dos dados.
+
+```{r}
+penguins %>%
+  select(species, sex, body_mass_g, ends_with("_mm")) %>%
+  GGally::ggpairs(aes(color = species)) +
+  scale_colour_manual(values = c("darkorange", "purple", "cyan4")) +
+  scale_fill_manual(values = c("darkorange", "purple", "cyan4")) +
+  theme_bw()
+```
 
 ## Finalização de gráficos para publicação
 
-## Exercíios
+
+
+## Exercícios
 
 
 ## Para se aprofundar

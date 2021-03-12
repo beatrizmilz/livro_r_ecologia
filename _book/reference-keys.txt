@@ -650,3 +650,11 @@ gráfico-de-caixa-box-plot
 gráfico-de-violino-violin-plot
 gráfico-de-dispersão-scatter-plot
 gráfico-pareado-pairs-plot
+diagrama-de-pontos-simples
+gráfico-de-setores-pie
+gráfico-de-setores-donut
+jitter
+gráfico-de-violino-bonito
+fig:fig-point-shape
+gráfico-pareado-com-variáveis-contínuas
+gráfico-pareado-com-vários-tipos-de-variáveis
