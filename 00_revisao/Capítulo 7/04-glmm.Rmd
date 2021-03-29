@@ -453,7 +453,6 @@ ggplot(parasitas, aes(Raillietiella_mottae))+
   facet_grid(Especie~Sexo)+
   theme(legend.position = "none")
 
-
 ggplot(parasitas, aes(CRC, Raillietiella_mottae)) +
 geom_point() +
 facet_grid(Sexo~ Especie)

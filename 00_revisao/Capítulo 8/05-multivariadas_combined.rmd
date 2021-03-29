@@ -6,9 +6,9 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-	echo = TRUE,
-	message = FALSE,
-	warning = FALSE
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE
 )
 ```
 
@@ -111,7 +111,7 @@ Neste exemplo vamos utilizar um conjunto de dados que contém larvas de espécie
 
 -   Variáveis preditoras
 
-    -   A nossa matriz de dados contém a abundância das espécies nas linhas e locais (poças) nas colunas.
+-   A nossa matriz de dados contém a abundância das espécies nas linhas e locais (poças) nas colunas.
 
 ### Análise
 
@@ -290,7 +290,7 @@ Espécies raras podem receber o mesmo valor de IndVal das espécies indicadoras 
 
 -   Variáveis resposta
 
-    -   Mesma matriz já utilizada contendo a abundância de girinos ao longo de poças na Serra da Bocaina.
+-   Mesma matriz já utilizada contendo a abundância de girinos ao longo de poças na Serra da Bocaina.
 
 ### Explicação da análise
 
@@ -412,11 +412,11 @@ O primeiro passo da PCA é obter uma matriz centralizada onde o valor de cada va
 ```{r}
 
 aranhas <- data.frame(sp1 = c(5, 7, 2, 0, 0, 0, 0, 0),
-           sp2 = c(0, 6, 3, 4, 0, 0, 0, 0),
-           sp3 = c(0, 0, 0, 9, 12, 3, 0, 0),
-           sp4 = c(0, 0, 0, 0, 4, 10, 8, 0),
-           sp5 = c(0, 0, 0, 0, 0, 6, 9, 12),
-           row.names = paste("cidade", 1:8, sep=""))
+                      sp2 = c(0, 6, 3, 4, 0, 0, 0, 0),
+                      sp3 = c(0, 0, 0, 9, 12, 3, 0, 0),
+                      sp4 = c(0, 0, 0, 0, 4, 10, 8, 0),
+                      sp5 = c(0, 0, 0, 0, 0, 6, 9, 12),
+                      row.names = paste("cidade", 1:8, sep=""))
 
 aranha.cent <- as.data.frame(base::scale(aranhas, center = TRUE, scale=FALSE))
 
@@ -618,7 +618,8 @@ Agora podemos utilizar o famoso "biplot" para representar a comparação morfol�
 ```{r message=FALSE, warning=FALSE}
 
 fviz_pca_biplot(pca.p,
-                geom.ind = "point",                                        fill.ind = penguins$species, 
+                geom.ind = "point",                                        
+                fill.ind = penguins$species, 
                 col.ind = "black",
                 alpha.ind=0.7,
                 pointshape = 21, 
@@ -825,7 +826,7 @@ dat <- data.frame(pred.env, riqueza)
 Agora que os dados foram combinados em uma única matriz, podemos utilizar os comandos aprendidos no *Capítulo XXX* para testar nossa hipótese.
 
 ```{r}
- 
+
 # Regressão múltipla
 
 mod1 <- lm(riqueza~Dim.1+Dim.2+Dim.3, data = dat)
@@ -880,24 +881,24 @@ dat %>%
 
 -   Dependentes: riqueza de espécies de ácaros
 
-    O primeiro passo então é utilizar um método de distância apropriado para o seu conjunto de dados. Em nosso exemplo, utilizaremo a distância de Gower.
+O primeiro passo então é utilizar um método de distância apropriado para o seu conjunto de dados. Em nosso exemplo, utilizaremo a distância de Gower.
 
-    ```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE}
 
-    ## Matriz de distância
-    env.dist <- gowdis(mite.env)
+## Matriz de distância
+env.dist <- gowdis(mite.env)
 
-    ## PCoA
-    env.mite.pco <- pcoa(env.dist, correction="cailliez")
+## PCoA
+env.mite.pco <- pcoa(env.dist, correction="cailliez")
 
-    ## Porcentagem de explicação do Eixo 1
-    100*(env.mite.pco$values[,1] / env.mite.pco$trace)[1]
+## Porcentagem de explicação do Eixo 1
+100*(env.mite.pco$values[,1] / env.mite.pco$trace)[1]
 
-    ## Porcentagem de explicação dos Eixo 2
-    100*(env.mite.pco$values[,1] / env.mite.pco$trace)[2]
+## Porcentagem de explicação dos Eixo 2
+100*(env.mite.pco$values[,1] / env.mite.pco$trace)[2]
 
 
-    ```
+```
 
 O próximo passo é exportar os escores para as análises a posteriori.
 
@@ -1136,8 +1137,8 @@ pred.vars <- data.frame(env.pad.cat, spatial.pred)
 names(pred.vars)
 
 rda.p <- rda(species.hel ~
-             rain.jul + maxi.jul + altitude + # Preditores ambientais
-             Condition(MEM1+MEM2+MEM4+MEM5), # Preditores espaciais
+               rain.jul + maxi.jul + altitude + # Preditores ambientais
+               Condition(MEM1+MEM2+MEM4+MEM5), # Preditores espaciais
              data = pred.vars)
 
 

@@ -1,9 +1,226 @@
+--- 
+title: "Introdução ao R com aplicações em biodiversidade e conservação"
+author: ""
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
 ---
-title: "Untitled"
-author: "Mauricio Vancine"
-date: "3/12/2021"
-output: pdf_document
+--- 
+title: "Introdução ao R com aplicações em biodiversidade e conservação"
+author: ""
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+# Pré-requisitos
+
+
+
+<!--chapter:end:index.Rmd-->
+
+
+# Pré-requisitos {#base-r}
+
+Placeholder
+
+
+## Introdução
+## R e RStudio
+## Funcionamento da linguagem R
+### Console
+### Scripts
+### Operadores
+### Objetos
+### Funções
+### Pacotes
+### Ajuda (*Help*)
+### Ambiente (*Environment*)
+### Citações
+### Principais erros de iniciantes
+## Estrutura e manipulação de objetos 
+### Atributo dos objetos
+#### Modo dos objetos 
+#### Estrutura dos objetos 
+##### Vetor
+##### Fator
+##### Matriz 
+##### Array
+##### Data frame
+##### Lista
+##### Funções
+### Manipulação de objetos unidimensionais
+### Manipulação de objetos multidimensionais
+### Valores faltantes e especiais
+### Diretório de trabalho
+### Importar dados
+### Conferência de dados importados
+### Exportar dados
+## Exercícios
+## Para se aprofundar
+### Livros
+### Links 
+
+<!--chapter:end:01_pre_requisitos.Rmd-->
+
+
+# Introdução {#intro}
+
+Placeholder
+
+
+## Histórico deste livro
+## Objetivo deste livro
+## O que você não encontrará neste livro
+## Por que usar o R? 
+## Como usar este livro
+
+<!--chapter:end:02_introducao.Rmd-->
+
+
+# Voltando ao básico: como dominar a arte de fazer perguntas cientificamente relevantes {#perg-eco}
+
+Placeholder
+
+
+## Introdução
+## Perguntas devem preceder as análises estatísticas
+### Um bestiário[^1] para o teste de hipóteses (Você está fazendo a pergunta certa?)
+## Fluxograma: Conectando Variáveis para Melhorar o desenho experimental e as análises estatísticas
+## Questões fundamentais em etnobiologia, ecologia e conservação
+## Considerações Finais
+## Referências
+
+<!--chapter:end:03_perguntas_ecologia.Rmd-->
+
+
+# Tidyverse {#tidy}
+
+Placeholder
+
+
+## Contextualização
+## *tidyverse*
+## here
+## readr, readxl e writexl
+## tibble
+## magrittr (pipe - %>%)
+## tidyr
+### palmerpenguins
+### glimpse()
+### unite()
+### separate()
+### drop_na() e replace_na()
+### pivotagem - pivot_longer() e pivot_wider()
+## dplyr
+### Gramática
+### Sintaxe
+### palmerpenguins
+### relocate()
+### rename()
+### select()
+### pull()
+### mutate()
+### arrange()
+### filter()
+### slice()
+### distinct()
+### count()
+### group_by()
+### summarise()
+### bind_rows() e bind_cols()
+### *_join()
+### Operações de conjuntos e comparação de dados
+## stringr
+## forcats
+## lubridate
+## purrr
+## Exercícios
+## Para se aprofundar
+
+<!--chapter:end:04_tidyverse.Rmd-->
+
+
+# Visualização de dados {#graficos}
+
+Placeholder
+
+
+## Introdução
+## Principais pacotes
+## Grámatica dos gráficos
+### ggplot2
+## Guia de bolso de gráficos no R
+### Tipos de gráficos
+### palmerpenguins
+### Histograma (*histogram*) {#hist}
+#### Histograma (simples)
+#### Número de classes
+#### Múltiplas categorias 
+#### Histograma (bonito)
+### Gráfico de densidade (*density plot*) {#dens}
+#### Gráfico de densidade (simples)
+#### Gráfico de densidade (colorido)
+#### Múltiplas categorias 
+#### Gráfico de densidade (bonito)
+### Diagrama de pontos (*dot plot*) {#dot}
+#### Diagrama de pontos (simples)
+#### Ajustes básicos
+#### Cor e preenchimento
+#### Dotplot (bonito)
+### Gráfico de barras (*bar plot*) {#bars}
+#### Gráfico de Barras (simples)
+#### Ajustes básicos
+##### Cor e preenchimento
+##### Largura das barras
+##### Orientação das barras
+##### Colorindo por categoria
+##### Gráfico de barras (bonito)
+### Gráfico de setores (*pie chart* e *donut chart*)
+#### Gráfico de setores (*pie*)
+#### Gráfico de setores (*donut*)
+### Gráfico de caixa (*box plot*)
+#### Boxplot (simples)
+#### Destque para os outliers
+#### Colorindo por categoria
+#### Jitter
+#### Gráfico de violino (*violin plot*)
+#### Gráfico de caixas (bonito)
+#### Gráfico de violino (bonito)
+### Gráfico de dispersão (*scatter plot*)
+#### Gráfico de dispersão (simples)
+#### Ajustes básicos
+#### Tipos de símbolos
+#### Símbolo
+#### Tamanho
+#### Cor e preenchimento
+#### Gráfico de dispersão (bonito)
+### Gráfico pareado (*pairs plot*)
+#### Gráfico pareado com variáveis contínuas
+#### Gráfico pareado com vários tipos de variáveis
+## Finalização de gráficos para publicação
+## Exercícios
+## Para se aprofundar
+### Books
+### Links
+
+<!--chapter:end:05_graficos.Rmd-->
 
 # Modelos lineares {#modelos-lineares}
 
@@ -1206,3 +1423,258 @@ Neste exemplo, o tamanho da raiz (covariável) tem uma relação positiva com a 
 ## Para se aprofundar
 
 -   Recomendamos aos interessados os livros: i) Zar (2010) Biostatiscal analysis; ii) Gotelli & Ellison (2013) A primer of ecological statistics; e iii) Quinn & Keough (2002) Experimental design and data analysis for biologists.
+
+<!--chapter:end:06_analises_univariadas_lm.Rmd-->
+
+# Análises univariadas - GLM
+
+
+
+<!--chapter:end:07_analises_univariadas_glm.Rmd-->
+
+
+# Introdução à Análises Multidimensionais
+
+Placeholder
+
+
+## Backgorund da análise
+## Exemplo 1: 
+### Explicação da análise
+### Análise
+#### Interpretação dos resultados
+## Exemplo 2: 
+## Backgorund da análise
+## Exemplo 1: 
+### Explicação da análise
+### Análise
+## Backgorund da análise
+## Exemplo 1: 
+### Explicação da análise
+### Análise
+### Para se aprofundar
+
+<!--chapter:end:08_analises_multivariadas.Rmd-->
+
+
+# Rarefação
+
+Placeholder
+
+
+## Background da análise
+## Exemplo prático 1 - Morcegos
+### Explicação
+### Análise
+### Interpretação dos resultados
+## Exemplo prático 2 - Rarefação
+### Explicação
+### Análise
+### Interpretação dos resultados
+## Para se aprofundar
+
+<!--chapter:end:09_rarefacao.Rmd-->
+
+
+# Estimadores de Riqueza
+
+Placeholder
+
+
+## Backgorund da análise
+## Estimadores baseados na abundância das espécies
+### CHAO 1 - (Chao 1984, 1987): 
+#### Exemplo prático - Chao 1
+##### Explicação dos dados
+### Análise
+#### Interpretação dos resultados
+### ACE - *Abundance-based Coverage Estimador* (Chao & Lee 1992, Chao et al. 2000): 
+#### Exemplo prático - ACE
+##### Explicação dos dados
+### Análise
+#### Interpretação dos resultados
+## Estimadores baseados na incidência das espécies
+### CHAO 2 - (Chao 1987): 
+#### Exemplo prático - Chao 2
+##### Explicação dos dados
+### Análise
+#### Interpretação dos resultados
+### JACKKNIFE 1 (Burnham & Overton 1978, 1979): 
+#### Exemplo prático - Jackknife 1
+##### Explicação dos dados
+### Análise
+#### Interpretação dos resultados
+### JACKKNIFE 2 (Burnham & Overton 1978, 1979, Palmer 1991): 
+#### Exemplo prático - Jackknife 2
+##### Explicação dos dados
+### Análise
+#### Interpretação dos resultados
+### BOOTSTRAP (Smith & van Belle 1984): 
+#### Exemplo prático - Bootstrap
+##### Explicação dos dados
+### Análise
+#### Interpretação dos resultados
+### Interpolação e Extrapolação baseadas em rarefação usando amostragens de incidência ou abundância (Chao & Jost 2012, Colwell et al. 2012): 
+#### Exemplo prático 
+##### Explicação dos dados
+### Análise
+#### Interpretação dos resultados
+#### Interpretação dos resultados
+### Para se aprofundar
+
+<!--chapter:end:10_riqueza.Rmd-->
+
+
+# Diversidade Taxonômica
+
+Placeholder
+
+
+## Diversidade alfa (𝛂)
+## Riqueza de espécies ou número de espécies
+#### Exemplo prático 1 - Riqueza de espécies
+## Diversidade de espécies
+#### Exemplo prático 2 - Diversidade de espécies
+## Diagramas de Whittaker ou Curva de Dominância
+## Números de Hill
+## Diversidade beta (𝛃)
+### Para se aprofundar
+
+<!--chapter:end:11_diversidade_taxonomica.Rmd-->
+
+# Diversidade filogenética
+
+
+
+<!--chapter:end:12_diversidade_filogenetica.Rmd-->
+
+# Diversidade funcional
+
+
+
+<!--chapter:end:13_diversidade_funcional.Rmd-->
+
+
+# Dados geoespaciais no R {#dados-geoespaciais}
+
+Placeholder
+
+
+## Introdução
+## Pré-requisitos
+## Vetor
+### Pontos
+### Linhas
+### Polígonos
+### Tabela de atributos
+### *sf*: principal pacote no R para dados vetoriais
+## Raster
+### Tipos de raster
+### *raster*: principal pacote no R para dados raster
+## Sistema de Referência de Coordenadas e Unidades
+### Sistema de Coordenadas Geográficas
+### Sistema de Coordenadas Projetadas
+### Datum
+### Sistema de Referência de Coordenadas (CRS) no R
+## Principais fontes de dados geoespaciais
+### Vetor
+### Raster
+### Pacotes do R
+## Importar e exportar dados geoespaciais
+### Principais formatos de arquivos geográficos
+### Importar dados
+#### Vetor
+##### Importar dados vetoriais existentes
+##### Importar utilizando pacotes
+##### Criar um objeto espacial de uma tabela de coordenadas
+##### Converter dados espaciais *sp* para *sf*
+#### Raster
+##### Raster Layer
+##### Raster Stack
+### Exportar dados
+#### Vetor
+#### Raster
+## Descrição de objetos espaciais
+### Vetor
+### Raster
+## Reprojeção de dados geoespaciais
+### Vetor
+### Raster
+## Principais operações com dados geoespaciais
+### Operações de atributos
+#### Vetor
+##### Filtro
+##### Junção
+##### Agregação
+##### Manipulação da tabela de atributos
+#### Raster
+##### Subconjunto
+##### Renomear
+##### Resumir
+### Operações espaciais
+#### Vetor
+##### Filtro espacial
+##### Junção espacial
+##### Agregação espacial 
+##### Distância espacial
+#### Raster
+##### Operações locais
+##### Operações focais 
+##### Operações zonais
+##### Operações globais
+### Operações geométricas
+#### Vetor
+##### Simplificação
+##### Centroides
+##### Pontos aleatórios 
+##### Buffer
+##### Polígono convexo
+##### Polígonos de Voronoi
+##### Quadrículas e hexágonos
+##### União ("dissolver")
+##### Recorte ("clipar")
+##### Transformações de tipo
+#### Raster
+##### Agregação
+##### Desagregação
+##### Alinhamento de rasters
+#### Interações raster-vetor
+##### Cortes e máscaras
+##### Extração
+#### Conversões raster-vetor
+##### Rasterização
+##### Vetorização
+## Visualização de dados geoespaciais
+### Principais elementos de um mapa
+### Principais pacotes para a composição de mapas
+### Mapas estáticos
+#### Função `plot()`
+#### Pacotes *ggplot2* e *ggspatial*
+#### Pacote tmap
+### Mapas animados
+### Mapas interativos
+#### Pacote tmap
+#### Pacote mapview
+#### Pacote leaflet
+## Exemplos de aplicações de análises geoespaciais para dados ecológicos
+### Resumir informações de biodiversidade para unidades espaciais
+### Atribuição de dados climáticos para pontos
+### Predições espaciais de objetos raster
+## Para se aprofundar
+
+<!--chapter:end:14_visualizacao_dados_geoespaciais.Rmd-->
+
+# Reprodutibilidade em pesquisa e gerenciamento de dados
+
+## Gestão de projetos acadêmicos no RStudio
+## Documentos dinâmicos (R Markdown)
+## Controle de versão, Git e GitHub
+
+<!--chapter:end:15_reprodutibilidade_pesquisa_gerenciamento_de_dados.Rmd-->
+
+`r if (knitr::is_html_output()) '
+# References {-}
+'`
+
+<!--chapter:end:99-references.Rmd-->
+
