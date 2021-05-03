@@ -1,0 +1,111 @@
+# Princípios e ferramentas para análises reproduzíveis em Ecologia
+
+## Background teórico
+
+A capacidade de reproduzir e replicar resultados é um dos grandes pilares da Ciência. Quando experimentos realizados por pesquisadores diferentes em condições independentes resultam no mesmo desfecho, a confiança que temos naquele resultado aumenta. De certa forma, a sociedade confia na ciência porque ela pode gerar previsões confiáveis sobre fenômenos naturais. De forma análoga, se as análises estatísticas realizadas em um computador deram resultados diferentes quando realizadas em um outro computador, nossa confiança nos resultados diminui. Esse fenômeno computacional reflete uma falta de **reprodutibilidade** nas análises e pode causar grandes problemas, desde dificuldades em se compreender os resultados, desentendimento entre coautores, e até a retratação de artigos científicos.
+
+Nos capítulos anteriores você aprendeu como realizar diversas análises estatísticas comumente utilizadas em estudos ecológicos. Como vocês viram, a maioria das análises estatísticas em ecologia envolvem vários passos para que possam ser executadas no R. Por exemplo, a limpeza dos dados brutos ou a agregação dos das médias por grupos (ex. Média de um trait por espécie, plot, ou área de estudo). Para complicar mais ainda, cada etapa pode produzir outputs intermediários, tabelas, ou objetos do R que são utilizados em etapas posteriores. Como manter tudo isso organizado? Como garantir que no futuro você irá conseguir rodar novamente essas etapas e conseguir os mesmos resultados? Eu tenho certeza que você já tentou rodar um script antigo e não obteve sucesso. Algum erro aconteceu durante a execução do seu código e você terá que gastar horas tentando encontrar o que está causando o problema. É muito comum, por exemplo, que o arquivo de dados não tenha sido encontrado, a função deu um erro que não ocorria antes, entre vários outros problemas.
+
+Neste capítulo iremos explorar as ferramentas e estratégias para que seus projetos acadêmicos sejam reprodutíveis e confiáveis, para você e seus colaboradores, mas sobretudo para a comunidade científica mundial. O capítulo está dividido em pequenos guias para aumentar a reprodutibilidade do seu fluxo de trabalho:
+
+1.  Princípios para um bom projeto de análise
+2.  Projetos estruturados no Rstudio
+3.  Nome de arquivos e pasta
+4.  Formatação de dados e Metadados
+5.  Github e controle versão
+
+## Princípios para um bom projeto de análise no R
+
+Para que seu projeto seja um bom projeto de análise no R, ele precisa ser **reproduzível** (ou seja, funcionar sempre da mesma forma), **fácil de entender** (no presente e no futuro) e **funcional ao ser compartilhado**. Veja abaixo uma breve explicação sobre os 10 princípios para um bom projeto de análise no R:
+
+> ### **Princípio 1**: Use uma única pasta raíz que contenha todos os arquivos relacionados ao seu projeto
+
+A primeira etapa para garantir que seu projeto rode de forma reprodutível e estável no seu computador e no computador de seus colaboradores é usar uma única pasta (raiz) que contenha todos os arquivos relacionados ao seu projeto (Princípio 1). Geralmente um projeto de análise inclui: **(i)** dados brutos (raw data), **(ii)** scripts que realizam as análises e **(iii)** os resultados gerados pela análise (outputs). Além disso, algumas pessoas também gostam de manter na mesma pasta os arquivos de texto que descrevem os resultados (ex. O manuscrito do artigo, capítulo da tese, ou relatório acadêmico, etc). Todos esses arquivos devem estar na mesma pasta para evitar, por exemplo, que os dados não sejam encontrados, mas também para facilitar a navegação entre os arquivos e o acesso dos resultados gerados (ex. figuras, tabelas etc). Na próxima seção iremos apresentar um projeto modelo que segue essa estrutura padronizada de organização de pastas e arquivos (ref-seção).
+
+```{r  out.width = "50%", echo=FALSE}
+knitr::include_graphics("images/image_paste_raiz.png")
+```
+
+> ### **Princípio 2**: Descreva o propósito e o objetivo de cada script antes de começar a programar
+
+Para garantir que seu projeto de análise seja fácil de ser compreendido e executado por você e por seus colaboradores é fundamental documentar o propósito de cada script de um projeto. Isso pode parecer exagerado, mas no fundo irá ajudar você a se organizar e a compreender o que cada script do seu projeto faz. Quem nunca abriu um script do R e se perguntou o que será que este script faz mesmo? Além disso, quando você começa descrevendo os objetivos do script antes de começar a programar fica muito mais fácil manter o foco e seguir o planejado. O objetivo de cada script deve ser incluído logo no começo, junto com o autor, data da última atualização e execução do script, entre outras informações relevantes (veja um exemplo no [link]()).
+
+> ### **Princípio 3**: Escreva código como se alguém fosse utilizar no seu lugar
+
+Quando estamos programando, muitas vezes utilizamos atalhos, códigos e estratégias que só nós conseguimos entender. Isso não é bom para o seu projeto porque impede que outros (incluindo você no futuro!) compreendam o seu script com clareza. Claro, dá bastante trabalho organizar e escrever um código que seja fácil de entender mas as vantagens são muitas. Para começar, você mesmo irá achar mais fácil de utilizar seu código novamente se ele for escrito de forma organizada para que qualquer pessoa possa entender a lógica dos seus scripts. Além disso, quando você compartilhar seu código com seus colaboradores e colegas eles irão conseguir entender a lógica e executar o seu script com tranquilidade. Isso facilita muito uma análise crítica, correção de erros e a sugestão de modificações no script. Por fim, muito provavelmente o seu script será incluído como material suplementar de um manuscrito e será publicado junto com o artigo final. Se o seu script for escrito para que outros possam compreender, isso irá facilitar o trabalho dos revisores e irá também tornar o seu código muito mais útil para toda a comunidade acadêmica.
+
+Para se aprofundar, você pode seguir as dicas apresentadas no [guia de estilo tidyverse](https://style.tidyverse.org/).
+
+> ### **Princípio 4**: Nomeie as seções do script para navegação rápida
+
+Um script organizado e fácil de ler deve ser estruturado em seções. Por exemplo, a primeira parte do script deve conter informações básicas descritas no princípio 2. No geral, um script do R pode ser dividido em três seções: (i) carregar pacotes e bancos de dados, (ii) análises estatísticas e (iii) salvar resultados e gráficos. No entanto, a estrutura das sessões irá depender do propósito do script em questão e do seu estilo. O importante é que você organize as etapas do seu script em seções claras. Para criar uma seção no R, você deve começar a linha com o jogo da velha `#`, seguido do nome da seção e depois terminar a linha com pelo menos quatro traços `----`:
+
+    # Nome da seção ----
+
+Uma dica é usar o atalho `ctrl + shift + R` para criar as suas seções de forma automática. Basta digitar o nome da seção e depois `ENTER`.
+
+![](C:/Users/pater/AppData/Local/RStudio/tmp/paste-D4F0AACF.png)
+
+As sessões também podem ser numeradas hierarquicamente, veja o exemplo abaixo.
+
+```{r  out.width = "80%", echo=FALSE}
+knitr::include_graphics("images/image_sessoes_script.R.png")
+```
+
+### **Princípio 5**: Carregue todos os pacotes necessários no começo do seu script
+
+Para evitar que seu script vire uma grande confusão e garantir que os pacotes necessários sejam carregados de forma correta, **sempre carregue os pacotes na seção inicial do seu script**. Isso irá deixar seu código muito mais transparente e fácil de compreender quais pacotes precisam ser instalados para que o script rode normalmente.
+
+É importante também incluir uma descrição breve sobre cada pacote para facilitar o entendimento do script no futuro e evitar aquela dúvida, para que serve esse pacote mesmo? Para fazer isso de forma automática, basta utilizar o pacote [annotater](https://github.com/luisDVA/annotater), desenvolvido por [Luis Verde Arregoitia](https://luisdva.github.io/). Este pacote irá adicionar Addin no seu Rstudio que permite adicionar uma breve descrição de cada pacote, incluindo pacotes que estão apenas no Github.
+
+[![Exemplo retirado da página oficial do pacote annotate.](https://raw.githubusercontent.com/luisdva/annotater/master/inst/media/annotcalls.gif){width="600"}](https://github.com/luisDVA/annotater)
+
+> ### **Princípio 6**: Nomeie seus arquivos de forma consistente e padronizada
+
+Nomear arquivos e pastas de forma clara e consistente é uma etapa importante para facilitar a compreensão de um projeto. O essencial é que o nome do arquivo siga os critérios abaixo:
+
+-   **Informativo e legível por pessoas**
+
+-   **Legível por máquinas**
+
+-   **Compatível com ordenação automática**
+
+-   **Use o padrão ISO 8601 para datas (YYYY-MM-DD**
+
+-   **Não use caractéres especiais (ex. \$, \@, (, etc)**
+
+|     | Bom                             | Ruim                   |
+|-----|---------------------------------|------------------------|
+| 1   | limpar_dados_biomassa.R         | dados.R                |
+| 2   | regressao_linear.R              | reg.R                  |
+| 3   | 01_simulação_modelo_nulo.R      | 1.R                    |
+| 4   | dados_traits_folha_nordeste.csv | folha1.csv             |
+| 5   | 2021_02_01_amostra_N\_raiz.csv  | amostra2021.csv        |
+| 6   | metadata_coleta_brumadinho.txt  | info (brumadinho) .txt |
+
+> ### **Princípio 7**: Se você está copiando e colando código, considere escrever uma função
+
+> ### **Princípio 8**: Nunca salve o workspace!!!
+
+> ### **Princípio 9**: Antes de compartilhar e/ou publicar seu código, sempre rode os scripts em uma nova seção do R
+
+> ### **Princípio 10**: Teste o seu código sistematicamente
+
+## 2. Projetos estruturados no Rstudio
+
+### 2.1 Estrutura de pastas
+
+### 2.2 Caminho relativo
+
+### 2.3 Fluxo de trabalho
+
+## 3. Como documentar, preservar e compartilhar dados
+
+### A importância de Metadados
+
+### Estratégias para preservar e compartilhar seus dados 
+
+## 4. Links úteis para ciência aberta e transparente
+
+NOTA: É um treinamento constante que dará retorno com o tempo de uso e consistência!
+<https://ecorepsci.github.io/reproducible-science/spreadsheets.html>

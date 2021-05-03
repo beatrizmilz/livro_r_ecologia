@@ -1,5 +1,0 @@
-# Reprodutibilidade em pesquisa e gerenciamento de dados
-
-## Gestão de projetos acadêmicos no RStudio
-## Documentos dinâmicos (R Markdown)
-## Controle de versão, Git e GitHub

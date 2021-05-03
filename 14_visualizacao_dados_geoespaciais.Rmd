@@ -52,7 +52,7 @@ library(leaflet)
 library(viridis)
 ```
 
-> **IMPORTANTE**: Se você estiver utilizando MacOS ou Linux, a instalação dos pacotes listados acima pode não funcionar. Esses sistemas operacionais possuem "requisitos específicos do sistema" que são geralmente descritos no `README.md` dos pacotes no GitHub. Entretanto, há várias instruções específicas que podem ser encontradas [on-line](https://rtask.thinkr.fr/installation-of-r-4-0-on-ubuntu-20-04-lts-and-tips-for-spatial-packages/). Além deste link, há posts sobre [Linux](https://geocompr.github.io/post/2020/installing-r-spatial-ubuntu/) e [MacOS](http://www.kyngchaos.com/) que podema auxiliar.
+> **IMPORTANTE**: Se você estiver utilizando MacOS ou Linux, a instalação dos pacotes listados acima pode não funcionar. Esses sistemas operacionais possuem "requisitos específicos do sistema" que são geralmente descritos no `README.md` dos pacotes no GitHub. Entretanto, há várias instruções específicas que podem ser encontradas [on-line](https://rtask.thinkr.fr/installation-of-r-4-0-on-ubuntu-20-04-lts-and-tips-for-spatial-packages/). Além deste link, há posts sobre [Linux](https://geocompr.github.io/post/2020/installing-r-spatial-ubuntu/) e [MacOS](http://www.kyngchaos.com/) que podem auxiliar.
 
 ## Vetor
 

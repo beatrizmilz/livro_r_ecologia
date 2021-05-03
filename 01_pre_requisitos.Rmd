@@ -1328,6 +1328,12 @@ Listamos a seguir livros e links com material que recomendamos para seguir com s
 
 ### Livros
 
+Mayer F. P., Bonat W. H., Zeviani W. M., Krainski E. T., Ribeiro Jr. P. J. 2018. Estatística Computacional com R. [http://cursos.leg.ufpr.br/ecr/index.html]
+
+Zeviani W. M. 2019. Manual de Planejamento e Análise de Experimentos com R. [http://leg.ufpr.br/~walmes/mpaer/]
+
+Curso-R. 2021. Ciência de Dados em R. [https://livro.curso-r.com/]
+
 Adler J. 2012. R in a Nutshell: A Desktop Quick Reference. 2 ed. O’Reilly Media.
 
 Burns P. 2011. The R Inferno. [https://www.burns-stat.com/pages/Tutor/R_inferno.pdf]
@@ -1365,6 +1371,8 @@ Wickham H. 2019. Advanced R. 2 ed. Chapman and Hall/CRC. [https://adv-r.hadley.n
 Wickham H. 2015. R Packages: Organize, Test, Document, and Share Your Code. O’Reilly Media. [https://r-pkgs.org/]
 
 ### Links 
+
+[Materiais sobre R](https://materiais-estudo-r.netlify.app/)
 
 [R resources (free courses, books, tutorials, & cheat sheets)](https://paulvanderlaken.com/2017/08/10/r-resources-cheatsheets-tutorials-books)
 
