@@ -4,59 +4,11 @@
 
 Nesta seção, vamos fazer uma breve introdução aos principais conceitos sobre o funcionamento de dados geoespaciais no R: formatos de dados vetoriais e pacotes; formatos de dados raster e pacotes; Sistemas de Referências de Coordenadas e unidades; fontes de dados geoespaciais e pacotes; importar e exportar dados geoespaciais; descrição de objetos espaciais; reprojeção de dados geoespaciais; e principais operações com dados geoespaciais. Num segundo momento, iremos criar mapas com seus principais elementos. Por fim, apresentaremos exemplos de aplicações de análises espaciais para dados ecológicos, focadas em resumir informações sobre a biodiverisdade, preparar de dados para compor variáveis preditoras, e como fazer predições espaciais contínuas de distribuição de uma espécie e riqueza de espécies.
 
-Esse capítulo segue parte da estrutura organizada por @lovelace-etal-2019, principalmente os capítulos 2 a 8, sendo adaptado para atender aos principais requisitos que julgamos necessários a estudos ecológicos. Entretanto, não foi possível cobrir todos os assuntos sobre geoprocessamento, sendo um assunto muito extenso, que requer a leitura de livros especializados na área como Wegmann et al. (2016), Wegmann et al. (2020) e Fletcher & Fortin (2018). Outros livros sobre a análise geoespacial no R podem ser consultados no capítulo [11 - Geospatial](https://www.bigbookofr.com/geospatial.html) do [Big Book of R](https://www.bigbookofr.com/index.html).
-
-Todas as operações serão realizadas através da linguagem R, utilizando principalmente os pacotes: *tidyverse* (Wickham et al. 2019) para o formato tidyverse, *here* (Müller 2020) para diretórios,  *sf* [@pebesma-2018] para dados vetoriais, *raster* [@hijmans-2020] para dados raster, *rgdal* para formatos geoespaciais (Bivand et al. 2021), *rnaturalearth* (South 2017) e *geobr* (Pereira & Goncalves 2020) para baixar dados vetoriais, e *ggplot2* (Wickham 2016), *ggspatial* (Dunnington 2020), *tmap* (Tennekes 2018), *mapview* (Appelhans et al. 2020), *leaflet* (Cheng et al. 2021), e *viridis* [@garnier-2018] para a composição de mapas, dentro outros.
-
-## Pré-requisitos
-Dessa forma, garanta que esses pacotes listados a seguir estejam instalados e carregados.
-
-```{r eval=FALSE}
-# instalar pacotes
-install.packages(c("tidyverse", 
-                   "here", 
-                   "sf", 
-                   "raster", 
-                   "rgdal", 
-                   "spData",
-                   "rnaturalearth",
-                   "geobr",
-                   "ggplot2",
-                   "ggspatial",
-                   "tmap",
-                   "tmaptools",
-                   "grid",
-                   "mapview",
-                   "leaflet",
-                   "viridis"), 
-                 dep = TRUE)
-```
-
-```{r message=FALSE, warning=FALSE}
-# carregar pacotes
-library(tidyverse)
-library(here)
-library(sf) 
-library(raster) 
-library(rgdal) 
-library(spData)
-library(rnaturalearth)
-library(geobr)
-library(ggplot2)
-library(ggspatial)
-library(tmap)
-library(tmaptools)
-library(grid)
-library(mapview)
-library(leaflet)
-library(viridis)
-```
-
-> **IMPORTANTE**: Se você estiver utilizando MacOS ou Linux, a instalação dos pacotes listados acima pode não funcionar. Esses sistemas operacionais possuem "requisitos específicos do sistema" que são geralmente descritos no `README.md` dos pacotes no GitHub. Entretanto, há várias instruções específicas que podem ser encontradas [on-line](https://rtask.thinkr.fr/installation-of-r-4-0-on-ubuntu-20-04-lts-and-tips-for-spatial-packages/). Além deste link, há posts sobre [Linux](https://geocompr.github.io/post/2020/installing-r-spatial-ubuntu/) e [MacOS](http://www.kyngchaos.com/) que podem auxiliar.
+Esse capítulo segue parte da estrutura organizada por @lovelace-etal-2019, principalmente os capítulos 2 a 8, sendo adaptado para atender aos principais requisitos que julgamos necessários a estudos ecológicos. Entretanto, não foi possível cobrir todos os assuntos sobre geoprocessamento, sendo um assunto muito extenso que requer a leitura de livros especializados na área como Wegmann et al. (2016), Wegmann et al. (2020) e Fletcher & Fortin (2018). Outros livros sobre a análise geoespacial no R podem ser consultados no capítulo [11 - Geospatial](https://www.bigbookofr.com/geospatial.html) do [Big Book of R](https://www.bigbookofr.com/index.html).
 
 ## Vetor
 
-Dados **vetoriais** representam informações geográficas acuradas através de **pontos, linhas e polígonos** (Figura \@ref(fig:fig-vetor-tipos)). Cada uma dessas geometrias são indicadas para representar feições e/ou eventos específicos, como veremos adiante.
+Dados **vetoriais** representam informações geográficas acuradas através de **pontos, linhas e polígonos** (Figura \@ref(fig:fig-vetor-tipos)). Cada uma dessas geometrias são indicadas para representar feições e/ou eventos específicos, par de coordenadas (longitude - X e latitude - Y),  estradas ou rios, e limites geográficos naturais, políticos, administrativos ou regulares.
 
 ```{r fig-vetor-tipos, echo=FALSE, fig.height=4, fig.align='center', fig.cap="Ilustração das geometrias de ponto, linha e polígono genéricos. Adaptado de: Lovelace, Nowosad & Muenchow (2019)."}
 old_par = par(mfrow = c(1, 3), pty = "s", mar = c(0, 3, 1, 0))
@@ -66,170 +18,13 @@ plot(st_as_sfc("POLYGON((1 4, 2 2, 4 1, 5 5, 1 4))"), col="gray", lwd = 2, axes 
 par(old_par)
 ```
 
-### Pontos
-
-**Pontos** são geometrias geralmente utilizadas para representar **eventos pontuais unitários**, como ocorrência de espécies, locais de coleta, pontos de GPS ou nascentes de rios. Esses dados são representados por um único vértice, ou seja, um par de coordenadas (longitude - X e latitude - Y), que são plotados na forma de cículos ou outro elemento que represente o evento em questão. Dessa forma, geralmente utilizamos dados tabulares com pelo menos duas colunas contendo essas coordenadas. Além disso, esses dados tabulares podem conter outras colunas com informações quantitativas ou qualitativas como número de espécies, temperatura, precipitação ou ainda categorias como tipo de habitat, que podemos representar nos pontos através de diferentes formatos, tamanhos ou cores desses pontos (Tabela \@ref(tab:tab-vetor-pontos) e Figura \@ref(fig:fig-vetor-pontos)).
-
-```{r tab-vetor-pontos, echo=FALSE}
-library(knitr)
-kable(tibble::tibble(
-  Id = 1:5, 
-  Longitude = c(0, 1, 2, 5, 5) ,
-  Latitude = c(2, 5, 3, 4, 1),
-  `Número de espécies` = c(2, 3, 3, 2, 5),
-  Temperatura = c(20, 22, 28, 23, 25),
-  Precipitação = c(1000, 1100, 1300, 1200, 1450),
-  Habitat = c("floresta", "pastagem", "floresta", "floresta", "pastagem")), 
-  caption = "Dados tabulares para pontos."
-)
-```
-
-```{r fig-vetor-pontos, echo=FALSE, fig.align='center', fig.cap="Geometrias de pontos e suas identificações com a tabela de dados."}
-plot(st_as_sfc(c("MULTIPOINT(0 2, 1 5, 2 3, 5 4, 5 1)")), axes = TRUE, pch = 20, cex = 2, xlim = c(0, 5), ylim = c(1, 5), main = "Pontos")
-text(x = c(0, 1, 2, 5, 5), 
-     y = c(2, 5, 3, 4, 1) - c(rep(.3, 4), -.3), 
-     labels = 1:5)
-```
-
-### Linhas
-
-**Linhas** representam **geometrias lineares** como estradas, rios, trajetos, divisões ou distâncias. Geralmente as linhas são criadas em softwares de Sistema de Informações Geográficas (SIG) como o [QGIS](https://qgis.org/), e depois importadas para o R. As linhas são representadas por no mínimo dois vértices conectados, i.e., dois pares de coordenadas, gerando uma geometria aberta, possuindo como característica o **comprimento**. Da mesma forma que os pontos, as linhas podem possuir informações tabulares, sendo quantitativas como comprimento dessa feição, ou ainda informações qualitativas como o nome de estradas ou vazão de rios, que podem ser utilizadas para alterar o formato, tamanho ou cor dessas linhas (Tabela \@ref(tab:tab-vetor-linhas) e Figura \@ref(fig:fig-vetor-linhas)).
-
-```{r tab-vetor-linhas, echo=FALSE, results='asis'}
-kable(tibble(Id = 1:5, 
-             Rodovias = paste0("rodovia_0", 1:5),
-             Comprimento = c(12, 52, 5, 38, 18)),
-      caption = "Dados tabulares para linhas.",
-      align = "c")
-```
-
-```{r fig-vetor-linhas, echo=FALSE, fig.align='center', fig.cap="Geometrias de linhas e suas identificações com a tabela de dados."}
-plot(st_as_sfc("MULTILINESTRING((1 1, 2 2), (1 3, 5 3), (1 4, 1 5), (3 5, 5 5, 5 4), (3 1, 5 1))"), 
-     lwd = 2, axes = TRUE, main = "Linhas")
-text(x = c(1.1, 5, 1.2, 5, 5), 
-     y = c(1.3, 2.8, 5, 3.8, 1.2), 
-     labels = 1:5)
-```
-
-### Polígonos
-
-Por fim, **polígonos** representam **geometrias fechadas**, como fragmentos de vegetação, lagos ou limites geográficos, sendo mais voltado para representar feições de um mapa de uso e cobertura da terra ou limites geográficos naturais, políticos, administrativos ou regulares. Os polígonos também são criados geralmente em softwares específicos de SIG e depois importados para o R, ou podemos usar funções para criar *buffers* ou malhas de quadrículas ou hexágonos. Os polígonos são representados por no mínimo três vértices conectados, sendo que o primeiro vértice possui coordenadas idênticas ao último, de modo que essa ligação gere uma feição fechada, com características como **perímetro** e/ou **área**. Da mesma forma que os pontos e linhas, colunas podem ser associadas aos polígonos para representar informações quantitativas como perímetro e área dessa polígono, ou ainda informações qualitativas como a classe de cobertura da terra ou o nome do limite geográfico, que podem ser utilizados para alterar formatos, tamanho ou cores desses polígonos (Tabela \@ref(tab:tab-vetor-poligonos) e Figura \@ref(fig:fig-vetor-poligonos)).
-
-```{r tab-vetor-poligonos, echo=FALSE, results='asis'}
-kable(tibble(id = 1:5, 
-             uso = c("floresta", "urbano", "pastagem", "agua", "cerrado"),
-             area_ha = c(50, 22, 30, 25, 40),
-             perimeto_m = c(700, 300, 250, 400, 500)),
-      caption = "Dados tabulares para polígonos.",
-      align = "c")
-```
-
-```{r fig-vetor-poligonos, echo=FALSE, fig.align='center', fig.cap="Geometrias de polígonos e suas identificações com a tabela de dados."}
-plot(st_as_sfc("MULTIPOLYGON (((1 5, 2 2, 4 1, 4 4, 1 5)))"),
-     axes = TRUE, col = "forestgreen", main = "Polígonos")
-plot(st_as_sfc("MULTIPOLYGON (((4 1, 2 1, 2 2, 2 2, 4 1)))"),
-     col = "gray", add = TRUE)
-plot(st_as_sfc("MULTIPOLYGON (((4 1, 4 5, 5 5, 5 1, 4 1)))"),
-     col = "yellow", add = TRUE)
-plot(st_as_sfc("MULTIPOLYGON (((4 4, 4 5, 1 5, 4 4)))"),
-     col = "steelblue", add = TRUE)
-plot(st_as_sfc("MULTIPOLYGON (((0 1, 0 5, 1 5, 2 2, 2 1, 0 1)))"),
-     col = "orange", add = TRUE)
-text(x = c(2.8, 2.5, 4.5, 3.1, .7), 
-     y = c(3, 1.3, 3, 4.7, 3), 
-     labels = c("floresta\n(1)", "urbano\n(2)", "pastagem\n(3)", "agua\n(4)", "cerrado\n(5)"))
-```
-
-Além disso, geralmente utilizamos **polígono regulares** (buffers, quadrículas ou hexágonos) para **resumir informações** de biodiversidade ou de variáveis preditoras, que podem ser utilizadas como unidades amostrais em análises espaciais ou estatísticas, principalmente nas áreas de Ecologia Espacial, Ecologia da Paisagem, Biogeografia e Macroecologia (Tabela \@ref(tab:tab-vetor-poligonos-regulares) e Figura \@ref(fig:fig-vetor-poligonos-regulares)).
-
-```{r tab-vetor-poligonos-regulares, echo=FALSE}
-kable(tibble(id = c(1:5, "..."), 
-             numero_especies = c(2, 3, 3, 2, 5, "..."),
-             temperatura = c(20, 22, 28, 23, 25, "..."),
-             precipitacao = c(1000, 1100, 1300, 1200, 1450, "...")),
-      caption = "Dados tabulares.",
-      align = "c")
-```
-
-```{r fig-vetor-poligonos-regulares, echo=FALSE, fig.height=4, fig.align='center', fig.cap="Polígonos regulares: buffers, quadrículas e hexágonos."}
-old_par = par(mfrow = c(1, 3), pty = "s", mar = c(0, 3, 1, 0))
-
-plot(st_as_sfc("MULTIPOINT(1 2, 1 5, 2 3, 4 4, 4 1)"),
-     pch = 20, axes = TRUE, xlim = c(0, 5), ylim = c(0, 6), main = "Buffers")
-plot(st_as_sfc("MULTIPOINT(1 2, 1 5, 2 3, 4 4, 4 1)") %>% 
-       sf::st_as_sf() %>% 
-       sf::st_buffer(.5),
-     lwd = 2, add = TRUE)
-text(x = c(1, 1, 2, 4, 4), 
-     y = c(2, 5, 3, 4, 1) + .3, 
-     labels = 1:5, col = "gray50")
-
-plot(st_as_sfc("POLYGON((0 0, 0 5, 5 5, 5 0, 0 0))") %>% 
-       sf::st_as_sf() %>% 
-       sf::st_make_grid(cellsize = 1),
-     lwd = 2, axes = TRUE, main = "Quadrículas")
-text(x = rep(seq(.5, 4.5, 1), 5), 
-     y = rep(seq(.5, 4.5, 1), each = 5), 
-     labels = c(21:25, 16:20, 11:15, 6:10, 1:5), col = "gray50")
-
-plot(st_as_sfc("POLYGON((.5 .5, .5 4, 4 4, 4 .5, .5 .5))") %>%
-       sf::st_as_sf() %>%
-       sf::st_make_grid(cellsize = 1, square = FALSE),
-     lwd = 2, axes = TRUE, main = "Hexágonos")
-text(x = c(seq(.5, 4.5, 1),
-           seq(0, 4, 1),
-           seq(.5, 4.5, 1),
-           seq(0, 4, 1),
-           seq(.5, 4.5, 1),
-           seq(0, 4, 1)),
-     y = c(rep(0.5, 5),
-           rep(1.35, 5),
-           rep(2.25, 5),
-           rep(3.1, 5),
-           rep(3.95, 5),
-           rep(4.85, 5)),
-     labels = c(26:30, 21:25, 16:20, 11:15, 6:10, 1:5),
-     col = "gray50")
-
-par(old_par)
-```
-
-### Tabela de atributos
-
-Para os dados vetoriais é necessário ainda destacar um elemento fundamental: a **tabela de atributos**. A tabela de atributos é uma tabela que inclui dados **geográficos** e **dados alfanuméricos**. Os **dados geoespaciais** são representados por cada feição geolocalizada espacialmente (ponto, linha ou polígono), e os **dados alfanuméricos** são todos os demais dados associados a cada uma dessas feições, representado na forma de colunas (Figuras \@ref(fig:fig-vetor-pontos), \@ref(fig:fig-vetor-linhas), \@ref(fig:fig-vetor-poligonos) e \@ref(fig:fig-vetor-poligonos-regulares)).
-
-Dessa forma, a **tabela de atributos** reúne informações sobre cada feição e pode ser utilizada para realizar de filtros ou agregações dos dados de cada feição. É nessa tabela que podemos ainda concatenar novas informações (colunas) de operações com as feições (linhas da tabela de atributos) como cálculo de comprimento, perímetro, área ou ainda outras operações com as colunas. Também podemos associar outros dados não espaciais aos dados da tabela de atributos com a junção por uma coluna identificadora.
+Para os dados vetoriais é necessário destacar um elemento fundamental: a **tabela de atributos**. A tabela de atributos é uma tabela que inclui dados **geográficos** e **dados alfanuméricos**. Os **dados geoespaciais** são representados por cada feição geolocalizada espacialmente (ponto, linha ou polígono), e os **dados alfanuméricos**. Dessa forma, a **tabela de atributos** reúne informações sobre cada feição e pode ser utilizada para realizar de filtros ou agregações dos dados de cada feição.
 
 ### *sf*: principal pacote no R para dados vetoriais
 
 Atualmente o principal pacote para trabalhar com dados vetoriais no R é o [*sf*](https://r-spatial.github.io/sf/), que implementou o *Simple Feature* no R (Pebesma 2018). Entretanto, outro pacote pode ser tão versátil quanto o *sf*, no caso o [*terra*](https://rspatial.org/terra/index.html), ainda em desenvolvimento.
 
-O pacote *sf* facilitou muito a forma de trabalhar com vetores no R, sendo que as principais vantagens desse pacote são (Lovelace, Nowosad & Muenchow 2019):
-
--   rápida importação e exportação de dados
--   aprimorado desempenho de plotagem
--   objetos *sf* podem ser tratados como dataframes na maioria das operações
--   funções *sf* podem ser combinadas usando o operador `%>%` e funcionam no formato tidyverse
--   funções *sf* são consistentes e intuitivas (quase sempre começam com prefixo `st_`)
-
-Os tipos de geometrias apresentadas são representadas por diferentes classes: `POINT`, `LINESTRING` e `POLYGON` para apenas uma feição de cada tipo de geometria; `MULTIPOINT`, `MULTILINESTRING` e `MULTIPOLYGON` para várias feições de cada tipo de geometria e; `GEOMETRYCOLLECTION` para várias feições e tipos de geometrias (Figura \@ref(fig:fig-vetor-sf-classes)).
-
-```{r fig-vetor-sf-classes, fig.align='center', fig.cap="Tipos de classes suportadas pelo pacote *sf*. Fonte: Lovelace, Nowosad & Muenchow (2019).", out.width="50%", echo=FALSE}
-include_graphics("img/cap14_fig06.png")
-```
-
-O pacote *sf* define um sistema de três classes hierárquicas (Tabela \@ref(tab:tab-vetor-sf-estruturas)):
-
--   Classe *sfg* - uma geometria única
--   Classe *sfc* - uma coluna de geometria, que é um conjunto de geometrias *sfg* e informações Sistema de Referência de Coordenadas (do inglês *Coordinate Reference Systems- CRS*)
--   Classe *sf* - uma camada, que é uma coluna de geometria *sfc* dentro de um dataframe com atributos não espaciais
-
-```{r sf-estruturas, echo=FALSE}
-kable(tibble(Classes = c("`sfg`", "`sfc`", "*sf*"), 
-             Hierarquia = c("Geometria", "Coluna de geometria", "Camada"),
-             Informação = c("Tipo e coordenadas", "Conjundo de `sfg` + CRS", "`sfc` + atributos")), 
-      caption = "Estruturas de dados espaciais no pacote sf. Fonte: [Dorman (2021)](https://michaeldorman.github.io/R-Spatial-Workshop-at-CBS-2021/main.html).")
-```
+Os tipos de geometrias apresentadas são representadas por diferentes classes: `POINT`, `LINESTRING` e `POLYGON` para apenas uma feição de cada tipo de geometria; `MULTIPOINT`, `MULTILINESTRING` e `MULTIPOLYGON` para várias feições de cada tipo de geometria e; `GEOMETRYCOLLECTION` para várias feições e tipos de geometrias.
 
 Ao olharmos as informações de um objeto da classe *sf*, podemos notar diversas informações que descrevem o mesmo:
 
@@ -250,12 +45,13 @@ Podemos fazer um mapa simples utilizando a função `plot()` desse objeto. Para 
 > IMPORTANTE: faremos mapas mais elaborados na seção xx desse capítulo.
 
 ```{r fig-vetor-mundo, fig.align='center', out.width="100%", fig.cap="Mapa vetorial do mundo."}
+# Plot do polígonos do mundo
 plot(world[1], col = viridis::viridis(100), main = "Mapa do mundo")
 ```
 
 ## Raster
 
-Os dados no formato **raster** consistem em uma **matriz** (com linhas e colunas) representando **células igualmente espaçadas** (pixels; Figura \@ref(fig:fig-raster)). Esse formato de dado torna a álgebra e o processamento de mapas muito mais eficiente e rápido do que o processamento de dados vetoriais. As células dos dados raster possuem **duas informações**: 1. identificação das células (IDs das células) para especificar sua posição na matriz (Figura \@ref(fig:fig-raster) A) e; 2. valores das células (Figura \@ref(fig:fig-raster) B), que geralmente são coloridos para facilitar a interpretação da variação dos valores no espaço (Figura \@ref(fig:fig-raster) C). Além disso, valores ausentes ou não amostrados são representados por `NA`, ou seja, *not available* (Figura \@ref(fig:fig-raster) B e C).
+Os dados no formato **raster** consistem em uma **matriz** (com linhas e colunas) representando **células igualmente espaçadas** (pixels; Figura \@ref(fig:fig-raster)). As células dos dados raster possuem **duas informações**: 1. identificação das células (IDs das células) para especificar sua posição na matriz (Figura \@ref(fig:fig-raster) A) e; 2. valores das células (Figura \@ref(fig:fig-raster) B), que geralmente são coloridos para facilitar a interpretação da variação dos valores no espaço (Figura \@ref(fig:fig-raster) C). Além disso, valores ausentes ou não amostrados são representados por `NA`, ou seja, *not available* (Figura \@ref(fig:fig-raster) B e C).
 
 ```{r fig-raster, echo=FALSE, fig.align='center', fig.cap="Raster: (A) IDs das células, (B) valores das células, (C) células coloridas. Adaptado de: Lovelace, Nowosad & Muenchow (2019)."}
 library(gridExtra)
@@ -267,7 +63,7 @@ small_ras_val <- raster(matrix(sample.int(100, 16), 4, 4, byrow = TRUE))
 small_ras_val[c(10, 15)] <- NA
 polys <- rasterToPolygons(small_ras, na.rm = FALSE)
 
-# ids das celulas
+# ids das células
 p_1 <- spplot(small_ras, colorkey = FALSE, col.regions = "white",
               main = "A. IDs das células",
               sp.layout = list(
@@ -277,7 +73,7 @@ p_1 <- spplot(small_ras, colorkey = FALSE, col.regions = "white",
               )
 )
 
-# valor das celulas
+# valor das células
 p_2 <- spplot(small_ras_val, colorkey = FALSE, col.regions = "white",
               main = "B. Valores das céluas",
               sp.layout = list(
@@ -297,43 +93,6 @@ p_3 <- spplot(small_ras_val,
 grid.arrange(p_1, p_2, p_3, ncol = 3)
 ```
 
-### Tipos de raster
-
-A **célula ou pixel** de um raster pode conter apenas um **único valor**, que pode ser **contínuo** ou **categórico** (Figura \@ref(fig:fig-raster-cont-cat)). O formato raster geralmente representa **fenômenos contínuos**, como elevação, precipitação, temperatura, ou dados espectrais de imagens de satélite, mas também pode representar **categorias** como tipos de florestas ou cobertura da terra (Figura \@ref(fig:fig-raster-cont-cat)).
-
-```{r fig-raster-cont-cat, echo=FALSE, fig.align='center', fig.cap="Raster: (A) mapa contínuo, (B) mapa categórico. Adaptado de: Lovelace, Nowosad & Muenchow (2019)."}
-# dados
-set.seed(42)
-small_ras_con <- raster(matrix(sample(1:100, 16) + sample(seq(.1, .9, .1), 16, rep = TRUE), 4, 4, byrow = TRUE))
-small_ras_cat <- raster(matrix(sample(1:4, 16, rep = TRUE), 4, 4, byrow = TRUE))
-polys_con <- rasterToPolygons(small_ras_con, na.rm = FALSE)
-polys_cat <- rasterToPolygons(small_ras_cat, na.rm = FALSE)
-
-# mapa continuo
-p_1 <- spplot(small_ras_con, 
-              col.regions = viridis::viridis(16),
-              colorkey = FALSE,
-              main = "A. Mapa contínuo",
-              sp.layout = list(
-                list("sp.polygons", polys_con, first = FALSE),
-                list("sp.text", xyFromCell(small_ras_con,
-                                           1:ncell(small_ras_con)),
-                     values(small_ras_con))))
-
-# mapa categorico
-p_2 <- spplot(small_ras_cat, 
-              col.regions = RColorBrewer::brewer.pal(name = "Dark2", n = 4),
-              colorkey = FALSE,
-              main = "B. Mapa categórico",
-              sp.layout = list(
-                list("sp.polygons", polys_cat, first = FALSE),
-                list("sp.text", xyFromCell(small_ras_cat,
-                                           1:ncell(small_ras_cat)),
-                     values(small_ras_cat))))
-
-grid.arrange(p_1, p_2, ncol = 2)
-```
-
 ### *raster*: principal pacote no R para dados raster
 
 Atualmente, o principal pacote para trabalhar com dados raster é o [*raster*](https://rspatial.org/raster/index.html) (Hijmans 2020), apesar de existir outros dois em desenvolvimento e já sendo aplicados, como o [*terra*](https://rspatial.org/terra/index.html) e o [*stars*](https://r-spatial.github.io/stars/). O pacote *raster* fornece uma ampla gama de funções para criar, importar, exportar, manipular e processar dados raster no R. O objeto raster pode assumir três classes no R: `RasterLayer`, `RasterStack` e `RasterBrick`.
@@ -350,6 +109,7 @@ A classe `RasterLayer` representa apenas uma camada raster. Para criar um raster
 -   *values*: valores máximos e mínimos das células
 
 ```{r}
+# Raster layers
 raster_layer <- raster::raster(nrows = 5, ncols = 5, 
                                res = .5,
                                xmn = -61.5, xmx = -59, ymn = -14.5, ymx = -12,
@@ -360,6 +120,7 @@ raster_layer
 Um mapa simples do objeto raster pode ser obtido utilizando a função `plot()`, do próprio pacote *raster* (Figura \@ref(fig:fig-raster-layer)).
 
 ```{r fig-raster-layer, fig.align='center', fig.cap="Mapa simples de um `RasterLayer`."}
+# Plot raster layers
 plot(raster_layer, col = viridis::viridis(n = 25))
 ```
 
@@ -368,11 +129,13 @@ Além da classe `RasterLayer`, há mais duas classes que trabalham com múltipla
 A classe `RasterBrick` geralmente corresponde a importação de um único arquivo de imagem de satélite multiespectral (multicamadas) ou a um único objeto com várias camadas na memória. A função `raster::brick()` cria um objeto `RasterBrick`.
 
 ```{r}
+# Raster layers
 raster_layer1 <- raster_layer
 raster_layer2 <- raster_layer * raster_layer
 raster_layer3 <- sqrt(raster_layer)
 raster_layer4 <- log10(raster_layer)
 
+# Raster brick
 raster_brick <- raster::brick(raster_layer1, raster_layer2, raster_layer3, raster_layer4)
 raster_brick
 ```
@@ -380,6 +143,7 @@ raster_brick
 Ao utilizarmos a função `plot()` do pacote *raster*, podemos visualizar todos os raster contidos no objeto `RasterBrick` (Figura \@ref(fig:fig-raster-brick)).
 
 ```{r fig-raster-brick, fig.align='center', fig.cap="Mapas simples de um raster RasterBrick."}
+# Plot raster brick
 plot(raster_brick, col = viridis::viridis(n = 25))
 ```
 
@@ -388,11 +152,13 @@ Já a classe `RasterStack` permite conectar vários objetos raster armazenados e
 Outra diferença é que o tempo de processamento para objetos `RasterBrick` geralmente é menor do que para objetos `RasterStack`. A decisão sobre qual classe `Raster` deve ser usada depende principalmente do caráter dos dados de entrada.
 
 ```{r}
+# Raster layers
 raster_layer1 <- raster_layer
 raster_layer2 <- raster_layer * raster_layer
 raster_layer3 <- sqrt(raster_layer)
 raster_layer4 <- log10(raster_layer)
 
+# Raster stack
 raster_stack <- raster::stack(raster_layer1, raster_layer2, raster_layer3, raster_layer4)
 raster_stack
 ```
@@ -400,6 +166,7 @@ raster_stack
 Da mesma forma, ao utilizar a função `plot()` do pacote *raster*, podemos visualizar todos os raster contidos no objeto `RasterStack` (Figura \@ref(fig:fig-raster-stack)).
 
 ```{r fig-raster-stack, fig.align='center', fig.cap="Mapas simples de um raster RasterStack."}
+# Plot raster stack
 plot(raster_stack, col = viridis::viridis(n = 25))
 ```
 
@@ -415,7 +182,7 @@ O **Sistema de Referência de Coordenadas Geográficas** utiliza ângulos para r
 
 ### Sistema de Coordenadas Projetadas
 
-O **Sistema de Referência de Coordenadas Projetadas** utiliza um Sistema Cartesiano de Coordenadas em uma superfície plana. Dessa forma, à partir de uma origem, traçam-se eixos x e y, e uma unidade linear como o **metro** é utilizada. Todos as projeções feitas de sistemas geográficos convertem uma superfície tridimensional em uma superfície plana bidimensional. Sendo assim, essa conversão trás consigo algum tipo de distorção em relação à porção real, podendo ser distorções em: 1. formas locais, 2. áreas, 3. distâncias , 4. flexão ou curvatura , 5. assimetria, e 6. lacunas de continuidade. Dessa forma, um sistema de coordenadas projetadas pode preservar somente uma ou duas dessas propriedades.
+O **Sistema de Referência de Coordenadas Projetadas** utiliza um Sistema Cartesiano de Coordenadas em uma superfície plana. Dessa forma, à partir de uma origem, traçam-se eixos x e y, e uma unidade linear como o **metro** é utilizada. Todos as projeções feitas de sistemas geográficos convertem uma superfície tridimensional em uma superfície plana bidimensional. Sendo assim, essa conversão trás consigo algum tipo de distorção em relação à porção real, podendo ser distorções em: 1. formas locais, 2. áreas, 3. distâncias , 4. flexão ou curvatura, 5. assimetria e 6. lacunas de continuidade. Dessa forma, um sistema de coordenadas projetadas pode preservar somente uma ou duas dessas propriedades.
 
 Existem três grandes grupos de projeções: cilíndricos, cônicos e planares. Na **projeção cilíndrica**, a superfície da Terra é mapeada em um **cilindro**, sendo também criada tocando a superfície da Terra ao longo de uma ou duas linhas de tangência, sendo utilizada com mais frequência para mapear todo o globo, tendo como exemplo mais conhecido a **Projeção Universal Transversa de Mercator (UTM)**. Na **projeção cônica**, a superfície da Terra é projetada em um **cone** ao longo de uma linha ou duas linhas de tangência, de modo que as distorções são minimizadas ao longo das linhas e aumentam com a distância das mesmas, sendo portanto, mais adequada para mapear áreas de latitudes médias, tendo como exemplo mais conhecido a **Projeção Cônica Equivalente de Albers** e a **Projeção Cônica Conforme de Lambert**. E na **projeção plana**, também denominada **Projeção azimutal**, o mapeamento toca o globo em um ponto ou ao longo de uma linha de tangência, sendo normalmente usado no mapeamento de regiões polares, sendo a mais comum a **Projeção Azimutal Equidistante**, a mesma utilizada na bandeira da ONU.
 
@@ -431,18 +198,19 @@ No R, há duas formas principais de representar um **Sistema de Referência de C
 
 Já `proj4string` permite mais flexibilidade para especificar diferentes parâmetros, como o tipo de projeção, datum e elipsóide. Dessa forma, é possível especificar muitas projeções, ou mesmo modificar as projeções existentes, tornando a representação `proj4string` mais complexa e flexível.
 
-Além disso, ainda é possível consultar uma extensa lista de CRSs no site [spatialreference.org](https://spatialreference.org/), que fornece descrições em diversis formatos, baseados em GDAL e Proj.4. Essa abordagem permite consultar uma URL que pode produzir uma referência espacial em um formato que seu software SIG ou o R pode utilizar como referência.
+Além disso, ainda é possível consultar uma extensa lista de CRSs no site [spatialreference.org](https://spatialreference.org/), que fornece descrições em diversas formatos, baseados em GDAL e Proj.4. Essa abordagem permite consultar uma URL que pode produzir uma referência espacial em um formato que seu software SIG ou o R pode utilizar como referência.
 
 Os pacotes espaciais no R suportam uma ampla variedade de CRSs e usam a biblioteca [PROJ](https://proj.org/index.html#). A função `rgdal::make_EPSG()` retorna um data frame das projeções disponíveis, com informações dos códigos `epsg` e `proj4string` numa mesma tabela, facilitando a busca e uso de CRSs (Tabela \@ref(tab:tab-epsg)).
 
 ```{r eval=FALSE}
+# Listagem dos Sistemas de Referências de Coordenadas no R
 crs_data <- rgdal::make_EPSG()
 head(crs_data)
 ```
 
 ```{r tab-epsg, echo=FALSE}
 kable(head(rgdal::make_EPSG()),
-      caption = "Listagem inicial das projeções disponíveis no R, com informações dos códigos `epsg` e `proj4string`")
+      caption = "Listagem de Sistemas de Referências de Coordenadas disponíveis no R, com informações dos códigos `epsg` e `proj4string`")
 ```
 
 ## Principais fontes de dados geoespaciais
@@ -451,7 +219,7 @@ Existe diversas fontes de dados geoespaciais em diferentes bases de dados dispon
 
 Sobre as **bases de dados raster**, há uma infinidade de dados para diferentes objetivos, mas grande parte deles são relativos à condições ambientais, representando uma variável de interesse de forma contínua no espaço, como temperatura, precipitação, elevação, etc.
 
-Há uma compilação de dados geoespaciais vetoriais e raster feita por Marcus Vinícius Alves de Carvalho e Angelica Carvalho Di Maio, chamada [GeoLISTA](http://www.clickgeo.com.br/wp-content/uploads/2018/05/GeoLISTA.pdf). Entretanto, como as bases de dados tendem à ser muito dinâmicas, é possível que muitas bases tenham surgido e desaparecido desde a listagem realizada.
+Há uma compilação de dados geoespaciais vetoriais e raster feita por Marcus Vinícius Alves de Carvalho e Angelica Carvalho Di Maio, chamada [GeoLISTA](http://www.clickgeo.com.br/wp-content/uploads/2018/05/GeoLISTA.pdf). Entretanto, como as bases de dados tendem a ser muito dinâmicas é possível que muitas bases tenham surgido e desaparecido desde a listagem realizada.
 
 Além das bases de dados, há pacotes específicos no R que fazem o download de dados vetoriais e rasters, facilitando a aquisição e reprodutibilidade. Para conferir uma listagem completa de pacotes para diversas análises espaciais, veja [CRAN Task View: Analysis of Spatial Data](https://cran.r-project.org/web/views/Spatial.html).
 
@@ -614,7 +382,7 @@ Agora que sabemos o que são dados geoespaciais e em quais bases de dados podemo
 
 Há diversos formatos de arquivos geográficos, alguns específicos para dados vetoriais e raster, e outros no formato de banco de dados geoespaciais, como [PostGIS](https://postgis.net/), que podem armazenar ambos os formatos.
 
-Entretanto, todos os formatos para serem importados para o R usam do [GDAL (*Geospatial Data Abstraction Library*)](https://gdal.org/), uma interface unificada para leitura e gravação de diversos formatos de arquivos geográficos, sendo utilizado também por uma séria de softwares de GIS como QGIS, GRASS GIS e ArcGIS.
+Entretanto, todos os formatos para serem importados para o R usam do [GDAL (*Geospatial Data Abstraction Library*)](https://gdal.org/), uma interface unificada para leitura e gravação de diversos formatos de arquivos geográficos, sendo utilizado também por uma série de softwares de GIS como QGIS, GRASS GIS e ArcGIS.
 
 Dentre esses formatos, destacamos os seguintes na Tabela \@ref(tab:tab-formatos).
 
@@ -639,6 +407,7 @@ As principais funções para importar dados no R são: 1) para vetores a funçã
 Como vimos, os arquivos vetoriais são disponibilizados em diversos formatos. Para sabermos se um determinado formato pode ser importado ou exportado utilizando o pacote *sf*, podemos utilizar a função `sf::st_drivers()`. Uma amostra desses formatos é apresentado na Tabela \@ref(tab:tab-vetor-formatos):
 
 ```{r eval=FALSE}
+# Formatos vetoriais importados e exportados pelo pacote sf
 head(sf::st_drivers())
 ```
 
@@ -653,12 +422,12 @@ kable(da,
 
 Para importar vetores existentes para o R, iremos utilizar a função `sf::st_read()`. A estrutura é semelhante para todos os formatos descritos na Tabela \@ref(tab:tab-vetor-formatos), de modo que sempre preencheremos o argumento **dsn** (*data source name*) com o nome do arquivo a ser importado. Entretanto, para banco de dados, como **GeoPackage**, pode ser necessário especificar a camada que se tem interesse com um segundo argumento chamado **layer**, com o nome da camada.
 
-Para quase todas as operações vetoriais nesse capítulo, usaremos os dados disponíveis para o município de Rio Claro/SP. Primeiramente, iremos baixar esses dados da [FBDS (Fundação Brasileira para o Desenvolvimento Sustentável)](https://www.fbds.org.br/), através desse [repositório de dados](http://geo.fbds.org.br/). Em 2013, a FBDS deu início ao **Projeto de Mapeamento em Alta Resoluçăo dos Biomas Brasileiros**, mapeando a cobertura da terra, hidrografia (nascentes, rios e lagos) e áreas de preservaçăo permanente (APPs). O mapeamento foi concluído para os municípios dos biomas Mata Atlântica e Cerrado. Para fazer o download dos arquivos de interesse, utilizaremos o R, através da função `download.file()`.
+Para quase todas as operações vetoriais nesse capítulo, usaremos os dados disponíveis para o município de Rio Claro/SP. Primeiramente, iremos baixar esses dados da [FBDS (Fundação Brasileira para o Desenvolvimento Sustentável)](https://www.fbds.org.br/), através desse [repositório de dados](http://geo.fbds.org.br/). Em 2013, a FBDS deu início ao **Projeto de Mapeamento em Alta Resolução dos Biomas Brasileiros**, mapeando a cobertura da terra, hidrografia (nascentes, rios e lagos) e áreas de preservaçăo permanente (APPs). O mapeamento foi concluído para os municípios dos biomas Mata Atlântica e Cerrado. Para fazer o download dos arquivos de interesse, utilizaremos o R, através da função `download.file()`.
 
 Primeiramente, iremos criar um diretório com a função `create.dir()`, usando a função `here::here()` para indicar o repositório (ver seção xx).
 
 ```{r eval=FALSE}
-# criar um diretorio
+# Criar um diretório
 dir.create(here::here("dados"))
 dir.create(here::here("dados", "vetor"))
 ```
@@ -666,23 +435,23 @@ dir.create(here::here("dados", "vetor"))
 Em seguida, vamos fazer o download de pontos de nascentes, linhas de hidrografia e polígonos de cobertura da terra para o município de Rio Claro/SP.
 
 ```{r eval=FALSE}
-# aumentar o tempo de download
+# Aumentar o tempo de download
 options(timeout = 600)
 
-# download
+# Download
 for(i in c(".dbf", ".prj", ".shp", ".shx")){
   
-  # pontos de nascentes
+  # Pontos de nascentes
   download.file(
     url = paste0("http://geo.fbds.org.br/SP/RIO_CLARO/HIDROGRAFIA/SP_3543907_NASCENTES", i),
     destfile = here::here("dados", "vetor", paste0("SP_3543907_NASCENTES", i)), mode = "wb")
   
-  # linhas de hidrografia
+  # Linhas de hidrografia
   download.file(
     url = paste0("http://geo.fbds.org.br/SP/RIO_CLARO/HIDROGRAFIA/SP_3543907_RIOS_SIMPLES", i),
     destfile = here::here("dados", "vetor", paste0("SP_3543907_RIOS_SIMPLES", i)), mode = "wb")
   
-  # poligonos de cobertura da terra
+  # Polígonos de cobertura da terra
   download.file(
     url = paste0("http://geo.fbds.org.br/SP/RIO_CLARO/USO/SP_3543907_USO", i),
     destfile = here::here("dados", "vetor", paste0("SP_3543907_USO", i)), mode = "wb")
@@ -692,7 +461,7 @@ for(i in c(".dbf", ".prj", ".shp", ".shx")){
 Agora podemos importar esses dados para o R. Primeiro vamos importar as nascentes (Figura \@ref(fig:fig-vetor-nascentes)).
 
 ```{r}
-# importar pontos
+# Importar nascantes
 rc_nas <- sf::st_read(here::here("dados", "vetor", "SP_3543907_NASCENTES.shp"), quiet = TRUE)
 ```
 
@@ -703,7 +472,7 @@ plot(rc_nas[1], pch = 20, col = "blue", main = NA, axes = TRUE, graticule = TRUE
 Agora vamos importar a hidrografia (Figura \@ref(fig:fig-vetor-hidrografia)).
 
 ```{r}
-# importar hidrografia
+# Importar hidrografia
 rc_hid <- sf::st_read(here::here("dados", "vetor", "SP_3543907_RIOS_SIMPLES.shp"), quiet = TRUE)
 ```
 
@@ -714,12 +483,17 @@ plot(rc_hid[1], col = "steelblue", main = NA, axes = TRUE, graticule = TRUE)
 E por fim, vamos importar a cobertura da terra (Figura \@ref(fig:fig-vetor-cobertura)).
 
 ```{r}
-# importar cobertura da terra
+# Importar cobertura da terra
 rc_cob <- sf::st_read(here::here("dados", "vetor", "SP_3543907_USO.shp"), quiet = TRUE)
 ```
 
 ```{r fig-vetor-cobertura, fig.align='center', fig.cap="Mapa de cobertura da terra de Rio Claro/SP."}
-plot(rc_cob[5], col = c("blue", "orange", "gray30", "forestgreen", "green"), main = NA, axes = TRUE, graticule = TRUE)
+# Plot
+plot(rc_cob[5], col = c("blue", "orange", "gray30", "forestgreen", "green"), 
+     main = NA, axes = TRUE, graticule = TRUE)
+legend(x = -.05, y = .15, pch = 15, cex = .7, pt.cex = 2.5, 
+       legend = (rc_cob$CLASSE_USO), 
+       col = c("blue", "orange", "gray30", "forestgreen", "green"))
 ```
 
 ##### Importar utilizando pacotes
@@ -729,7 +503,7 @@ Além de dados existentes, podemos importar dados vetoriais de pacotes, como lis
 É possível listar todos os dados disponíveis no pacote através da função `geobr::list_geobr()`. Na Tabale \@ref(tab:tab-vetor-dados-geobr) é possível ver alguns desses dados.
 
 ```{r eval=FALSE}
-# listar todos os dados do geobr
+# Listar todos os dados do geobr
 geobr::list_geobr()
 ```
 
@@ -741,22 +515,24 @@ kable(head(geobr::list_geobr()),
 Como exemplo, vamos fazer o download o limite do município de Rio Claro/SP, utilizando o código do município (3543907) (Figura \@ref(fig:fig-vetor-rio-claro)).
 
 ```{r}
-# rio claro
+# Polígono de Rio Claro
 rc_2019 <- geobr::read_municipality(code_muni = 3543907, year = 2019, showProgress = FALSE)
 ```
 
 ```{r fig-vetor-rio-claro, fig.align='center', fig.cap="Limite do município de Rio Claro/SP."}
+# Plot
 plot(rc_2019[1], col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 ```
 
 Já para o mundo, o pacote mais interessante trata-se do [`rnaturalearth`](https://docs.ropensci.org/rnaturalearth/), que faz o download de dados do [Natural Earth](https://www.naturaleatoriorthdata.com/). Vamos fazer o download do limite do Brasil (Figura \@ref(fig:fig-vetor-brasil)).
 
 ```{r}
-# brasil
+# Polígono do Brasil
 br <- rnaturalearth::ne_countries(scale = "large", country = "Brazil", returnclass = "sf")
 ```
 
 ```{r fig-vetor-brasil, fig.align='center', fig.cap="Limite do Brasil."}
+# Plot
 plot(br[1], col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 ```
 
@@ -767,18 +543,18 @@ plot(br[1], col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 Para tanto, vamos usar os dados de comunidades de anfíbios da Mata Atlântica (Atlantic Amphibians, Vancine et al. 2018). Iremos fazer o download diretamente do site da fonte dos dados. Antes vamos criar um diretório.
 
 ```{r eval=FALSE}
-# criar um diretorio
+# Criar um diretório
 dir.create(here::here("dados", "tabelas"))
 ```
 
 Em seguida, vamos fazer o download de um arquivo `.zip` e vamos extrair usando a função `unzip()` nesse mesmo diretório.
 
 ```{r eval=FALSE}
-# download
+# Download
 download.file(url = "https://esajournals.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Fecy.2392&file=ecy2392-sup-0001-DataS1.zip",
               destfile = here::here("dados", "tabelas", "atlantic_amphibians.zip"), mode = "wb")
 
-# unzip
+# Unzip
 unzip(zipfile = here::here("dados", "tabelas", "atlantic_amphibians.zip"),
       exdir = here::here("dados", "tabelas"))
 ```
@@ -786,23 +562,26 @@ unzip(zipfile = here::here("dados", "tabelas", "atlantic_amphibians.zip"),
 Agora podemos importar a tabela de dados com a função `readr::read_csv()``.
 
 ```{r}
-# importar tabela de locais
-aa_locais <- readr::read_csv(here::here("dados", "tabelas", "ATLANTIC_AMPHIBIANS_sites.csv"))
+# Importar tabela de locais
+aa_locais <- readr::read_csv(
+  here::here("dados", "tabelas", "ATLANTIC_AMPHIBIANS_sites.csv")
+  )
 aa_locais
 ```
 
 Por fim, podemos facilmente criar um objeto espacial do tipo `MULTIPOINT` utilizando a função `sf::st_as_sf()`. Podemos ver essas coordenadas plotadas no mapa simples da Figura \@ref(fig:fig-vetor-pontos-atlantic-amphibians). 
 
-É necessário antes se ater primeiramente ao argumento **coords** que deve indicar as colunas de longitude e latitude, nessa ordem; e também ao argumento **crs** para indicar o CRS correspondente dessas coordendas, que aqui sabemos se tratar de coordenadas geográficas e datum WGS84. Então podemos facilmente utilizar o código EPSG 4326. Entretanto, se as coordenadas estiverem em metros, por exemplo, teremos de nos ater à qual CRS as mesmas foram coletadas, ou seja, se forem coordenadas de GPS, é preciso saber como o GPS estava configurado (projeção e datum).
+É necessário antes se ater primeiramente ao argumento **coords** que deve indicar as colunas de longitude e latitude, nessa ordem; e também ao argumento **crs** para indicar o CRS correspondente dessas coordendas, que aqui sabemos se tratar de coordenadas geográficas e datum WGS84. Então podemos facilmente utilizar o código EPSG 4326. Entretanto, se as coordenadas estiverem em metros, por exemplo, teremos de nos ater a qual CRS as mesmas foram coletadas, ou seja, se forem coordenadas de GPS, é preciso saber como o GPS estava configurado (projeção e datum).
 
 ```{r}
-# convert para sf
+# Converter dados tabulares para sf
 aa_locais_ve <- aa_locais %>% 
   sf::st_as_sf(coords = c("longitude", "latitude"), crs = 4326)
 aa_locais_ve
 ```
 
 ```{r fig-vetor-pontos-atlantic-amphibians, fig.align='center', fig.cap="Coordenadas das comunidades do Atlantic Amphinians (Vancine et al. 2018)."}
+# Plot
 plot(aa_locais_ve[1], pch = 20, col = "black", main = NA, axes = TRUE, graticule = TRUE)
 ```
 
@@ -813,7 +592,7 @@ O pacote *sf* é mais recente e mais fácil de manipular objetos vetoriais no R,
 Abaixo, veremos como podemos fazer essa conversão facilmente. Primeiramente, vamos importar dados *sp*.
 
 ```{r}
-# paises sp
+# Polígonos países sp
 co110_sp <- rnaturalearth::countries110
 class(co110_sp)
 ```
@@ -821,7 +600,7 @@ class(co110_sp)
 Agora, podemos converter facilmente com a função `sf::st_as_sf()`.
 
 ```{r}
-# paises sf
+# Polígonos países sf
 co110_sf <- sf::st_as_sf(co110_sp)
 class(co110_sf)
 ```
@@ -829,34 +608,34 @@ class(co110_sf)
 Podemo facilmente converter esse objeto novamente para a classe *sp* com a função `sf::as_Spatial`.
 
 ```{r}
-# paises sp
+# Polígonos países sp
 co110_sp <- sf::as_Spatial(co110_sf)
 class(co110_sp)
 ```
 
 #### Raster
 
-Para importar dados raster no R, iremos utilizar a função `raster::raster()`, `raster::brick()` ou `raster::stack()`. Para apenas uma camada raster, usaremos a função `raster::raster()`, com o argumento **x** sendo o nome do arquivo. Já para mais camadas, usaremos `raster::brick()` para um arquivo que possua múltiplas camadas, ou ainda a função `raster::stack()` para várias arquivos em diferentes camadas também no argumento **x**, sendo necessário listar os arquivos no diretório, geralmente utilizando a função `dir()` ou `list.files()`. Entretanto, para especificar uma camada, podemos utiliar o argumento **band** ou **layer** e o nome dessa camada.
+Para importar dados raster no R, iremos utilizar a função `raster::raster()`, `raster::brick()` ou `raster::stack()`. Para apenas uma camada raster, usaremos a função `raster::raster()`, com o argumento **x** sendo o nome do arquivo. Já para mais camadas, usaremos `raster::brick()` para um arquivo que possua múltiplas camadas, ou ainda a função `raster::stack()` para vários arquivos em diferentes camadas também no argumento **x**, sendo necessário listar os arquivos no diretório, geralmente utilizando a função `dir()` ou `list.files()`. Entretanto, para especificar uma camada, podemos utiliar o argumento **band** ou **layer** e o nome dessa camada.
 
 ##### Raster Layer
 Primeiramente, vamos criar um diretório como para os dados raster que iremos fazer o download.
 
 ```{r eval=FALSE}
-# criar directorio
+# Criar diretório
 dir.create(here::here("dados", "raster"))
 ```
 
 Em seguida, vamos fazer o download de dados de elevação, na verdade dados de Modelo Digital de Elevação (*Digital Elevation Model* - DEM), localizados também para o município de Rio Claro. Iremos utilizar os dados do [*Shuttle Radar Topography Mission - SRTM*](https://srtm.csi.cgiar.org/). Para saber mais sobre esses dados, recomendamos a leitura do artigo Farr et al. (2007).
 
 ```{r eval=FALSE}
-# aumentar o tempo de download
+# Aumentar o tempo de download
 options(timeout = 600)
 
-# download
+# Download
 download.file(url = "https://srtm.csi.cgiar.org/wp-content/uploads/files/srtm_5x5/TIFF/srtm_27_17.zip",
               destfile = here::here("dados", "raster", "srtm_27_17.zip"), mode = "wb")
 
-# unzip
+# Unzip
 unzip(zipfile = here::here("dados", "raster", "srtm_27_17.zip"),
       exdir = here::here("dados", "raster"))
 ```
@@ -864,12 +643,13 @@ unzip(zipfile = here::here("dados", "raster", "srtm_27_17.zip"),
 Agora podemos importar essa camada para o R, e visualizá-la em relação ao limite do município de Rio Claro/SP (Figura \@ref(fig:fig-raster-dem)).
 
 ```{r}
-# importar raster
+# Importar raster de altitude
 ra <- raster::raster(here::here("dados", "raster", "srtm_27_17.tif"))
 ra
 ```
 
 ```{r fig-raster-dem, fig.align='center', fig.cap="Camada raster do DEM em relação ao limite do município de Rio Claro/SP."}
+# Plot
 plot(ra, col = viridis::viridis(10))
 plot(rc_2019[1], col = NA, add = TRUE)
 ```
@@ -879,11 +659,11 @@ plot(rc_2019[1], col = NA, add = TRUE)
 Além dos dados de elevação, dados de temperatura e precipitação podem ser obtidos do [WorldClim](https://www.worldclim.org/). Para saber mais sobre esses dados, recomandamos a leitura do artigo Fick & Hijmans (2017).
 
 ```{r eval=FALSE}
-# download
+# Download
 download.file(url = "https://biogeo.ucdavis.edu/data/worldclim/v2.1/base/wc2.1_10m_bio.zip",
               destfile = here::here("dados", "raster", "wc2.0_10m_bio.zip"), mode = "wb")
 
-# unzip
+# Unzip
 unzip(zipfile = here::here("dados", "raster", "wc2.0_10m_bio.zip"),
       exdir = here::here("dados", "raster"))
 ```
@@ -891,17 +671,18 @@ unzip(zipfile = here::here("dados", "raster", "wc2.0_10m_bio.zip"),
 Para importar essa série de camadas, primeiramente iremos listar os arquivos e depois importar no formato `RasterStack` ((Figura \@ref(fig:fig-raster-wc)).
 
 ```{r}
-# listar arquivos
+# Listar arquivos
 fi <- dir(path = here::here("dados", "raster"), pattern = "wc") %>% 
   grep(".tif", ., value = TRUE)
 fi
 
-# importar
+# Importar vários rasters como stack
 st <- raster::stack(here::here("dados", "raster", fi))
 st
 ```
 
 ```{r fig-raster-wc, fig.align='center', fig.cap="Camadas rasters do WorldClim (BIO01 e BIO12) para o mundo."}
+# Plot
 plot(st[[c(1, 4)]], col = viridis::viridis(10))
 ```
 
@@ -916,21 +697,21 @@ Para dados vetoriais, a principal função utilizada é a `sf::st_write()`. Essa
 Os argumentos dessa função será o **obj** que é o objeto *sf* criado no ambiente R, e o **dsn** (*data source name*), ou seja, o nome que o arquivo terá ao ser exportado do R, de modo que o complemento **.shp** no nome de saída, por exemplo, irá definir que o arquivo terá a extensão `ESRI Shapefile`. Entretanto, essa extensão pode ser definida também utilizando o argumento **driver**, com as possibilidades listadas nesse [site](https://gdal.org/drivers/vector/index.html).
 
 ```{r eval=FALSE}
-# exportar o vetor do limite de rio claro na extensão esri shapefile
+# Exportar o polígono de Rio Claro na extensão ESRI Shapefile
 sf::st_write(obj = rc_2019, dsn = here::here("dados", "vetor", "rio_claro.shp"))
 ```
 
 Ou podemos ainda exportar o objeto vetorial na extensão `GeoPackage`. Entretando, aqui é interessante acrescentar um argumento chamado **layer** para definir o nome das camadas a serem exportadas no mesmo arquivo `GeoPackage`, por exemplo.
 
 ```{r eval=FALSE}
-# exportar o vetor do limite de rio claro na extensão geopackage
+# Exportar o polígono de Rio Claro na extensão Geopackage
 sf::st_write(obj = rc_2019, dsn = here::here("dados", "vetor", "vetores.gpkg"), layer = "rio_claro")
 ```
 
 Ainda sobre o formato `GeoPackage`, há algo muito interessante que podemos fazer: podemos agrescentar outros arquivos vetoriais ao mesmo arquivo já criado. Como exemplo, iremos exportar o limite do Brasil para o mesmo arquivo.
 
 ```{r eval=FALSE}
-# exportar o vetor do limite do brasil  na extensão esri shapefile
+# Exportar o polígono do Brasil na extensão Geopackage
 sf::st_write(obj = br, dsn = here::here("dados", "vetor", "vetores.gpkg"), layer = "brasil")
 ```
 
@@ -949,7 +730,7 @@ kable(tibble(
   caption = "Principais formatos de arquivos raster exportados do R.")
 ```
 
-Dentre os argumentos adicionais, temos ainda o *datatype*, que faz referência à um dos nove tipos de dados detalhados na Tabela \@ref(tab:tab-raster-tipos), sendo que o tipo de dado determina a representação em bits (quantidade de informação) na célula do objeto raster exportado e depende da faixa de valores do objeto raster em cada pixel. Quanto mais valores um tipo de dado puder representar, maior será o arquivo exportado no disco, dessa forma, é interessante utilizar um tipo de dado que diminua o tamanho do arquivo à ser exportado, dependendo do tipo de dado em cada pixel. Para a função `raster::writeRaster()`, o default é *FLT4S*, o que pode ocupar mais espaço em disco do que o necessário.
+Dentre os argumentos adicionais, temos ainda o *datatype*, que faz referência a um dos nove tipos de dados detalhados na Tabela \@ref(tab:tab-raster-tipos), sendo que o tipo de dado determina a representação em bits (quantidade de informação) na célula do objeto raster exportado e depende da faixa de valores do objeto raster em cada pixel. Quanto mais valores um tipo de dado puder representar, maior será o arquivo exportado no disco. Dessa forma é interessante utilizar um tipo de dado que diminua o tamanho do arquivo a ser exportado, dependendo do tipo de dado em cada pixel. Para a função `raster::writeRaster()`, o default é *FLT4S*, o que pode ocupar mais espaço em disco do que o necessário.
 
 ```{r tab-raster-tipos, echo=FALSE}
 kable(tibble(
@@ -964,10 +745,10 @@ Outros argumentos de suporte são: **overwrite** para sobreescrever um arquivo q
 Para exportar apenas uma camada `RasterLayer`, podemos utilizar a função `raster::writeRaster()` em um formato mais simples.
 
 ```{r eval=FALSE}
-# diretorio
+# Diretório
 dir.create(here::here("dados", "raster", "exportados"))
 
-# exportar raster layer
+# Exportar raster layer
 raster::writeRaster(ra, 
                     filename = here::here("dados", "raster", "exportados", "elevation"),
                     format = "GTiff",
@@ -980,6 +761,7 @@ raster::writeRaster(ra,
 Para mais de uma camada `RasterBrick` ou `RasterStack`, podemos utilizar a função `raster::writeRaster()` com mais argumentos, como o `bylayer = TRUE`.
 
 ```{r eval=FALSE}
+# Exportar raster stack
 raster::writeRaster(x = st, 
                     filename = here::here("dados", "raster", "exportados", names(st)),
                     bylayer = TRUE, 
@@ -999,23 +781,23 @@ Muitas vezes iremos precisar **verificar as informações** dos objetos geográf
 Podemos acessar as **informações geográficas** e a **tabela de atributos** de um objeto importado como vetor simplesmente chamando o **nome do objeto** no R.
 
 ```{r}
-# rio claro
+# Município de Rio Claro
 rc_2019
 ```
 
 Mas também podemos acessar **informações geográficas** com funções específicas, como tipo de geometria, limites geográficos do vetor (extensão), sistema de referência de coordenadas (CRS), e a tabela de atributos.
 
 ```{r}
-# tipo de geometria
+# Tipo de geometria
 sf::st_geometry_type(rc_2019)
 
-# extensao
+# Extensão
 sf::st_bbox(rc_2019)
 
-# crs
+# CRS
 sf::st_crs(rc_2019)
 
-# acessar a tabela de atributos
+# Acessar a tabela de atributos
 rc_2019_tab <- sf::st_drop_geometry(rc_2019)
 rc_2019_tab
 ```
@@ -1025,43 +807,44 @@ rc_2019_tab
 Da mesma forma, podemos acessar as informações **objetos raster** chamando o **nome do objeto**.
 
 ```{r}
+# Raster layer
 ra
 ```
 
 Além disso, podemos selecionar informações desse objeto com funções específicas, tanto para `RasterLayer`, quanto para `RasterBrick` ou `RasterStack` como: classe, dimensões (número de linhas, colunas e camadas), número de camadas, número de linhas, número de colunas, número de células, resolução (largura e altura do tamanho do pixel), extensão (limites geográficos), sistema de referência de coordenadas (CRS), nome das camadas e extrair os valores de todos os pixels.
 
 ```{r}
-# classe
+# Classe
 class(ra)
 
-# dimensoes
+# Dimensões
 dim(ra)
 
-# numero de camadas
+# Número de camadas
 nlayers(ra)
 
-# numero de linhas
+# Número de linhas
 nrow(ra)
 
-# numero de colunas
+# Número de colunas
 ncol(ra)
 
-# numero de celulas
+# Número de células
 ncell(ra)
 
-# resolucao
+# Resolução
 res(ra)
 
-# extensao
+# Extensão
 extent(ra)
 
-# projecao ou crs
+# Projeção ou CRS
 projection(ra)
 
-# nome
+# Nomes
 names(ra)
 
-# valores
+# Valores
 getValues(ra) %>% head
 values(ra) %>% head
 ra[] %>% head
@@ -1078,14 +861,14 @@ Podemos verificar o CRS de uma camada através da função `sf::st_crs()` ou `ra
 Já para reprojetar um objeto *sf* usamos a função `sf::st_transform()` e para um objeto *raster* usamos a função `raster::projectRaster()`.
 
 ```{r}
-# projecao de vetores
+# Projeção de vetores
 sf::st_crs(rc_2019)
 
-# projecao de raster
+# Projeção de raster
 raster::projection(ra)
 raster::crs(ra)
 
-# verificar se o crs e geografico
+# Verificar se o CRS é geográfico
 sf::st_is_longlat(rc_2019)
 ```
 
@@ -1144,7 +927,7 @@ Como dissemos anteriormente, para reprojetar um vetor, utilizamos a função `sf
 Vamos reprojetar o limite do município de Rio Claro/SP do **CRS SIRGAS2000/geográfico** para o **CRS projetado SIRGAS2000/UTM23S**, com os efeitos da transformação podendo ser notados na Figura \@ref(fig:fig-vetor-crs-trans).
 
 ```{r}
-# converter crs
+# Converter CRS
 rc_2019_sirgas2000_utm23s <- sf::st_transform(x = rc_2019, crs = 31983)
 ```
 
@@ -1174,29 +957,32 @@ gridExtra::grid.arrange(p1, p2, nrow = 1)
 Podemos ainda utilizar o formato `proj4string` no argumento **crs** para fazer a transformação. Vamos primeiramente plotar o mundo em WGS84/Geográfico (Figura \@ref(fig:fig-vetor-mundo-wgs84)).
 
 ```{r fig-vetor-mundo-wgs84, fig.align='center', fig.cap="Camada BIO01 para o mundo com CRS geográfico e datum WGS84."}
+# Plot
 plot(co110_sf[1], col = "gray",  main = "WGS84/Geográfio", graticule = TRUE)
 ```
 
 Agora, iremos reprojetar utilizando a Projeção de Mollweide (Figura \@ref(fig:fig-vetor-mundo-moll)).
 
 ```{r}
-# projecao de mollweide 
+# Projeção de Mollweide 
 co110_sf_moll <- sf::st_transform(x = co110_sf, crs = "+proj=moll")
 ```
 
 ```{r fig-vetor-mundo-moll, fig.align='center', fig.cap="Camada BIO01 para o mundo com CRS Projeção de Mollweide."}
+# Plot
 plot(co110_sf_moll[1], col = "gray", main = "Projeção de Mollweide", graticule = TRUE)
 ```
 
 Ou ainda podemos utilizar a Projeção Azimutal de Lambert com alguns parâmetros ajustados para centralizar a projeção no Brasil (\@ref(fig:fig-vetor-mundo-laea)).
 
 ```{r}
-# projecao de mollweide 
+# Projeção Azimutal de Lambert
 co110_sf_laea <- sf::st_transform(x = co110_sf, 
                                   crs = "+proj=laea +x_0=0 +y_0=0 +lon_0=-50 +lat_0=0")
 ```
 
 ```{r fig-vetor-mundo-laea, fig.align='center', fig.cap="amada BIO01 para o mundo com CRS Projeção Azimutal de Lambert centrado no Brasil."}
+# Plot
 plot(co110_sf_laea[1], col = "gray", main = "Projeção Azimutal de Lambert", graticule = TRUE)
 ```
 
@@ -1213,12 +999,13 @@ O argumento **method** permite escolher entre os métodos *"ngb" (vizinho mais p
 Aqui, vamos reprojetar os dados de elevação para Rio Claro/SP. Para que esse processo seja mais rápido, iremos antes ajustar a extensão do raster para o limite do município usando a função `raster::crop()` (Figura \@ref(fig:fig-raster-crop)). Essa função é melhor explicada na seção xx.
 
 ```{r}
-# ajuste do limite
+# Ajuste do limite
 ra_rc <- raster::crop(x = ra, y = rc_2019)
 ra_rc
 ```
 
 ```{r fig-raster-crop, fig.align='center', fig.cap="Ajuste da extensão do raster de elevação para o município de Rio Claro/SP."}
+# Plot
 plot(ra_rc, col = viridis::viridis(10))
 plot(rc_2019[1], col = NA, lwd = 2, add = TRUE)
 ```
@@ -1226,7 +1013,7 @@ plot(rc_2019[1], col = NA, lwd = 2, add = TRUE)
 Primeiramente, vamos reprojetar indicando uma **projeção e sem especificar o tamanho da célula**. Note que o tamanho da célula vai se ajustar para valores diferentes, sendo portanto, pixels retangulares e não quadrados.
 
 ```{r}
-# reprojecao
+# Reprojeção
 ra_rc_sirgas2000_utm23s <- raster::projectRaster(from = ra_rc, crs = "+init=epsg:31983", method = "bilinear")
 ra_rc_sirgas2000_utm23s
 ```
@@ -1234,12 +1021,13 @@ ra_rc_sirgas2000_utm23s
 Agora vamos reprojetar especificando o tamanho da célula (Figura \@ref(fig:fig-raster-reproj)). Dessa forma, todas as células terão o mesmo, i.e., quadrados de 90 metros.
 
 ```{r}
-# reprojecao
+# Reprojeção
 ra_rc_sirgas2000_utm23s <- raster::projectRaster(from = ra_rc, crs = "+init=epsg:31983", method = "bilinear", res = 90)
 ra_rc_sirgas2000_utm23s
 ```
 
 ```{r fig-raster-reproj, fig.align='center', fig.cap="Reprojeção do raster de elevação para SIRGAS2000/UTM23S especificado por um objeto e informando o tamanho da célula."}
+# Plot
 plot(ra_rc_sirgas2000_utm23s, col = viridis::viridis(10))
 plot(rc_2019_sirgas2000_utm23s[1], col = NA, lwd = 2, add = TRUE)
 ```
@@ -1247,12 +1035,13 @@ plot(rc_2019_sirgas2000_utm23s[1], col = NA, lwd = 2, add = TRUE)
 Vamos também reprojetar uma camada mundial da média de temperatura anual (BIO01), indicando o tamanho da célula para 25.000 m (Figura \@ref(fig:fig-raster-reproj-celula-mundo)).
 
 ```{r}
-# reprojecao
+# Reprojeção
 bio01_moll <- raster::projectRaster(st[[1]], crs = "+proj=moll", res = 25000, method = "bilinear")
 bio01_moll
 ```
 
 ```{r fig-raster-reproj-celula-mundo, fig.align='center', fig.cap="Reprojeção do raster de média de temperatura anual (BIO01) para Projeção de Mollweide informando o tamanho da célula."}
+# Plot
 plot(bio01_moll, col = viridis::viridis(10))
 plot(co110_sf_moll[1], col = NA, add = TRUE)
 ```
@@ -1313,12 +1102,13 @@ Para exemplificar as operações de atributos, vamos utilizar os dados de nascen
 Vamos iniciar as operações fazendo o **filtro de feições pela tabela de atributos**, que permite selecionar feições pelos seus valores atribuídos, utilizando a função `dplyr::filter()`. Aqui vamos selecionar as feições de floresta do mapa de cobertura da terra para Rio Claro/SP (Figura \@ref(fig:fig-vetor-opat-filtro)).
 
 ```{r}
-# filtro
+# Filtro
 rc_cob_floresta <- rc_cob %>% 
   dplyr::filter(CLASSE_USO == "formação florestal")
 ```
 
 ```{r fig-vetor-opat-filtro, fig.align='center', fig.cap="Filtro da classe floresta para o mapeamento de cobertura da terra para o município de Rio Claro/SP."}
+# Plot
 plot(rc_2019_sirgas2000_utm23s$geom, col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 plot(rc_cob_floresta$geometry, col = "forestgreen", add = TRUE)
 ```
@@ -1328,14 +1118,14 @@ plot(rc_cob_floresta$geometry, col = "forestgreen", add = TRUE)
 Uma das funções mais úteis de operações de atributos é a **junção**, referida em inglês como *join*, através das funções `dplyr::*_join()` (ver detalhes na seção xx). Nela, usamos uma coluna **identificadora** para **atribuir dados de outra tabela de dados**. Como exemplo, vamos criar uma tabela de dados com novos nomes das classes de cobertura da terra e atribuir esses novos nomes à tabela de atributos do objeto vetorial. É fundamental destacar que para que essa função funcione, precisamos de uma coluna identificadora dos valores para que a junção seja possível.
 
 ```{r}
-# dados
+# Dados
 da_classes <- tibble::tibble(CLASSE_USO = rc_cob$CLASSE_USO, 
                              classe = c("agua", "antropico", "edificado", "floresta", "silvicultura"))
 da_classes
 ```
 
 ```{r}
-# juncao
+# Junção
 rc_cob_classes <- dplyr::left_join(rc_cob, da_classes, by = "CLASSE_USO") %>% 
   sf::st_drop_geometry()
 rc_cob_classes
@@ -1346,7 +1136,7 @@ rc_cob_classes
 Outra função bastante útil é a **agregação de atributos**. Apesar de existir uma função que realiza a **união de feições**, o uso conjunto das funções `dplyr::group_by()` e `dplyr::summarise()` realizam uma tarefa semelhante. Aqui vamos agregar as nascentes para Rio Claro/SP, i.e., juntar cada ponto que estava numa linha da tabela de atributos de modo que todos fiquem numa mesma linha, com o valor da quantidade de nascentes (Figura \@ref(fig:fig-vetor-opat-agregar)).
 
 ```{r}
-# agregar
+# Agregar
 rc_nas_n <- rc_nas %>% 
   dplyr::group_by(MUNICIPIO, HIDRO) %>% 
   dplyr::summarise(n = n())
@@ -1354,6 +1144,7 @@ rc_nas_n
 ```
 
 ```{r fig-vetor-opat-agregar, fig.align='center', fig.cap="Agregação e contagem das nascentes para o município de Rio Claro/SP."}
+# Plot
 plot(rc_2019_sirgas2000_utm23s$geom, col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 plot(rc_nas_n$geometry, pch = 20, col = "blue", add = TRUE)
 ```
@@ -1363,7 +1154,7 @@ plot(rc_nas_n$geometry, pch = 20, col = "blue", add = TRUE)
 Por fim, é muito comum em análises de softwares SIG a **criação ou atualização dos valores de colunas na tabela de atributos**. Aqui, podemos utilizar a função `dplyr::mutate()` para criar essas novas colunas, assim como atualizar os valores de colunas existentes. Em nosso exemplo, iremos fazer uma composição das colunas **CLASSE_USO** e **AREA_HA** numa nova coluna chamada **classe_area**.
 
 ```{r}
-# criar coluna
+# Criar coluna
 rc_cob_cob_col_area <- rc_cob %>% 
   dplyr::mutate(classe_area = paste0(CLASSE_USO, " (", AREA_HA, " ha)")) %>% 
   sf::st_drop_geometry()
@@ -1373,14 +1164,14 @@ rc_cob_cob_col_area
 Duas funções são bastante interessantes de serem integradas junto a manipulação de tabelas de atributos. Elas calculam propriedades geométricas numéricas dos vetores de linhas (comprimento) e polígonos (área): `sf::st_length()` e `sf::st_area()`. Essas funções calculam essas propriedades em metros para comprimento e em metros quadrados para área, independentemente do CRS. Para tanto, vamos utilizar as linhas de hidrografia e os polígonos de cobertura da terra para Rio Claro/SP, e atribuir esses valores à tabela de atributos de ambos os objetos espaciais, utilizando em conjunto a função `dplyr::mutate()`.
 
 ```{r}
-# comprimento das linhas
+# Comprimento das linhas
 rc_hid_comp <- rc_hid %>% 
   dplyr::mutate(comprimento = sf::st_length(.))
 rc_hid_comp
 ```
 
 ```{r}
-# area das poligonos
+# Área dos polígonos
 rc_cob_area <- rc_cob %>% 
   dplyr::mutate(area_m2 = sf::st_area(.))
 rc_cob_area
@@ -1388,51 +1179,52 @@ rc_cob_area
 
 #### Raster
 
-Devido a **estrutura espacial** do rater ser **formada por uma ou mais superfícies contínuas**, as manipulações como subconjunto e outras operações em objetos raster funcionam de uma maneira diferente do que em objetos vetoriais. Veremos aqui as três principais: 1) subconjunto de células usando o operador `[]` ou subconjunto de camadas `RasterStack` ou `RasterBrick` utilizando os operadores `[[]]` e `$`, 2) renomear nomes das camdas, e 3) resumir informações de todos os pixels.
+Devido a **estrutura espacial** do rater ser **formada por uma ou mais superfícies contínuas**, as manipulações como subconjunto e outras operações em objetos raster funcionam de uma maneira diferente do que em objetos vetoriais. Veremos aqui as três principais: 1) subconjunto de células usando o operador `[]` ou subconjunto de camadas `RasterStack` ou `RasterBrick` utilizando os operadores `[[]]` e `$`, 2) renomear nomes das camadas, e 3) resumir informações de todos os pixels.
 
 ##### Subconjunto
 
 Podemos fazer um **subconjunto de células** utilizando dentro dos operadores `[]` valores para indicar a **posição da linha e da coluna de um raster**, ou ainda a **posição de uma célula** utilizando apenas um número. Essas operações resultarão em valores diferentes para `RasterLayer` e `RasterBrick` ou `RasterStack`.
 
 ```{r}
-# raster - linha 1 e columna 1
+# Raster - linha 1 e columna 1
 ra[1, 1]
 
-# celula 1
+# Célula 1
 ra[1]
 
-# stack - linha 1 e columna 1
+# Stack - linha 1 e columna 1
 st[1, 1]
 
-# celula 1
+# Célula 1
 st[1]
 ```
 
 Para **selecionar uma camada** de um `RasterBrick` ou `RasterStack`, podemos utilizar as funções `raster::subset()` ou `raster::raster()` com o argumento **layer** indicando a ordem ou o nome da camada, além dos operadores `[[]]` e `$` (Figura \@ref(fig:fig-raster-stack-subset)).
 
 ```{r}
-# selecao de camada num objeto stack utilizando a funcao subset
+# seleção de camada num objeto stack utilizando a função subset
 st_bio01 <- raster::subset(st, "wc2.1_10m_bio_1")
 st_bio01
 
-# selecao de camada num objeto stack utilizando a funcao raster
+# Seleção de camada num objeto stack utilizando a função raster
 st_bio01 <- raster::raster(st, layer = 1)
 st_bio01
 
-# selecao de camada num objeto stack utilizando os operadores [[]] e o nome
+# Seleção de camada num objeto stack utilizando os operadores [[]] e o nome
 st_bio01 <- st[["wc2.1_10m_bio_1"]]
 st_bio01
 
-# selecao de camada num objeto stack utilizando os operadores [[]] e a posicao
+# Seleção de camada num objeto stack utilizando os operadores [[]] e a posicao
 st_bio01 <- st[[1]]
 st_bio01
 
-# selecao de camada num objeto stack utilizando o operador $
+# Seleção de camada num objeto stack utilizando o operador $
 st_bio01 <- st$wc2.1_10m_bio_1
 st_bio01
 ```
 
 ```{r fig-raster-stack-subset, fig.align='center', fig.cap="Camada BIO01 selecionada pelas operações de subconjunto acima do stack de variáveis bioclimáticas."}
+# Plot
 raster::plot(st_bio01, col = viridis::viridis(10))
 ```
 
@@ -1441,26 +1233,26 @@ raster::plot(st_bio01, col = viridis::viridis(10))
 Podemos ainda **renomear camadas** dos raster `RasterLayer` utilizando a função `names()`.
 
 ```{r}
-# nomes
+# Nomes
 names(ra_rc)
 
-# renomear
+# Renomear
 names(ra_rc) <- "elevacao"
 
-# nomes
+# Nomes
 names(ra_rc)
 ```
 
 E essa operação também funciona para `RasterBrick` e `RasterStack`.
 
 ```{r}
-# nomes
+# Nomes
 names(st)
 
-# renomear
+# Renomear
 names(st) <- c("bio01", paste0("bio", 10:19), paste0("bio0", 2:9))
 
-# nomes
+# Nomes
 names(st)
 ```
 
@@ -1469,20 +1261,20 @@ names(st)
 Muitas vezes queremos fazer **cálculos** para todos as células de um raster. Podemos **resumir informações de todos os pixels** fazendo cálculos simples com todos os pixels de cada camada com a função `raster::cellStats()`, sendo **x** o argumento do objeto raster e **stat** o nome da função resumo, como "mean" ou "sum".
 
 ```{r}
-# media de todas as celulas de altitude
+# Média de todas as células de altitude
 raster::cellStats(x = ra_rc, stat = mean)
 
-# media de todas as celulas de cada camada bioclimatica
+# Média de todas as células de cada camada bioclimática
 raster::cellStats(x = st, stat = mean)
 ```
 
 Ou ainda, podemos analisar a **frequência com que cada valor dos pixels** ocorre, utilizando a função `raster::freq()`.
 
 ```{r}
-# frequencia das celulas
+# Frequência das células
 raster::freq(x = ra_rc) %>% head()
 
-# frequencia das celulas
+# Frequência das células
 raster::freq(x = st[[1]]) %>% head()
 ```
 
@@ -1548,14 +1340,14 @@ kable(tibble::tibble(
 Em nosso exemplo, utilizaremos a função `sf::intersects()` para filtrar as nascentes dentro de floresta para Rio Claro/SP. Essa função vai retornar a resposta binária se as nascentes estão (1) ou não (empty) dentro dos polígonos de floresta.
 
 ```{r}
-# filtro espacial
+# Filtro espacial
 sf::st_intersects(x = rc_nas, y = rc_cob_floresta)
 ```
 
 Podemos usar essa mesma função em conjunto com a função `dplyr::filter()` para filtrar as nascentes dentro de florestas, mas agora com o argumento **sparse** = `FALSE` para valores lógicos funcionarem com o filtro.
 
 ```{r} 
-# filtro espacial - interno
+# Filtro espacial - interno
 rc_nas_floresta_int <- rc_nas %>% 
   dplyr::filter(sf::st_intersects(x = ., y = rc_cob_floresta, sparse = FALSE))
 ```
@@ -1563,11 +1355,12 @@ rc_nas_floresta_int <- rc_nas %>%
 Ou ainda podemos utilizar o operador `[]` para realizar esse filtro, como podemos notar na Figura \@ref(fig:fig-vetor-filtro-espacial-interno).
 
 ```{r}
-# filtro espacial com [] - interno
+# Filtro espacial com [] - interno
 rc_nas_floresta_int <- rc_nas[rc_cob_floresta, ]
 ```
 
 ```{r fig-vetor-filtro-espacial-interno, fig.align='center', fig.cap="Nascentes dentro de florestas no município de Rio Claro/SP."}
+# Plot
 plot(rc_2019_sirgas2000_utm23s$geom, col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 plot(rc_cob_floresta$geometry, col = "forestgreen", add = TRUE)
 plot(rc_nas_floresta_int$geometry, col = "blue", pch = 20, cex = 1, add = TRUE)
@@ -1576,15 +1369,16 @@ plot(rc_nas_floresta_int$geometry, col = "blue", pch = 20, cex = 1, add = TRUE)
 Entretanto, muitas vezes queremos fazer o filtro de feições que estão fora de feições de outro objeto espacial. Para isso, podemos usar a função `sf::st_disjoint()` ou ainda utilizando o operador `[]`, mas com o argumento **op**, nesse caso utilizando a mesma função `sf::st_disjoint()` como operação (Figura \@ref(fig:fig-vetor-filtro-espacial-externo)). Notar o segundo argumento vazio nesse filtro.
 
 ```{r}
-# filtro espacial - externo
+# Filtro espacial - externo
 rc_nas_floresta_ext <- rc_nas %>% 
   dplyr::filter(sf::st_disjoint(x = ., y = rc_cob_floresta, sparse = FALSE))
 
-# filtro espacial com [] - externo
+# Filtro espacial com [] - externo
 rc_nas_floresta_ext <- rc_nas[rc_cob_floresta, , op = st_disjoint]
 ```
 
 ```{r fig-vetor-filtro-espacial-externo, fig.align='center', fig.cap="Nascentes fora de florestas no município de Rio Claro/SP."}
+# Plot
 plot(rc_2019_sirgas2000_utm23s$geom, col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 plot(rc_cob_floresta$geometry, col = "forestgreen", add = TRUE)
 plot(rc_nas_floresta_ext$geometry, col = "steelblue", pch = 20, cex = 1, add = TRUE)
@@ -1594,18 +1388,18 @@ plot(rc_nas_floresta_ext$geometry, col = "steelblue", pch = 20, cex = 1, add = T
 
 Outra operação muito usada dentro de análises geoespaciais é a junção espacial ou do inglês *spatial join*. A ideia base é muito semelhante com a junção baseada em atributos, mas aqui iremos **atribuir o valor da tabela de atributos das feições de um objeto espacial y às feições que fazem intersecção com um objeto espacial x**, de modo que esses valores sejam armazenados na tabela de atributos do primeiro objeto espacial.
 
-Para exemplificar, vamos atribuir os valores dos polígonos de cobertura da terra aos pontos de nascentes para Rio Claro/SP, fazendo um agrupamento pela tabela de atributos para permitir criar o mapa da Figura \@ref(fig:fig-vetor-juncao-espacial).
+Para exemplificar, vamos atribuir os valores dos polígonos de cobertura da terra aos pontos de nascentes para Rio Claro/SP, fazendo um agrupamento pela tabela de atributos para permitir criar o mapa da Figura \@ref(fig:fig-vetor-junção-espacial).
 
 ```{r}
-# juncao espacial
+# Junção espacial
 rc_nas_cob_jun <- rc_nas %>% 
   sf::st_join(x = ., y = rc_cob) %>% 
   dplyr::group_by(CLASSE_USO) %>% 
   dplyr::summarise(n = n())
 ```
 
-```{r fig-vetor-juncao-espacial, fig.align='center', fig.cap="Junção espacial da cobertura da terra para as nascentes no município de Rio Claro/SP."}
-# plot
+```{r fig-vetor-junção-espacial, fig.align='center', fig.cap="Junção espacial da cobertura da terra para as nascentes no município de Rio Claro/SP."}
+# Plot
 plot(rc_2019_sirgas2000_utm23s$geom, col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 plot(rc_nas_cob_jun[1], col = c("blue", "orange", "gray30", "forestgreen", "green"), pch = 20, add = TRUE)
 ```
@@ -1615,12 +1409,13 @@ plot(rc_nas_cob_jun[1], col = c("blue", "orange", "gray30", "forestgreen", "gree
 Muitas vezes queremos **contabilizar quantas feições ou agregar valores de feições** para polígonos. Podemos realizar essa operação usando as funções `dplyr::group_by()` e `dplyr::summarise`, ou utilizar a função `aggregate()`. Nesse exemplo, vamos contabilizar quantas nascentes há por cada polígono de cobertura da terra para o município de Rio Claro/SP (Figura \@ref(fig:fig-vetor-agregacao-espacial)).
 
 ```{r}
-# agregacao espacial
+# Agregação espacial
 rc_cob_nas_agre <- rc_nas %>% 
   aggregate(x = ., by = rc_cob, FUN = length)
 ```
 
 ```{r fig-vetor-vetor-agregacao-espacial, fig.align='center', fig.cap="Agregação espacial contabilizando o número de nascentes para cada classe de cobertura da terra no município de Rio Claro/SP."}
+# Plot
 plot(rc_cob_nas_agre[1], axes = TRUE, graticule = TRUE, main = NA)
 ```
 
@@ -1629,11 +1424,13 @@ plot(rc_cob_nas_agre[1], axes = TRUE, graticule = TRUE, main = NA)
 A distância espacial é a **distância calculada em duas dimensões (2D) entre um objeto espacial x e y** baseado no CRS e para cada feição dos objetos espaciais. Para realizar esse cálculo, utilizamos a função `sf::st_distance()`. Em nosso exemplo, vamos calcular a distância das nascentes até a floresta mais próxima, e adicionando essa informação para cada ponto na tabela de atributos com a função `dplyr::mutate()`, para o município de Rio Claro/SP (Figura \@ref(fig:fig-vetor-distancia-espacial)).
 
 ```{r}
+# Distântica espacial
 rc_nas_dist_flo <- rc_nas %>% 
   dplyr::mutate(dist_flo = sf::st_distance(rc_nas, rc_cob_floresta))
 ```
 
 ```{r fig-vetor-fig-vetor-distancia-espacial, fig.align='center', fig.cap="Distância espacial das nascentes até o fragmento de floresta mais próxima no município de Rio Claro/SP."}
+# Plot
 plot(rc_2019_sirgas2000_utm23s$geom, col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 plot(rc_cob_floresta$geometry, col = "forestgreen", add = TRUE)
 plot(rc_nas_dist_flo[7], pch = 20, add = TRUE)
@@ -1648,14 +1445,15 @@ As principais **operações espaciais para dados raster** podem ser classificas,
 As **operações locais** contemplam todas as **operações realizadas célula a célula** em uma ou várias camadas de um objeto raster. A **álgebra de raster** é uma das mais comuns, simples e poderosas operações no R envolvendo rasters. Com ela podemos fazer operações simples através de **operadores aritméticos** (soma, subtração, multiplicação, divisão ou potenciação) entre dois ou mais objetos raster, ou utilizar **funções** para alterar todos os valores dos pixels como, por exemplo, as funções `lo10()` ou `sqrt()`, ou ainda a função `raster::scale()` para padronizar ou centralizar os valores dos rasters (Figura \@ref(fig:fig-raster-local-aritmetico)).
 
 ```{r}
-# soma
+# Soma
 ra_rc2 <- ra_rc + ra_rc
 
-# log10
+# Log10
 ra_rc_log10 <- log10(ra_rc)
 ```
 
 ```{r fig-raster-local-aritmetico, fig.align='center', fig.cap="Rasters de soma e log10 do mapa de elevação para Rio Claro/SP."}
+# Plot
 par(mfrow = c(1, 2))
 
 raster::plot(ra_rc2, col = viridis::viridis(10))
@@ -1670,11 +1468,12 @@ par(mfrow = c(1, 1))
 Além das operação aritméticas, a **álgebra de rasters** também permite **operações lógicas**, como criar um novo raster (binário - composto por 1 quando a operação lógica é verdadeira, e 0 quanto é falsa). Em nosso caso, buscamos todos os pixels acima de 600 metros para o raster de elevação de Rio Claro/SP (Figura \@ref(fig:fig-raster-local-logico)).
 
 ```{r}
-# acima de 600
+# Acima de 600
 ra_rc_acima_600 <- ra_rc > 600
 ```
 
 ```{r fig-raster-local-logico, fig.align='center', fig.cap="Operação local lógica mostrando todos os pixels acima de 600 metros de elevação para Rio Claro/SP."}
+# Plot
 raster::plot(ra_rc_acima_600, col = viridis::viridis(10))
 plot(rc_2019$geom, col = NA, border = "red", lwd = 2, add = TRUE)
 ```
@@ -1682,12 +1481,13 @@ plot(rc_2019$geom, col = NA, border = "red", lwd = 2, add = TRUE)
 Além dos operadores aritméticos, também podemos usar as funções `raster::calc()` (uma camada) e `raster::overlay()` (duas ou mais camadas) para **realizar operações em todas as células**. Elas funcionam com a criação de uma **função específica** através da função `function()`, para que esta seja aplicada em todas as células do raster. Essas funções são muito eficientes, portanto, são preferíveis para grandes conjuntos de dados raster. Exemplificaremos essa operação calculando o produto de todos os pixels por eles mesmos do raster de elevação de Rio Claro/SP (Figura \@ref(fig:fig-raster-local-calc)).
 
 ```{r}
-# produto dos pixel - calc
+# Produto dos pixel - calc
 ra_rc_prod <- raster::calc(x = ra_rc, fun = function(x){x * x})
 ra_rc_prod 
 ```
 
 ```{r fig-raster-local-calc, fig.align='center', fig.cap="Operação local de multiplicação de todos os pixels por eles mesmos do raster de elevação para Rio Claro/SP."}
+# Plot
 raster::plot(ra_rc_prod, col = viridis::viridis(10))
 plot(rc_2019$geom, col = NA, border = "red", lwd = 2, add = TRUE)
 ```
@@ -1697,17 +1497,18 @@ A **predição de objetos raster** é outra aplicação extremamente útil de op
 Por fim, a **reclassificação de rasters** é outra operação muito comum quando trabalhamos com rasters. Nela é realizada a classificação de intervalos de valores numéricos em grupos, e.g. agrupar um modelo digital de elevação em classes de valores. A função que faz essa operação é a `raster::reclassify()`. Ela possui dois argumentos: **x** que é o raster a ser reclassificado, e o segundo **rcl** para o qual devemos construir uma matriz de reclassificação, onde a primeira coluna é a extremidade inferior, a segunda coluna é a extremidade superior, e a terceira coluna representa o novo valor para os intervalos das colunas um e dois. Vamos reclassificar o raster de elevação de Rio Claro/SP para os intervalos 400–600, 600–800 e 800–1000 que são reclassificados para os valores 1, 2 e 3, respectivamente (Figura \@ref(fig:fig-raster-local-reclassificacao)).
 
 ```{r}
-# matriz de reclassificacao
+# Matriz de reclassificação
 rcl  <- matrix(c(400,600,1, 
                  600,800,2, 
                  800,1000,3), 
                ncol = 3, byrow = TRUE)
 
-# reclassificao
+# Reclassifição
 ra_rc_rcl <- raster::reclassify(x = ra_rc, rcl = rcl)
 ```
 
 ```{r fig-raster-local-reclassificacao, fig.align='center', fig.cap="Operação local de reclassificação para três classes de elevação para Rio Claro/SP."}
+# Plot
 raster::plot(ra_rc_rcl, col = viridis::viridis(3))
 plot(rc_2019$geom, col = NA, border = "red", lwd = 2, add = TRUE)
 ```
@@ -1720,14 +1521,15 @@ Essa operação é realizada através da função `raster::focal()`. O parâmetr
 Para nosso exemplo, vamos realizar o cálculo do desvio padrão da elevação e a métrica de aspecto (orientação da vertente) para o raster de elevação em Rio Claro/SP (Figura \@ref(fig:fig-raster-focal)).
 
 ```{r}
-# janela movel
+# Janela móvel - moving window
 ra_rc_focal_sd <- raster::focal(x = ra_rc, w = matrix(data = 1, nrow = 3, ncol = 3), fun = sd)
 
-# declividade
+# Declividade
 ra_rc_asp <- raster::terrain(x = ra_rc, opt = "aspect")
 ```
 
 ```{r fig-raster-focal, fig.align='center', fig.cap="Cálculo do desvio padrão da elevação para uma janela de 3x3 e do aspecto para Rio Claro/SP."}
+# Plot
 par(mfrow = c(1, 2))
 
 raster::plot(ra_rc_focal_sd, col = viridis::viridis(10))
@@ -1746,7 +1548,7 @@ As **operações zonais** aplicam uma função de agregação a várias células
 A operação zonal é realizada através da função `raster::zonal()`, que recebe de entrada no argumento **x** o raster contínuo, em **z** o raster categórico, e em **fun** a função que irá resumir as células. Em nosso exemplo, vamos calcular diversas medidas resumo da elevação com a função `summary()` para cada classe de elevação que criamos anteriormente.
 
 ```{r}
-# estatistica zonal
+# Estatística zonal
 ra_rc_zonal <- data.frame(raster::zonal(ra_rc, ra_rc_rcl, fun = "summary"))
 colnames(ra_rc_zonal) <- c("zona", "min", "1qt", "mediana", "media", "3qt", "max")
 ra_rc_zonal
@@ -1756,15 +1558,17 @@ ra_rc_zonal
 
 As **operações globais** usam todo o conjunto de dados raster representando uma única zona. As operações globais mais comuns são **estatísticas descritivas** para todos os pixels do raster, utilizando a função `raster::cellStats()` ou `raster::freq()`, já vistas. Além das estatísticas descritivas, podemos gerar **rasters de distância**, que calcula a distância de cada célula a uma ou um grupo células-alvo específica, utilizando a função `raster::distance()`. 
 
-Em nosso exemplo, vamos selecionar os pixels abaixo de 500 m do raster de elevação e calcular a distância Euclidiana (Figura \@ref(fig:fig-raster-global)).
+Em nosso exemplo, vamos selecionar os pixels abaixo de 500 m do raster de elevação e calcular a Distância Euclidiana (Figura \@ref(fig:fig-raster-global)).
 
 ```{r}
-# distancia
-ra_rc_abaixo_500 <- raster::calc(x = ra_rc, fun = function(x) ifelse(x < 500, 1, NA))
+# Distância Euclidiana
+ra_rc_abaixo_500 <- raster::calc(x = ra_rc, 
+                                 fun = function(x) ifelse(x < 500, 1, NA))
 ra_rc_global_dist <- raster::distance(ra_rc_abaixo_500)
 ```
 
 ```{r fig-raster-global, fig.align='center', fig.cap="Raster de distância Euclidiana dos pixels abaixo de 500 m de elevação para Rio Claro/SP."}
+# Plot
 plot(ra_rc_global_dist, col = viridis::viridis(10))
 plot(ra_rc_abaixo_500, add = TRUE, col = "white", legend = FALSE)
 plot(rc_2019$geom, col = NA, border = "red", lwd = 2, add = TRUE)
@@ -1789,11 +1593,12 @@ Para exemplificar as operações geométricas com vetores, vamos utilizar os dad
 A **simplificação** possui o intuito de generalizar linhas ou polígonos, diminuindo assim suas complexidades em relação ao número de vértices. É utilizada para representação em mapas menores ou mapas interativos (seção xx), ou ainda quando um objeto vetorial é muito grande. A função utilizada é a `sf::st_simplify()`, que usa o argumento **x** para uma geometria de entrada e **dTolerance** para controlar o nível de generalização nas unidades do mapa. Em nosso exemplo, simplificaremos a hidrografia de Rio Claro/SP (Figura \@ref(fig:fig-vetor-simplificacao)).
 
 ```{r}
-# simplificacao
+# Simplificação
 rc_hid_simplificado <- sf::st_simplify(x = rc_hid, dTolerance = 1000)
 ```
 
 ```{r fig-vetor-simplificacao, fig.align='center', fig.cap="Simplificação da hidrografia para Rio Claro/SP."}
+# Plot
 plot(rc_2019_sirgas2000_utm23s$geom, col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 plot(rc_hid$geometry, col = "steelblue", lwd = 2, add = TRUE)
 plot(rc_hid_simplificado$geometry, col = adjustcolor("black", .7), add = TRUE)
@@ -1804,11 +1609,12 @@ plot(rc_hid_simplificado$geometry, col = adjustcolor("black", .7), add = TRUE)
 A operação de **centroides** identifica o centro de objetos geográficos, geralmente o centro de massa das feições. É utilizado para gerar um ponto simples para representações complexas ou para estimar a distância entre polígonos utilizando esse centroide. Podemos calculá-los com a função `sf::st_centroids()`, ou com a função `sf::st_point_on_surface()` para garantir que esses centroides caiam dentro das geometrias. Aqui calcularemos o centroide do município de Rio Claro/SP (Figura \@ref(fig:fig-vetor-centroide)).   
 
 ```{r}
-# centroides
+# Centroides
 rc_2019_sirgas2000_utm23s_cent <- sf::st_centroid(rc_2019_sirgas2000_utm23s)
 ```
 
 ```{r fig-vetor-centroide, fig.align='center', fig.cap="Centroide do limite do município de Rio Claro/SP."}
+# Plot
 plot(rc_2019_sirgas2000_utm23s$geom, col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 plot(rc_2019_sirgas2000_utm23s_cent$geom, cex = 3, pch = 20, add = TRUE)
 ```
@@ -1818,14 +1624,15 @@ plot(rc_2019_sirgas2000_utm23s_cent$geom, cex = 3, pch = 20, add = TRUE)
 Por vezes precisamos criar algum padrão aleatoriotório dentro de um contexto espacial. Isso pode ser realizado de diversas formas. Uma delas é a criação de **pontos aleatórios** dentro de um polígono. Podemos realizar essa operação com a função `sf::st_sample()`. Para essa função, dois argumentos são utilizados: **x** uma geometria de entrada e o **size** indicando o número de pontos à ser criado. Outro argumento bastante interessante é o **type**, indicando o tipo de amostragem espacial (aleatório, regular ou triangular). Para nosso exemplo, vamos fixar a amostragem utilizando a função `set.seed()` e sortear 30 pontos para o limite do município de Rio Claro/SP.
 
 ```{r}
-# fixar amostragem
+# Fixar amostragem
 set.seed(42)
 
-# pontos aleatoriotorios
+# Pontos aleatórios
 rc_2019_sirgas2000_utm23s_pontos_aleatorios <- sf::st_sample(rc_2019_sirgas2000_utm23s, size = 30)
 ```
 
-```{r fig-vetor-pontos-aleatoriotorios, fig.align='center', fig.cap="Sorteio de 30 pontos aleatoriotório para Rio Claro/SP."}
+```{r fig-vetor-pontos-aleatórios, fig.align='center', fig.cap="Sorteio de 30 pontos aleatoriotório para Rio Claro/SP."}
+# Plot
 plot(rc_2019_sirgas2000_utm23s$geom, col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 plot(rc_2019_sirgas2000_utm23s_pontos_aleatorios, pch = 20, add = TRUE)
 ```
@@ -1837,11 +1644,12 @@ Buffers são **polígonos que representam a área dentro de uma determinada dist
 A função utilizada para criar buffers é a `sf::st_buffer()`, que requer pelo menos dois argumentos: **x** uma geometria de entrada e o **dist** uma distância para o buffer, fornecido nas unidades do CRS da geometria de entrada. Em nosso exemplo, vamos criar buffers de 1000 metros para os 30 pontos aleatórios criados anteriormente para o município de Rio Claro/SP (Figura \@ref(fig:fig-vetor-buffer)).   
 
 ```{r}
-# buffer
+# Buffer
 rc_2019_sirgas2000_utm23s_pontos_aleatorios_buffer <- sf::st_buffer(x = rc_2019_sirgas2000_utm23s_pontos_aleatorios, dist = 1000)
 ```
 
 ```{r fig-vetor-buffer, fig.align='center', fig.cap="Buffers de 1000 metros para os 30 pontos aleatórios no município de Rio Claro/SP."}
+# Plot
 plot(rc_2019_sirgas2000_utm23s$geom, col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 plot(rc_2019_sirgas2000_utm23s_pontos_aleatorios_buffer, col = NA, lwd = 2, border = "red", add = TRUE)
 plot(rc_2019_sirgas2000_utm23s_pontos_aleatorios, pch = 20, cex = 1, add = TRUE)
@@ -1852,13 +1660,14 @@ plot(rc_2019_sirgas2000_utm23s_pontos_aleatorios, pch = 20, cex = 1, add = TRUE)
 Uma análise bastante comum, principalmente realizada pela IUCN, é a criação de **polígonos convexos**, para definir a extensão de ocorrência de uma espécie (*Extent of occurrence* - EOO). Nesse sentido, essa operação irá ligar os pontos externos de um conjunto de pontos e criar um polígono a partir deles. Podemos criar esse polígono com a função `sf::st_convex_hull()`. Um único passo que precisamos adiantar é utilizar a função `sf::st_union()` para unir todos os pontos e criar um objeto *sf* `MULTIPOINT`, já iremos explicado com mais detalhes adiante. Vamos utilizar os pontos aleatórios que criamos anteriormente para criar o polígono convexo (Figura \@ref(fig:fig-vetor-convexo)).
 
 ```{r}
-# poligono convexo
+# Polígono convexo
 rc_2019_sirgas2000_utm23s_convexo <- rc_2019_sirgas2000_utm23s_pontos_aleatorios %>% 
   sf::st_union() %>% 
   sf::st_convex_hull()
 ```
 
 ```{r fig-vetor-convexo, fig.align='center', fig.cap="Polígono convexo para os 30 pontos criados aleatoriotoriamente para Rio Claro/SP."}
+# Plot
 plot(rc_2019_sirgas2000_utm23s$geom, col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 plot(rc_2019_sirgas2000_utm23s_convexo, col = NA, lwd = 2, border = "red", add = TRUE)
 plot(rc_2019_sirgas2000_utm23s_pontos_aleatorios, pch = 20, cex = 1, add = TRUE)
@@ -1869,13 +1678,14 @@ plot(rc_2019_sirgas2000_utm23s_pontos_aleatorios, pch = 20, cex = 1, add = TRUE)
 Uma outra forma de criar polígonos para resumir dados espaciais é através de **Polígonos de Voronoi** ou **Diagrama de Voronoi**. Nele, polígonos irregulares são criados à partir da proximidade de pontos, de modo a estimar uma área de abrangência no entorno dos mesmos (Okabe et al. 2000). Esses polígonos podem ser criados com a função `sf::st_voronoi()`, mas precisamos novamente utilizar a função `sf::st_union()` para unir todos os pontos e criar um objeto *sf* `MULTIPOINT`. Vamos utilizar os pontos aleatórios que criamos anteriormente para criar o polígono de Voronoi (Figura \@ref(fig:fig-vetor-voronoi)).
 
 ```{r}
-# poligono de voronoi
+# Polígonos de Voronoi
 rc_2019_sirgas2000_utm23s_voronoi <- rc_2019_sirgas2000_utm23s_pontos_aleatorios %>% 
   sf::st_union() %>% 
   sf::st_voronoi()
 ```
 
 ```{r fig-vetor-voronoi, fig.align='center', fig.cap="Polígonos de Voronoi para os 30 pontos criados aleatoriotoriamente para Rio Claro/SP."}
+# Plot
 plot(rc_2019_sirgas2000_utm23s$geom, col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 plot(rc_2019_sirgas2000_utm23s_voronoi, col = NA, lwd = 2, border = "red", add = TRUE)
 plot(rc_2019_sirgas2000_utm23s_pontos_aleatorios, pch = 20, cex = 1, add = TRUE)
@@ -1891,12 +1701,12 @@ Em nosso exemplo, vamos criar quadrículas e hexágonos de 2000 metros (i.e. 400
 Podemos ainda utilizar as funções de filtros espaciais (Tabela \@ref(tab:tab-filtro-espacial)) para definir como iremos selecionar esses elementos para a área de estudo. Aqui utilizamos a função `sf::st_intersects()`.
 
 ```{r}
-# quadriculas
+# Quadrículas
 rc_2019_sirgas2000_utm23s_grid <- sf::st_make_grid(x = rc_2019_sirgas2000_utm23s, cellsize = 2000, what = "polygons") %>%
   sf::st_as_sf() %>%
   dplyr::filter(sf::st_intersects(x = ., y = rc_2019_sirgas2000_utm23s, sparse = FALSE))
 
-# centroides das quadriculas
+# Centroides das quadrículas
 rc_2019_sirgas2000_utm23s_grid_cent <- rc_2019_sirgas2000_utm23s %>% 
   sf::st_make_grid(cellsize = 2000, what = "centers") %>%
   sf::st_as_sf() %>%
@@ -1904,19 +1714,20 @@ rc_2019_sirgas2000_utm23s_grid_cent <- rc_2019_sirgas2000_utm23s %>%
 ```
 
 ```{r fig-vetor-quad, fig.align='center', fig.cap="Quadrículas de 2000 metros e centroides para Rio Claro/SP."}
+# Plot
 plot(rc_2019_sirgas2000_utm23s$geom, col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 plot(rc_2019_sirgas2000_utm23s_grid, col = NA, border = "red", lwd = 2, add = TRUE)
 plot(rc_2019_sirgas2000_utm23s_grid_cent, pch = 20, add = TRUE)
 ```
 
 ```{r}
-# hexagonos
+# Hexágonos
 rc_2019_sirgas2000_utm23s_hex <- rc_2019_sirgas2000_utm23s %>% 
   sf::st_make_grid(cellsize = 2000, square = FALSE) %>% 
   sf::st_as_sf() %>%
   dplyr::filter(sf::st_intersects(x = ., y = rc_2019_sirgas2000_utm23s, sparse = FALSE))
 
-# centroides de hexagonos
+# Centroides de hexágonos
 rc_2019_sirgas2000_utm23s_hex_cent <- rc_2019_sirgas2000_utm23s %>% 
   sf::st_make_grid(cellsize = 2000, square = FALSE, what = "centers") %>% 
   sf::st_as_sf() %>% 
@@ -1924,6 +1735,7 @@ rc_2019_sirgas2000_utm23s_hex_cent <- rc_2019_sirgas2000_utm23s %>%
 ```
 
 ```{r fig-vetor-hex, fig.align='center', fig.cap="Hexágonos de 2000 metros e centroides para Rio Claro/SP."}
+# Plot
 plot(rc_2019_sirgas2000_utm23s$geom, col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 plot(rc_2019_sirgas2000_utm23s_hex, col = NA, border = "red", lwd = 2, add = TRUE)
 plot(rc_2019_sirgas2000_utm23s_hex_cent, pch = 20, add = TRUE)
@@ -1936,11 +1748,12 @@ Como vimos na seção xx, a **agregação por atributos** podemos dissolver as g
 Nesta seção, vamos utilizar a função `sf::st_union()` para **unir diversas feições em uma só**, dissolvendo os limites entre elas. Vamos utilizar de exemplo os buffers que criamos a partir dos 30 pontos aleatórios (Figura \@ref(fig:fig-vetor-uniao)).
 
 ```{r}
-# uniao
+# União
 rc_2019_sirgas2000_utm23s_pontos_aleatorios_buffer_uniao <- sf::st_union(rc_2019_sirgas2000_utm23s_pontos_aleatorios_buffer)
 ```
 
 ```{r fig-vetor-uniao, fig.align='center', fig.cap="União - dissolução - dos buffers criados a partir de pontos aleatórios para Rio Claro/SP."}
+# Plot
 plot(rc_2019_sirgas2000_utm23s$geom, col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 plot(rc_2019_sirgas2000_utm23s_pontos_aleatorios_buffer_uniao, col = adjustcolor("blue", .1), add = TRUE)
 ```
@@ -1952,11 +1765,12 @@ O recorte realiza um **subconjunto espacial** envolvendo dois objetos espaciais.
 Para nosso exemplo, faremos o recorte da hidrogradia em relação aos buffers criados e unidos para os 30 pontos aleatórios em Rio Claro/SP. Primeiramente, iremos fazer o recorte para dentro dos buffers com a função `sf::st_intersection()` (Figura \@ref(fig:fig-vetor-interseccao)).
 
 ```{r}
-# recorte - interseccao
+# Recorte - intersecção
 rc_hid_interseccao <- sf::st_intersection(x = rc_hid, y = rc_2019_sirgas2000_utm23s_pontos_aleatorios_buffer_uniao)
 ```
 
 ```{r fig:fig-vetor-interseccao, fig.align='center', fig.cap="Recorte da hidrografia para dentro dos buffers dos 30 aleatórios para Rio Claro/SP."}
+# Plot
 plot(rc_2019_sirgas2000_utm23s$geom, col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 plot(rc_2019_sirgas2000_utm23s_pontos_aleatorios_buffer_uniao, col = adjustcolor("blue", .1), add = TRUE)
 plot(rc_hid_interseccao$geometry, col = "blue", add = TRUE)
@@ -1965,11 +1779,12 @@ plot(rc_hid_interseccao$geometry, col = "blue", add = TRUE)
 Para nosso segundo exemplo, realizamos o recorte da hidrogradia em relação aos buffers, mas agora para fora dos buffers utilizando a função `sf::st_difference()` (Figura \@ref(fig:fig-vetor-interseccao)).
 
 ```{r}
-# recorte - diferenca
+# Recorte - diferença
 rc_hid_diferenca <- sf::st_difference(x = rc_hid, y = rc_2019_sirgas2000_utm23s_pontos_aleatorios_buffer_uniao)
 ```
 
 ```{r fig-vetor-difereca, fig.align='center', fig.cap="Recorte da hidrografia para fora dos buffers dos 30 aleatórios para Rio Claro/SP."}
+# Plot
 plot(rc_2019_sirgas2000_utm23s$geom, col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 plot(rc_2019_sirgas2000_utm23s_pontos_aleatorios_buffer_uniao, col = adjustcolor("blue", .1), add = TRUE)
 plot(rc_hid_diferenca$geometry, col = "blue", add = TRUE)
@@ -1982,13 +1797,14 @@ Esse tópico possui muitas funcionalidades, que são exploradas no tópico "5.2.
 Dessa forma, podemos utilizar a função `sf::st_cast()` para fazer essas transformações e atribuir cada feição à uma linha da tabela de atributos. Como exemplo, vamos separar os fragmentos de floresta e calcular a área para cada feição em hectares (Figura \@ref(fig:fig-vetor-tipo)).
 
 ```{r}
-# transformacao de tipo
+# Transformação de tipo
 rc_cob_floresta_polygon <- rc_cob_floresta %>% 
   sf::st_cast("POLYGON") %>% 
   dplyr::mutate(area_ha = sf::st_area(.)/1e4 %>% round(2))
 ```
 
 ```{r fig-vetor-tipo, fig.align='center', fig.cap="Transformação do vetor de florestas em `POLYGON` e cálculo da área para cada feição para Rio Claro/SP."}
+# Plot
 plot(rc_2019_sirgas2000_utm23s$geom, col = "gray", main = NA, axes = TRUE, graticule = TRUE)
 plot(rc_cob_floresta_polygon["area_ha"], col = viridis::viridis(100),  add = TRUE)
 ```
@@ -2006,12 +1822,13 @@ Na **agregação de rasters** iremos aumentar o tamanho dos pixels (diminuindo a
 Em nosso exemplo, vamos aumentar o tamanho dos pixels para 900 metros do raster de elevação para Rio Claro/SP.
 
 ```{r}
-# agregacao - aumentar o tamanho do pixel
+# Agregação - aumentar o tamanho do pixel
 ra_rc_sirgas2000_utm23s_agre_media <- raster::aggregate(x = ra_rc_sirgas2000_utm23s, fact = 10, fun = "mean")
 ra_rc_sirgas2000_utm23s_agre_media
 ```
 
 ```{r fig-raster-agregacao, fig.align='center', fig.cap="Agregação (aumento do pixel para 900 metros) utilizando a média para o raster de elevação para Rio Claro/SP."}
+# Plot
 raster::plot(ra_rc_sirgas2000_utm23s_agre_media, col = viridis::viridis(10))
 plot(rc_2019_sirgas2000_utm23s$geom, col = NA, border = "red", lwd = 2, add = TRUE)
 ```
@@ -2023,12 +1840,13 @@ De modo contrátio, na **desagregação de rasters** iremos diminuir o tamanho d
 Nesso exemplo, vamos diminuir o tamanho dos pixels para 45 metros do raster de elevação para Rio Claro/SP.
 
 ```{r}
-# desagregacao - diminuir o tamanho do pixel
+# Desagregação - diminuir o tamanho do pixel
 ra_rc_desg_bil <- raster::disaggregate(x = ra_rc_sirgas2000_utm23s, fact = 2, method = "bilinear")
 ra_rc_desg_bil
 ```
 
 ```{r fig-raster-desagregacao, fig.align='center', fig.cap="Desagregação (diminuição do pixel para 45 metros) utilizando o método bilinear para o raster de elevação para Rio Claro/SP."}
+# Plot
 raster::plot(ra_rc_desg_bil, col = viridis::viridis(10))
 plot(rc_2019_sirgas2000_utm23s$geom, col = NA, border = "red", lwd = 2, add = TRUE)
 ```
@@ -2040,12 +1858,13 @@ Muitas vezes queremos ir além de ajustar o tamanho do pixel, ajustando também 
 Podemos utilizar a função `raster::resample()` para fazer esse alinhamento, ou ainda a função `gdalUtils::align_rasters()`. Para a primeira função, os argumentos são **x** para o raster de entrada, **y** para o raster de alinhamento e **method** para o método utilizado no alinhamento. Para nosso exemplo, vamos ajustar uma camada bioclimática (BIO01) à camada de elevação para Rio Claro/SP (Figura \@ref(fig:fig-raster-reamostragem)).
 
 ```{r}
-# reamostragem
+# Reamostragem
 st_rc <- raster::resample(x = st$bio01, y = ra_rc, method = "bilinear")
 st_rc
 ```
 
 ```{r fig-raster-reamostragem, fig.align='center', fig.cap="Reamostragem (alinhamento dos rasters) utilizando o método bilinear para alinhar o raster bioclimático (BIO01) ao de elevação para Rio Claro/SP."}
+# Plot
 raster::plot(st_rc, col = viridis::viridis(10))
 plot(rc_2019_sirgas2000_utm23s$geom, col = NA, border = "red", lwd = 2, add = TRUE)
 ```
@@ -2061,11 +1880,12 @@ Muitas vezes precisamos **ajustar o tamanho** de um objeto raster à uma área m
 A função `raster::crop()` ajusta o raster à extensão do vertor. Como exemplo, vamos retomar o raster de elevação original baixado do site xx e importado na seção xx (Figura \@ref(fig:fig-raster-dem)). Primeiramente, vamos usar a função `raster::crop()` para ajustar esse raster à extensão do limite do município de Rio Claro/SP (Figura \@ref(fig:fig-raster-corte)).
 
 ```{r}
-# crop - adjuste da extensão
+# Crop - adjuste da extensão
 ra_rc_crop <- raster::crop(ra, rc_2019)
 ```
 
 ```{r fig-raster-corte, fig.align='center', fig.cap="Ajuste da extensão do raster de elevação para a extensão de Rio Claro/SP."}
+# Plot
 raster::plot(ra_rc_crop, col = viridis::viridis(10))
 plot(rc_2019$geom, col = NA, border = "red", lwd = 2, add = TRUE)
 ```
@@ -2073,11 +1893,12 @@ plot(rc_2019$geom, col = NA, border = "red", lwd = 2, add = TRUE)
 Para ajustar o raster ao limite do município de Rio Claro/SP, vamos usar a função `raster::mask()`. É importante notar que essa função preenche com `NAs` os pixels que estão fora do limite do polígono e não ajusta a extensão (Figura \@ref(fig:fig-raster-corte)).
 
 ```{r}
-# mask - adjuste ao limite
+# Mask - adjuste ao limite
 ra_rc_mask <- raster::mask(ra, rc_2019)
 ```
 
 ```{r fig-raster-mascara, fig.align='center', fig.cap="Ajuste do raster de elevação para o limite de Rio Claro/SP."}
+# Plot
 raster::plot(ra_rc_mask, col = viridis::viridis(10))
 plot(rc_2019$geom, col = NA, border = "red", lwd = 2, add = TRUE)
 ```
@@ -2085,13 +1906,14 @@ plot(rc_2019$geom, col = NA, border = "red", lwd = 2, add = TRUE)
 Para ajustar o raster à extensão e ao limite do município de Rio Claro/SP, precisamos utilizar conjuntamente as funções `raster::crop()` e `raster::mask()` (Figura \@ref(fig:fig-raster-corte-mascara)).
 
 ```{r}
-# crop e mask - ajuste da extensão e do limite
+# Crop e mask - ajuste da extensão e do limite
 ra_rc_crop_mask <- ra %>% 
   raster::crop(rc_2019) %>% 
   raster::mask(rc_2019)
 ```
 
 ```{r fig-raster-corte-mascara, fig.align='center', fig.cap="Ajuste da extensão e do limite do raster de elevação para Rio Claro/SP."}
+# Plot
 raster::plot(ra_rc_crop_mask, col = viridis::viridis(10))
 plot(rc_2019$geom, col = NA, border = "red", lwd = 2, add = TRUE)
 ```
@@ -2099,13 +1921,14 @@ plot(rc_2019$geom, col = NA, border = "red", lwd = 2, add = TRUE)
 A função `raster::mask()` possui ainda um argumento chamado **inverse**, que cria uma máscara inversa ao limite, preenchendo com `NA` o pixels internos ao limite do polígono, como podemos ver para o raster de elevação e o limite de Rio Claro/SP (Figura \@ref(fig:fig-raster-corte-mascara-inverso)).
 
 ```{r}
-# crop e mask inversa - ajuste da extensão e do limite inverso
+# Crop e mask inversa - ajuste da extensão e do limite inverso
 ra_rc_crop_mask_inv <- ra %>% 
   raster::crop(rc_2019) %>% 
   raster::mask(rc_2019, inverse = TRUE)
 ```
 
 ```{r fig-raster-corte-mascara-inverso, fig.align='center', fig.cap="Ajuste da extensão e do limite externo do raster de elevação para Rio Claro/SP."}
+# Plot
 raster::plot(ra_rc_crop_mask_inv, col = viridis::viridis(10))
 plot(rc_2019$geom, col = NA, border = "red", lwd = 2, add = TRUE)
 ```
@@ -2117,13 +1940,13 @@ A interação entre raster-vetor de **extração** é o processo que identifica 
 Em nosso exemplo, vamos extrair os valores do raster de elevação para as nascentes do município de Rio Claro/SP (Figura \@ref(fig:fig-raster-extracao)).
 
 ```{r}
-# extracao
+# Extração
 rc_nas_ele <- rc_nas %>% 
   dplyr::mutate(elev = raster::extract(x = ra_rc_sirgas2000_utm23s, y = .))
 ```
 
 ```{r fig-raster-extracao, fig.align='center', fig.cap="Extração dos valores de elevação para as nascentes de Rio Claro/SP."}
-# plot
+# Plot
 plot(rc_nas_ele["elev"], pch = 20, main = NA, axes = TRUE, graticule = TRUE)
 ```
 
@@ -2132,13 +1955,13 @@ Além da extração dos valores totais, podemos resumir os valores dos pixels co
 Para o exemplo, vamos calcular a elevação média dos valores para os hexágonos que criamos para o limite de Rio Claro/SP( Figura \@ref(fig:fig-raster-zonas)).
 
 ```{r}
-# extracao - estatistica por zonas
+# Extração - estatística por zonas
 rc_2019_sirgas2000_utm23s_hex_alt <- rc_2019_sirgas2000_utm23s_hex %>% 
   dplyr::mutate(elev_mean = raster::extract(x = ra_rc_sirgas2000_utm23s, y = rc_2019_sirgas2000_utm23s_hex, fun = mean, na.rm = TRUE))
 ```
 
 ```{r fig-raster-zonas, fig.align='center', fig.cap="Extração dos valores de elevação e resumo pela média para os hexágonos de Rio Claro/SP."}
-# plot
+# Plot
 plot(rc_2019_sirgas2000_utm23s_hex_alt["elev_mean"], pch = 20, main = NA, axes = TRUE, graticule = TRUE)
 ```
 
@@ -2153,11 +1976,12 @@ A conversão de vetor para raster pode ser realizada de **pontos para rasters**.
 Aqui, vamos contabilizar a quantidade de nascentes por pixel, utilizando como base o raster para o qual mudamos a resolução para 900 metros (\@ref(fig:fig-raster-rasterizacao-pontos)).
 
 ```{r}
-# rasterizar pontos
+# Rasterizar pontos
 rc_nas_rasterizacao <- raster::rasterize(x = rc_nas, y = ra_rc_sirgas2000_utm23s_agre_media, field = 1, fun = "count")
 ```
 
 ```{r fig-raster-rasterizacao-pontos, fig.align='center', fig.cap="Rasterização das nascentes, com a operação de contabilização de pontos para Rio Claro/SP."}
+# Plot
 raster::plot(rc_nas_rasterizacao, col = viridis::viridis(10))
 plot(rc_nas$geometry, pch = 20, cex = .5, col = adjustcolor("gray", .5), add = TRUE)
 ```
@@ -2165,13 +1989,14 @@ plot(rc_nas$geometry, pch = 20, cex = .5, col = adjustcolor("gray", .5), add = T
 Além de pontos, podemos também **rasterizar linhas**. Aqui vamos contanilizar as linhas da hidrografia simplificada para Rio Claro/SP (Figura \@ref(fig:fig-raster-rasterizacao-linhas)).
 
 ```{r}
-# rasterizar linhas
+# Rasterizar linhas
 rc_hid_rasterizacao <- raster::rasterize(x = rc_hid_simplificado,
                                          y = ra_rc_sirgas2000_utm23s_agre_media,
                                          field = 1, fun = "count")
 ```
 
 ```{r fig-raster-rasterizacao-linhas, fig.align='center', fig.cap="Rasterização da hidrografia, com a operação de contabilização de linhas para Rio Claro/SP."}
+# Plot
 raster::plot(rc_hid_rasterizacao, col = viridis::viridis(10))
 plot(rc_hid_simplificado$geom, col = "gray", add = TRUE)
 ```
@@ -2179,13 +2004,14 @@ plot(rc_hid_simplificado$geom, col = "gray", add = TRUE)
 Podemos ainda **rasterizar polígonos**, de modo que cada pixel do raster a ser criado irá receber o valor da tabela de atributos, ou uma análise pelo vizinho mais próximo no caso de um campo categórico, como a cobertura da terra, que também vai depender da resolução do raster base e do tamanho da feição do polígono. Para nosso exemplo, antes de criar o raster vamos transforma a coluna de classe de cobertura da terra em `factor` (Figura \@ref(fig:fig-raster-rasterizacao-poligonos)). Entretanto, essa operação de rasterização tente a demorar muito no caso de polígonos muito detalhados ou um raster com pixels muito pequenos, sendo que dois pacotes aceleram esse processamento (*fasterize* e *gdalUtils*), com suas respectivas funções: `fasterize::fasterize()` e `gdalUtils::gdal_rasterize()`.
 
 ```{r}
-# rasterizar poligonos
+# Rasterizar polígonos
 rc_cob_rasterizacao <- rc_cob %>% 
   dplyr::mutate(classe = as.factor(CLASSE_USO)) %>% 
   raster::rasterize(x = ., y = ra_rc_sirgas2000_utm23s_agre_media, field = "classe")
 ```
 
 ```{r fig-raster-rasterizacao-poligonos, fig.align='center', fig.cap="Rasterização da cobertura da terra para Rio Claro/SP."}
+# Plot
 raster::plot(rc_cob_rasterizacao, col = viridis::viridis(10))
 plot(rc_cob$geom, add = TRUE)
 ```
@@ -2197,44 +2023,53 @@ A operação inversa à rasterização é a **vetorização**, na qual iremos co
 Em nosso exemplo, vamos vetorizar o raster de elevação para Rio Claro/SP, criando um **gride de pontos**, sendo os pontos os centroides de cada pixels \@ref(fig:fig-raster-vetorizacao-pontos)).
 
 ```{r}
-# vetorizacao de pontos
+# Vetorização de pontos
 ra_rc_sirgas2000_utm23s_agre_media_pontos <- raster::rasterToPoints(ra_rc_sirgas2000_utm23s_agre_media, spatial = TRUE) %>% 
   sf::st_as_sf()
 ```
 
 ```{r fig-raster-vetorizacao, fig.align='center', fig.cap="Vetorização do raster de elevação criando um gride de pontos para Rio Claro/SP."}
-raster::plot(ra_rc_sirgas2000_utm23s_agre_media, col = viridis::viridis(10, alpha = .8))
-plot(ra_rc_sirgas2000_utm23s_agre_media_pontos, pch = 20, cex = .7, main = FALSE, add = TRUE)
-plot(rc_2019_sirgas2000_utm23s$geom, col = NA, border = "red", lwd = 2, add = TRUE)
+# Plot
+raster::plot(ra_rc_sirgas2000_utm23s_agre_media, 
+             col = viridis::viridis(10, alpha = .8))
+plot(ra_rc_sirgas2000_utm23s_agre_media_pontos, 
+     pch = 20, cex = .7, main = FALSE, add = TRUE)
+plot(rc_2019_sirgas2000_utm23s$geom, col = NA, 
+     border = "red", lwd = 2, add = TRUE)
 ```
 
 Nesse outro exemplo, vamos vetorizar o raster de elevação para Rio Claro/SP novamente, mas agora **criando isolinhas** \@ref(fig:fig-raster-vetorizacao-linhas)).
 
 ```{r}
-# vetorizacao de linhas
+# Vetorização de linhas
 ra_rc_sirgas2000_utm23s_agre_media_linhas <- raster::rasterToContour(x = ra_rc_sirgas2000_utm23s_agre_media) %>% 
   sf::st_as_sf()
 ```
 
 ```{r fig-raster-vetorizacao-linhas, fig.align='center', fig.cap="Vetorização do raster de elevação criando isolinhas para Rio Claro/SP."}
-raster::plot(ra_rc_sirgas2000_utm23s_agre_media, col = viridis::viridis(10, alpha = .8))
-contour(ra_rc_sirgas2000_utm23s_agre_media, labcex = 1, main = FALSE, add = TRUE)
-plot(rc_2019_sirgas2000_utm23s$geom, col = NA, border = "red", lwd = 2, add = TRUE)
+# Plot
+raster::plot(ra_rc_sirgas2000_utm23s_agre_media,
+             col = viridis::viridis(10, alpha = .8))
+contour(ra_rc_sirgas2000_utm23s_agre_media, labcex = 1, 
+        main = FALSE, add = TRUE)
+plot(rc_2019_sirgas2000_utm23s$geom, col = NA, border = "red", 
+     lwd = 2, add = TRUE)
 ```
 
 Por fim, vamos vetorizar o raster de cobertura da terra criado anteriormente para Rio Claro/SP, **criando polígonos não dissolvendo e dissolvidos** \@ref(fig:fig-raster-vetorizacao-poligonos)).
 
 ```{r}
-# vetorizacao de poligonos
-rc_cob_rasterizacao_poligonos <- raster::rasterToPolygons(rc_cob_rasterizacao) %>% 
+# Vetorização de polígonos
+rc_cob_rasterizacao_poligonos <- raster::rasterToPolygons(rc_cob_rasterizacao) %>%
   sf::st_as_sf()
 
-# vetorizacao de poligonos dissolvendo
+# Vetorização de polígonos dissolvendo
 rc_cob_rasterizacao_poligonos_dissolvidos <- raster::rasterToPolygons(rc_cob_rasterizacao, dissolve = TRUE) %>% 
   sf::st_as_sf()
 ```
 
 ```{r fig-raster-vetorizacao-poligonos, fig.align='center', fig.cap="Vetorização do raster de cobertura da terra para Rio Claro/SP, não dissolvendo e dissolvendos os polígonos gerados."}
+# Plot
 par(mfrow = c(1, 2))
 raster::plot(rc_cob_rasterizacao, col = viridis::viridis(10))
 plot(rc_cob_rasterizacao_poligonos$geometry, col = NA, border = "gray", lwd = 1, main = FALSE, add = TRUE)
@@ -2343,7 +2178,7 @@ Como dito anteriormente, a função `plot()` vai funcionar diferentemente depend
 Primeiramente, vamos fazer o download dos dados de limites de biomas, retirando os sistemas costeiros, usando o pacote *geobr* ().
 
 ```{r}
-# biomas
+# Download de polígonos dos Biomas Brasileiros
 biomas <- geobr::read_biomes(showProgress = FALSE) %>%
   dplyr::filter(name_biome != "Sistema Costeiro")
 ```
@@ -2351,12 +2186,14 @@ biomas <- geobr::read_biomes(showProgress = FALSE) %>%
 Agora, quando utilizamos a função `plot()` para um objeto da classe *sf*, temos os três mapas, cada um indicando uma coluna da tabela de atritos (Figura \@ref(fig:fig-vetor-map-plot)).
 
 ```{r fig-vetor-map-plot, fig.align='center', fig.cap="Mapa feito com a função `plot()` de um objeto *sf* para os Biomas do Brasil.", out.width="100%"}
+# Plot
 plot(biomas)
 ```
 
-Selecionando as colunas desse objeto, podemos escolher a informação que queremos plotar, por exemplo, apenas a geometria `geom`. Além disso, podemos acrescentar os argumentos **col** para colorir e **main** para o título, além dos argumentos **axes** e **graticule** para adicionar as coordenadas e quadrículas, repectivamente. A legenda pode ser adicionada com a função `legend()` (Figura \@ref(fig:fig-vetor-map-plot-selecao)).
+Selecionando as colunas desse objeto, podemos escolher a informação que queremos plotar, por exemplo, apenas a geometria `geom`. Além disso, podemos acrescentar os argumentos **col** para colorir e **main** para o título, além dos argumentos **axes** e **graticule** para adicionar as coordenadas e quadrículas, repectivamente. A legenda pode ser adicionada com a função `legend()` (Figura \@ref(fig:fig-vetor-map-plot-seleção)).
 
-```{r fig-vetor-map-plot-selecao}
+```{r fig-vetor-map-plot-seleção}
+# Plot
 plot(biomas$geom, 
      col = c("darkgreen", "orange", "orange4", "forestgreen", "yellow", "yellow3"),
      main = "Biomas do Brasil", axes = TRUE, graticule = TRUE)
@@ -2367,6 +2204,7 @@ legend(x = -75, y = -20, pch = 15, cex = .7, pt.cex = 2.5, legend = biomas$name_
 Para a classe dos objetos espaciais raster, a função `plot()` vai plotar um mapa para o tipo `RasterLayer` e quantos mapas houverem no objeto e couberem no espaço de plot para `RasterBrick` e `RasterStack`. Além disso, para essas classes do objeto raster, essa função provê também uma legenda e uma escala de cores automática ("terrain"). Vamos fazer o mapa da camada raster de elevação para o limite do município de Rio Claro/SP (Figura \@ref(fig:fig-raster-layer-mapa)).
 
 ```{r fig-raster-layer-mapa, fig.align='center', fig.cap="Mapa feito com a função `plot()` de um objeto raster com uma camada.", out.width="100%"}
+# Plot
 plot(ra_rc)
 plot(rc_2019[1], col = NA, lwd = 2, add = TRUE)
 ```
@@ -2374,16 +2212,17 @@ plot(rc_2019[1], col = NA, lwd = 2, add = TRUE)
 Agora vamos plotar objetos da classe `RasterStack`, alterando a cor para "viridis", usando a função `viridis::viridis()` do pacote homônimo. Vamos fazer o mapa de duas camadas raster bioclimáticas para o mundo (Figura \@ref(fig:fig-raster-stack-mapa)).
 
 ```{r fig-raster-stack-mapa, fig.align='center', fig.cap="Mapa feito com a função `plot()` de um objeto raster com várias camadas.", out.width="100%"}
+# Plot
 plot(st[[1:2]], col = viridis::viridis(10))
 ```
 
 Para exportar esses mapas podemos utilizar as funções `png()` ou `pdf()`, indicando os argumentos para ter as configurações que desejamos, e finalizando com a função `dev.off()`. Vamos exportar, à título de exemplo, a última figura.
 
 ```{r, eval=FALSE}
-# diretorio
+# Criar um diretório
 dir.create(here::here("dados", "mapas"))
 
-# exportar mapa
+# Exportar mapa
 png(filename = here::here("dados", "mapas", "elev_rc.png"), width = 20, height = 20, units = "cm", res = 300)
 plot(ra_rc)
 plot(rc_2019[1], col = NA, lwd = 2, add = TRUE)
@@ -2403,6 +2242,7 @@ Além dessas funções, podemos ainda fazer alterações nos mapas através das 
 Vamos demonstrar esse funcionamento para compor o mapa de biomas, apresentado no início desta seção (Figura \@ref(fig:fig-vetor-mapa-ggplot2)).
 
 ```{r fig-vetor-mapa-ggplot2, fig.align='center', fig.cap="Mapa de Biomas do Brasil com o pacote *ggplot2*.", out.width="100%"}
+# Plot
 map_biomas_ggplot2 <- ggplot(data = bi) +
   aes(fill = name_biome) +
   geom_sf(color = "black") +
@@ -2431,12 +2271,12 @@ Uma vez que temos esses dados organizados, podemos utilizar as funções `ggplot
 Como exemplo, vamos compor o mapa de elevação para Rio Claro/SP, adicionando também o limite do município (Figura \@ref(fig:fig-raster-mapa-ggplot2)).
 
 ```{r fig-raster-mapa-ggplot2, fig.align='center', fig.cap="Mapa raster com o pacote *ggplot2*.", out.width="100%"}
-# dados
+# Dados
 ra_rc_da <- raster::rasterToPoints(ra_rc) %>% 
   tibble::as_tibble()
 head(ra_rc_da)
 
-# mapa
+# Mapa
 map_elev_rc_ggplot2 <- ggplot() +
   geom_raster(data = ra_rc_da, aes(x = x, y = y, fill = elevacao)) +
   geom_sf(data = rc_2019, color = "red", fill = NA, size = 1.3) +
@@ -2447,8 +2287,10 @@ map_elev_rc_ggplot2 <- ggplot() +
   annotation_north_arrow(location = "br", which_north = "true",
                          pad_x = unit(.4, "cm"), pad_y = unit(1.3, "cm"),
                          style = north_arrow_fancy_orienteering) +
-  annotate(geom = "text", label = "CRS: WGS84/Geo", x = -47.51, y = -22.53, size = 3) +
-  labs(title = "Elevação de Rio Claro/SP", fill = "Elevação (m)", x = "Longitude", y = "Latitude") +
+  annotate(geom = "text", label = "CRS: WGS84/Geo", 
+           x = -47.51, y = -22.53, size = 3) +
+  labs(title = "Elevação de Rio Claro/SP", fill = "Elevação (m)", 
+       x = "Longitude", y = "Latitude") +
   theme_bw() +
   theme(title = element_text(size = 15, face = "bold"),
         legend.title = element_text(size = 10, face = "bold"),
@@ -2461,8 +2303,8 @@ map_elev_rc_ggplot2
 
 Para exportar mapas criados com o pacote *ggplot2*, podemos utilizar a função `ggplot2::ggsave()`, indicando os argumentos para ter as configurações que desejamos. Vamos exportar, à título de exemplo, a última figura.
 
-```{r, eval=FALSE}
-# exportar mapa ggplot2
+```{r eval=FALSE}
+# Exportar mapa ggplot2
 ggsave(filename = here::here("dados", "mapas", "elev_rc_ggplot2.png"), plot = map_elev_rc_ggplot2, width = 20, height = 20, units = "cm", dpi = 300)
 ```
 
@@ -2479,6 +2321,7 @@ Diversos parâmetros podem ser acrescentados às funções de composição do tm
 Vamos seguir com a composição do mapa de biomas para o Brasil apresentado no início dessa seção (Figura \@ref(fig-vetor-mapa-tmap)).
 
 ```{r fig-vetor-mapa-tmap, fig.align='center', fig.cap="Mapa de Biomas do Brasil com o pacote *tmap*.", out.width="100%"}
+# Mapa
 map_biomas_tmap <- tm_shape(bi, bbox = c(-74, -35, -27, 10)) +
   tm_polygons(col = "name_biome",
               pal = c("darkgreen", "orange", "orange4", "forestgreen", "yellow", "yellow3"),
@@ -2502,19 +2345,19 @@ map_biomas_tmap
 Além disso, o pacote tmap nos permite adicionar de forma simples um **mapa secundário**, provendo uma localização regional de interesse (Figura \@ref(fig:fig-vetor-mapa-sec-tmap)).
 
 ```{r fig-vetor-mapa-sec-tmap, fig.align='center', fig.cap="Mapa vetorial primário e secundário com o pacote *tmap*.", out.width="100%"}
-# dados
+# Dados
 sa <- rnaturalearth::ne_countries(continent = "South America")
 br <- rnaturalearth::ne_countries(country = "Brazil")
 bi <- geobr::read_biomes(showProgress = FALSE) %>%
   dplyr::filter(name_biome != "Sistema Costeiro")
 
-# mapa secundario
+# Mapa secundário
 map_biomas_sa <- tm_shape(sa) +
   tm_polygons() +
   tm_shape(br) +
   tm_polygons(col = "gray50")
 
-# juntando os mapas
+# Juntando os mapas
 map_biomas_tmap
 print(map_biomas_sa, vp = viewport(.815, .875, wi = .2, he = .2))
 ```
@@ -2522,6 +2365,7 @@ print(map_biomas_sa, vp = viewport(.815, .875, wi = .2, he = .2))
 Como exemplo de mapa raster, vamos compor novamente o mapa de elevação para Rio Claro/SP, adicionando também o limite do município (Figura \@ref(fig:fig-raster-mapa-tmap)).
 
 ```{r fig-raster-mapa-tmap, fig.align='center', fig.cap="Mapa raster de elevação com o pacote *tmap*.", out.width="100%"}
+# Mapa
 map_elev_rc_tmap <- tm_shape(ra_rc) +
   tm_raster(pal = "viridis", title = "Elevação (m)") +
   tm_shape(rc_2019) +
@@ -2544,7 +2388,7 @@ map_elev_rc_tmap
 Para exportar mapas criados com o pacote *tmap* podemos utilizar a função `tmap::tmap_save()`, indicando os argumentos para ter as configurações que desejamos. Vamos exportar, à título de exemplo, a última figura.
 
 ```{r, eval=FALSE}
-# exportar mapa tmap
+# Exportar mapa tmap
 tmap::tmap_save(tm = map_elev_rc_tmap, filename = here::here("dados", "mapas", "elev_rc_tmap.png"), width = 20, height = 20, units = "cm", dpi = 300)
 ```
 
@@ -2553,7 +2397,7 @@ tmap::tmap_save(tm = map_elev_rc_tmap, filename = here::here("dados", "mapas", "
 Podemos montar **mapas facetados** para mostrar como **padrões espaciais variam ao longo do tempo**, como por exemplo, os limites do Brasil ao longo dos anos (Figura \@ref(fig:fig-vetor-brasil-tmap-facted)). Entretanto essa a abordagem possui algumas desvantagens, de modo que as facetas podem ficar muito pequenas quando há muitas delas.
 
 ```{r fig-vetor-brasil-tmap-facted, fig.align='center', fig.cap="Mapa vetor facetado dos estados brasileiros ao longo do tempo com o pacote *tmap*.", out.width="100%"}
-# dados
+# Dados
 br_anos <- NULL
 for(i in c(1872, 1900, 1911, 1920, 1933, 1940, 1950, 1960, 1970, 1980, 1991, 2001, 2010, 2019)){
   br_anos <- geobr::read_state(code_state = "all", year = i, showProgress = FALSE) %>% 
@@ -2561,10 +2405,10 @@ for(i in c(1872, 1900, 1911, 1920, 1933, 1940, 1950, 1960, 1970, 1980, 1991, 200
     dplyr::bind_rows(br_anos, .)
 }
 
-# numero de estados ao longo do tempo
+# Número de Estados ao longo do tempo
 br_anos$year %>% table
 
-# mapa facetado
+# Mapa facetado
 map_brasil_tmap <- tm_shape(br_anos) + 
   tm_polygons() + 
   tm_facets(by = "year", nrow = 4)
@@ -2581,12 +2425,12 @@ Podemos criar mapas animados alterando dois argumentos da função `tm_facets()`
 Por fim, podemos exportar o mapa animado no formato de `.gif` utilizando a função `tmap::tmap_animation()`, indicando a taxa de atualização com o argumento **delay** (Figura \@ref(fig:fig-vetor-brasil-tmap-animated)). Alguns pacotes extras são requeridos dependendo do sistema operacional utilizado.
 
 ```{r eval=FALSE}
-# mapa animado
+# Mapa animado
 map_brasil_tmap_ani <- tm_shape(br_anos) + 
   tm_polygons() + 
   tm_facets(along = "year", free.coords = FALSE)
 
-# exportar
+# Exportar mapa tmap animado
 tmap::tmap_animation(tm = map_brasil_tmap_ani, filename = here::here("dados", "mapas", "elev_rc_tmap_ani.gif"), delay = 30)
 ```
 
@@ -2603,7 +2447,7 @@ knitr::include_graphics("img/cap14_fig78.gif")
 Um recurso exclusivo do *tmap* é sua capacidade de **criar mapas estáticos e interativos** usando o **mesmo código**. Os mapas podem ser visualizados interativamente em qualquer ponto mudando para o modo de visualização, usando a função `tmap::tmap_mode(mode = "view")` (Figura \@ref(fig:fig-raster-mapa-tmap-int)).
 
 ```{r eval=FALSE}
-# mudar o modo de exibicao do tmap
+# Mudar o modo de exibição do tmap
 tmap::tmap_mode(mode = "view")
 map_elev_rc_tmap_int <- map_elev_rc_tmap
 map_elev_rc_tmap_int
@@ -2616,7 +2460,7 @@ knitr::include_url("img/cap14_fig79.html")
 Para exportar mapas interativos criados com o pacote *tmap*, podemos utilizar novamente a função `tmap::tmap_save()`, indicando a extensão como `.html`.
 
 ```{r, eval=FALSE}
-# exportar mapa tmap interativo
+# Exportar mapa tmap interativo
 tmap::tmap_save(tm = map_elev_rc_tmap_int, 
                 filename = here::here("dados", "mapas", "elev_rc_tmap_int.html"))
 ```
@@ -2626,6 +2470,7 @@ tmap::tmap_save(tm = map_elev_rc_tmap_int,
 O pacote *mapview* cria rapidamente mapas interativos simples com a função `mapvew::mapview()` (Figura \@ref(fig:fig-raster-mapa-mapview-int)). Entretanto, outras características podem ser mudadas para criar mapas bem mais elaborados, como pode ser visto através do [site do pacote](https://r-spatial.github.io/mapview).
 
 ```{r eval=FALSE}
+# Mapa
 map_elev_rc_mapview_int <- mapview::mapview(ra_rc, col.regions = viridis::viridis(100))
 map_elev_rc_mapview_int
 ```
@@ -2637,7 +2482,7 @@ knitr::include_url("img/cap14_fig80.html")
 Para exportar mapas interativos criados com o pacote *mapview*, podemos utilizar a função `mapivew::mapshot()`, indicando a extensão como `.html`.
 
 ```{r, eval=FALSE}
-# exportar mapa tmap interativo
+# Exportar mapa mapview interativo
 mapview::mapshot(x = map_elev_rc_mapview_int, 
                  url = here::here("dados", "mapas", "elev_rc_mapview_int.html"))
 ```
@@ -2651,10 +2496,10 @@ Mapas interativos usando esse pacote são criados utilizando a função `leaflet
 Mais sobre o pacote *leaflet* pode ser consultado em seu [site](https://rstudio.github.io/leaflet/) e [CheatSheet](https://raw.githubusercontent.com/rstudio/cheatsheets/master/leaflet.pdf).
 
 ```{r fig-raster-mapa-leaflet-int, fig.align='center', fig.cap="Mapa vetorial interativo com o pacote *leaflet*.", out.width="100%", warning=FALSE}
-# paleta de cores
+# Paleta de cores
 pal <- colorNumeric(viridis::viridis(10), raster::values(ra_rc))
 
-# mapa
+# Mapa
 map_elev_rc_leaflet_int <- leaflet() %>%
   addProviderTiles("CartoDB.Positron") %>% 
   addRasterImage(ra_rc, colors = pal, opacity = .8) %>%
@@ -2666,7 +2511,7 @@ map_elev_rc_leaflet_int
 Para exportar mapas interativos criados com o pacote *leaflet*, podemos utilizar novamente a função `mapivew::mapshot()`, indicando a extensão como `.html`.
 
 ```{r, eval=FALSE}
-# exportar mapa tmap interativo
+# Exportar mapa leaflet interativo
 mapview::mapshot(x = map_elev_rc_leaflet_int, 
                  url = here::here("dados", "mapas", "elev_rc_leaflet_int.html"))
 ```
@@ -2682,7 +2527,7 @@ Agora que vimos os conceitos e aplicações básicas de manejo e visualização 
 Primeiramente, vamos importar e preparar os dados de biodiversidade que usaremos nesses exemplos. Vamos começar importanto os locais de amostragens de anfíbios na Mata Atlântica e selecionando apenas as colunas de interesse.
 
 ```{r}
-# importar locais
+# Importar locais
 aa_locais <- readr::read_csv(here::here("dados", "tabelas", "ATLANTIC_AMPHIBIANS_sites.csv")) %>%
   dplyr::select(id, longitude, latitude, species_number)
 ```
@@ -2690,7 +2535,7 @@ aa_locais <- readr::read_csv(here::here("dados", "tabelas", "ATLANTIC_AMPHIBIANS
 Agora vamos importar as espécies das comunidades, selecionando apenas as espécies com nomes válidos, e transformando a coluna de indivíduos para 1, para compor posteriormente uma matriz de comunidade de espécies.
 
 ```{r}
-# importar especies
+# Importar espécies
 aa_especies <- readr::read_csv(here::here("dados", "tabelas", "ATLANTIC_AMPHIBIANS_species.csv")) %>%
   tidyr::drop_na(valid_name) %>% 
   dplyr::select(id, valid_name, individuals) %>% 
@@ -2702,7 +2547,7 @@ aa_especies <- readr::read_csv(here::here("dados", "tabelas", "ATLANTIC_AMPHIBIA
 Podemos agora juntar a tabela de locais, que possui as coordenadas à tabela de espécies. Em seguida convertemos essa única tabela na classe vetor *sf*.
 
 ```{r}
-# join das coordenadas e classe sf
+# Junção das coordenadas e conversão para classe sf
 aa_especies_locais_ve <- aa_especies %>% 
   dplyr::left_join(aa_locais) %>% 
   dplyr::relocate(longitude, latitude, .after = 1) %>% 
@@ -2713,7 +2558,7 @@ aa_especies_locais_ve <- aa_especies %>%
 Agora vamos baixar o limite do Bioma da Mata Atlântica para o Brasil, converter o GCS para WGS84/Geo e ajustar sua extensão para remover as ilhas no Oceano Atlântico.
 
 ```{r}
-# mata atlantica
+# Download do Bioma da Mata Atlântica
 mata_atlantica <- geobr::read_biomes(showProgress = FALSE) %>% 
   dplyr::filter(name_biome == "Mata Atlântica") %>% 
   sf::st_transform(crs = 4326) %>% 
@@ -2723,7 +2568,7 @@ mata_atlantica <- geobr::read_biomes(showProgress = FALSE) %>%
 Podemos vericar se as coordenadas e o limite do bioma estão todos corretos compondo um mapa preliminar, usando o pacote *tmap* (Figura \@ref(fig:fig-vetor-aa-ma)).
 
 ```{r fig-vetor-aa-ma, fig.align='center', fig.cap="Mapa dos locais do Atlantic Amphibians e do limite da Mata Atlântica.", out.width="100%", warning=FALSE}
-# mapa
+# Mapa
 tm_shape(mata_atlantica, bbox = aa_especies_locais_ve) +
   tm_polygons() +
   tm_shape(aa_especies_locais_ve) +
@@ -2733,14 +2578,14 @@ tm_shape(mata_atlantica, bbox = aa_especies_locais_ve) +
 Como o limite utilizado para reunir informações das comunidade de anfíbios foi o mais abrangente possível (Muylaert et al. 2018, Vancine et al. 2018), iremos selecionar apenas os locais que caem dentro do limite da Mata Atlântica que estamos utilizando aqui.
 
 ```{r}
-# selecionar os locais dentro do limite
+# Selecionar os locais dentro do limite
 aa_especies_locais_ve_ma <- aa_especies_locais_ve[mata_atlantica, ]
 ```
 
 Podemos refazer o mapa mostrando as coordenadas retiradas em vermelho e as que ficaram em verde (Figura \@ref(fig:fig-vetor-aa-ma-sel)).
 
 ```{r fig-vetor-aa-ma-sel, fig.align='center', fig.cap="Mapa dos locais do Atlantic Amphibians que caem dentro do limite da Mata Atlântica.", out.width="100%", warning=FALSE}
-# mapa
+# Mapa
 tm_shape(mata_atlantica, bbox = aa_especies_locais_ve) +
   tm_polygons() +
   tm_shape(aa_especies_locais_ve) +
@@ -2752,7 +2597,7 @@ tm_shape(mata_atlantica, bbox = aa_especies_locais_ve) +
 O próximo passo é criar um gride de hexágonos para o Bioma da Mata Atlântica. Usaremos a função `sf::st_make_grid()` que pode criar quadrículas ou hexágonos. Esses hexágonos terão a área equivalente à quadríulas de 1º de tamanho (aproximadamente 110 km²). Usaremos a função `sf::st_area()` para calcular as áreas dos hexágonos e a função `tibble::rowid_to_column()` para criar uma identificação para cada feição.
 
 ```{r}
-# criar os hexagonos
+# Criar hexágonos de ~100 km
 mata_atlantica_hex <- sf::st_make_grid(x = mata_atlantica, 
                                        cellsize = 1, 
                                        square = FALSE) %>% 
@@ -2760,14 +2605,14 @@ mata_atlantica_hex <- sf::st_make_grid(x = mata_atlantica,
   dplyr::mutate(areakm2 = sf::st_area(.)/1e6) %>% 
   tibble::rowid_to_column("id_hex")
 
-# selecionar os hexagonos para dentro do limite da mata atlantica
+# Selecionar os hexágonos dentro do limite da Mata Atlântica
 mata_atlantica_hex <- mata_atlantica_hex[mata_atlantica,]
 ```
 
 Podemos conferir os hexágonos criados fazendo um mapa preliminar (Figura \@ref(fig:fig-vetor-aa-ma-sel-hex)).
 
 ```{r fig-vetor-aa-ma-sel-hex, fig.align='center', fig.cap="Mapa dos hexágonos para o limite da Mata Atlântica.", out.width="100%", warning=FALSE}
-# mapa
+# Mapa
 tm_shape(mata_atlantica, bbox = mata_atlantica_hex) +
   tm_polygons() +
   tm_shape(mata_atlantica_hex) +
@@ -2777,6 +2622,7 @@ tm_shape(mata_atlantica, bbox = mata_atlantica_hex) +
 Podemos agora associar as espécies aos hexágonos fazendo um "join" espacial, utilizando a função `sf::st_join()`.
 
 ```{r}
+# Junção espacial dos locais com os hexágonos
 mata_atlantica_hex_especies <- sf::st_join(x = mata_atlantica_hex, 
                                            y = aa_especies_locais_ve_ma,
                                            left = TRUE)
@@ -2785,6 +2631,7 @@ mata_atlantica_hex_especies <- sf::st_join(x = mata_atlantica_hex,
 Por fim, podemos agregar os dados para ter o número de ocorrências e de espécies por hexágono.
 
 ```{r}
+# Agregar dados de ocorrências e número de espécies por hexágono
 mata_atlantica_hex_especies_oco_riq <- mata_atlantica_hex_especies %>% 
   dplyr::group_by(id_hex) %>% 
   dplyr::summarise(ocorrencias = length(valid_name[!is.na(valid_name)]),
@@ -2794,7 +2641,7 @@ mata_atlantica_hex_especies_oco_riq <- mata_atlantica_hex_especies %>%
 Finalmente podemos compor os mapas finais, mostrando os hexágonos com cores e valores do número de ocorrências e de espécies \@ref(fig:fig-vetor-aa-ma-sel-hex-oco-riq)).
 
 ```{r fig-vetor-aa-ma-sel-hex-oco-riq, fig.align='center', fig.cap="Mapa com o número de ocorrências e riqueza de anfíbios para hexágonos no limite da Mata Atlântica.", out.width="100%", warning=FALSE}
-# mapa de ocorrencias
+# Mapa de ocorrências
 mapa_oco <- tm_shape(mata_atlantica_hex_especies_oco_riq) +
   tm_polygons(title = "Ocorrência de anfíbios", col = "ocorrencias", 
               pal = "-RdYlBu", style = "pretty") +
@@ -2806,7 +2653,7 @@ mapa_oco <- tm_shape(mata_atlantica_hex_especies_oco_riq) +
             legend.title.fontface = "bold",
             legend.position = c("left", "top"))
 
-# mapa de riqueza
+# Mapa de riqueza
 mapa_riq <- tm_shape(mata_atlantica_hex_especies_oco_riq) +
   tm_polygons(title = "Riqueza de anfíbios", col = "riqueza", 
               pal = "-Spectral", style = "pretty") +
@@ -2829,33 +2676,31 @@ tmap_arrange(mapa_oco, mapa_riq)
 Já realizamos o download das variáveis bioclimáticas na seção xx. Vamos importar novamente esses dados, primeiramente listando as camadas e depois importando com a função `raster:stack()`.
 
 ```{r}
-# listar arquivos
+# Listar arquivos
 fi <- dir(path = here::here("dados", "raster"), pattern = "wc") %>% 
   grep(".tif", ., value = TRUE)
 
-# importar
+# Importar rasters
 var <- raster::stack(here::here("dados", "raster", fi))
 
-# renomear
+# Renomear rasters
 names(var) <- c("bio01", paste0("bio", 10:19), paste0("bio0", 2:9))
 ```
 
 Da seção antetior, já temos o objeto com a tabela de coordenadas dos locais de amostragem das comunidades de anfíbios. Vamos agora criar um objeto vetorial das coordenadas e em seguida selecionar os locais dentro do limite do bioma da Mata Atlântica.
 
 ```{r}
-# importar locais
+# Importar locais e converter em sf
 aa_locais_ve <- aa_locais %>% 
   dplyr::mutate(lon = longitude, lat = latitude) %>% 
   sf::st_as_sf(coords = c("lon", "lat"), crs = 4326)
-
-# selecionar locais para o limite
 aa_locais_ve
 ```
 
 Usaremos agora a função `raster::extract()` para extrair e associar os valores das variáveis bioclimáticas para os locais de amostragem.
 
 ```{r}
-# extract
+# Extrair valores das variáveis para os locais
 aa_locais_ve_var <- aa_locais_ve %>% 
   dplyr::mutate(raster::extract(var, ., df = TRUE)) %>% 
   dplyr::select(-ID) %>% 
@@ -2865,6 +2710,7 @@ aa_locais_ve_var <- aa_locais_ve %>%
 Podemos ver esses dados na Tabela \@ref(tab:tab-aa-var).
 
 ```{r tab-aa-var, echo=FALSE}
+# visualizar os dados
 aa_locais_ve_var %>% 
   sf::st_drop_geometry() %>% 
   dplyr::select(id:bio05) %>% 
@@ -2875,7 +2721,7 @@ aa_locais_ve_var %>%
 Podemos ainda fazer alguns mapas para espacializar essas variáveis (Figura \@ref(fig:fig-vetor-aa-var)).
 
 ```{r fig-vetor-aa-var, fig.align='center', fig.cap="Mapa mostrando os valores das variáveis bioclimáticas (BIO01:BIO06) para os locais amostrados de comunidades de anfíbios para hexágonos no limite da Mata Atlântica.", out.width="100%", warning=FALSE}
-# mapa
+# Mapa
 aa_locais_ve_var %>% 
   dplyr::select(bio01:bio06) %>% 
   tidyr::gather(var, val, -geometry) %>% 
@@ -2892,6 +2738,7 @@ O pacote raster além de permitir realizar manejo e visualização de dados rast
 Para ajutar um GLM para dados de presença/ausência, podemos usar a tabela já criada anteriormente, com as espécies e as coordenadas, e fazer um join com a última tabela que criamos com os dados bioclimáticos. 
 
 ```{r}
+# Junção dos dados ambientais aos dados de espécies
 aa_locais_ve_var_especies <- aa_especies %>% 
   dplyr::left_join(., sf::st_drop_geometry(aa_locais_ve_var), by = "id")
 ```
@@ -2899,6 +2746,7 @@ aa_locais_ve_var_especies <- aa_especies %>%
 Agora, vamos selecionar ocorrências da espécie *Haddadus binotatus*, atribuindo **1** quando ela ocorre e **0** quando ela não ocorre. Essa espécie é relativamente comum na serrapilheira de florestas da Mata Atlântica, e recebe esse nome em homenagem a um grande pesquisador de anfíbios da Mata Atlântica, o **Prof. Célio Fernando Baptista Haddad**. 
 
 ```{r}
+# Seleção da espécie Haddadus binotatus
 aa_locais_ve_var_especies_hb <- aa_locais_ve_var_especies %>% 
   dplyr::mutate(pa = ifelse(valid_name == "Haddadus binotatus", 1, 0), .after = individuals) %>% 
   dplyr::distinct(id, .keep_all = TRUE)
@@ -2907,13 +2755,13 @@ aa_locais_ve_var_especies_hb <- aa_locais_ve_var_especies %>%
 Vamos utilizar apenas as variáveis não correlacionadas para o índice de correlação de Pearson para r < 0,7.
 
 ```{r}
-# correlacao
+# Correlação entre as variáveis
 corr <- aa_locais_ve_var_especies_hb %>% 
   dplyr::select(bio01:bio19) %>% 
   cor() %>% 
   caret::findCorrelation(.7, names = TRUE)
 
-# selecao das variaveis nao correlacionadas
+# Seleção das variáveis não correlacionadas
 aa_locais_ve_var_especies_hb_cor <- aa_locais_ve_var_especies_hb %>% 
   dplyr::select(pa, bio01:bio19) %>% 
   dplyr::select(-c(corr))
@@ -2921,21 +2769,21 @@ aa_locais_ve_var_especies_hb_cor <- aa_locais_ve_var_especies_hb %>%
 
 Agora sim, podemos ajustar um modelo simples da presença e ausência dessa espécie, utilizando as variáveis não correlacionadas, através de um GLM para a família **binomial** (para mais detalhes volte para o capítulo xx).
 ```{r}
-# ajustar glm
+# Ajustar um modelo GLM binomial
 modelo_pa <- glm(formula = pa ~ ., data = aa_locais_ve_var_especies_hb_cor, family = binomial("logit"))
 ```
 
 Antes de fazermos a predição da distribuição potencial da espécie é fundamental que o objeto raster esteja ajustado para o limite da Mata Atlântica. Para isso vamos utilizar as funções `raster::crop()` e `raster::mask()` para fazer esse ajuste \@ref(fig:fig-raster-bio-ajuste)).
 
 ```{r}
-# ajuste da extensao e limite
+# Ajuste da extensão e limite
 var_mata_atlantica <- var %>% 
   raster::crop(mata_atlantica) %>% 
   raster::mask(mata_atlantica)
 ```
 
 ```{r fig-raster-bio-ajuste, fig.align='center', fig.cap="Mapa de dois rasters (BIO01 e BIO12) ajustados ao limite da Mata Atlântica.", out.width="100%"}
-# map
+# Mapa
 tm_shape(var_mata_atlantica[[c(1, 4)]]) +
   tm_raster(pal = "viridis", title = c("bio01", "bio12")) +
   tm_facets(free.scales.raster = TRUE)
@@ -2944,7 +2792,7 @@ tm_shape(var_mata_atlantica[[c(1, 4)]]) +
 Agora podemos fazer a predição desse modelo para todo o bioma da Mata Atlântica. Essa função vai utilizar os coeficinetes do modelo ajustado para gerar um raster de predição para todos os pixels da Mata Atlântica.
 
 ```{r}
-# predicoes
+# Predições
 modelo_pa_pred <- raster::predict(model = modelo_pa, object = var_mata_atlantica)
 modelo_pa_pred
 ```
@@ -2952,12 +2800,12 @@ modelo_pa_pred
 Por fim, no último passo podemos usar as ocorrências para tornar esse modelo binário, ou seja, apenas com valores 0 ou 1. Para isso vamos extrair os valores da predição para as ocorrências da espécies e escolher o menor como sendo o corte. A partir desse valor consideraremos o pixels acima como 1 e abaixo como 0 (Pearson et al. 2007). 
 
 ```{r}
-# menor valor da predicao
+# Menor valor da predição
 menor_valor <- modelo_pa_pred %>% 
   raster::extract(aa_locais_ve_var_especies_hb[, c("longitude", "latitude")]) %>% 
   min(na.rm = TRUE)
 
-# selecao dos pixels de presenca/ausencia potencial
+# Seleção dos pixels de presença/ausência potencial
 modelo_pa_pred_corte <- modelo_pa_pred >= menor_valor
 ```
 
@@ -2965,12 +2813,12 @@ Por fim, vamos produzir dois mapas mostrando os valores das precições e o mapa
 \@ref(fig:fig-raster-pred-modelo-bin)).
 
 ```{r fig-raster-pred-modelo-bin, fig.align='center', fig.cap="Mapa da predição contínua e binária do modelo ajustado para a presença/ausência da espécie *Haddadus binotatus* na Mata Atlântica.", out.width="100%", warning=FALSE}
-# ocorrencias de hb
+# Ocorrências de haddadus binotatus
 hb <- aa_locais_ve_var_especies_hb %>% 
   dplyr::filter(pa == 1) %>% 
   sf::st_as_sf(coords = c("longitude", "latitude"), crs = 4326)
 
-# mapa predicao continua
+# Mapa de predição contínua
 mapa_pred_cont <- tm_shape(modelo_pa_pred) +
   tm_raster(title = "Predição contínua", pal = "-Spectral") +
   tm_shape(hb) +
@@ -2982,7 +2830,7 @@ mapa_pred_cont <- tm_shape(modelo_pa_pred) +
             legend.title.fontface = "bold",
             legend.position = c("left", "top"))
 
-# mapa predicao binaria
+# Mapa de predição binária
 mapa_pred_bin <- tm_shape(modelo_pa_pred_corte) +
   tm_raster(title = "Predição binária", pal = "-Spectral", 
             labels = c("Potencialmente ausente", "Potencialmente presente")) +
@@ -2995,21 +2843,21 @@ mapa_pred_bin <- tm_shape(modelo_pa_pred_corte) +
             legend.title.fontface = "bold",
             legend.position = c("left", "top"))
 
-# uniao dos mapas
+# União dos mapas
 tmap_arrange(mapa_pred_cont, mapa_pred_bin)
 ```
 
 Em nossa segunda análise, vamos predizer os dados de riqueza para todo o bioma da Mata Atlântica. Para isso, temos de retirar novamente as variáveis correlacionadas.
 
 ```{r}
-# correlacao
+# Correlação
 corr <- aa_locais_ve_var %>% 
   sf::st_drop_geometry() %>% 
   dplyr::select(bio01:bio19) %>% 
   cor() %>% 
   caret::findCorrelation(.7, names = TRUE)
 
-# selecao das variaveis nao correlacionadas
+# Seleção das variáveis não correlacionadas
 aa_locais_var_cor <- aa_locais_ve_var %>% 
   sf::st_drop_geometry() %>% 
   dplyr::select(species_number, bio01:bio19) %>% 
@@ -3019,21 +2867,21 @@ aa_locais_var_cor <- aa_locais_ve_var %>%
 Agora sim, podemos criar os GLMs com famílias de distribuição apropriadas para dados de contabem como **Poisson** e **Binomial Negativa**.
 
 ```{r}
-# modelo poisson
+# Modelo Poisson
 modelo_riq_pois <- glm(formula = species_number ~ ., data = aa_locais_var_cor, family = poisson)
 
-# modelo binomial negativo
+# Modelo Binomial Negativo
 modelo_riq_nb <- MASS::glm.nb(formula = species_number ~ ., data = aa_locais_var_cor)
 ```
 
 Com os modelos ajustados, podemos fazer as predições utilizando os objetos raster com as variáveis ambientais.
 
 ```{r}
-# predicao do modelo poisson
+# Predição do modelo Poisson
 modelo_riq_pois <- predict(model = modelo_riq_pois, object = var_mata_atlantica)
 modelo_riq_pois_contagem <- exp(modelo_riq_pois)
 
-# predicao do modelo binomial negativo
+# Predição do modelo Binomial Negativo
 modelo_riq_nb <- predict(model = modelo_riq_nb, object = var_mata_atlantica)
 modelo_riq_nb_contagem <- exp(modelo_riq_nb)
 ```
@@ -3041,7 +2889,7 @@ modelo_riq_nb_contagem <- exp(modelo_riq_nb)
 Por fim, podemos compor os dois mapas de predições (Figura \@ref(fig:fig-raster-pred-modelo-riq)).
 
 ```{r fig-raster-pred-modelo-riq, fig.align='center', fig.cap="Mapa da predição de riqueza utilizando o modelo Poisson e Binomial Negativa para a Mata Atlântica.", out.width="100%", warning=FALSE}
-# mapa predicao poisson
+# Mapa da predição Poisson
 mapa_pred_riq_pois <- tm_shape(modelo_riq_pois) +
   tm_raster(title = "Número de espécies (Poisson)", pal = "-Spectral") +
   tm_graticules(lines = FALSE) +
@@ -3051,7 +2899,7 @@ mapa_pred_riq_pois <- tm_shape(modelo_riq_pois) +
             legend.title.fontface = "bold",
             legend.position = c("left", "top"))
 
-# mapa predicao binomial negativo
+# Mapa predição Binomial Negativo
 mapa_pred_riq_nb <- tm_shape(modelo_riq_nb) +
   tm_raster(title = "Número de espécies (Binomial Negativa)", pal = "-Spectral") +
   tm_graticules(lines = FALSE) +
@@ -3061,7 +2909,7 @@ mapa_pred_riq_nb <- tm_shape(modelo_riq_nb) +
             legend.title.fontface = "bold",
             legend.position = c("left", "top"))
 
-# uniao dos mapas
+# União dos mapas
 tmap_arrange(mapa_pred_riq_pois, mapa_pred_riq_nb)
 ```
 
