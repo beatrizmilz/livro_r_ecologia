@@ -594,7 +594,7 @@ Mas também podemos usar variáveis categóricas para ter uma visão geral dos d
 
 ```{r}
 penguins %>%
-  select(species, sex, body_mass_g, ends_with("_mm")) %>%
+  dplyr::select(species, sex, body_mass_g, ends_with("_mm")) %>%
   GGally::ggpairs(aes(color = species)) +
   scale_colour_manual(values = c("darkorange", "purple", "cyan4")) +
   scale_fill_manual(values = c("darkorange", "purple", "cyan4")) +

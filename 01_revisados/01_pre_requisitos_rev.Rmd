@@ -1,14 +1,15 @@
-# Pré-requisitos {#base-r}
+# Pré-requisitos {#prerequisitos}
 
 ## Introdução
 
-O objetivo desta seção é 
+O objetivo desta seção é
 
 ## Pacotes
 
-Todas as operações serão realizadas através da linguagem R, utilizando principalmente os pacotes: *tidyverse* (Wickham et al. 2019) para o formato tidyverse, *here* (Müller 2020) para diretórios,  *sf* [@pebesma-2018] para dados vetoriais, *raster* [@hijmans-2020] para dados raster, *rgdal* para formatos geoespaciais (Bivand et al. 2021), *rnaturalearth* (South 2017) e *geobr* (Pereira & Goncalves 2020) para baixar dados vetoriais, e *ggplot2* (Wickham 2016), *ggspatial* (Dunnington 2020), *tmap* (Tennekes 2018), *mapview* (Appelhans et al. 2020), *leaflet* (Cheng et al. 2021), e *viridis* [@garnier-2018] para a composição de mapas, dentro outros.
+Todas as operações serão realizadas através da linguagem R, utilizando principalmente os pacotes: *tidyverse* (Wickham et al. 2019) para o formato tidyverse, *here* (Müller 2020) para diretórios, *sf* [@pebesma-2018] para dados vetoriais, *raster* [@hijmans-2020] para dados raster, *rgdal* para formatos geoespaciais (Bivand et al. 2021), *rnaturalearth* (South 2017) e *geobr* (Pereira & Goncalves 2020) para baixar dados vetoriais, e *ggplot2* (Wickham 2016), *ggspatial* (Dunnington 2020), *tmap* (Tennekes 2018), *mapview* (Appelhans et al. 2020), *leaflet* (Cheng et al. 2021), e *viridis* [@garnier-2018] para a composição de mapas, dentro outros.
 
 ## Pré-requisitos
+
 Dessa forma, garanta que esses pacotes listados a seguir estejam instalados e carregados.
 
 ```{r eval=FALSE}
@@ -56,7 +57,4 @@ library(viridis)
 
 ## Versão do R
 
-
-
 ## Dados
-

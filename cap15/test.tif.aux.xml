@@ -1,0 +1,23 @@
+<PAMDataset>
+  <PAMRasterBand band="1">
+    <CategoryNames>
+      <Category></Category>
+      <Category>Forest</Category>
+      <Category>Other natural vegetation</Category>
+      <Category>Cropland</Category>
+      <Category>Wetland</Category>
+      <Category>Bare area/Sparse vegetation</Category>
+      <Category>Urban</Category>
+      <Category>Snow/ice</Category>
+      <Category>Water</Category>
+    </CategoryNames>
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_MAXIMUM">8</MDI>
+      <MDI key="STATISTICS_MEAN">6.7032142857143</MDI>
+      <MDI key="STATISTICS_MINIMUM">1</MDI>
+      <MDI key="STATISTICS_STDDEV">2.3678960001041</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">100</MDI>
+    </Metadata>
+  </PAMRasterBand>
+</PAMDataset>
