@@ -8,6 +8,10 @@ Todo processo de aprendizagem torna-se mais efetivo quando a teoria é combinada
 
 Este capítulo, na maioria das vezes, pode desestimular/assustar a leitora ou o leitor iniciante, uma vez que ele não apresenta os códigos para realizar as análises estatísticas. Contudo, ele é essencial para o entendimento e interpretação do que está sendo informado nas linhas de código, além de facilitar a manipulação dos dados antes de realizar as análises estatísticas. A leitora ou leitor vai perceber que não usará este capítulo para fazer as análises, mas voltará neste capítulo diversas vezes para relembrar qual é o código ou que significa determinada expressão ou objeto usados nos próximos capítulos.
 
+
+> Comentário: Gostei da contextulização. O único comentário é se é necessário mesmo escrever dessa forma (acho que depende de como o livro todo é escrito). Comentei isso no telegram.
+
+
 ## R e RStudio
 
 Com o R, é possível manipular, analisar e visualizar dados, além de escrever desde pequenas linhas de códigos até programas inteiros. O R é a versão em código aberto de uma linguagem de programação criada por John M. Chambers (Stanford University, CA, EUA) nos anos 1980 no Bell Labs, chamada de S, que contou com três versões: Old S (1976-1987), New S (1988-1997) e S4 (1998), utilizada na IDE S-PLUS (1988-2008). Essa linguagem tornou-se bastante popular e vários produtos comerciais que a usam estão disponíveis, como o S-PLUS, SPSS, STATA e SAS.
@@ -32,6 +36,8 @@ include_graphics("img/cap01_fig01.png")
 Entretanto, desde 2011, um IDE se tornou mais popular na comunidade de usuários(as) de R: o [RStudio](https://rstudio.com/) (Figura \@ref(fig:fig-rstudio)). O RStudio possui algumas características que o tornam tão popular: várias janelas de visualização, marcação e preenchimento automático do script, integração com controle de versão, dentre outras funcionalidades. Para fazer o download do RStudio, acessamos o [site](https://rstudio.com/products/rstudio/download/#download), e escolhemos o instalador com base em nosso sistema operacional.
 
 Um último ponto técnico importante: para evitar possíveis erros é importante instalar primeiro a linguagem R, seguida do IDE RStudio.
+
+> Comentário: Acho interessante comentar que os exemplos mostrados serão utilizando o RStudio, para ficar claro.
 
 ## Funcionamento da linguagem R
 
@@ -70,6 +76,8 @@ No RStudio, alguns atalhos são fundamentais para aumentar nossa produtividade:
 -   **Ctrl + Shift + F10**: reinicia o console
 -   **Ctrl + L**: limpa os códigos do console
 -   **Alt + Shift + K**: abre uma janela com todos os atalhos disponíveis
+
+
 
 ### Console
 
@@ -113,9 +121,15 @@ Além disso, podemos usar comentários para adicionar informações sobre os có
 42 # Essas palavras não são executadas, apenas o 42, a resposta para questão fundamental da vida, o universo e tudo mais
 ```
 
+> Comentário: "O R nao lê o código depois do # (hash) em uma linha" (ou algo similar para deixar claro que só vale para a linha)
+
 Um ponto muito importante é tentar escrever os comentários sempre em inglês para tornar seu código mais reprodutível possível.
 
+> Comentário: Pq vc acha isso? eu acho que é importante se vc ta colaborando, pra que outras pessoas consigam entender e colaborar. mas nao entendo pq deixar em ingles torna mais reprodutivel.
+
 Por fim, outro ponto fundamental é ter boas práticas de estilo de código. Quanto mais organizado e padronizado estiver os scripts, mais fácil de entendê-los e de procurar possíveis erros. Existem dois guias de boas práticas para adequar seus scripts: [Hadley Wickham](http://adv-r.had.co.nz/Style.html) e [Google](https://google.github.io/styleguide/Rguide.xml).
+
+> Comentário: sobre o guia de estilo, eu gosto desse aqui: https://style.tidyverse.org/ vc colocou o do hadley mas acho que aquele acabou evoluindo pra esse link q eu to mandando
 
 Ainda temos os *Code Snippets* (Fragmentos de código), que são macros de texto usadas para inserir rapidamente fragmentos comuns de código. Por exemplo, o snippet `fun` insere uma definição de função R. Para mais detalhes, ler o artigo do RStudio: [link](https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets).
 
@@ -160,6 +174,9 @@ kable(data.frame(Operador = c(
  align = "c",
  caption = "Operadores no R.")
 ```
+
+> Comentário: (aqui talvez pode ficar confuso no futuro. esse ai é do magritrrr, e nao do R base, enfim confusao)
+
 
 Como exemplo, podemos fazer operações simples usando os operadores aritméticos.
 
@@ -207,8 +224,11 @@ Segundo, o R tem limitações ao nomear objetos:
 
 -   nome de objetos só podem começar por letras (`a-z` ou `A-Z`) ou pontos (`.`)
 -   nome de objetos só podem conter letras (`a-z` ou `A-Z`), números (`0-9`), underscores (`_`) ou pontos (`.`)
--   R é *case-sensitive*, i.e., ele reconhece letras maiúsculas como diferentes de letras minúscula. Assim, um objeto chamado "resposta" é diferente do objeto "RESPOSTA"
+-   R é *case-sensitive*, i.e., ele reconhece letras maiúsculas como diferentes de letras minúsculas. Assim, um objeto chamado "resposta" é diferente do objeto "RESPOSTA"
 -   devemos evitar acentos ou cedilha (`ç`) para facilitar a memorização dos objetos
+
+> Comentário: também para evitar erros de encoding/codificação de caracteres
+
 -   nome de objetos não podem ser iguais a nomes especiais, reservados para programação (`break`, `else`, `FALSE`, `for`, `function`, `if`, `Inf`, `NA`, `NaN`, `next`, `repeat`, `return`, `TRUE`, `while`)
 
 Podemos ainda utilizar objetos para fazer operações e criar objetos. Isso pode parecer um pouco confuso para os iniciantes na linguagem, mas é fundamental aprender essa lógica para passar para os próximos passos.
@@ -225,7 +245,7 @@ adi
 
 ### Funções
 
-Funções são códigos preparados para realizar uma tarefa específica de modo simples. Outra forma de entender uma função é: códigos que realizam operações em argumentos. A estrutura de uma função é muito similar à sintaxe usada em planilhas eletrônicas, sendo composta por:
+Funções são códigos preparados para realizar uma tarefa específica de modo simples. Outra forma de entender uma função é: códigos que realizam operações em argumentos. A estrutura de utilização de uma função é muito similar à sintaxe usada em planilhas eletrônicas, sendo composta por:
 
 > nome_da_função(argumento1, argumento2, ...)
 
@@ -302,12 +322,13 @@ Podemos ainda verificar todos pacotes instalados em seu computador com a funçã
 library()
 ```
 
+
 No R, quando tratamos de pacotes, devemos destacar a diferença de dois conceitos: instalar um pacote e carregar um pacote. A instalação de pacotes possui algumas características:
 
 -   Instala-se um pacote apenas uma vez
 -   Precisamos estar conectados à internet
 -   O nome do pacote precisa estar entre aspas na função
--   Função (CRAN): `install.packages()`
+-   Função para instalar pacotes que estão no CRAN: `install.packages()`
 
 Vamos instalar o pacote `vegan` diretamente do CRAN, que possui funções para realizar uma série de análise em ecologia. Para isso, podemos ir em `Tools > Install Packages...`, ou ir na aba **Packages** (Figura \@ref(fig:fig-rstudio) (4)), procurar o pacote e simplesmente clicar em "Install". Podemos ainda utilizar a função `install.packages()`.
 
@@ -462,6 +483,9 @@ ls()
 
 Toda a vez que fechamos o R os objetos criados são apagados do **Environment**. Dessa forma, em algumas ocasiões, por exemplo, análises estatísticas que demoram um grande tempo para serem realizadas, pode ser interessante exportar alguns ou todos os objetos criados. Para salvar todo os objetos, ou seja, todo o *workspace*, podemos ir em `Session -> Save Workspace As...` e escolher o nome do arquivo do *workspace*, por exemplo, "meu_workspace.RData". Podemos ainda utilizar funções para essas tarefas. A função `save.image()` salva todo *workspace* com a extensão `.RData`.
 
+> Comentário: eu não constumo usar o .RData, e sim o .Rds dos objetos necessários. Nunca salvo o workspace. Essa prática não ajuda a diminuir a reprodutibilidade?
+
+
 ```{r eval=FALSE}
 # Salvar todo o workspace
 save.image(file = "meu_workspace.RData")
@@ -513,9 +537,13 @@ No resultado dessa função, há uma mensagem muito interessante: "See also 'cit
 citation("vegan")
 ```
 
+> Comentário: Aqui eu também acho muito útil a função write bib, pois exporta um arquivo .bib com as referencias: knitr::write_bib("vegan", file = "vegan_ex.bib")
+
 ### Principais erros de iniciantes
 
 Errar quando está começando a usar o R é muito comum e faz parte do aprendizado. Entretanto, os erros nunca devem ser encarados como uma forma de desestímulo para continuar tentando. Todos nós, autores desse livro, e provavelmente usuários mais ou menos experientes, já passaram por um momento em que se quer desistir de tudo. Jovem aprendiz de R, a única diferença entre você que está iniciando agora e nós que usamos há mais tempo são as horas a mais de uso (e raiva). O que temos a mais é experiência para olhar o erro, lê-lo e conseguir interpretar o que está errado.
+
+> Comentário: eu adicionaria tambem na frase final algo como "saber buscar ajuda".
 
 Dessa forma, o ponto mais importante de quem está iniciando é ter paciência, calma, bom humor, ler e entender a mensagem de erro. Listaremos aqui o que consideramos os principais erros dos iniciantes no R.
 
@@ -538,7 +566,7 @@ sum(1 2)
 
 **3. Chamar um objeto errado**
 
-Pode parecer simples, mas esse é de longe o erro mais comum que pessoas iniciantes comentem. Quando temos um longo script, é de se esperar que tenhamos atribuído diversos objetos e em algum momento atribuímos um nome do qual não lembramos. Dessa forma, quando chamamos o objeto ele não existe e devolve um erro. Entretanto, esse tipo de erro pode ser facilmente identificado, como o exemplo abaixo.
+Pode parecer simples, mas esse é de longe o erro mais comum que pessoas iniciantes cometem. Quando temos um longo script, é de se esperar que tenhamos atribuído diversos objetos e em algum momento atribuímos um nome do qual não lembramos. Dessa forma, quando chamamos o objeto ele não existe e devolve um erro. Entretanto, esse tipo de erro pode ser facilmente identificado, como o exemplo abaixo.
 
 ```{r error=TRUE}
 obj <- 10
@@ -619,6 +647,8 @@ attributes(dune)
 
 #### Modo dos objetos
 
+> Comentário: eu sempre chamei de classe, por causa da função class(). 
+
 A depender da natureza dos elementos que compõem os dados e que foram atribuídos aos objetos, esses objetos podem ser, de forma simples um dos cinco modos: numérico do tipo inteiro (*integer*), numérico do tipo flutuante (*double*), texto (*character*), lógico (*logical*) ou complexo (*complex*).
 
 A atribuição de números no R podem gerar dois tipos de modos: integer para números inteiros e double para números flutuantes ou com decimais.
@@ -695,6 +725,7 @@ as.logical()
 as.complex()
 ```
 
+
 #### Estrutura dos objetos
 
 Uma vez entendido a natureza dos modos dos elementos dos objetos no R, podemos passar para o passo seguinte e entender como esses elementos são estruturados dentro dos objetos.
@@ -714,6 +745,8 @@ include_graphics("img/cap01_fig03.png")
 ##### Vetor
 
 Vetores representam o encadeamento de elementos numa sequência unidimensional. No Capítulo YY, vimos o conceito de variável aleatória e seus tipos. No R, essas variáveis podem ser operacionalizadas como vetores. Dessa forma, essa estrutura de dados pode ser traduzida como medidas de uma variável numérica (discretas ou contínuas), variável binária (booleana - TRUE e FALSE) ou descrição (informações em texto).
+
+> Comentário: lembrar de substituir o capítulo YY no texto
 
 Há diversas formas de se criar um vetor no R:
 
@@ -758,6 +791,8 @@ as.numeric(repeticao)
 ```
 
 ##### Fator
+
+> Comentário: acho que isso não tá no melhor lugar...fator é uma classe, e aqui ta junto com tipo de objeto 
 
 O fator representa medidas de uma variável categórica, podendo ser nominal ou ordinal. É fundamental destacar que fatores no R devem ser entendidos como um vetor de **integer**, i.e., ele é composto por números inteiros representando os níveis da variável categórica.
 
@@ -866,6 +901,8 @@ lista <- list(vector = rep(1, 20), # vector
 ##### Funções
 
 Uma última estrutura de objetos criados no R são as funções. Elas são objetos criados pelo usuário e reutilizados para fazer operações específicas. A criação de funções geralmente é um tópico tratado num segundo momento, quando o usuário de R adquire certo conhecimento da linguagem. Aqui abordaremos apenas seu funcionamento básico, diferenciando sua estrutura para entendimento e sua diferenciação das demais estruturas. Vamos criar uma função simples que retorna a multiplicação de dois termos.
+
+> Comentário: acho que aqui poderia ter só um pouco mais de contextualização do código
 
 ```{r}
 # Criar uma função
@@ -1207,6 +1244,9 @@ nulo <- NULL
 nulo
 ```
 
+
+> Comentário: talvez seja legal mostrar uns exemplos que façam sentido usar o argumento na.rm = TRUE. Tipo a soma de um vetor que contém NAs.
+
 ### Diretório de trabalho
 
 O diretório de trabalho é o endereço da pasta (ou diretório) de onde o R importará ou exportar nossos dados.
@@ -1229,6 +1269,9 @@ dir()
 list.files()
 ```
 
+> Comentário: eu sou anti setwd por causa da reprodutibilidade.. prefiro usar projetos. mas é uma escolha dos autores :)
+
+
 ### Importar dados
 
 Uma das operações mais corriqueiras do R, antes de realizar alguma análise ou plotar um gráfico, é a de importar dados que foram tabulados numa planilha eletrônica e salvos no formato .csv, .txt ou .xlsx. Ao importar esse tipo de dado para o R, o formato que o mesmo assume, se nenhum parâmetro for especificado, é o da classe `data frame`, prevendo que a planilha de dados possua colunas com diferentes modos.
@@ -1246,6 +1289,10 @@ library(openxlsx)
 Para exemplificar como importar dados, vamos usar os dados de comunidades de anfíbios da Mata Atlântica (Atlantic Amphibians, Vancine et al. 2018). Faremos o download diretamente do site da fonte dos dados.
 
 Vamos antes escolher um diretório de trabalho com a função `setwd()`, e em seguida criar um diretório com a função `dir.create()` chamado "dados". Em seguida, vamos mudar nosso diretório para essa pasta e criar mais um diretório chamado "tabelas", e por fim, definir esse diretório para que o conteúdo do download seja armazenado ali.
+
+
+> Comentário: mesmo comentário de antes..eu sou anti setwd por causa da reprodutibilidade.. prefiro usar projetos. mas é uma escolha dos autores :)
+
 
 ```{r eval=FALSE}
 # Escolher um diretório
@@ -1345,6 +1392,8 @@ openxlsx::write.xlsx(aa_locais_na, "ATLANTIC_AMPHIBIAN_sites_na.xlsx",
 ```
 
 ## Exercícios
+
+> comentário: seria legal ter em algum lugar do livro a resolução dos exercícios :)
 
 1.  Use o R para verificar o resultado da operação `7 + 7 ÷ 7 + 7 x 7 - 7`.
 
