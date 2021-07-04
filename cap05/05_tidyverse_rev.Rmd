@@ -6,9 +6,18 @@ Como todo idioma, a linguagem R vem passando por transformações nos últimos a
 
 A grande necessidade de computação para desenvolver esse novo paradigma colocaram o R e o python como as principais linguagens de programação frente a esses novos desafios. Apesar de não serem as únicas ferramentas utilizadas para esse propósito, elas rapidamente se tornaram uma das melhores escolhas, dado vários fatores como: serem livres, possuírem grandes comunidades contribuidoras, serem linguagens de interpretação (orientadas a objeto) e relativamente fáceis de serem aprendidas e aplicadas.
 
+> B: Eu entendi o que você quis dizer com ser livre, mas acho que seria melhor deixar mais claro.. algo tipo: são de código-aberto e gratuitas,..
+
 Essas mudanças e adaptações da linguagem R para a Ciência de Dados começaram a ser implementadas principalmente devido a um pesquisador: [Hadley Wickham](http://hadley.nz/), que iniciou sua contribuição à comunidade R com o desenvolvimento do já consagrado pacote `ggplot2` [@wickham2016] para a composição de gráficos no R (ver mais no capítulo \@ref(\#graficos)), baseado na gramática de gráficos [@wilkinson2005].
 
+> B: Esse parágrafo dá a ideia de que a linguagem foi adaptada, mas eu não vejo assim. a adaptação da linguagem é o |>, mas o tidyverse não é integrado ao base, então me parece que seria melhor algo como uma "expansão na utilização"...
+
 Depois disso, Wickham dedicou-se ao desenvolvimento do pensamento de uma nova abordagem dentro da manipulação de dados, denominada de **Tidy Data** (Dados organizados) [@wickham2014], na qual focou na limpeza e organização de dados. A ideia, relativamente simples, postula que dados estão `tidy` quando: 1) variáveis estão nas colunas, 2) observações estão nas linhas e 3) valores estão nas células, sendo que para esse último, não deve haver mais de um valor por célula (Figura \@ref(fig:fig-r-dados-tidy)).
+
+> B: aqui tem uma figura mas a figura não aparece aqui...
+
+> B: eu não acho tão legal falar coisas como "relativamente simples,",  acho que fica melhor ir direto.. "a ideia postula que dados sao tidy quando:"
+
 
 A partir dessas ideias, o [*tidyverse*](https://www.tidyverse.org/) foi operacionalizado no R como uma coleção de pacotes que atuam no workflow comum da ciência de dados: importação, manipulação, exploração, visualização, análise e comunicação de dados e análises [@tidyverse2019] (Figura \@ref(fig:fig-r-tidyverse)). O principal objetivo do *tidyverse* é aproximar a linguagem para melhorar a interação entre ser humano e computador sobre dados, de modo que os pacotes compartilham uma filosofia de design de alto nível e gramática, além da estrutura de dados de baixo nível [@tidyverse2019].
 
@@ -32,7 +41,11 @@ Uma vez instalado e carregado, o pacote `tidyverse` disponibiliza um conjunto de
 -   [`ggplot2`](https://ggplot2.tidyverse.org/): visualização de dados
 -   [`purrr`](https://purrr.tidyverse.org/): programação funcional
 
+> B: para ficar padronizado, o tibble seria melhor como "implementa a classe tibble". os ultimos dois tambem poderiam ficar mais padronizados, como "ggplot2: possibilita visualizar dados", "purrr: disponibiliza ferramentas para programação funcional".. são sugestões para deixar a forma parecida.
+
 Além desses principais, fazemos também a menção de outros pacotes que estão dentro dessa abordagem, e que trataremos ainda neste capítulo, em outro momento do livro, ou que você leitor(a) deve se familiarizar.
+
+> B: eu diria que utilizam filosofias semelhantes. alguns dos pacotes abaixo fazem parte do tidyverse e outros não! o readxl, haven, rvest, lubridate, rmarkdown, magrittr são do tidyverse (bom checar todos). talvez essa lista possa ser adicionada em outro lugar? pode assustar quem tá lendo
 
 -   [`readxl`](https://readxl.tidyverse.org/) e [`writexl`](https://cran.r-project.org/package=writexl): importa e exporta dados tabulares (.xlsx)
 -   [`janitor`](http://sfirke.github.io/janitor/): examinar e limpar dados sujos
@@ -61,6 +74,8 @@ Além desses principais, fazemos também a menção de outros pacotes que estão
 
 Para instalar os pacotes do *tidyverse*, basta instalar o pacote `tidyverse`.
 
+> b: acho que essa frase poderia ser melhorada. eu nao curto muito usar a palavra "basta".  ex: Para instalar todos os pacotes que fazem parte do tidyverse, instale o pacote: 
+
 ```{r eval=FALSE}
 # Instalar o pacote tidyverse
 install.packages("tidyverse")
@@ -88,6 +103,12 @@ tidyverse::tidyverse_update()
 ```
 
 Todas as funções dos pacotes tidyverse usam **fonte minúscula** e **`_` (*underscore*)** para separar os nomes internos das funções, seguindo a mesma sintaxe do python ("Snake Case"). Neste sentido de padronização, é importante destacar ainda que existe um guia próprio para que os scripts sigam a recomendação de padronização, o [The tidyverse style guide](https://style.tidyverse.org/), criado pelo Hadley Wickham. Para os desenvolvedores, existe o [Tidyverse design guide](https://design.tidyverse.org/) criado pelo *Tidyverse team*.
+
+> B: pessoas desenvolvedoras em vez de "os desenvolvedores""
+
+> B: Pergunta: quem é o público alvo do livro? se é para pessoas iniciantes, nao sei se é de grande ajuda falar do design guide de devs.
+
+
 
 ```{r eval=FALSE}
 # Funções no formato snake case
@@ -135,6 +156,8 @@ Dado que possuímos um conjunto de dados e que geralmente esse conjunto de dados
 
 Esses pacotes leem e escrevem grandes arquivos de forma mais rápida, além de fornecerem medidores de progresso de importação e exportação, e imprimir a informação dos modos das colunas quando faz a importação. Outro ponto bastante positivo é que também classificam automaticamente o modo dos dados de cada coluna, i.e., se uma coluna possui dados numéricos ou apenas texto, essa informação será considerada para classificar o modo da coluna toda. A classe do objeto atribuído quando lido por esses pacotes é automaticamente um `tibble`, que veremos melhor na seção seguinte.
 
+> B: eu acho "classe das colunas" mais claro do que "modos das colunas"
+
 Todas as funções deste pacote são listadas na [página de referência](https://readr.tidyverse.org/reference/index.html) do pacote.
 
 Usamos as funções `readr::read_csv()` e `readr::write_csv()` para importar e exportar arquivos .csv do R, respectivamente. Para dados com a extensão .txt, podemos utilizar as funções `readr::read_tsv()` ou ainda `readr::read_delim()`. Para arquivos tabulares com a extensão .xlsx, temos de instalar dois pacotes adicionais: `readxl` e `writexl`, dos quais usaremos as funções `readxl::read_excel()`, `readxl::read_xlsx()` ou `readxl::read_xls()` para importar dados, atentado para o fato de podermos indicar a aba com os dados com o argumento `sheet`, e `writexl::write_xlsx()` para exportar.
@@ -150,7 +173,11 @@ library(writexl)
 
 Se o arquivo .csv foi criado com separador de decimais sendo `.` e separador de colunas sendo `,`, usamos as funções normalmente. Caso seja criado com separador de decimais sendo `,` e separador de colunas sendo `;`, usaríamos a função `readr::read_csv2()` para importar e `readr::write_csv2()` para exportar nesse formato.
 
+> B: Acho legal comentar que no brasil é mais comum os arquivos terem o ; como separador.
+
 Para exemplificar como importar dados no formato `tidyverse`, vamos importar novamente os dados de comunidades de anfíbios da Mata Atlântica (Atlantic Amphibians, Vancine et al. 2018), que fizemos o download na seção XX. Estamos usando a função `readr::read_csv()`, indicando os diretórios com a função `here::here()`, e a classe do arquivo é `tibble`.
+
+> B: Pq vc chama "dados no formato tidyverse"? acho que acaba ficando confuso
 
 ```{r message=TRUE}
 # Importar locais
@@ -246,9 +273,13 @@ Há ainda três outras variações do pipe que podem ser úteis em alguns moment
 -   `%$%`: "explode" as variáveis em um quadro de dados
 -   `%<>%`: permite atribuição usando pipes
 
+> B: aqui denovo vai o ponto de: para quem vc ta escrevendo o livro? para pessoas aprendizes, acho que não ajuda em nada mostrar os outros pipes. muita coisa para assimilar, talvez seja melhor focar no mais usado.
+
 Para se aprofundar no tema, recomendamos a leitura do capítulo [18 Pipes](https://r4ds.had.co.nz/pipes.html) de Wickham & Grolemund (2017).
 
 A partir da versão do R 4.1 (18/05/2021), o operador pipe se tornou nativo. Entretanto, o operador foi atualizado para `|>`, podendo ser inserido com o mesmo atalho `Ctrl + Shift + M`.
+
+> B: Aqui acho que é legal deixar claro que precisa mudar na IDE qual é o pipe a ser usado - nas configuracoes do RStudio.
 
 ## tidyr
 
@@ -266,6 +297,9 @@ Todas as funções deste pacote são listadas na [página de referência](https:
 
 Para realizar diversas transformações nos dados, a fim de ajustá-los ao formato `tidy`, existe uma série de funções, para diversas: unir, separar, valores faltantes (`NA`), pivotar (formato longo para largo), além de outras [funções específicas](https://tidyr.tidyverse.org/reference/index.html).
 
+> B: acho que o "para diversas:" acabou ficando repetido. sugestão:
+> Para realizar diversas transformações nos dados, a fim de ajustá-los ao formato `tidy`, existe uma série de funções, para: unir colunas, separar colunas, lidar com valores faltantes (`NA`), transformar a base de dados de formato longo para largo (ou vice-e-versa), além de outras [funções específicas](https://tidyr.tidyverse.org/reference/index.html).
+
 -   `unite()`: junta dados de múltiplas colunas em uma coluna
 -   `separate()`: separa caracteres em múltiplas colunas
 -   `separate_rows()`: separa caracteres em múltiplas colunas e linhas
@@ -273,6 +307,8 @@ Para realizar diversas transformações nos dados, a fim de ajustá-los ao forma
 -   `replace_na()`: substitui `NA` do conjunto de dados
 -   `pivot_wider()`: transforma um conjunto de dados longo (*long*) para largo (*wide*)
 -   `pivot_longer()`: transforma um conjunto de dados largo (*wide*) para longo (*long*)
+
+> B: o pivot pode ficar esquisito pois acho que nao foi falado ate então sobre bases largas/longas
 
 ### palmerpenguins
 
@@ -323,6 +359,8 @@ penguins_raw_unir <- tidyr::unite(data = penguins_raw,
                                   remove = FALSE)
 ```
 
+> B: acho que da pra escrever uns comentarios no codigo para explicar o que ta acontecendo
+
 ### separate()
 
 De forma contrária, podemos utilizar as funções `tidyr::separate()` e `tidyr::separate_rows()` para separar elementos de uma coluna em mais colunas. Respectivamente, a primeira função separa uma coluna em novas colunas conforme a separação, e a segunda função separa uma coluna, distribuindo os elementos também nas linhas. Novamente, há diversos parâmetros para mudar o comportamento dessas funções, mas destacaremos aqui quatro deles: `col` coluna a ser separada, `into` os nomes das novas colunas, `sep` indicando o caractere separador das colunas, e `remove` para uma resposta lógica se as colunas separadas são removidas ou não. Vamos separar a coluna "Stage" nas colunas "stage" e "egg_stage".
@@ -340,6 +378,8 @@ penguins_raw_separar_linhas <- tidyr::separate_rows(data = penguins_raw,
                                                     Stage,
                                                     sep = ", ")
 ```
+
+> B: podia mostrar o resultado aqui, para a pessoa ter ideia de um antes e depois
 
 ### drop_na() e replace_na()
 
@@ -391,6 +431,8 @@ Para se aprofundar no tema, recomendamos a leitura do capítulo [12 Tidy data](h
 
 O `dplyr` é um pacote que facilita a manipulação de dados, com uma gramática simples e flexível (por exemplo, como filtragem, reordenamento, seleção, entre outras). Ele foi construído com o intuito de obter uma forma mais rápida e expressiva de tratar os dados. O `tibble` é a versão de data frame mais conveniente para se usar com pacote `dplyr`.
 
+> b: eu penso mais como manipular dados, do que tratar
+
 Todas as funções deste pacote são listadas na [página de referência](https://dplyr.tidyverse.org/reference/index.html) do pacote.
 
 ### Gramática
@@ -420,6 +462,8 @@ Existe uma série de funções para realizar a manipulação dos dados, com dive
 -   `summarise()`: resume os dados através de funções considerando valores das colunas
 -   `*_join()`: funções que juntam dados de duas tabelas através de uma coluna chave
 
+> b: isso ta bem daora!
+
 ### Sintaxe
 
 Todas as funções seguem a mesma sintaxe, de modo que o `tibble` é sempre o primeiro argumento dessas funções, seguido de um pipe e pelo nome da função. Isso permite o encadeamento de várias operações consecutivas.
@@ -428,6 +472,8 @@ Todas as funções seguem a mesma sintaxe, de modo que o `tibble` é sempre o pr
 2.  operador pipe
 3.  nome da função verbal com os argumentos entre parênteses
 4.  outras funções verbais...
+
+> b: acho que esses topicos ficaram meio perdidos
 
 As funções verbais não precisam modificar necessariamente o tibble original, sendo que as operações de manipulações podem e devem ser atribuídas a um novo objeto.
 
@@ -466,6 +512,8 @@ penguins_relocate_col <- penguins %>%
 penguins_relocate_ncol <- penguins %>% 
   dplyr::relocate(sex, year, .after = 2)
 ```
+
+> b: seria legal mostrar como era e como ficou.
 
 ### rename()
 
@@ -548,6 +596,7 @@ penguins_arrange_across <- penguins %>%
   dplyr::arrange(across(where(is.numeric)))
 ```
 
+
 ### filter()
 
 Uma das principais e mais usuais operações que podemos realizar em linhas é a seleção de linhas através do filtro por valores de uma ou mais colunas, utilizando a função `dplyr::filter()`. Para realizar os filtros utilizaremos grande parte dos operadores relacionais e lógicos que listamos na Tabela \@ref(tab:tab-operadores), especialmente os lógicos para combinações de filtros em mais de uma coluna. Além desses operadores, podemos utilizar a função `is.na()` para filtros em elementos faltantes, e as funções `dplyr::between()` e `dplyr::near()` para filtros entre valores, e para valores próximos com certa tolerância, respectivamente. Por fim, podemos usar as funções de replicação para filtro das linhas para mais de uma coluna, dependendo de resultados booleanos.
@@ -578,6 +627,10 @@ penguins_filter_between <- penguins %>%
 penguins_filter_if <- penguins %>% 
   dplyr::filter(if_all(where(is.integer), ~ . > 200))
 ```
+
+
+> b: acho legal comentar o codigo pra descrever que filltros estao sendo feitos
+
 
 ### slice()
 
@@ -880,6 +933,8 @@ Por fim, podemos fazer a agregação de níveis raros em um nível utilizando a 
 forcats::fct_lump(penguins$species) %>% head()
 ```
 
+> b: teve um tipo em `agregalção` 
+
 Podemos ainda utilizar essas funções em complemento com o pacote `dplyr` para fazer manipulações de fatores nas colunas de `tibbles`.
 
 ```{r}
@@ -897,6 +952,8 @@ O pacote `lubridate` fornece um conjunto de funções para a manipulação de da
 Todas as funções deste pacote são listadas na [página de referência](https://lubridate.tidyverse.org/reference/index.html) do pacote.
 
 Apesar de estar inserido no escopo do *tidyverse*, este pacote não é instalado com os demais, requisitando sua instalação solo.
+
+> B:  ele instala sim, mas não carrega por padrão. veja aqui: https://github.com/tidyverse/tidyverse/blob/195d8a45d7ac425bb29043ca418538753b79a1b8/DESCRIPTION#L37
 
 ```{r eval=FALSE}
 # Instalar
@@ -1055,6 +1112,9 @@ tempo_estudando_r <- lubridate::today() - lubridate::dmy("30-11-2011")
 
 # Conversão para duração
 tempo_estudando_r_dur <- lubridate::as.duration(tempo_estudando_r)
+
+ # >B: codigos nesse chunk, em vez de usar esses numeros, pq nao usa o tempo_estudando_r ?
+
 
 # Criando durações
 lubridate::duration(90, "seconds")
@@ -1313,6 +1373,9 @@ penguins %>%
   purrr::map("r.squared")
 ```
 
+> B: e os resultados?? seria legal ver. uma outra que é daora demais é purrr::map_dfr(), muito util para importar varios arquivos de mesma estrutura 
+e unir em um unico df
+
 Para se aprofundar no tema, recomendamos a leitura do capítulo [21 Iteration](https://r4ds.had.co.nz/iteration.html) de Wickham & Grolemund (2017).
 
 ## Exercícios
@@ -1340,6 +1403,8 @@ Listamos a seguir livros que recomendamos para seguir com sua aprendizagem em R 
 **Português**
 
 Curso-R. 2021. Ciência de Dados em R. [<https://livro.curso-r.com/>]
+
+> B: Aqui acho que dá pra colocar o nome dos autores mesmo, em vez de Curso-R..
 
 Faria PD, Parga JPFA. 2020. Introdução à Linguagem R: seus fundamentos e sua prática. [<https://www.researchgate.net/publication/345985082_Introducao_a_Linguagem_R_seus_fundamentos_e_sua_pratica>]
 
